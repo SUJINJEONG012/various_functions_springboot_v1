@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- anamespace 속성에 Mapper인터페이스 경로를 선언해주면 XML mapper가 연결 -->
+<mapper namespace="various_functions.mapper.PostMapper">
+
+	<!-- tb_table 전체칼럼 -->
+	<sql id="postColumns">
+		id, title, content, writer, view_cnt, notice_yn, delete_yn,
+		created_date,
+		modified_date
+	</sql>
+
+	<!-- 게시글 저장 -->
+	<insert id="save"
+		parameterType="various_functions.domain.PostRequest">
+		insert into tb_post(
+		<include refid="postColumns" />
+		)values(
+		#{id}, #{title}, #{writer}, 0, #{notice_yn}, 0, now(), null
+		)
+	</insert>
+
+	<!-- 게시글 상세정보 조회 -->
+	<select id="findById" parameterType="long"
+		resultType="various_functions.domain.PostResponse">
+		select
+		<include refid="postColumns" />
+		from tb_post
+		where id = #{value}
+	</select>
+
+
+	<!-- 게시글 수정 -->
+	<update id="update"
+		parameterType="various_functions.domain.PostRequest">
+		update tb_post
+		set
+		modified_date = now(),
+		title = #{title},
+		content = #{content},
+		writer = #{writer},
+		notice_yn = #{noticeYn}
+		where
+		id = #{id}
+	</update>
+
+	<!-- 게시글 삭제 -->
+	<delete id="deletedById" parameterType="long">
+		update tb_post
+		set
+		delete_yn=1
+		where id = #{id}
+	</delete>
+
+	<!-- 게시글 리스트 조회 -->
+	<select id="findAll"
+		resultType="various_functions.domain.PostResponse">
+		select
+		<include refid="postColumns" />
+		from tb_post
+		where delete_yn = 0
+		order by
+		id desc
+	</select>
+
+</mapper>
