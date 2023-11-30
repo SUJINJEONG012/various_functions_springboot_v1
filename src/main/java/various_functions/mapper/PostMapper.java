@@ -3,6 +3,7 @@ package various_functions.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import various_functions.domain.PostRequest;
+import various_functions.domain.PostResponse;
 
 @Mapper
 public interface PostMapper {
@@ -12,5 +13,19 @@ public interface PostMapper {
 	 * */
 	void save(PostRequest params);
 	
+	/*
+	 * 게시글 상세정보 조회
+	 * */
+	PostResponse findById(Long id);
+	
+	/*
+	 * 게시글 수정
+	 * */
+	void update(PostRequest params);
+	
+	/*
+	 * 게시글 수 카운팅
+	 * */
+	int count();
 	
 }
