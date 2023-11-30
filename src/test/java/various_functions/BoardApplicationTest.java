@@ -15,15 +15,16 @@ public class BoardApplicationTest {
 	@Autowired
 	private SqlSessionFactory sessionFactory;
 	
-	@Test
-	void contextLoads() {
-	}	
+//	@Test
+//	void contextLoads() {
+//	}
 	
 	@Test
 	public void testByApplicationContext() {
 		try {
 			System.out.println("===================");
-			System.out.println(context.getBean("sqlSessionFactory"));
+			System.out.println("testByApplicationContext ::" +context.getBean("sqlSessionFactory"));
+			//System.out.println("testByApplicationContext ::" +context.getBean("abc"));
 			System.out.println("===================");
 		}catch(Exception e) {
 			e.printStackTrace();

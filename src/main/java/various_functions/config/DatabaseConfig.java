@@ -33,7 +33,7 @@ public class DatabaseConfig {
 		return new HikariDataSource(hikariConfig());
 	}
 	
-	@Bean
+	@Bean(name="abc")
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
 		factoryBean.setDataSource(dataSource());
