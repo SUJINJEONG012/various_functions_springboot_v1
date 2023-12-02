@@ -37,7 +37,7 @@ public class DatabaseConfig {
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
 		factoryBean.setDataSource(dataSource());
-		factoryBean.setMapperLocations(context.getResources("classpath:/mapper/**/*.xml"));
+		factoryBean.setMapperLocations(context.getResources("classpath:/mapper/*.xml"));
 		factoryBean.setConfiguration(mybatisConfig());
 		return factoryBean.getObject();
 	}
@@ -48,6 +48,7 @@ public class DatabaseConfig {
 	}
 	
 	@Bean
+	//application.properties에서 mybatis.configuration으로 시작하는 모든 설정을 읽어 스프링 컨테이너에 빈(Bean)으로 등록
 	@ConfigurationProperties(prefix="mybatis.configuration")
 	public org.apache.ibatis.session.Configuration mybatisConfig() {
         return new org.apache.ibatis.session.Configuration();

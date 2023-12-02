@@ -17,7 +17,7 @@
 		insert into tb_post(
 		<include refid="postColumns" />
 		)values(
-		#{id}, #{title}, #{writer}, 0, #{notice_yn}, 0, now(), null
+		#{id}, #{title}, #{content}, #{writer}, 0, #{noticeYn}, 0, now(), null
 		)
 	</insert>
 

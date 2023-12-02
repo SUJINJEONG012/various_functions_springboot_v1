@@ -2,7 +2,9 @@ package various_functions.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-
+/*
+ * 게시글 요청 클래스
+ * */
 @Getter
 @Setter
 public class PostRequest {
@@ -11,5 +13,5 @@ public class PostRequest {
 	private String title;
 	private String content;
 	private String writer;
-	private boolean noticeYn;
+	private Boolean noticeYn;
 }

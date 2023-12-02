@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import lombok.Getter;
 
+/* 게시글 응답 클래스 */
 @Getter
 public class PostResponse {
 
