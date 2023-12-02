@@ -15,9 +15,9 @@ public class BoardApplicationTest {
 	@Autowired
 	private SqlSessionFactory sessionFactory;
 	
-//	@Test
-//	void contextLoads() {
-//	}
+	@Test
+	void contextLoads() {
+	}
 	
 	@Test
 	public void testByApplicationContext() {
