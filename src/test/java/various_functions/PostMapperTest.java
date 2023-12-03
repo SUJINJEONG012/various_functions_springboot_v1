@@ -7,10 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
-import various_functions.domain.PostRequest;
-import various_functions.domain.PostResponse;
-import various_functions.mapper.PostMapper;
+import com.various_functions.domain.PostRequest;
+import com.various_functions.domain.PostResponse;
+import com.various_functions.mapper.PostMapper;
 
 @SpringBootTest
 public class PostMapperTest {

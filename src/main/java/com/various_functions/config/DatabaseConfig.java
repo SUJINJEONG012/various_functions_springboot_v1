@@ -1,4 +1,4 @@
-package various_functions.config;
+package com.various_functions.config;
 
 import javax.sql.DataSource;
 

@@ -1,4 +1,4 @@
-package various_functions;
+package com.various_functions;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

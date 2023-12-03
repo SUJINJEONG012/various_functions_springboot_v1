@@ -1,11 +1,11 @@
-package various_functions.mapper;
+package com.various_functions.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import various_functions.domain.PostRequest;
-import various_functions.domain.PostResponse;
+import com.various_functions.domain.PostRequest;
+import com.various_functions.domain.PostResponse;
 
 @Mapper
 public interface PostMapper {

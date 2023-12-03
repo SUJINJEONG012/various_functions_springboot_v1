@@ -1,4 +1,4 @@
-package various_functions.domain;
+package com.various_functions.domain;
 
 import java.time.LocalDateTime;
 
