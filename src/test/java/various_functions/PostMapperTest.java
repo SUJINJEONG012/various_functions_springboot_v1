@@ -63,5 +63,12 @@ public class PostMapperTest {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	@Test
+	void delete() {
+		System.out.println("삭제 이전의 전체 게시글 개수는 : " + postMapper.findAll().size() + "개 입니다.");
+		postMapper.deletedById(1L);
+		System.out.println("삭제 이후의 전체 게시글 개수는 : " + postMapper.findAll().size() + "개 입니다.");		
+	}
 }
 
