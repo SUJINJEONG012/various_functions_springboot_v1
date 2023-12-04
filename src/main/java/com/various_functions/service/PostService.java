@@ -24,10 +24,18 @@ public class PostService {
 		return params.getId();
 	}
 	
+	//상세 정보 조회
 	public PostResponse findPostById(final Long id) {
 		return postMapper.findById(id);
 	}
 	
+	//게시글 수정
+	public Long updatePost(final PostRequest params) {
+		postMapper.update(params);
+		return params.getId();
+	}
+	
+	// 게시글 삭제
 	public Long deletePost(final Long id) {
 		postMapper.deletedById(id);
 		return id;
