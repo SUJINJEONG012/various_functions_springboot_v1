@@ -1,4 +1,4 @@
-package various_functions;
+package com.various_functions;
 
 import java.util.List;
 

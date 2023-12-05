@@ -1,4 +1,4 @@
-package various_functions;
+package com.various_functions;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.Test;
