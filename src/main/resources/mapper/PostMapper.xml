@@ -13,7 +13,7 @@
 
 	<!-- 게시글 저장 -->
 	<insert id="save"
-		parameterType="com.various_functions.domain.PostRequest">
+		parameterType="com.various_functions.domain.PostRequest" useGeneratedKeys="true" keyProperty="id">
 		insert into tb_post(
 		<include refid="postColumns" />
 		)values(
