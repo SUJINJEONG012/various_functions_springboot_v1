@@ -41,6 +41,7 @@ public class PostService {
 		return id;
 	}
 	
+	//게시글 리스트 조회
 	public List<PostResponse> findAllPost(){
 		return postMapper.findAll();
 	}
