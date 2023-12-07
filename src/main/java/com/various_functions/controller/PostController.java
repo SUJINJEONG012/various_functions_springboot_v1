@@ -3,8 +3,10 @@ package com.various_functions.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.various_functions.domain.PostRequest;
 import com.various_functions.domain.PostResponse;
 import com.various_functions.service.PostService;
 
@@ -28,5 +30,14 @@ public class PostController {
 		}
 		return "post/write";
 	}
+	
+	
+	// 신규 게시글 생성
+    @PostMapping("/post/save.do")
+    public String savePost(final PostRequest params) {
+        postService.savePost(params);
+        return "redirect:/post/list.do";
+    }
+
 	
 }
