@@ -50,7 +50,7 @@
                 </form>
                 <p class="btn_set">
                     <button type="button" id="saveBtn" onclick="savePost();" class="btns btn_st3 btn_mid">저장</button>
-                    <a th:href="@{/post/list.do}" class="btns btn_bdr3 btn_mid">뒤로</a>
+                    <a th:href="@{/post/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
                 </p>
             </section>
         </div> <!--/* .content */-->
@@ -79,7 +79,7 @@
 
                 document.getElementById('saveBtn').disabled = true;
                 form.noticeYn.value = form.isNotice.checked;
-                form.action =  [[ ${post == null} ]] ? '/post/save.do' : '/post/update.do' ;
+                form.action =  [[ ${post == null} ]] ? '/post/save' : '/post/update' ;
                 
                 form.submit();
             }

@@ -38,7 +38,7 @@ public class PostController {
     @PostMapping("/post/save")
     public String savePost(final PostRequest params) {
         postService.savePost(params);
-        return "redirect:/post/list.do";
+        return "redirect:/post/list";
     }
     
     //게시글 리스트 페이지
