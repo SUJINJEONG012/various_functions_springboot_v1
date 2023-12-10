@@ -1,5 +1,7 @@
 package com.various_functions.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,7 @@ public class PostController {
 	 * @RequestParam 화면에서 보낸 파라미터를 전달받는데 사용
 	 * 
 	 * */
-	@GetMapping("/post/write.do")
+	@GetMapping("/post/write")
 	public String openPostWrite(@RequestParam(value="id", required= false) final Long id, Model model) {
 		if(id != null) {
 			PostResponse post = postService.findPostById(id);
@@ -33,10 +35,18 @@ public class PostController {
 	
 	
 	// 신규 게시글 생성
-    @PostMapping("/post/save.do")
+    @PostMapping("/post/save")
     public String savePost(final PostRequest params) {
         postService.savePost(params);
         return "redirect:/post/list.do";
+    }
+    
+    //게시글 리스트 페이지
+    @GetMapping("/post/list")
+    public String openPostList(Model model) {
+    	List<PostResponse> posts = postService.findAllPost();
+    	model.addAttribute("posts",posts);
+    	return "post/list";
     }
 
 	
