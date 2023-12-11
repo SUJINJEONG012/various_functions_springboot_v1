@@ -73,18 +73,19 @@
 </th:block>
 
 <th:block layout:fragment="script">
+
 	<script th:inline="javascript">
 /* <![CDATA[ */       
             window.onload = () => {
-                initCreatedDate();
+            	renderPostInfo();
             }
             
             // 게시글 상세정보 렌더링
-          	function renderPostInfo() {
+    function renderPostInfo() {
         const post = [[ ${post} ]];
 
         if ( !post ) {
-            initCreatedDate();
+        	initCreatedDate();
             return false;
         }
 
@@ -98,7 +99,7 @@
         })
     }
             
-            // 등록일 초기화
+           // 등록일 초기화
             function initCreatedDate() {
                 document.getElementById('createdDate').value = dayjs().format('YYYY-MM-DD');     
             }
