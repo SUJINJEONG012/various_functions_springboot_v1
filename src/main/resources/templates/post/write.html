@@ -66,14 +66,14 @@
             // 게시글 상세정보 렌더링
           	function renderPostInfo(){
             	
-            	const post = [[${post}]];
+            	const post = [[ ${post} ]];
             	
-            	if(!post){
+            	if( !post ){
             		initCreatedDate();
             		return false;
             	}
             	
-            	const from= document.getElementById("saveForm");
+            	const form= document.getElementById("saveForm");
             	const fields = ['id', 'title', 'content', 'writer', 'noticeYn'];
             	
             	form.isNotice.checked = post.notionYn;
@@ -83,6 +83,9 @@
             		form[field].value = post[field];
             	})
             }
+            
+          	
+          	 
             
             // 등록일 초기화
             function initCreatedDate() {
