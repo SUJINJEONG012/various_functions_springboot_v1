@@ -59,6 +59,13 @@ public class PostController {
     	model.addAttribute("post",post);
     	return "post/view";
     }
+    
+    // 기존 게시글 수정
+    @PostMapping("/post/update")
+    public String updatePost(final PostRequest params) {
+    	postService.updatePost(params);
+    	return "/redirect:/post/list";
+    }
 
-	
+    
 }
