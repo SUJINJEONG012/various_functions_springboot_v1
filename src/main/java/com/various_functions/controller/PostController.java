@@ -64,7 +64,7 @@ public class PostController {
     @PostMapping("/post/update")
     public String updatePost(final PostRequest params) {
     	postService.updatePost(params);
-    	return "/redirect:/post/list";
+    	return "redirect:/post/list";
     }
 
     
