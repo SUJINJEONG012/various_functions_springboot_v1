@@ -62,9 +62,30 @@
             window.onload = () => {
                 initCreatedDate();
             }
+            
+            // 게시글 상세정보 렌더링
+          	function renderPostInfo(){
+            	const post = [[${post}]];
+            	if(!post){
+            		initCreatedDate();
+            		return false;
+            	}
+            	
+            	const from= document.getElementById("saveForm");
+            	const fields = ['id', 'title', 'content', 'writer', 'noticeYn'];
+            	
+            	form.isNotice.checked = post.notionYn;
+            	form.createdDate.value = dayjs(post.createdDate).format('YYYY-MM-DD HH:mm');
+            	
+            	fields.forEach(field => {
+            		form[field].value = post[field];
+            	})
+            }
+            
             // 등록일 초기화
             function initCreatedDate() {
                 document.getElementById('createdDate').value = dayjs().format('YYYY-MM-DD');
+                
             }
             
             // 게시글 저장(수정)
