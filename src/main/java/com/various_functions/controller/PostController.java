@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.various_functions.domain.PostRequest;
 import com.various_functions.domain.PostResponse;
+import com.various_functions.dto.MessageDto;
 import com.various_functions.service.PostService;
 
 import lombok.RequiredArgsConstructor;
@@ -73,6 +74,12 @@ public class PostController {
 	   postService.deletePost(id);
 	   return "redirect:/post/list";
    }
+    
+    // 사용자에게 메세지를 전달하고, 페이지를 리다이렉트 한다.
+    private String showMessageAndRedirect(final MessageDto params, Model model) {
+    	model.addAttribute("params", params);
+    	return "common/messageRedirect";
+    }
 
     
 }
