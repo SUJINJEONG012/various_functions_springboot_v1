@@ -23,7 +23,12 @@ public class LoggerAspect {
 				StringUtils.contains(name, "Service") ? "Service ===> " :
 				StringUtils.contains(name, "Mapper") ? "Mapper ===> ":	
 				"";
-		log.debug(type + name + "." + joinPoint.getSignature().getName() + "()");
+		log.debug("@@ type:: " + type);
+		log.debug("@@ name:: " + name);
+		log.debug("@@ joinPoint.getSignature():: " + joinPoint.getSignature());
+		log.debug("@@ joinPoint.getSignature().getName():: " + joinPoint.getSignature().getName());
+		
+		log.debug("전체적인 합 : " +type + name + "." + joinPoint.getSignature().getName() + "()");
 		
 		return joinPoint.proceed();
 	}
