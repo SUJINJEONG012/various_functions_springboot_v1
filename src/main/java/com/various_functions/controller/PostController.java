@@ -72,16 +72,18 @@ public class PostController {
     
     // 기존 게시글 수정
     @PostMapping("/post/update")
-    public String updatePost(final PostRequest params) {
+    public String updatePost(final PostRequest params, Model model) {
     	postService.updatePost(params);
-    	return "redirect:/post/list";
+    	MessageDto message = new MessageDto("게시글 수정이 완료되었습니다.", "/post/list", RequestMethod.GET, null);
+    	return showMessageAndRedirect(message, model);
     }
     
     // 게시글 삭제
     @PostMapping("/post/delete")
-   public String deletePost(@RequestParam Long id) {
+   public String deletePost(@RequestParam Long id, Model model) {
 	   postService.deletePost(id);
-	   return "redirect:/post/list";
+	   MessageDto message= new MessageDto("게시글이 삭제되었습니다.","/post/list",RequestMethod.GET,null);
+	   return showMessageAndRedirect(message, model);
    }
    
 
