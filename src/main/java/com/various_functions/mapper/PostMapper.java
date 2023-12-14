@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.various_functions.domain.PostRequest;
 import com.various_functions.domain.PostResponse;
+import com.various_functions.dto.SearchDto;
 
 @Mapper
 public interface PostMapper {
@@ -32,11 +33,11 @@ public interface PostMapper {
 	void deletedById(Long id);
 	
 	/* 게시글 리스트 조회 @return 게시글 리스트 */
-	List<PostResponse> findAll();
+	List<PostResponse> findAll(SearchDto params);
 	
 	/*
 	 * 게시글 수 카운팅
 	 * */
-	int count();
+	int count(SearchDto params);
 	
 }

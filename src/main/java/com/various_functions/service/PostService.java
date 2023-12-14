@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.various_functions.domain.PostRequest;
 import com.various_functions.domain.PostResponse;
+import com.various_functions.dto.SearchDto;
 import com.various_functions.mapper.PostMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -42,8 +43,8 @@ public class PostService {
 	}
 	
 	//게시글 리스트 조회
-	public List<PostResponse> findAllPost(){
-		return postMapper.findAll();
+	public List<PostResponse> findAllPost(final SearchDto params){
+		return postMapper.findAll(params);
 	}
 	
 	

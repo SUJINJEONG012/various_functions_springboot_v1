@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.various_functions.domain.PostRequest;
 import com.various_functions.domain.PostResponse;
 import com.various_functions.dto.MessageDto;
+import com.various_functions.dto.SearchDto;
 import com.various_functions.service.PostService;
 
 import lombok.RequiredArgsConstructor;
@@ -53,8 +55,8 @@ public class PostController {
     
     //게시글 리스트 페이지
     @GetMapping("/post/list")
-    public String openPostList(Model model) {
-    	List<PostResponse> posts = postService.findAllPost();
+    public String openPostList(@ModelAttribute("params") final SearchDto params, Model model) {
+    	List<PostResponse> posts = postService.findAllPost(params);
     	model.addAttribute("posts",posts);
     	return "post/list";
     }

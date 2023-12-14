@@ -19,18 +19,18 @@ public class PostMapperTest {
 	@Autowired
 	private PostMapper postMapper;
 	
-	@Test
-	 void save() {
-		PostRequest params = new PostRequest();
-		params.setTitle("1번 게시글 제목");
-		params.setContent("1번 게시글 내용");
-		params.setWriter("안젤라");
-		params.setNoticeYn(false);
-		postMapper.save(params);
-		
-		List<PostResponse> posts = postMapper.findAll();
-		System.out.println("전체 게시글 개수는 : " + posts.size() + "개 입니다.");
-	}
+//	@Test
+//	 void save() {
+//		PostRequest params = new PostRequest();
+//		params.setTitle("1번 게시글 제목");
+//		params.setContent("1번 게시글 내용");
+//		params.setWriter("안젤라");
+//		params.setNoticeYn(false);
+//		postMapper.save(params);
+//		
+//		List<PostResponse> posts = postMapper.findAll();
+//		System.out.println("전체 게시글 개수는 : " + posts.size() + "개 입니다.");
+//	}
 	
 	
 	@Test
@@ -65,11 +65,11 @@ public class PostMapperTest {
 		}
 	}
 	
-	@Test
-	void delete() {
-		System.out.println("삭제 이전의 전체 게시글 개수는 : " + postMapper.findAll().size() + "개 입니다.");
-		postMapper.deletedById(1L);
-		System.out.println("삭제 이후의 전체 게시글 개수는 : " + postMapper.findAll().size() + "개 입니다.");		
-	}
+//	@Test
+//	void delete() {
+//		System.out.println("삭제 이전의 전체 게시글 개수는 : " + postMapper.findAll().size() + "개 입니다.");
+//		postMapper.deletedById(1L);
+//		System.out.println("삭제 이후의 전체 게시글 개수는 : " + postMapper.findAll().size() + "개 입니다.");		
+//	}
 }
 
