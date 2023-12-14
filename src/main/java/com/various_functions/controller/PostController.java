@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.various_functions.domain.PostRequest;
 import com.various_functions.domain.PostResponse;
 import com.various_functions.dto.MessageDto;
+import com.various_functions.dto.PagingResponse;
 import com.various_functions.dto.SearchDto;
 import com.various_functions.service.PostService;
 
@@ -56,8 +57,8 @@ public class PostController {
     //게시글 리스트 페이지
     @GetMapping("/post/list")
     public String openPostList(@ModelAttribute("params") final SearchDto params, Model model) {
-    	List<PostResponse> posts = postService.findAllPost(params);
-    	model.addAttribute("posts",posts);
+    	PagingResponse<PostResponse> response = postService.findAllPost(params);
+    	model.addAttribute("response",response);
     	return "post/list";
     }
     
