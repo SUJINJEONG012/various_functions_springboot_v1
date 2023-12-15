@@ -13,11 +13,13 @@
 
 	<!-- 게시글 저장 -->
 	<insert id="save"
-		parameterType="com.various_functions.domain.PostRequest" useGeneratedKeys="true" keyProperty="id">
+		parameterType="com.various_functions.domain.PostRequest"
+		useGeneratedKeys="true" keyProperty="id">
 		insert into tb_post(
 		<include refid="postColumns" />
 		)values(
-		#{id}, #{title}, #{content}, #{writer}, 0, #{noticeYn}, 0, now(), null
+		#{id}, #{title}, #{content}, #{writer}, 0, #{noticeYn}, 0,
+		now(), null
 		)
 	</insert>
 
@@ -54,24 +56,63 @@
 	</delete>
 
 	<!-- 게시글 리스트 조회 -->
-	<select id="findAll" parameterType="com.various_functions.dto.SearchDto" resultType="com.various_functions.domain.PostResponse">
+	<select id="findAll"
+		parameterType="com.various_functions.dto.SearchDto"
+		resultType="com.various_functions.domain.PostResponse">
 		select
 		<include refid="postColumns" />
-		from 
+		from
 		tb_post
-		where 
+		where
 		delete_yn = 0
+		<include refid="search" />
 		order by
 		id desc
-		limit #{pagination.limitStart}, #{recordSize}
+		limit
+		#{pagination.limitStart}, #{recordSize}
 	</select>
-	
+
 	<!-- 게시글 수 카운팅 -->
-	<select id="count" parameterType="com.various_functions.dto.SearchDto" resultType="int">
-	select count(*)
-	from tb_post
-	where 
-	delete_yn = 0
+	<select id="count"
+		parameterType="com.various_functions.dto.SearchDto" resultType="int">
+		select
+		count(*)
+		from tb_post
+		where
+		delete_yn = 0
+		<include refid="search" />
 	</select>
+
+
+	<!-- 게시글 검색 -->
+	<sql id="search">
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<when test="searchType != null and searchType != '' ">
+					<choose>
+						<!-- 검색유형이 있을 때 -->
+						<when test="'title'.equals(searchType)">
+							AND title like concat('%', #{keyword}, '%'")
+						</when>
+						<when test="'content'.equals(searchType)">
+							AND content like concat('%', #{keyword},'%')
+						</when>
+						<when test="'writer'.equals(searchType)">
+							AND writer like concat('%',#{keyword},'%')
+						</when>
+					</choose>
+				</when>
+
+				<!-- 전체 검색 일때 -->
+				<otherwise>
+					AND(
+					title like concat('%', #{keyword},'%')
+					OR content like concat('%', #{keyword},'%')
+					OR writer like concat('%', #{keyword},'%')
+					)
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
 
 </mapper>
