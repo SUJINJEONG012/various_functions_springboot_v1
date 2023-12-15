@@ -161,7 +161,7 @@
     			 <td>${row.noticeYn === false ? num-- : '공지'}</td>
     			 <td class="t1"><a href="javascript:void(0);" onclick="goViewPage(${row.id});"">${row.title}</a></td>
     			 <td>${row.writer}</td>
-    			 <td>${dayjs(row.createdDate).format('yyyy-MM-DD HH:mm')}</td>
+    			 <td>${dayjs(row.createdDate).format('YYYY-MM-DD HH:mm')}</td>
     			 <td>${row.viewCnt}</td>
     			 </tr>
     			 `;
@@ -198,9 +198,7 @@
               */
     		 html +='<p>';
     		 for(let i = pagination.startPage; i <= pagination.endPage; i++){
-    			 html += (i !== params.page) 
-    			 ? `<a href="javascript:void(0);" onclick="movePage(${i});">${i}</a>`
-    			 : `<span class="on">${i}</span>`
+    			 html += (i !== params.page) ? `<a href="javascript:void(0);" onclick="movePage(${i});">${i}</a>` : `<span class="on">${i}</span>`
     		 }
     		 html += '</p>';
     		 
@@ -249,13 +247,7 @@
 			 const queryString = (location.search) ? location.search + `&id=${id}` : `?id=${id}`;
 			 location.href='/post/view' + queryString;
 		 }
-		 
 
-		
-		 
-		 
-
-    	 
      /*]]*/
      </script>
 </th:block>
