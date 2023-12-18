@@ -18,7 +18,7 @@ public class CommentApiController {
 	private final CommentService commentService;
 	
 	//신규 댓글 생성
-	@PostMapping("/post/{postId}/comments")
+	@PostMapping("/posts/{postId}/comments")
 	public CommentResponse saveComment(@PathVariable final Long postId, @RequestBody final CommentRequest params) {
 		Long id = commentService.saveComment(params);
 		return commentService.findCommentById(id);
