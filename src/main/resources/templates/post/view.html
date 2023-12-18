@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="layout/basic">
 <th:block layout:fragment="title">
 	<title>글 상세페이지</title>
@@ -27,7 +28,8 @@
 						<th scope="row">글 유형</th>
 						<td th:text="${post.noticeYn == false ? '일반' : '공지'}"></td>
 						<th scope="row">등록일</th>
-						<td th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+						<td
+							th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
 					</tr>
 					<tr>
 						<th scope="row">제목</th>
@@ -51,11 +53,28 @@
 
 			<p class="btn_set">
 				<!--<a th:href="@{/post/write(id=${post.id})}" class="btns btn_bdr4 btn_mid">수정</a>-->
-				<button type="button" onclick="goWritePage()" class="btns btn_bdr4 btn_mid">수정</button>
-				<button type="button" onclick="deletePost();" class="btns btn_bdr1 btn_mid">삭제</button>
+				<button type="button" onclick="goWritePage()"
+					class="btns btn_bdr4 btn_mid">수정</button>
+				<button type="button" onclick="deletePost();"
+					class="btns btn_bdr1 btn_mid">삭제</button>
 				<!--<a th:href="@{/post/list}" class="btns btn_bdr3 btn_mid">뒤로</a>-->
-				<button type="button" onclick="goListPage()" class="btns btn_bdr3 btn_mid">뒤로</button>
+				<button type="button" onclick="goListPage()"
+					class="btns btn_bdr3 btn_mid">뒤로</button>
 			</p>
+
+			<!-- 댓글 작성 -->
+			<div class="cm_write">
+				<fieldset>
+					<legend class="skipinfo">댓글 입력</legend>
+					<div class="cm_input">
+					 <p><textarea id="content" name="content" onkeyup="countingLength(this);" cols="90" rows="4" placeholder="댓글을 입력해주세요."></textarea></p>
+					 <span><button type="button" class="btns" onclick="saveComment();">등록</button><i id="counter">0/300자</i></span>
+					</div>
+				</fieldset>
+			</div>
+
+
+
 		</section>
 	</div>
 </th:block>
@@ -105,6 +124,44 @@
 			document.getElementById("deleteForm").submit();
 
 		}
+		
+		// 댓글 길이 카운팅
+		function countingLength(content){
+			if(content.value.length > 300){
+				alert("댓글을 300자 이하로 입력해주세요.");
+				content.value = content.value.substring(0,300);
+				content.focus();
+			}
+			document.getElementById('counter').innerText = content.value.length + '/300자';
+		}
+		// 댓글 저장
+		function saveComment(){
+			const content = document.getElementById('content');
+			isValid(content, '댓글');
+			
+			const postId = [[${post.id}]];
+			const params = {
+					postId : postId,
+					content : content.value,
+					writer : '홍길동'
+			}
+			
+			$.ajax({
+				url:`/posts/${postId}/comments`,
+				type:'post',
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				data: JSON.stringify(params),
+				async:false,
+				success:function(response){
+					console.log(response);
+				},
+				error: function(request, status,error){
+					console.log(error);
+				}
+			});
+		}
+		
 
 		/*]]>*/
 	</script>
