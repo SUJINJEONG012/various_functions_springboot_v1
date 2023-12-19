@@ -1,5 +1,8 @@
 package com.various_functions.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,4 +26,12 @@ public class CommentApiController {
 		Long id = commentService.saveComment(params);
 		return commentService.findCommentById(id);
 	}
+	
+	//댓글 리스트 조회
+	@GetMapping("/posts/{postId}/comments")
+	public List<CommentResponse> findAllComment(@PathVariable final Long postId){
+		return commentService.findAllComment(postId);
+	}
+	
+	
 }
