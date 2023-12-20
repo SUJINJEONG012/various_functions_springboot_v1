@@ -50,6 +50,8 @@ public class PostService {
 //		return postMapper.findAll(params);
 //	}
 	
+	
+	//리스트 데이터와 계산된 페이지 정보를 함께 리턴
 	public PagingResponse<PostResponse> findAllPost(final SearchDto params ){
 		//조건에 해당하는 데이터가 없는경우, 응답 데이터에 비어있는 리스트와 null을 담아 반환
 		int count = postMapper.count(params);

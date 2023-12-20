@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+//댓글요청 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentRequest {

@@ -13,7 +13,14 @@ public interface CommentMapper {
 	//댓글저장
 	void save(CommentRequest params);
 	
-	//댓글 상세정보 조회
+	// 댓글리스트 조회
+	List<CommentResponse> findAll(Long postId);
+	
+	/*
+	 * 댓글 상세정보 조회
+	 * @Param id -pk
+	 * @return 댓글상세정보
+	*/
 	CommentResponse findById(Long id);
 	
 	//댓글수정
@@ -21,9 +28,6 @@ public interface CommentMapper {
 	
 	// 댓글삭제
 	void deleteById(Long id);
-	
-	// 댓글리스트 조회
-	List<CommentResponse> findAll(Long postId);
 	
 	// 댓글 수 카운팅
 	int count(Long postId);
