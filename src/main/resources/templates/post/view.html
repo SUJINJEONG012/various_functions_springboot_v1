@@ -83,7 +83,7 @@
 		</section>
 	</div>
 	
-	<!-- 댓글 수정  popup 
+	<!-- 댓글 수정  popup -->
 	<div id="commentUpdatePopup" class="popLayer">
 		<h3>댓글수정</h3>
 		<div class="pop_container">
@@ -112,7 +112,7 @@
 		<button type="button" class="btn_close" onclick="closeCommentUpdatePopup();">
 			<span><i class="far fa-times-circle"></i></span>
 		</button>
-	</div>-->
+	</div>
 	
 </th:block>
 
@@ -195,7 +195,10 @@
 				data: JSON.stringify(params),
 				async:false,
 				success:function(response){
-					console.log(response);
+					alert('저장되었습니다.');
+					content.value = '';
+					document.getElementById('counter').innerText = '0/300자';
+					findAllComment();
 				},
 				error: function(request, status, error){
 					console.log(error);
@@ -206,10 +209,11 @@
 		
 		// 전체 댓글 조회
 		function findAllComment(){
+			
 			const postId = [[${post.id}]];
 			
 			$.ajax({
-				url:`/posts/${postId}/comments`,
+				url: `/posts/${postId}/comments`,
 				type:'get',
 				dataType:'json',
 				async:false,
