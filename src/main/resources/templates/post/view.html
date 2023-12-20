@@ -82,6 +82,38 @@
 
 		</section>
 	</div>
+	
+	<!-- 댓글 수정  popup -->
+	<div id="commentUpdatePopup" class="popLayer">
+		<h3>댓글수정</h3>
+		<div class="pop_container">
+			<table class="tb tb_row tl">
+				<colgroup>
+				<col style="width:30%;"/>
+				<col style="width:30%;"/>
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row">작성자<span class="es">필수 입력</span></th>
+						<td><input type="text" id="modalWriter" name="modalWriter" placeholder="작성자를 입력해주세요."/></td>
+					</tr>
+					<tr>
+						<th scope="row">내용<span class="es">필수 입력</span></th>
+						<td><textarea id="modalContent" nmae="modalContent" cols="90" rows="10" placeholder="수정 할 내용을 입력해 주세요."></textarea></td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<p class="btn_set">
+				<button type="button" id="commentUpdateBtn" class="btns btn_st2">수정</button>
+				<button type="button" class="btns btn_bdr2" onclick="closeCommentUpdatePopup();">취소</button>
+			</p>
+		</div>
+		<buttno type="button" class="btn_close" onclick="closeCommentUpdatePopup();">
+			<span><i class="far fa-times-circle"></i></span>
+		</buttno>
+	</div>
+	
 </th:block>
 
 <th:block layout:fragment="script">
@@ -203,7 +235,7 @@
 							</p>
 							<div class="cont"><div class="txt_con">${row.content}</div></div>
 							<p class="func_btns">
-								<button type="button" class="btns"><span class="icons icon_modify">수정</span></button>
+								<button type="button" class="btns" onclick="openCommentUpdatePopup(${row.id});"><span class="icons icon_modify">수정</span></button>
 								<button type="button" class="btns"><span class="icons icon_del">삭제</span></button>
 							</p>
 						</div>
@@ -221,6 +253,33 @@
 			})
 			
 		}
+		
+		// 댓글 수정 팝업 open
+		function openCommentUpdatePopup(id){
+			const postId = [[${post.id}]];
+			$.ajax({
+				url:`/posts/${postId}/comments/${id}`,
+				type:'get',
+				dataType:'json',
+				async:false,
+				success: function(response){
+					document.getElementById('modalWrite').value=response.writer;
+					document.getElementById('modalContents').value=response.content;
+					document.getElementById('commentUpdateBtn').setAttribute('onclick', `updateComment(${id})`);
+					layerPop('commentUpdatePopup');
+				},
+				error: function(request, status, error){
+					console.log(error);
+				}
+			})
+		}
+		
+		//댓글 수정 팝업 class
+		function closeCommentUpdatePopup(){
+			document.querySelectorAll('#modalContentm, #modalWriter').forEach(element => element.value='');
+			document.getElementById('commentUpdateBtn').removeAttribute('onclick');
+			layerPopClose('commentUpdatePopup');
+		};
 		
 
 		/*]]>*/
