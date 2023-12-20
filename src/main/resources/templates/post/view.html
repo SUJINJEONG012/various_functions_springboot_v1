@@ -270,7 +270,7 @@
 				async:false,
 				success: function(response){
 					document.getElementById('modalWriter').value = response.writer;
-					document.getElementById('modalContents').value = response.content;
+					document.getElementById('modalContent').value = response.content;
 					document.getElementById('commentUpdateBtn').setAttribute('onclick', `updateComment(${id})`);
 					layerPop('commentUpdatePopup');
 				},
