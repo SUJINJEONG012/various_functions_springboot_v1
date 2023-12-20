@@ -83,7 +83,7 @@
 		</section>
 	</div>
 	
-	<!-- 댓글 수정  popup -->
+	<!-- 댓글 수정  popup 
 	<div id="commentUpdatePopup" class="popLayer">
 		<h3>댓글수정</h3>
 		<div class="pop_container">
@@ -99,7 +99,7 @@
 					</tr>
 					<tr>
 						<th scope="row">내용<span class="es">필수 입력</span></th>
-						<td><textarea id="modalContent" nmae="modalContent" cols="90" rows="10" placeholder="수정 할 내용을 입력해 주세요."></textarea></td>
+						<td><textarea id="modalContent" name="modalContent" cols="90" rows="10" placeholder="수정 할 내용을 입력해 주세요."></textarea></td>
 					</tr>
 				</tbody>
 			</table>
@@ -109,10 +109,10 @@
 				<button type="button" class="btns btn_bdr2" onclick="closeCommentUpdatePopup();">취소</button>
 			</p>
 		</div>
-		<buttno type="button" class="btn_close" onclick="closeCommentUpdatePopup();">
+		<button type="button" class="btn_close" onclick="closeCommentUpdatePopup();">
 			<span><i class="far fa-times-circle"></i></span>
-		</buttno>
-	</div>
+		</button>
+	</div>-->
 	
 </th:block>
 
@@ -254,17 +254,19 @@
 			
 		}
 		
-		// 댓글 수정 팝업 open
+		/* 댓글 수정 팝업 open
 		function openCommentUpdatePopup(id){
+			
 			const postId = [[${post.id}]];
+			
 			$.ajax({
-				url:`/posts/${postId}/comments/${id}`,
-				type:'get',
-				dataType:'json',
+				url: `/posts/${postId}/comments/${id}`,
+				type: 'get',
+				dataType: 'json',
 				async:false,
 				success: function(response){
-					document.getElementById('modalWrite').value=response.writer;
-					document.getElementById('modalContents').value=response.content;
+					document.getElementById('modalWriter').value = response.writer;
+					document.getElementById('modalContents').value = response.content;
 					document.getElementById('commentUpdateBtn').setAttribute('onclick', `updateComment(${id})`);
 					layerPop('commentUpdatePopup');
 				},
@@ -274,12 +276,12 @@
 			})
 		}
 		
-		//댓글 수정 팝업 class
+		//댓글 수정 팝업 close
 		function closeCommentUpdatePopup(){
-			document.querySelectorAll('#modalContentm, #modalWriter').forEach(element => element.value='');
+			document.querySelectorAll('#modalContent, #modalWriter').forEach(element => element.value='');
 			document.getElementById('commentUpdateBtn').removeAttribute('onclick');
 			layerPopClose('commentUpdatePopup');
-		};
+		}*/
 		
 
 		/*]]>*/

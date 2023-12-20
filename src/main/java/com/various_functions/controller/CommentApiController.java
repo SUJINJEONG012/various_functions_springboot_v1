@@ -46,8 +46,8 @@ public class CommentApiController {
 	 *  commentRequest 객체의 각 멤버변수에 매핑(바인딩)
 	 * 
 	 * */
-	@PatchMapping("/posts/${postId}/comments/{id}")
-	public CommentResponse updateComment(@PathVariable final Long postId, @PathVariable Long id, @PathVariable final CommentRequest params) {
+	@PatchMapping("/posts/{postId}/comments/{id}")
+	public CommentResponse updateComment(@PathVariable final Long postId, @PathVariable Long id, @RequestBody final CommentRequest params) {
 		commentService.updateComment(params);
 		return commentService.findCommentById(id);
 	}
