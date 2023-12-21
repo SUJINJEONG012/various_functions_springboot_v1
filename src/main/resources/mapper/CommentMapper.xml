@@ -32,9 +32,9 @@
 		parameterType="com.various_functions.domain.CommentRequest">
 		update tb_comment
 		set 
-		modified_date = now(),
-		content = #{content},
-		writer = #{writer},
+		modified_date = now(), 
+		content = #{content}, 
+		writer = #{writer}
 		where 
 		id = #{id}
 	</update>
