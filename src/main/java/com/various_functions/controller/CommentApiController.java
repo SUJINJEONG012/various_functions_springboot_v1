@@ -42,7 +42,7 @@ public class CommentApiController {
 	
 	//기존댓글 수정
 	@PatchMapping("/posts/{postId}/comments/{id}")
-	public CommentResponse updateComment(@PathVariable final Long postId, @PathVariable final Long id,@RequestBody final CommentRequest params) {
+	public CommentResponse updateComment(@PathVariable final Long postId, @PathVariable final Long id, @RequestBody final CommentRequest params) {
 		commentService.updateComment(params);
 		return commentService.findCommentById(id);
 	}
