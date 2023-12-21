@@ -2,6 +2,7 @@ package com.various_functions.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +46,12 @@ public class CommentApiController {
 	public CommentResponse updateComment(@PathVariable final Long postId, @PathVariable final Long id, @RequestBody final CommentRequest params) {
 		commentService.updateComment(params);
 		return commentService.findCommentById(id);
+	}
+	
+	//댓글 삭제 
+	@DeleteMapping("/posts/{postId}/comments/{id}")
+	public Long deleteComment(@PathVariable final Long postId, @PathVariable final Long id) {
+		return commentService.deleteComment(id);
 	}
 
 	
