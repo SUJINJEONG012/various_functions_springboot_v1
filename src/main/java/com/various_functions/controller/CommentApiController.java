@@ -1,7 +1,5 @@
 package com.various_functions.controller;
 
-import java.util.List;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -12,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.various_functions.domain.CommentRequest;
 import com.various_functions.domain.CommentResponse;
+import com.various_functions.dto.CommentSearchDto;
+import com.various_functions.dto.PagingResponse;
 import com.various_functions.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,8 +31,8 @@ public class CommentApiController {
 	
 	//댓글 리스트 조회
 	@GetMapping("/posts/{postId}/comments")
-	public List<CommentResponse> findAllComment(@PathVariable final Long postId){
-		return commentService.findAllComment(postId);
+	public PagingResponse<CommentResponse> findAllComment(@PathVariable final Long postId, final CommentSearchDto params){
+		return commentService.findAllComment(params);
 	}
 	
 	//댓글 상세정보 조회

@@ -1,4 +1,4 @@
-/**
+ /**
  * 문자열의 마지막(끝) 문자의 종성 포함 여부 확인
  * @param value - Target String
  * @returns 종성 포함 여부
@@ -28,3 +28,7 @@ function isValid(target, fieldName, focusTarget) {
     ( !focusTarget ? target : focusTarget).focus();
     throw new Error(`"${target.id}" is required...`)
 }
+
+// 데이터 조회
+
+

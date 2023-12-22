@@ -46,15 +46,28 @@
 	delete_yn = 1
 	where id= #{id}
 	</delete>
+	
 	<!-- 댓글리스트 조회 -->
-	<select id="findAll" parameterType="long" resultType="com.various_functions.domain.CommentResponse">
+	<select id="findAll" parameterType="com.various_functions.dto.CommentSearchDto" resultType="com.various_functions.domain.CommentResponse">
 	select 
 	<include refid="commentColumns" />
 	from tb_comment
 	where 
 	delete_yn = 0
-	and post_id = #{value}
+	and post_id = #{postId}
 	order by id desc
+	limit #{pagination.limitStart}, #{recordSize}
+	</select> 
+	
+	<!-- 댓글 수 카운팅 -->
+	<select id="count" parameterType="com.various_functions.dto.CommentSearchDto" resultType="int">
+	select count(*)
+	from tb_comment
+	where
+	delete_yn = 0
+	and post_id = #{postId}
 	</select>
+	
+	
 	
 </mapper>

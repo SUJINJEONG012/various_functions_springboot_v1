@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.various_functions.domain.CommentRequest;
 import com.various_functions.domain.CommentResponse;
+import com.various_functions.dto.CommentSearchDto;
 
 @Mapper
 public interface CommentMapper {
@@ -14,7 +15,7 @@ public interface CommentMapper {
 	void save(CommentRequest params);
 	
 	// 댓글리스트 조회
-	List<CommentResponse> findAll(Long postId);
+	List<CommentResponse> findAll(CommentSearchDto params);
 	
 	/*
 	 * 댓글 상세정보 조회
@@ -30,5 +31,5 @@ public interface CommentMapper {
 	void deleteById(Long id);
 	
 	// 댓글 수 카운팅
-	int count(Long postId);
+	int count(CommentSearchDto params);
 }

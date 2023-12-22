@@ -1,5 +1,6 @@
 package com.various_functions.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -8,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.various_functions.domain.CommentRequest;
 import com.various_functions.domain.CommentResponse;
+import com.various_functions.dto.CommentSearchDto;
+import com.various_functions.dto.Pagination;
+import com.various_functions.dto.PagingResponse;
 import com.various_functions.mapper.CommentMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -47,9 +51,15 @@ public class CommentService {
 		return id;
 	}
 	
-	//댓글조회
-	public List<CommentResponse> findAllComment(final Long postId){
-		return commentMapper.findAll(postId);
+	//댓글 리스트조회
+	public PagingResponse<CommentResponse> findAllComment(final CommentSearchDto params){
+		int count = commentMapper.count(params);
+		if(count < 1) {
+			return new PagingResponse<>(Collections.emptyList(), null);
+		}
+		Pagination pagination = new Pagination(count, params);
+		List<CommentResponse> list = commentMapper.findAll(params);
+		return new PagingResponse<>(list, pagination);
 	}
 	
 	
