@@ -188,7 +188,7 @@
 					writer : '홍길동'
 			}
 			
-			$.ajax({
+			/* $.ajax({
 				url:`/posts/${postId}/comments`,
 				type:'post',
 				contentType: 'application/json; charset=utf-8',
@@ -206,7 +206,12 @@
 					console.log(request);
 					console.log(error);
 				}
-			})
+			}) */
+			callApi(uri, 'post', params);
+			alert('저장되었습니다.');
+			content.value = '';
+			document.getElementById('counter').innerText = '0/300자';
+			findAllComment(1);
 		}
 		
 		
@@ -265,8 +270,15 @@
 		function openCommentUpdatePopup(id){
 			
 			const postId = [[${post.id}]];
+			const uri = `/posts/${postId}/comments/${id}`;
+			const response = getJson(uri);
 			
-			$.ajax({
+			document.getElementById('modalWriter').value = response.writer;
+			document.getElementById('modalContent').value = response.content;
+			document.getElementById('commentUpdateBtn').setAttribute('onclick', `updateComment(${id})`);
+			layerPop('commentUpdatePopup');
+			
+			/* $.ajax({
 				url: `/posts/${postId}/comments/${id}`,
 				type: 'get',
 				dataType: 'json',
@@ -280,7 +292,7 @@
 				error: function(request, status, error){
 					console.log(error);
 				}
-			})
+			}) */
 		}
 		
 		//댓글 수정 팝업 close
@@ -307,7 +319,7 @@
 				writer : writer.value
 			}
 			
-			$.ajax({
+			/* $.ajax({
 				url: `/posts/${postId}/comments/${id}`,
 				type: 'patch',
 				contentType: 'application/json; charset=utf-8',
@@ -323,7 +335,11 @@
 				error: function(request, status, error){
 					console.log(error);
 				}
-			})	
+			}) */
+			callApi(uri, 'patch', params);
+			alert('수정되었습니다.');
+			closeCommentUpdatePopup();
+			findAllComment();
 		}
 		
 		//댓글삭제
@@ -333,8 +349,11 @@
 				return false;
 			}
 			const postId = [[${post.id}]];
-			
-			$.ajax({
+			const uri = `/posts/${postId}/comments/${id}`;
+			callApi(uri, 'delete');
+			alert('삭제되었습니다.');
+			findAllComment();
+			/* $.ajax({
 				url:`/posts/${postId}/comments/${id}`,
 				type:'delete',
 				dataType:'json',
@@ -346,7 +365,8 @@
 				error:function(request, status, error){
 					console.log(error);
 				}
-			})
+			}) */
+			
 		}
 
 		/*]]>*/

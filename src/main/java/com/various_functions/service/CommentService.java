@@ -51,7 +51,7 @@ public class CommentService {
 		return id;
 	}
 	
-	//댓글 리스트조회
+	//댓글 리스트 조회
 	public PagingResponse<CommentResponse> findAllComment(final CommentSearchDto params){
 		int count = commentMapper.count(params);
 		if(count < 1) {
