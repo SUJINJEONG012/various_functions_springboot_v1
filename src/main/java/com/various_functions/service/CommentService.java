@@ -57,6 +57,7 @@ public class CommentService {
 		if(count < 1) {
 			return new PagingResponse<>(Collections.emptyList(), null);
 		}
+		
 		Pagination pagination = new Pagination(count, params);
 		List<CommentResponse> list = commentMapper.findAll(params);
 		return new PagingResponse<>(list, pagination);
