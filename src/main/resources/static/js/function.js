@@ -33,7 +33,7 @@ function isValid(target, fieldName, focusTarget) {
 
 @Param uri - API Request URL
 @param params  Parameters
-@returns json - 결과 데이
+@returns json - 결과 데이터
  */
 
  function getJson(uri, params){
@@ -41,9 +41,10 @@ function isValid(target, fieldName, focusTarget) {
 	let json = {}
 	
 	$.ajax({
-		uri: uri,
-		type:'json',
-		dataType: params,
+		url: uri,
+		type:'get',
+		data:params,
+		dataType: 'json',
 		async:false,
 		success: function(response){
 			json = response;

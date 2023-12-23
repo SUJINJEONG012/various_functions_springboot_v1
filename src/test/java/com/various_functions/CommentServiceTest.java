@@ -26,8 +26,8 @@ public class CommentServiceTest {
 	public void saveByForeach() {
 		for(int i = 1; i<=100; i++) {
 			CommentRequest params = new CommentRequest();
-			params.setPostId(1001L);        
-			params.setContent(i+"번 댓글 내용");			
+			params.setPostId(1000L);        
+			params.setContent(i+"번 댓글 내용22");			
 			params.setWriter("테스터"+i);			
 			commentService.saveComment(params);
 			
