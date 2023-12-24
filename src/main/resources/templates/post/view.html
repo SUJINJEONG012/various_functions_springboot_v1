@@ -139,8 +139,8 @@
 		// 전체 댓글 조회
 	    function findAllComment(page) {
 
-	        const currentPage = document.querySelector('.paging a.on');
-	        page = (page) ? page : (currentPage ? Number(currentPage.text) : 1);
+	        const uriPage = new URLSearchParams(location.search).get('page');
+	        page = (page) ? page : (uriPage ? Number(uriPage) : 1);
 
 	        const postId = [[ ${post.id}]];
 	        const uri = `/posts/${postId}/comments`;
@@ -485,8 +485,8 @@
 	    	currentPage.removeAttribute('onclick');
 	    	
 	    	// 8. 페이지 url 강제변경
-	    	/* const postId = new URLSearchParams(location.search).get('id');
-	    	history.replaceState({}, '', location.pathname + `?id=${postId}&page=${currentPage.text}`); */
+	    	const postId = new URLSearchParams(location.search).get('id');
+	    	history.replaceState({}, '', location.pathname + `?id=${postId}&page=${currentPage.text}`); 
 	    }
 		
 
