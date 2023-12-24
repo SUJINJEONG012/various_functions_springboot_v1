@@ -22,16 +22,16 @@ public class CommentServiceTest {
 //		Long id = commentService.saveComment(params);        
 //		System.out.println("생성된 댓글 ID : " + id);    }
 	
-	@Test
-	public void saveByForeach() {
-		for(int i = 1; i<=100; i++) {
-			CommentRequest params = new CommentRequest();
-			params.setPostId(1000L);        
-			params.setContent(i+"번 댓글 내용22");			
-			params.setWriter("테스터"+i);			
-			commentService.saveComment(params);
-			
-		}
-	}
+//	@Test
+//	public void saveByForeach() {
+//		for(int i = 1; i<=1000; i++) {
+//			CommentRequest params = new CommentRequest();
+//			params.setPostId(1000L);        
+//			params.setContent(i+"번 댓글 내용22");			
+//			params.setWriter("테스터"+i);			
+//			commentService.saveComment(params);
+//			
+//		}
+//	}
 	
 }
