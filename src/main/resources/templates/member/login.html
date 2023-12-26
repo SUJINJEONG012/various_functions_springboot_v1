@@ -167,18 +167,18 @@
 
 		// 회원 정보 저장 (회원가입)
 		function saveMember() {
+
 			// 1. 필드 유효성 검사
 			const form = document.getElementById('signupForm');
-			console.log(form);
 			validationMemberInfo(form);
+
 			// 2. 파라미터 세팅
-			const params = {};
+			const params = {}
 			new FormData(form).forEach((value, key) => params[key] = value.trim());
 			params.birthday = params.birthday.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');
+
 			// 3. Save API 호출
-			console.log(FormData);
 			callApi('/members', 'post', params);
-			
 			alert('가입을 축하드립니다!\n로그인 후 서비스를 이용해 주세요.');
 			closeSignupPopup();
 		}
