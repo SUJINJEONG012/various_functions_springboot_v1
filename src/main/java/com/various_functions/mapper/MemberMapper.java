@@ -10,6 +10,7 @@ public interface MemberMapper {
 
 	//회원정보 저장(회원가입)
 	void save(MemberRequest params);
+
 	
 	//회원정보 상세정보 조회
 	MemberResponse findByLoginId(String loginId);

@@ -3,6 +3,7 @@ package com.various_functions.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,12 +24,13 @@ public class MemberController {
 	
 	// 로그인 페이지
 	@GetMapping("/login")
-	public String login() {
+	public String openLogin() {
 		return "member/login";
 	}
 	
-	//회원정보저장 
+	//회원정보저장 (회원가입)
 	@PostMapping("/members")
+	@ResponseBody
 	public Long saveMember(@RequestBody final MemberRequest params) {
 		return memberService.saveMember(params);
 	}
@@ -41,7 +43,7 @@ public class MemberController {
 	}
 	
 	//회원정보 수정 
-	@PostMapping("/members/{id}")
+	@PatchMapping("/members/{id}")
 	@ResponseBody
 	public Long updateMember(@PathVariable final Long id, @RequestBody final MemberRequest params) {
 		return memberService.updateMember(params);
