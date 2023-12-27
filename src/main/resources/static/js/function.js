@@ -66,10 +66,10 @@ function getJson(uri, params) {
  * @returns json - 결과 데이터
  */
 function callApi(uri, method, params) {
-
+	  
     let json = {}
 
-     $.ajax({
+    $.ajax({
         url : uri,
         type : method,
         contentType : 'application/json; charset=utf-8',
@@ -83,6 +83,6 @@ function callApi(uri, method, params) {
             console.log(error)
         }
     })
-
+    alert(json);
     return json;
 }
