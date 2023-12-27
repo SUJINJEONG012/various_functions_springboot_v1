@@ -12,12 +12,6 @@
 		#login_box .signup_btn {background:#42d870; border:0; border-bottom:solid 3px #4ed177; border-radius:50px; width:100%; height:52px; line-height:52px; font-size:16px; color:#fff; text-align:center; margin:20px 0 15px;}
 	</style>
 	
-    <script src="/js/jquery-3.6.0.min.js"></script>
-	<script src="/js/function.js"></script>
-	<script src="/js/common.js"></script>
-	<script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
-	
-	
 </head>
 
 <body>
@@ -38,7 +32,7 @@
 							</li>
 							<li>
 								<label for="password" class="skip_info">비밀번호</label>
-								<input type="password" id="password" name="password" title="비밀번호" placeholder="비밀번호" />
+								<input type="text" id="password" name="password" title="비밀번호" placeholder="비밀번호" />
 							</li>
 						</ul>
 						<button type="button" onclick="login();" class="login_btn">로그인</button>
@@ -68,11 +62,11 @@
 						</tr>
 						<tr>
 							<th scope="row">비밀번호<span class="es">필수 입력</span></th>
-							<td><input type="password" name="password" placeholder="비밀번호" maxlength="30" /></td>
+							<td><input type="text" name="password" placeholder="비밀번호" maxlength="30" /></td>
 						</tr>
 						<tr>
 							<th scope="row">비밀번호 재입력<span class="es">필수 입력</span></th>
-							<td><input type="password" name="passwordCheck" placeholder="비밀번호 재입력" maxlength="30" /></td>
+							<td><input type="text" name="passwordCheck" placeholder="비밀번호 재입력" maxlength="30" /></td>
 						</tr>
 						<tr>
 							<th scope="row">이름<span class="es">필수 입력</span></th>
@@ -108,8 +102,57 @@
 		<button type="button" class="btn_close" onclick="closeSignupPopup();"><span><i class="far fa-times-circle"></i></span></button>
 	</div>
 
-	<script>
 
+	<script th:src="@{/js/function.js}"></script>
+	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+	<script th:src="@{/js/common.js}"></script>
+	<script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
+
+	<script>
+	
+		// 로그인 이벤트 바인딩
+		window.onload = () => {
+			document.querySelectorAll('#loginId, #password').forEach(element => {
+				element.addEventListener('keyup', (e)=> {
+					if(e.keyCode === 13){
+						login();
+					}
+				})
+			})
+		}
+		
+		// 로그인
+		function login(){
+			
+			const form = document.getElementById('loginForm')
+
+			//아이디와 비밀번호를 입력하지 않았을 경우
+			if( !form.loginId.value || !form.password.value){
+				alert('아이디와 비밀번호를 모두 입력해주세요.');
+				form.loginId.focus();
+				return false;
+			}
+			
+			$.ajax({
+				url : '/login',
+				type : 'POST',
+				dataType : 'json',
+				data : {
+					loginId : form.loginId.value,
+					password : form.password.value
+				},
+				async:false,
+				success : function(response){
+					location.href='/post/list';
+				},
+				error : function(request, status, error){
+					alert('아이디와 비밀번호를 확인해주세요.');
+				
+				}
+			})
+		}
+		
+		
 		// 회원가입 팝업 open
 		function openSignupPopup() {
 			layerPop('signupPopup')
@@ -149,7 +192,7 @@
 		function validationMemberInfo(form) {
 
 			const fields = form.querySelectorAll('input:not([type="radio"])');
-			const fieldNames = ['아이디', '비밀번호', '빕밀번호 재입력', '이름', '생년월일'];
+			const fieldNames = ['아이디', '비밀번호', '비밀번호 재입력', '이름', '생년월일'];
 
 			for (let i = 0, len = fields.length; i < len; i++) {
 				isValid(fields[i], fieldNames[i]);

@@ -18,6 +18,7 @@ import com.various_functions.domain.MemberResponse;
 import com.various_functions.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,6 +40,7 @@ public class MemberController {
 		// 1. 회원 정보 조회
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
+		System.out.println("password" + password);
 		MemberResponse member = memberService.login(loginId, password);
 		
 		// 2. 세션에 회원정보 저장 & 세션 유지시간 설정
@@ -47,7 +49,7 @@ public class MemberController {
 			session.setAttribute("loginMember", member);
 			session.setMaxInactiveInterval(60 * 30); //세션타임아웃을 설정하는 메서드, 초를 기준으로 1800초 > 30분
 		}
-		
+
 		return member;
 	}
 	
