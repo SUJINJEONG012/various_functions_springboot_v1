@@ -83,6 +83,6 @@ function callApi(uri, method, params) {
             console.log(error)
         }
     })
-    alert(json);
+    console.log("json ::" +json);
     return json;
 }
