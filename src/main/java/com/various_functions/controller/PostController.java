@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.various_functions.domain.PostRequest;
 import com.various_functions.domain.PostResponse;
+import com.various_functions.dto.FileUtils;
 import com.various_functions.dto.MessageDto;
 import com.various_functions.dto.PagingResponse;
 import com.various_functions.dto.SearchDto;
+import com.various_functions.service.FileService;
 import com.various_functions.service.PostService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 public class PostController {
 
 	private final PostService postService;
+	private final FileService fileService;
+	private final FileUtils fileUtils;
 	
 	 
     // 사용자에게 메세지를 전달하고, 페이지를 리다이렉트 한다.

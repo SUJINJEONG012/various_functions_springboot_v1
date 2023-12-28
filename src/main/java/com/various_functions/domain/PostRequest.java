@@ -1,5 +1,10 @@
 package com.various_functions.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 /*
@@ -14,4 +19,7 @@ public class PostRequest {
 	private String content;
 	private String writer;
 	private Boolean noticeYn;
+	
+	//파일추가
+	private List<MultipartFile> files = new ArrayList<>();
 }
