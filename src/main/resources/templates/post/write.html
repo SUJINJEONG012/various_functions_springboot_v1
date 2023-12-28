@@ -12,7 +12,7 @@
 
         <div class="content">
             <section>
-                <form id="saveForm" method="post" autocomplete="off" entype="multipart/form-data">
+                <form id="saveForm" method="post" autocomplete="off" enctype="multipart/form-data">
                     <!--/* 게시글 수정인 경우, 서버로 전달할 게시글 번호 (PK) */-->
                     <input type="hidden" id="id" name="id" th:if="${post != null}" th:value="${post.id}" />
 
@@ -152,8 +152,8 @@
             
             // 파일 추가 
             function addFile(){
-            	const fileDay = document.createElement('div');
-            	fileDiv.innderHTML = `
+            	const fileDiv = document.createElement('div');
+            	fileDiv.innerHTML = `
             	<div class="file_input">
             		<input type="text" readonly />
             		<label>첨부파일
