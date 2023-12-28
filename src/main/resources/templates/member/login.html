@@ -124,13 +124,13 @@
 		// 로그인
 		function login(){
 			
-			const form = document.getElementById('loginForm')
+			const form = document.getElementById("loginForm");
 
 			//아이디와 비밀번호를 입력하지 않았을 경우
 			if( !form.loginId.value || !form.password.value){
 				alert('아이디와 비밀번호를 모두 입력해주세요.');
 				form.loginId.focus();
-				return false;
+				return false; 
 			}
 			
 			$.ajax({
@@ -147,7 +147,7 @@
 				},
 				error : function(request, status, error){
 					alert('아이디와 비밀번호를 확인해주세요.');
-				
+					
 				}
 			})
 		}
