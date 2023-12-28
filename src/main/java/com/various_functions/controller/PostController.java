@@ -1,5 +1,6 @@
 package com.various_functions.controller;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,9 @@ import com.various_functions.service.FileService;
 import com.various_functions.service.PostService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class PostController {
@@ -56,6 +59,7 @@ public class PostController {
 	// 신규 게시글 생성
     @PostMapping("/post/save")
     public String savePost(final PostRequest params, Model model) {
+    	log.info("신규게시글 올라오는 지 확");
     	Long id = postService.savePost(params);
         List<FileDto> files = fileUtils.uploadFiles(params.getFiles());
         fileService.saveFiles(id, files); //업로드 된 파일정보를 db에 저장
