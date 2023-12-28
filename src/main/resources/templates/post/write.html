@@ -12,7 +12,7 @@
 
         <div class="content">
             <section>
-                <form id="saveForm" method="post" autocomplete="off">
+                <form id="saveForm" method="post" autocomplete="off" entype="multipart/form-data">
                     <!--/* 게시글 수정인 경우, 서버로 전달할 게시글 번호 (PK) */-->
                     <input type="hidden" id="id" name="id" th:if="${post != null}" th:value="${post.id}" />
 
@@ -45,6 +45,25 @@
                                 <th>내용 <span class="es">필수 입력</span></th>
                                 <td colspan="3"><textarea id="content" name="content" cols="50" rows="10" placeholder="내용을 입력해 주세요."></textarea></td>
                             </tr>
+                            
+                            <tr>
+								<th>첨부파일</th>
+								<td colspan="3">
+									<div class="file_list">
+										<div>
+											<div class="file_input">
+												<input type="text" readonly />
+												<label>첨부파일
+													<input type="file" name="files" onchange="selectFile(this);" />
+												</label>
+											</div>
+											<button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+											<button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
+											
+										</div>
+									</div>
+								</td>
+							</tr>
                         </tbody>
                     </table>
                 </form>
