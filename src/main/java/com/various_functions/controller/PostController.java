@@ -1,6 +1,7 @@
 package com.various_functions.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.various_functions.domain.PostRequest;
 import com.various_functions.domain.PostResponse;
+import com.various_functions.dto.FileDto;
 import com.various_functions.dto.FileUtils;
 import com.various_functions.dto.MessageDto;
 import com.various_functions.dto.PagingResponse;
@@ -54,11 +56,13 @@ public class PostController {
 	// 신규 게시글 생성
     @PostMapping("/post/save")
     public String savePost(final PostRequest params, Model model) {
-        postService.savePost(params);
+    	Long id = postService.savePost(params);
+        List<FileDto> files = fileUtils.uploadFiles(params.getFiles());
+        fileService.saveFiles(id, files);
         MessageDto message = new MessageDto("게시글 생성이 완료되었습니다.", "/post/list", RequestMethod.GET, null);
-        return showMessageAndRedirect(message,model);
+        return showMessageAndRedirect(message, model);
     }
-    
+   
     //게시글 리스트 페이지
     @GetMapping("/post/list")
     public String openPostList(@ModelAttribute("params") final SearchDto params, Model model) {
