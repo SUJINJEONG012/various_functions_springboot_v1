@@ -34,4 +34,45 @@ insert into tb_file(
 </insert>
 
 
+<!-- 파일 리스트 조회 -->
+<select id="findAllByPostId" parameterType="long" resultType="com.various_functions.domain.FileEntity">
+
+	select <include refid="fileColumns" />
+	from tb_file
+	where
+	delete_yn = 0
+	and post_id = #{value}
+	order by id
+</select>
+
+<!-- 파일 리스트 조회 -->
+<select id="findAllByIds" parameterType="list" resultType="com.various_functions.domain.FileEntity">
+select <include refid="fileColumns"/>
+from tb_file
+where 
+delete_yn = 0
+and id IN 
+<foreach item="id" collection="list" open="(" separator="," close=")">
+#{id}
+</foreach>
+order by id 
+</select>
+
+
+<!-- 파일 삭제 -->
+<delete id="delectAllByIds" parameterType="list">
+update tb_file
+set
+delete_yn =1,
+deleted_date = now()
+where id in
+<foreach item="id" collection="list" open="(" separator=", " close=")">
+ #{id}
+</foreach> 
+</delete>
+
+
+
+
+
 </mapper>
