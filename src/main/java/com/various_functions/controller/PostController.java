@@ -115,7 +115,7 @@ public class PostController {
     
     // 게시글 삭제
     @PostMapping("/post/delete")
-   public String deletePost(@RequestParam Long id, final SearchDto queryParams, Model model) {
+   public String deletePost(@RequestParam Long id, SearchDto queryParams, Model model) {
 	   postService.deletePost(id);
 	   MessageDto message= new MessageDto("게시글이 삭제되었습니다.","/post/list", RequestMethod.GET, queryParamsToMap(queryParams));
 	   return showMessageAndRedirect(message, model);
