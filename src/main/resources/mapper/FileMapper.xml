@@ -59,6 +59,14 @@ order by id
 </select>
 
 
+<!-- 파일 상세정보 조회 -->
+<select id="findById" parameterType="long" resultType="com.various_functions.domain.FileEntity">
+select <include refid="fileColumns"/>
+from tb_file
+where delete_yn = 0
+and id = #{value}
+</select>
+
 <!-- 파일 삭제 -->
 <delete id="deleteAllByIds" parameterType="list">
 update tb_file

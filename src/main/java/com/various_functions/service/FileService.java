@@ -54,6 +54,11 @@ public class FileService {
 		return fileMapper.findAllByIds(ids);
 	}
 	
+	// 파일 상세정보 조회
+	public FileEntity findFileById(final Long id) {
+		return fileMapper.findById(id);
+	}
+	
 	
 	/* 파일 삭제 
 	 * @Param ids PK 리스트 

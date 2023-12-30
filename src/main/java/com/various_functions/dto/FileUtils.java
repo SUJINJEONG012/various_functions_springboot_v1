@@ -2,6 +2,8 @@ package com.various_functions.dto;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -88,6 +92,24 @@ public class FileUtils {
 		}
 		return dir.getPath(); 
 	}
+	
+	/* 다운로드할 첨부파일 (리소스) 조회 */
+	public Resource readFileAsResource(final FileEntity file) {
+		String uploadDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
+		String filename = file.getSaveName();
+		Path filePath = Paths.get(uploadPath, uploadDate, filename);
+		try {
+			Resource resource = new UrlResource(filePath.toUri());
+			if(resource.exists() == false || resource.isFile()== false) {
+				throw new RuntimeException("file not found : " + filePath.toString());
+			}
+			return resource;
+		}catch(MalformedURLException e) {
+			throw new RuntimeException("file not found:" + filePath.toString());
+		}
+	}
+	
+	
 	
 	/* 파일삭제 from disk
 	 * @Param files - 삭제할 파일 정보 List
