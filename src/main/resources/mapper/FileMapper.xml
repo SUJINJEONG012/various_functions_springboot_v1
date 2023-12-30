@@ -60,19 +60,15 @@ order by id
 
 
 <!-- 파일 삭제 -->
-<delete id="delectAllByIds" parameterType="list">
+<delete id="deleteAllByIds" parameterType="list">
 update tb_file
 set
 delete_yn =1,
 deleted_date = now()
 where id in
-<foreach item="id" collection="list" open="(" separator=", " close=")">
+<foreach item="id" collection="list" open="(" separator="," close=")">
  #{id}
 </foreach> 
 </delete>
-
-
-
-
 
 </mapper>

@@ -90,17 +90,22 @@ public class PostController {
     // 기존 게시글 수정
     @PostMapping("/post/update")
     public String updatePost(final PostRequest params, final SearchDto queryParams, Model model) {
+    	
     	// 1. 게시글 정보수정
     	postService.updatePost(params);
+    	
     	// 2. 파일업로드
-    	List<FileDto> uploadfiles = fileUtils.uploadFiles(params.getFiles());
+    	List<FileDto> uploadFiles = fileUtils.uploadFiles(params.getFiles());
     	
     	// 3. 파일 정보 저장
-    	fileService.saveFiles(params.getId(), uploadfiles);
+    	fileService.saveFiles(params.getId(), uploadFiles);
+    	
     	// 4. 삭제할 파일 정보 조회
     	List<FileEntity> deleteFiles = fileService.findAllFileByIds(params.getRemoveFileIds());
+    	
     	// 5. 파일 삭제
     	fileUtils.deleteFiles(deleteFiles);
+    	
     	// 6. 파일 삭제
     	fileService.deleteAllFileByIds(params.getRemoveFileIds());
     	

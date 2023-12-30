@@ -79,7 +79,7 @@
 
         <th:block layout:fragment="script">
         <script th:inline="javascript">
-/* <![CDATA[ */       
+/*<![CDATA[*/       
 			
 			// 파일 삭제 처리용 익명 함수
 			const removeFileId = (function(){
@@ -111,7 +111,7 @@
 					  return false;
 				  }
 				  // 2. API 호출
-				  const response = getJson(`/post/${postId}/files`);
+				  const response = getJson(`/posts/${post.id}/files`);
 				  
 				  // 3. 로직 종료
 				  if(!response.length){
@@ -124,11 +124,11 @@
 				  }
 				  
 				  // 5. 파일 선택 & 삭제 이벤트 재선언 & 파일명 세팅
-				  const filenameInputs = document.querySelector('.file_list input[type="text"]');
+				  const filenameInputs = document.querySelectorAll('.file_list input[type="text"]');
 				  filenameInputs.forEach((input,i)=>{
 					  const fileInput = input.nextElementSibling.firstElementChild;
 					  const fileRemoveBtn = input.parentElement.nextElementSibling;
-					  fileInput.setAttribute('onchange', `selectFile(this, ${responsep[i].id})`);
+					  fileInput.setAttribute('onchange', `selectFile(this, ${response[i].id})`);
 					  fileRemoveBtn.setAttribute('onclick', `removeFile(this, ${response[i].id})`);
 					  input.value = response[i].originalName;
 				  })
@@ -171,13 +171,26 @@
                 for (let i = 0, len = fields.length; i < len; i++) {
                     isValid(fields[i], fieldNames[i]);
                 }
+                new URLSearchParams(location.search).forEach((value, key)=>{
+                	const input = document.createElement('input');
+                	input.type = 'hidden';
+                	input.name = key;
+                	input.value = value;
+                	form.append(input);
+                })
 
                 document.getElementById('saveBtn').disabled = true;
                 form.noticeYn.value = form.isNotice.checked;
                 form.removeFileIds.value = removeFileId.getAll().join();
                 form.action =  [[ ${post == null} ]] ? '/post/save' : '/post/update' ;
-                
                 form.submit();
+            }
+            
+            // 게시글 리스트 페이지로 이동
+            function goListPage(){
+            	const queryString = new URLSearchParams(location.search);
+            	queryString.delete('id');
+            	location.href = '/post/list'+ '?' + queryString.toString();
             }
             
             // 파일선택
@@ -203,9 +216,11 @@
             	
             	// 3. 파일명 지정
             	filename.value = file.name;
+            	
             	// 4. 삭제 할 파일 id 추가
             	if(id){
             		removeFileId.add(id);
+            		
             	}
             }
             
@@ -240,24 +255,6 @@
             	}
             	element.parentElement.remove();
             }
-            
-            
-            // 파일 삭제
-            function removeFile(element, id){
-				//삭제 할 파일 id추가
-				if(id){
-					removeFileId.add(id);
-				}
-				
-				// 2. 파일 영역 초기화 & 삭제
-				const fileAddBtn = element.nextElementSibling;
-				if(fileAddBtn){
-					const inputs = element.previousElementSibling.querySelector('input');
-					inputs.forEach(input => input.value ='')
-					return false;
-				}
-				element.parentElement.remove();
-			}
             
             
             
