@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.various_functions.domain.FileEntity;
 import com.various_functions.domain.PostRequest;
 import com.various_functions.domain.PostResponse;
 import com.various_functions.dto.FileDto;
@@ -88,8 +89,21 @@ public class PostController {
     
     // 기존 게시글 수정
     @PostMapping("/post/update")
-    public String updatePost(final PostRequest params, Model model) {
+    public String updatePost(final PostRequest params, final SearchDto queryParams, Model model) {
+    	// 1. 게시글 정보수정
     	postService.updatePost(params);
+    	// 2. 파일업로드
+    	List<FileDto> uploadfiles = fileUtils.uploadFiles(params.getFiles());
+    	
+    	// 3. 파일 정보 저장
+    	fileService.saveFiles(params.getId(), uploadfiles);
+    	// 4. 삭제할 파일 정보 조회
+    	List<FileEntity> deleteFiles = fileService.findAllFileByIds(params.getRemoveFileIds());
+    	// 5. 파일 삭제
+    	fileUtils.deleteFiles(deleteFiles);
+    	// 6. 파일 삭제
+    	fileService.deleteAllFileByIds(params.getRemoveFileIds());
+    	
     	MessageDto message = new MessageDto("게시글 수정이 완료되었습니다.", "/post/list", RequestMethod.GET, null);
     	return showMessageAndRedirect(message, model);
     }

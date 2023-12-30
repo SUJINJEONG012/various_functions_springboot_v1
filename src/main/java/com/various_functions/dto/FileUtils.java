@@ -10,14 +10,17 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.various_functions.domain.FileEntity;
 
 @Component
 public class FileUtils {
 
-	//private final String uploadPath = Paths.get("/Users/jeongsujin/", "develop", "upload-files").toString();
-	private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
+	private final String uploadPath = Paths.get("/Users/jeongsujin/", "develop", "upload-files").toString();
+	//private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
 	
 	// 다중 파일 업로드
 	public List<FileDto> uploadFiles(final List<MultipartFile> multipartFiles){
@@ -85,6 +88,36 @@ public class FileUtils {
 		}
 		return dir.getPath(); 
 	}
+	
+	/* 파일삭제 from disk
+	 * @Param files - 삭제할 파일 정보 List
+	*/
+	public void deleteFiles(final List<FileEntity> files) {
+		if(CollectionUtils.isEmpty(files)) {
+			return;
+		}
+		for(FileEntity file : files) {
+			String uploadedDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
+			deleteFile(uploadedDate, file.getSaveName());
+		}
+	}
+	
+	/* 파일 삭제 
+	 * @Param addPath - 추가경로
+	 * @Param filename - 파일명
+	 * */
+	private void deleteFile(final String addPath, final String filename) {
+		String filePath = Paths.get(uploadPath, addPath, filename).toString();
+		deleteFile(filePath);
+	}
+	
+	private void deleteFile(final String filePath) {
+		File file = new File(filePath);
+		if(file.exists()) {
+			file.delete();
+		}
+	}
+	
 	
 
 	}

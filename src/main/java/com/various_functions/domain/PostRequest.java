@@ -22,4 +22,6 @@ public class PostRequest {
 	
 	//파일추가
 	private List<MultipartFile> files = new ArrayList<>();
+	private List<Long> removeFileIds = new ArrayList<>();
+	
 }
