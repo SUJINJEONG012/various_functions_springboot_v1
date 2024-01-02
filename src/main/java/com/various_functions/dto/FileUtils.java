@@ -23,8 +23,8 @@ import com.various_functions.domain.FileEntity;
 @Component
 public class FileUtils {
 
-	private final String uploadPath = Paths.get("/Users/jeongsujin/", "develop", "upload-files").toString();
-	//private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
+	//private final String uploadPath = Paths.get("/Users/jeongsujin/", "develop", "upload-files").toString();
+	private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
 	
 	// 다중 파일 업로드
 	public List<FileDto> uploadFiles(final List<MultipartFile> multipartFiles){
