@@ -43,7 +43,7 @@
 	tb_member
 	where
 	delete_yn = 0
-	id = #{value}
+	id = #{id}
 	</select>
 	
 	<!-- 회원정보 수정 -->
