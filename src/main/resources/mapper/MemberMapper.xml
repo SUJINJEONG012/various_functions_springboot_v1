@@ -36,13 +36,11 @@
 	and login_id = #{value}
 	</select>
 	
-	<select id="findAll" 
-	parameterType="com.various_functions.dto.SearchDto"
-	resultType=""
+	<select id="findAll" resultType="com.various_functions.domain.MemberResponse"
 	>
 	<include refid="memberColumns"/>
 	from
-	tb_post
+	tb_member
 	where
 	delete_yn = 0
 	id = #{value}
