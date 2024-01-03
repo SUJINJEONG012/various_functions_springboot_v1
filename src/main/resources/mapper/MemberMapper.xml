@@ -11,7 +11,6 @@
 	<!-- 회원정보 저장(회원가입) -->
 	<insert id="save" parameterType="com.various_functions.domain.MemberRequest"
 		useGeneratedKeys="true" keyProperty="id">
-		
 		insert into tb_member(
 			<include refid="memberColumns" />
 		)values(
@@ -36,14 +35,11 @@
 	and login_id = #{value}
 	</select>
 	
-	<select id="findAll" resultType="com.various_functions.domain.MemberResponse"
-	>
+	<select id="findAll" resultType="com.various_functions.domain.MemberResponse">
+	select
 	<include refid="memberColumns"/>
 	from
 	tb_member
-	where
-	delete_yn = 0
-	id = #{id}
 	</select>
 	
 	<!-- 회원정보 수정 -->

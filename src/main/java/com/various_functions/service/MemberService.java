@@ -66,9 +66,10 @@ public class MemberService {
 	}
 	
 	// 회원 리스트 조회
-	public List<MemberResponse> findAll(final SearchDto params){
-		return memberMapper.findAll(params);
+	public List<MemberResponse> findAll(final MemberResponse id){
+		return memberMapper.findAll(id);
 	}
+	
 	
 	// 회원 수 카운팅
 	public int countMemberByLongId(final String loginId) {

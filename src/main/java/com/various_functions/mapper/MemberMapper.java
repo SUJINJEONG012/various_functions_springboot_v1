@@ -18,7 +18,7 @@ public interface MemberMapper {
 	MemberResponse findByLoginId(String loginId);
 	
 	// 회원정보 리스트 
-	List<MemberResponse> findAll(SearchDto params);
+	List<MemberResponse> findAll(MemberResponse id);
 	// 회원정보 수
 	void update(MemberRequest params);
 	

@@ -13,20 +13,43 @@
 			<strong>현재위치 :</strong><span>회원</span>
 		</p>
 	</div>
-	
+
 	<div class="content">
 		<section>
 			<!-- 리스트 -->
-			<table>
+			<table class="tb tb_col">
 				<colgroup>
-				<col style="width:auto;"/>
-				<col style="width:auto;"/>
-				<col style="width:auto;"/>
+					<col style="width: auto;" />
+					<col style="width: auto;" />
+					<col style="width: auto;" />
 				</colgroup>
+
+				<thead>
+					<tr>
+						<th scope="col">번호</th>
+						<th scope="col">아이디</th>
+						<th scope="col">이름</th>
+						<th scope="col">성별</th>
+						<th scope="col">생일</th>
+						<th scope="col">가입날짜</th>
+					</tr>
+				</thead>
+
+				<tbody id="list">
+					<tr th:each="members: ${memberList}">
+						<td th:text="${members.id}"></td>
+						<td th:text="${members.loginId}"></td>
+						<td th:text="${members.name}"></td>
+						<th th:text="${members.gender}"></th>
+						<th th:text="${members.birthday}"></th>
+						<th th:text="${#temporals.format(members.createdDate, 'yyyy-MM-dd HH:mm')}"></th>
+					</tr>
+				</tbody>
+
 			</table>
-		</section>	
+		</section>
 	</div>
-	
+
 </th:block>
 
 </html>

@@ -75,9 +75,9 @@ public class MemberController {
 	
 	// 회원 리스트 조회
 	@GetMapping({"/","/members/list"})
-	public String openMemberList(@ModelAttribute("params") final SearchDto params, Model model) {
-		List<MemberResponse> members = memberService.findAll(params);
-		model.addAttribute("members", members);
+	public String openMemberList(final MemberResponse id, Model model) {
+		List<MemberResponse> members = memberService.findAll(id);
+		model.addAttribute("memberList", members);
 		return "member/list";
 	}
 	
