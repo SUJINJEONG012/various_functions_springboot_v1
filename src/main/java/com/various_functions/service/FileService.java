@@ -54,7 +54,7 @@ public class FileService {
 		return fileMapper.findAllByIds(ids);
 	}
 	
-	// 파일 상세정보 조회
+	// 파일 상세정보 조회 간단한 쿼리 실행결과만 리턴
 	public FileEntity findFileById(final Long id) {
 		return fileMapper.findById(id);
 	}

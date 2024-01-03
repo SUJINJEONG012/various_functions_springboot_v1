@@ -18,7 +18,7 @@ public interface FileMapper {
 	// 파일 리스트 조회
 	List<FileEntity> findAllByIds(List<Long> ids);
 	
-	// 파일 상세정보 조회
+	// 파일 상세정보 조회(DB에서 조회핧수 있도록)
 	FileEntity findById(Long id);
 	
 	// 파일 삭제

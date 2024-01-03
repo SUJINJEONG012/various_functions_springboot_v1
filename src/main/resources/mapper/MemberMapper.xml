@@ -36,6 +36,18 @@
 	and login_id = #{value}
 	</select>
 	
+	<select id="findAll" 
+	parameterType="com.various_functions.dto.SearchDto"
+	resultType=""
+	>
+	<include refid="memberColumns"/>
+	from
+	tb_post
+	where
+	delete_yn = 0
+	id = #{value}
+	</select>
+	
 	<!-- 회원정보 수정 -->
 	<update id="update" parameterType="com.various_functions.domain.MemberRequest">
 		update tb_member

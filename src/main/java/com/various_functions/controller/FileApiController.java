@@ -33,7 +33,7 @@ public class FileApiController {
 	
 	// 첨부파일 다운로드 
 	@GetMapping("/posts/{postId}/files/{fileId}/download")
-	public ResponseEntity<Resource> downloadFile(@PathVariable final Long post, @PathVariable final Long fileId){
+	public ResponseEntity<Resource> downloadFile(@PathVariable final Long postId, @PathVariable final Long fileId){
 		FileEntity file = fileService.findFileById(fileId);
 		Resource resource = fileUtils.readFileAsResource(file);
 		

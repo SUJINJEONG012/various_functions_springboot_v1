@@ -1,5 +1,7 @@
 package com.various_functions.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.various_functions.domain.MemberRequest;
 import com.various_functions.domain.MemberResponse;
+import com.various_functions.dto.SearchDto;
 import com.various_functions.mapper.MemberMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -60,6 +63,11 @@ public class MemberService {
 	public Long deleteMemberById(final Long id) {
 		memberMapper.deleteById(id);
 		return id;
+	}
+	
+	// 회원 리스트 조회
+	public List<MemberResponse> findAll(final SearchDto params){
+		return memberMapper.findAll(params);
 	}
 	
 	// 회원 수 카운팅
