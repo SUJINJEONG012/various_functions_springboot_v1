@@ -89,6 +89,12 @@ public class MemberController {
 		return memberService.findMemberByLoginId(loginId);
 	}
 	
+	//회원정보 수정
+	@GetMapping("/members/mypage")
+	public String udateMember(Long id) {
+		return "member/mypage";
+	}
+	
 	//회원정보 수정 
 	@PatchMapping("/members/{id}")
 	@ResponseBody
