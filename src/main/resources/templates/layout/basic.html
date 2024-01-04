@@ -1,50 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments/header :: main-head"> </head>
-    <body th:replace="fragments/body :: main-body"> 
-		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-		<canvas id="line-chart" width="300" height="250"></canvas>
-		<script>
-			new Chart(document.getElementById('line-chart'), {
-				type:'line',
-				data:[{
-					labels:[1500, 1600, 1600, 1600, 1600, 1600, 1600],
-					datasets: [86, 1600, 1600, 1600, 1600, 1600, 1600],
-					label: "Africa",
-					borderColor:"#3e95cd",
-					fill: false
-				},{
-					data:[86, 1600, 1600, 1600, 1600, 1600, 1600],
-					label: 'Asia',
-					borderColor:"#8e5ea2",
-					fill:false
-				},{
-					data:[86, 1600, 1600, 1600, 1600, 1600, 1600],
-					label: 'Asia',
-					borderColor:"#8e5ea2",
-					fill:false
-				},{
-					data:[86, 1600, 1600, 1600, 1600, 1600, 1600],
-					label: 'Asia',
-					borderColor:"#8e5ea2",
-					fill:false
-				},{
-					data:[86, 1600, 1600, 1600, 1600, 1600, 1600],
-					label: 'Asia',
-					borderColor:"#8e5ea2",
-					fill:false
-				}]
-			},
-			options:{
-				title:{
-					display:ture,
-					text:"World"
-				}
-			}
-			);
-		</script>
-		
-	</body>
+    <body th:replace="fragments/body :: main-body"></body>
     
 </html>
