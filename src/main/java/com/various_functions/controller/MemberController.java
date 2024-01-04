@@ -74,7 +74,7 @@ public class MemberController {
 	}
 	
 	// 회원 리스트 조회
-	@GetMapping({"/","/members/list"})
+	@GetMapping({"/members/list"})
 	public String openMemberList(final MemberResponse id, Model model) {
 		List<MemberResponse> members = memberService.findAll(id);
 		model.addAttribute("memberList", members);
