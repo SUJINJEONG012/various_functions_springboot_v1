@@ -53,6 +53,8 @@ public class MemberService {
 	// 회원정보 수정
 	@Transactional
 	public Long updateMember(final MemberRequest params) {
+		// 회원정보 수정 할 로직넣기
+		
 		params.encodingPassword(passwordEncoder);
 		memberMapper.update(params);
 		return params.getId();

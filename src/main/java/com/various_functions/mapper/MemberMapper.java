@@ -19,7 +19,8 @@ public interface MemberMapper {
 	
 	// 회원정보 리스트 
 	List<MemberResponse> findAll(MemberResponse id);
-	// 회원정보 수
+	
+	// 회원정보 수정
 	void update(MemberRequest params);
 	
 	//회원정보 삭제

@@ -45,7 +45,7 @@
 						<th th:text="${members.gender}"></th>
 						<th th:text="${members.birthday}"></th>
 						<th th:text="${#temporals.format(members.createdDate, 'yyyy-MM-dd HH:mm')}"></th>
-						<th>수정</th>
+						<th><a th:href="@{mypage}">수정</a></th>
 						<th>삭제</th>
 					</tr>
 				</tbody>
