@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
 
+
+<!-- sql쿼리 로그 출력, https://congsong.tistory.com/23 자세한 설명 글  -->
     <!-- Appenders -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
