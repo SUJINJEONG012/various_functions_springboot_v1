@@ -25,7 +25,7 @@ public class MemberService {
 	public MemberVo login(final String loginId, final String password) {
 		// 1. 회원 정보 및 비밀번호 조회
 		MemberVo member = findMemberByLoginId(loginId);
-		String encodedPassword = (member == null) ? "" : member.getPassword();
+		String encodedPassword = (member == null) ? "" : member.getMemberPw();
 
 		// 2. 회원 정보 및 비밀번호 체크
 		if(member == null || passwordEncoder.matches(password, encodedPassword) == false) {

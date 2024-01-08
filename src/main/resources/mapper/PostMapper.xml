@@ -13,7 +13,7 @@
 
 	<!-- 게시글 저장 -->
 	<insert id="save"
-		parameterType="com.various_functions.domain.PostRequest"
+		parameterType="com.various_functions.vo.PostRequest"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into tb_post(
 		<include refid="postColumns" />
@@ -25,7 +25,7 @@
 
 	<!-- 게시글 상세정보 조회 -->
 	<select id="findById" parameterType="long"
-		resultType="com.various_functions.domain.PostResponse">
+		resultType="com.various_functions.vo.PostResponse">
 		select
 		<include refid="postColumns" />
 		from tb_post
@@ -35,7 +35,7 @@
 
 	<!-- 게시글 수정 -->
 	<update id="update"
-		parameterType="com.various_functions.domain.PostRequest">
+		parameterType="com.various_functions.vo.PostRequest">
 		update tb_post
 		set
 		modified_date = now(),
@@ -58,7 +58,7 @@
 	<!-- 게시글 리스트 조회 -->
 	<select id="findAll"
 		parameterType="com.various_functions.dto.SearchDto"
-		resultType="com.various_functions.domain.PostResponse">
+		resultType="com.various_functions.vo.PostResponse">
 		select
 		<include refid="postColumns" />
 		from

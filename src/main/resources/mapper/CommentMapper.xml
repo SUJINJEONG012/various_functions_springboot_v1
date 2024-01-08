@@ -9,7 +9,7 @@
 
 	<!-- 댓글저장 -->
 	<insert id="save"
-		parameterType="com.various_functions.domain.CommentRequest"
+		parameterType="com.various_functions.vo.CommentRequest"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO tb_comment(
 		<include refid="commentColumns" />
@@ -20,7 +20,7 @@
 
 	<!-- 댓글상세정보 조회 -->
 	<select id="findById" parameterType="long"
-		resultType="com.various_functions.domain.CommentResponse">
+		resultType="com.various_functions.vo.CommentResponse">
 		select
 		<include refid="commentColumns" />
 		from tb_comment
@@ -29,7 +29,7 @@
 
 	<!-- 댓글수정 -->
 	<update id="update"
-		parameterType="com.various_functions.domain.CommentRequest">
+		parameterType="com.various_functions.vo.CommentRequest">
 		update tb_comment
 		set 
 		modified_date = now(), 
@@ -48,7 +48,7 @@
 	</delete>
 	
 	<!-- 댓글리스트 조회 -->
-	<select id="findAll" parameterType="com.various_functions.dto.CommentSearchDto" resultType="com.various_functions.domain.CommentResponse">
+	<select id="findAll" parameterType="com.various_functions.dto.CommentSearchDto" resultType="com.various_functions.vo.CommentResponse">
 	select 
 	<include refid="commentColumns" />
 	from tb_comment

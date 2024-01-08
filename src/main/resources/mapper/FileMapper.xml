@@ -35,7 +35,7 @@ insert into tb_file(
 
 
 <!-- 파일 리스트 조회 -->
-<select id="findAllByPostId" parameterType="long" resultType="com.various_functions.domain.FileEntity">
+<select id="findAllByPostId" parameterType="long" resultType="com.various_functions.vo.FileEntity">
 
 	select <include refid="fileColumns" />
 	from tb_file
@@ -46,7 +46,7 @@ insert into tb_file(
 </select>
 
 <!-- 파일 리스트 조회 -->
-<select id="findAllByIds" parameterType="list" resultType="com.various_functions.domain.FileEntity">
+<select id="findAllByIds" parameterType="list" resultType="com.various_functions.vo.FileEntity">
 select <include refid="fileColumns"/>
 from tb_file
 where 
@@ -60,7 +60,7 @@ order by id
 
 
 <!-- 파일 상세정보 조회 -->
-<select id="findById" parameterType="long" resultType="com.various_functions.domain.FileEntity">
+<select id="findById" parameterType="long" resultType="com.various_functions.vo.FileEntity">
 select <include refid="fileColumns"/>
 from tb_file
 where delete_yn = 0
