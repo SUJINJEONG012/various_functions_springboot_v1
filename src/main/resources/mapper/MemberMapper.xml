@@ -9,7 +9,7 @@
 	</sql>
 
 	<!-- 회원정보 저장(회원가입) -->
-	<insert id="save" parameterType="com.various_functions.vo.MemberRequest"
+	<insert id="save" parameterType="com.various_functions.vo.MemberDto"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into tb_member(
 			<include refid="memberColumns" />

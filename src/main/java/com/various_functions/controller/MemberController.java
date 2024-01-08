@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.various_functions.dto.SearchDto;
 import com.various_functions.service.MemberService;
-import com.various_functions.vo.MemberRequest;
+import com.various_functions.vo.MemberDto;
 import com.various_functions.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
@@ -68,7 +68,7 @@ public class MemberController {
 	//회원정보저장 (회원가입)
 	@PostMapping("/members")
 	@ResponseBody
-	public Long saveMember(@RequestBody final MemberRequest params) {
+	public Long saveMember(@RequestBody final MemberDto params) {
 		System.out.println("params :: @@@@@" + params);
 		return memberService.saveMember(params);
 	}
@@ -98,7 +98,7 @@ public class MemberController {
 	//회원정보 수정 
 	@PatchMapping("/members/{id}")
 	@ResponseBody
-	public Long updateMember(@PathVariable final Long id, @RequestBody final MemberRequest params) {
+	public Long updateMember(@PathVariable final Long id, @RequestBody final MemberDto params) {
 		return memberService.updateMember(params);
 	}
 	

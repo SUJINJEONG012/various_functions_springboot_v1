@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberRequest {
+public class MemberDto {
 
 	private Long id;
 	private String loginId;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.various_functions.dto.SearchDto;
 import com.various_functions.mapper.MemberMapper;
-import com.various_functions.vo.MemberRequest;
+import com.various_functions.vo.MemberDto;
 import com.various_functions.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
@@ -39,7 +39,7 @@ public class MemberService {
 	
 	// 회원정보 저장(회원가입)
 	@Transactional
-	public Long saveMember(final MemberRequest params) {
+	public Long saveMember(final MemberDto params) {
 		params.encodingPassword(passwordEncoder);
 		memberMapper.save(params);
 		return params.getId();
@@ -52,7 +52,7 @@ public class MemberService {
 	
 	// 회원정보 수정
 	@Transactional
-	public Long updateMember(final MemberRequest params) {
+	public Long updateMember(final MemberDto params) {
 		// 회원정보 수정 할 로직넣기
 		
 		params.encodingPassword(passwordEncoder);
