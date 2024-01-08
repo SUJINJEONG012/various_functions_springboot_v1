@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.various_functions.domain.MemberResponse;
+import com.various_functions.vo.MemberVo;
 
 public class LoginCheckInterceptor implements HandlerInterceptor {
 
@@ -15,7 +15,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		
 		// 1.세션에서 회원 정보 조회
 		HttpSession session = request.getSession();
-		MemberResponse member = (MemberResponse) session.getAttribute("loginMember");
+		MemberVo member = (MemberVo) session.getAttribute("loginMember");
 		
 		// 2. 회원정보 체크
 		if(member == null || member.getDeleteYn() == true) {

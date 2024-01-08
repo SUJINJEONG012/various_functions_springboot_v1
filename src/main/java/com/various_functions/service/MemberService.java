@@ -7,10 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.various_functions.domain.MemberRequest;
-import com.various_functions.domain.MemberResponse;
 import com.various_functions.dto.SearchDto;
 import com.various_functions.mapper.MemberMapper;
+import com.various_functions.vo.MemberRequest;
+import com.various_functions.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,9 +22,9 @@ public class MemberService {
 	private final PasswordEncoder passwordEncoder;
 	
 	//로그인
-	public MemberResponse login(final String loginId, final String password) {
+	public MemberVo login(final String loginId, final String password) {
 		// 1. 회원 정보 및 비밀번호 조회
-		MemberResponse member = findMemberByLoginId(loginId);
+		MemberVo member = findMemberByLoginId(loginId);
 		String encodedPassword = (member == null) ? "" : member.getPassword();
 
 		// 2. 회원 정보 및 비밀번호 체크
@@ -46,7 +46,7 @@ public class MemberService {
 	}
 	
 	// 회원상세정보 조회
-	public MemberResponse findMemberByLoginId(final String loginId) {
+	public MemberVo findMemberByLoginId(final String loginId) {
 		return memberMapper.findByLoginId(loginId);
 	}
 	
@@ -68,7 +68,7 @@ public class MemberService {
 	}
 	
 	// 회원 리스트 조회
-	public List<MemberResponse> findAll(final MemberResponse id){
+	public List<MemberVo> findAll(final MemberVo id){
 		return memberMapper.findAll(id);
 	}
 	

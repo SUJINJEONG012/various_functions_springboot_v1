@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.various_functions.domain.FileEntity;
 import com.various_functions.dto.FileDto;
+import com.various_functions.vo.FileEntity;
 
 @Mapper
 public interface FileMapper {

@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.various_functions.domain.FileEntity;
-import com.various_functions.domain.PostRequest;
-import com.various_functions.domain.PostResponse;
 import com.various_functions.dto.FileDto;
 import com.various_functions.dto.FileUtils;
 import com.various_functions.dto.MessageDto;
@@ -23,6 +20,9 @@ import com.various_functions.dto.PagingResponse;
 import com.various_functions.dto.SearchDto;
 import com.various_functions.service.FileService;
 import com.various_functions.service.PostService;
+import com.various_functions.vo.FileEntity;
+import com.various_functions.vo.PostRequest;
+import com.various_functions.vo.PostResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

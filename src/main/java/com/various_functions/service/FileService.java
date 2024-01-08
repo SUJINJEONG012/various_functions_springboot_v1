@@ -8,9 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.various_functions.domain.FileEntity;
 import com.various_functions.dto.FileDto;
 import com.various_functions.mapper.FileMapper;
+import com.various_functions.vo.FileEntity;
 
 import lombok.RequiredArgsConstructor;
 

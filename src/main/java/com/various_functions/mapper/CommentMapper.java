@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.various_functions.domain.CommentRequest;
-import com.various_functions.domain.CommentResponse;
 import com.various_functions.dto.CommentSearchDto;
+import com.various_functions.vo.CommentRequest;
+import com.various_functions.vo.CommentResponse;
 
 @Mapper
 public interface CommentMapper {

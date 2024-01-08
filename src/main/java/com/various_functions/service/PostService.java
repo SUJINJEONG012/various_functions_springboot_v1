@@ -6,12 +6,12 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.various_functions.domain.PostRequest;
-import com.various_functions.domain.PostResponse;
 import com.various_functions.dto.Pagination;
 import com.various_functions.dto.PagingResponse;
 import com.various_functions.dto.SearchDto;
 import com.various_functions.mapper.PostMapper;
+import com.various_functions.vo.PostRequest;
+import com.various_functions.vo.PostResponse;
 
 import lombok.RequiredArgsConstructor;
 

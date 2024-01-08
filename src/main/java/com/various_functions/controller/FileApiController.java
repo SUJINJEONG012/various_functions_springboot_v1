@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.various_functions.domain.FileEntity;
 import com.various_functions.dto.FileUtils;
 import com.various_functions.service.FileService;
+import com.various_functions.vo.FileEntity;
 
 import lombok.RequiredArgsConstructor;
 

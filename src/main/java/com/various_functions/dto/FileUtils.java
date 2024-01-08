@@ -18,7 +18,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.various_functions.domain.FileEntity;
+import com.various_functions.vo.FileEntity;
 
 @Component
 public class FileUtils {

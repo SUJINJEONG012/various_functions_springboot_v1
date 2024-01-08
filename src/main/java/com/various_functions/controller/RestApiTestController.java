@@ -3,10 +3,10 @@ package com.various_functions.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.various_functions.domain.PostResponse;
 import com.various_functions.dto.PagingResponse;
 import com.various_functions.dto.SearchDto;
 import com.various_functions.service.PostService;
+import com.various_functions.vo.PostResponse;
 
 import lombok.RequiredArgsConstructor;
 

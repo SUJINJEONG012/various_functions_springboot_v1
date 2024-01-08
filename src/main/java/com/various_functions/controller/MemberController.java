@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.various_functions.domain.MemberRequest;
-import com.various_functions.domain.MemberResponse;
 import com.various_functions.dto.SearchDto;
 import com.various_functions.service.MemberService;
+import com.various_functions.vo.MemberRequest;
+import com.various_functions.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,12 +39,12 @@ public class MemberController {
 	// 로그인
 	@PostMapping("/login")
 	@ResponseBody
-	public MemberResponse login(HttpServletRequest request) {
+	public MemberVo login(HttpServletRequest request) {
 		
 		// 1. 회원 정보 조회
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
-		MemberResponse member = memberService.login(loginId, password);
+		MemberVo member = memberService.login(loginId, password);
 		
 		// 2. 세션에 회원정보 저장 & 세션 유지시간 설정
 		if(member != null) {
@@ -75,8 +75,8 @@ public class MemberController {
 	
 	// 회원 리스트 조회
 	@GetMapping({"/members/list"})
-	public String openMemberList(final MemberResponse id, Model model) {
-		List<MemberResponse> members = memberService.findAll(id);
+	public String openMemberList(final MemberVo id, Model model) {
+		List<MemberVo> members = memberService.findAll(id);
 		model.addAttribute("memberList", members);
 		return "member/list";
 	}
@@ -85,7 +85,7 @@ public class MemberController {
 	// 회원 상세정보 조회
 	@GetMapping("/members/{loginId}")
 	@ResponseBody
-	public MemberResponse findMemberByLoginId(@PathVariable final String loginId) {
+	public MemberVo findMemberByLoginId(@PathVariable final String loginId) {
 		return memberService.findMemberByLoginId(loginId);
 	}
 	

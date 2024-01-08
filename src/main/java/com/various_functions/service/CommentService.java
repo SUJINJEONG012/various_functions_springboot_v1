@@ -7,12 +7,12 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.various_functions.domain.CommentRequest;
-import com.various_functions.domain.CommentResponse;
 import com.various_functions.dto.CommentSearchDto;
 import com.various_functions.dto.Pagination;
 import com.various_functions.dto.PagingResponse;
 import com.various_functions.mapper.CommentMapper;
+import com.various_functions.vo.CommentRequest;
+import com.various_functions.vo.CommentResponse;
 
 import lombok.RequiredArgsConstructor;
 

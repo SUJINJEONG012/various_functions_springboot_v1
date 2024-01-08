@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.various_functions.domain.PostRequest;
-import com.various_functions.domain.PostResponse;
 import com.various_functions.dto.SearchDto;
+import com.various_functions.vo.PostRequest;
+import com.various_functions.vo.PostResponse;
 
 @Mapper
 public interface PostMapper {

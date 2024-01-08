@@ -4,9 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
-import com.various_functions.domain.PostRequest;
 import com.various_functions.service.PostService;
+import com.various_functions.vo.PostRequest;
 
 @SpringBootTest
 public class PostServiceTest {
