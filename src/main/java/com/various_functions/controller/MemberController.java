@@ -64,6 +64,11 @@ public class MemberController {
 		return "redirect:/login"; //사용자를 로그인 페이지로 이동
 	}
 	
+	//회원가입 페이지 이동 
+	@GetMapping("/join")
+	public String saveMember() {
+		return "/member/join";
+	}
 	
 	//회원정보저장 (회원가입)
 	@PostMapping("/members")
