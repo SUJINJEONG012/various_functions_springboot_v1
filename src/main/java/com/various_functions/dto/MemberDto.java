@@ -1,9 +1,11 @@
-package com.various_functions.vo;
+package com.various_functions.dto;
 
 import java.time.LocalDate;
 
 import org.apache.groovy.parser.antlr4.util.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.various_functions.vo.Gender;
 
 import lombok.AccessLevel;
 import lombok.Getter;

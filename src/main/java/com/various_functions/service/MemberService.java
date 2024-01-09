@@ -7,9 +7,9 @@ import javax.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.various_functions.dto.MemberDto;
 import com.various_functions.dto.SearchDto;
 import com.various_functions.mapper.MemberMapper;
-import com.various_functions.vo.MemberDto;
 import com.various_functions.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;

@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.various_functions.dto.MemberDto;
 import com.various_functions.dto.SearchDto;
 import com.various_functions.service.MemberService;
-import com.various_functions.vo.MemberDto;
 import com.various_functions.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;

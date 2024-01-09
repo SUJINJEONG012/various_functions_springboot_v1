@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.various_functions.dto.MemberDto;
 import com.various_functions.dto.SearchDto;
-import com.various_functions.vo.MemberDto;
 import com.various_functions.vo.MemberVo;
 
 @Mapper
