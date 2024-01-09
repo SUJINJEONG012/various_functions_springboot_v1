@@ -42,7 +42,7 @@ public class MemberService {
 	public Long saveMember(final MemberDto params) {
 		params.encodingPassword(passwordEncoder);
 		memberMapper.save(params);
-		return params.getId();
+		return params.getMemberId();
 	}
 	
 	// 회원상세정보 조회
@@ -57,7 +57,7 @@ public class MemberService {
 		
 		params.encodingPassword(passwordEncoder);
 		memberMapper.update(params);
-		return params.getId();
+		return params.getMemberId();
 	}
 	
 	// 회원정보 삭제

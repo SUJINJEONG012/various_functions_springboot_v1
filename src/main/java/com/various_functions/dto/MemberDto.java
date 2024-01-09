@@ -19,18 +19,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberDto {
 
-	private Long id;
+	private Long memberId;
 	private String loginId;
-	private String password;
-	private String name;
+	private String memberPw;
+	private String memberName;
+	private String memberEmail;
 	private Gender gender;
 	private LocalDate birthday;
+	private String memberAddr1;
+	private String memberAddr2;
+	private String memberAddr3;
+	private int adminCk;
+	private int money;
 	
 	public void encodingPassword(PasswordEncoder passwordEncoder) {
-		if(StringUtils.isEmpty(password)) {
+		if(StringUtils.isEmpty(memberPw)) {
 			return ;
 		}
-		password = passwordEncoder.encode(password);
+		memberPw = passwordEncoder.encode(memberPw);
 	}
 	
 }
