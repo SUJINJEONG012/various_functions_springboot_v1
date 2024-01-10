@@ -31,7 +31,7 @@ public class PostMapperTest {
 //		List<PostResponse> posts = postMapper.findAll();
 //		System.out.println("전체 게시글 개수는 : " + posts.size() + "개 입니다.");
 //	}
-	
+//	
 	
 	@Test
 	void findById() {

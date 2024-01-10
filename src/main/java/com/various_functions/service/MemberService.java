@@ -41,7 +41,7 @@ public class MemberService {
 	@Transactional
 	public Long saveMember(final MemberDto params) {
 		params.encodingPassword(passwordEncoder);
-		memberMapper.save(params);
+		memberMapper.memberSave(params);
 		return params.getMemberId();
 	}
 	

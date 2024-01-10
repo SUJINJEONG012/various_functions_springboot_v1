@@ -9,21 +9,27 @@
 	</sql>
 
 	<!-- 회원정보 저장(회원가입) -->
-	<insert id="save" parameterType="com.various_functions.dto.MemberDto"
+	<insert id="memberSave" parameterType="com.various_functions.dto.MemberDto"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into tb_member(
 			<include refid="memberColumns" />
 		)values(
 			#{id},
 			#{loginId},
-			#{password},
-			#{name},
-			#{gender},
+			#{memberPw},
+			#{memberName},
+			#{memberEmail},
 			#{birthday},
+			#{memberAddr1},
+			#{memberAddr2},
+			#{memberAddr3},
+			#{gender},
 			0,
 			now(),
-			null
+			#{adminCk},
+			#{money}
 		)
+		
 	</insert>
 	
 	<!-- 회원 상세정보 조회 -->
