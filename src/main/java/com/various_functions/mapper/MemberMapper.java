@@ -16,7 +16,7 @@ public interface MemberMapper {
 
 	//회원정보 상세정보 조회
 	MemberVo findByLoginId(String loginId);
-	
+	        
 	// 회원정보 리스트 
 	List<MemberVo> findAll(MemberVo id);
 	
