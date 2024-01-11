@@ -10,7 +10,7 @@
 
 	<!-- 회원정보 저장(회원가입) -->
 	<insert id="memberSave" parameterType="com.various_functions.dto.MemberDto"
-		useGeneratedKeys="true" keyProperty="id">
+		useGeneratedKeys="true" keyProperty="memberId">
 		insert into tb_member(
 			<include refid="memberColumns" />
 		)values(
@@ -33,51 +33,7 @@
 		
 	</insert>
 	
-	<!-- 회원 상세정보 조회 -->
-	<select id="findByLoginId" parameterType="string" resultType="com.various_functions.vo.MemberVo">
 	
-	select <include refid="memberColumns"/>
-	from tb_member
-	where delete_yn=0
-	and login_id = #{value}
-	</select>
-	
-	<select id="findAll" resultType="com.various_functions.vo.MemberVo">
-	select
-	<include refid="memberColumns"/>
-	from
-	tb_member
-	</select>
-	
-	<!-- 회원정보 수정 -->
-	<update id="update" parameterType="com.various_functions.vo.MemberVo">
-		update tb_member
-		set
-		modified_date = now(),
-		name = #{name},
-		gender = #{gender},
-		birthday = #{birthday}
-		<if test="password != null and password != '' ">
-		, password = #{password}
-		</if>
-		where id = #{id}
-	</update>
-	
-	<!-- 회원탈퇴 -->
-	<delete id="deleteById" parameterType="long">
-		update tb_member
-		set 
-		delete_yn= 1
-		where id = #{id}
-	</delete>
-	
-	
-	<!-- 회원 수 카운팅 -->
-	<select id="countByLoginId" parameterType="string" resultType="int">
-		select count(*)
-		from tb_member
-		where login_id = #{value}
-	</select>
 	
 	
 </mapper>

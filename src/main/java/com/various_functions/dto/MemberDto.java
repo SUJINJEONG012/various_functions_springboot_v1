@@ -22,7 +22,7 @@ public class MemberDto {
 	private String loginId;
 	private String memberPw;
 	private String memberName;
-	private String memberEmail;
+	private String memberMail;
 	private Gender gender;
 	private LocalDate birthday;
 	private String memberAddr1;

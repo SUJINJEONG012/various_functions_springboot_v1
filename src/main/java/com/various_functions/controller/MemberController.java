@@ -96,7 +96,7 @@ public class MemberController {
 	
 	//회원정보 수정
 	@GetMapping("/members/mypage")
-	public String udateMember(Long id) {
+	public String udateMember(Long memberId) {
 		return "member/mypage";
 	}
 	
