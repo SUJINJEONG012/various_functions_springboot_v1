@@ -4,8 +4,8 @@
 
 	<!-- tb_member 테이블 전체칼럼 -->
 	<sql id="memberColumns">
-		id, login_id, password, name, gender, birthday, delete_yn, created_date,
-		modified_date
+		member_id, login_id, member_pw, member_name, member_mail, birthday, member_addr1, member_addr2, member_addr3, gender, delete_yn, created_date,
+		modified_date, admin_ck, money
 	</sql>
 
 	<!-- 회원정보 저장(회원가입) -->
@@ -14,11 +14,11 @@
 		insert into tb_member(
 			<include refid="memberColumns" />
 		)values(
-			#{id},
+			#{memberId},
 			#{loginId},
 			#{memberPw},
 			#{memberName},
-			#{memberEmail},
+			#{memberMail},
 			#{birthday},
 			#{memberAddr1},
 			#{memberAddr2},
@@ -26,6 +26,7 @@
 			#{gender},
 			0,
 			now(),
+			null,
 			#{adminCk},
 			#{money}
 		)

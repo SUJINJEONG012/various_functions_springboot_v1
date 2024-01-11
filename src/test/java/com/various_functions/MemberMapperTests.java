@@ -11,7 +11,6 @@ import com.various_functions.mapper.MemberMapper;
 import com.various_functions.vo.Gender;
 
 
-
 @SpringBootTest
 public class MemberMapperTests {
 
@@ -20,7 +19,7 @@ public class MemberMapperTests {
 	private MemberMapper memberMapper;
 	
 	@Test
-	public void memberSave() throws Exception {
+	void memberSave() {
 
 		MemberDto memberDto = new MemberDto();
 		
