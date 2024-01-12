@@ -21,21 +21,21 @@ public class MemberService {
 	private final MemberMapper memberMapper;
 	private final PasswordEncoder passwordEncoder;
 	
-//	//로그인
-//	public MemberVo login(final String loginId, final String password) {
-//		// 1. 회원 정보 및 비밀번호 조회
-//		MemberVo member = findMemberByLoginId(loginId);
-//		String encodedPassword = (member == null) ? "" : member.getMemberPw();
-//
-//		// 2. 회원 정보 및 비밀번호 체크
-//		if(member == null || passwordEncoder.matches(password, encodedPassword) == false) {
+	//로그인
+	public MemberVo login(final String loginId, final String memberPw) {
+		// 1. 회원 정보 및 비밀번호 조회
+		MemberVo member = findMemberByLoginId(loginId);
+		String encodedPassword = (member == null) ? "" : member.getMemberPw();
+
+		// 2. 회원 정보 및 비밀번호 체크
+//		if(member == null || passwordEncoder.matches(memberPw, encodedPassword) == false) {
 //			return null;
 //		}
-//		
-//		// 3. 회원 응답 객체에서 비밀번호를 제거한 후 회원 정보 리턴
-//		member.clearPassword();		
-//		return member;
-//	}
+		
+		// 3. 회원 응답 객체에서 비밀번호를 제거한 후 회원 정보 리턴
+		//member.clearPassword();		
+		return member;
+	}
 	
 	// 회원정보 저장(회원가입)
 	@Transactional
@@ -45,10 +45,11 @@ public class MemberService {
 		return memberDto.getMemberId();
 	}
 	
-//	// 회원상세정보 조회
-//	public MemberVo findMemberByLoginId(final String loginId) {
-//		return memberMapper.findByLoginId(loginId);
-//	}
+	// 회원상세정보 조회
+	public MemberVo findMemberByLoginId(final String loginId) {
+		return memberMapper.findByLoginId(loginId);
+	}
+	
 //	
 //	// 회원정보 수정
 //	@Transactional
@@ -67,12 +68,11 @@ public class MemberService {
 //		return id;
 //	}
 //	
-//	// 회원 리스트 조회
-//	public List<MemberVo> findAll(final MemberVo id){
-//		return memberMapper.findAll(id);
-//	}
-//	
-//	
+	// 회원 리스트 조회
+	public List<MemberVo> findAll(final MemberVo id){
+		return memberMapper.findAll(id);
+	}
+
 //	// 회원 수 카운팅
 //	public int countMemberByLongId(final String loginId) {
 //		return memberMapper.countByLoginId(loginId);

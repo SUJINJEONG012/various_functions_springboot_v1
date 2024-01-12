@@ -1,20 +1,15 @@
 package com.various_functions.controller;
 
-import java.util.List;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.various_functions.dto.MemberDto;
@@ -22,10 +17,13 @@ import com.various_functions.service.MemberService;
 import com.various_functions.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/member")
+@Slf4j
 public class MemberController {
 
 	private final MemberService memberService;
@@ -36,25 +34,25 @@ public class MemberController {
 		return "member/login";
 	}
 	
-//	// 로그인
-//	@PostMapping("/login")
-//	@ResponseBody
-//	public MemberVo login(HttpServletRequest request) {
-//		
-//		// 1. 회원 정보 조회
-//		String loginId = request.getParameter("loginId");
-//		String password = request.getParameter("password");
-//		MemberVo member = memberService.login(loginId, password);
-//		
-//		// 2. 세션에 회원정보 저장 & 세션 유지시간 설정
-//		if(member != null) {
-//			HttpSession session = request.getSession();
-//			session.setAttribute("loginMember", member);
-//			session.setMaxInactiveInterval(60 * 30); //세션타임아웃을 설정하는 메서드, 초를 기준으로 1800초 > 30분
-//		}
-//
-//		return member;
-//	}
+	// 로그인
+	@PostMapping("/login")
+	@ResponseBody
+	public MemberVo login(HttpServletRequest request) {
+		
+		// 1. 회원 정보 조회
+		String loginId = request.getParameter("loginId");
+		String memberPw = request.getParameter("memberPw");
+		MemberVo member = memberService.login(loginId, memberPw);
+		log.info("member: "+member);
+		// 2. 세션에 회원정보 저장 & 세션 유지시간 설정
+		if(member != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("loginMember", member);
+			session.setMaxInactiveInterval(60 * 30); //세션타임아웃을 설정하는 메서드, 초를 기준으로 1800초 > 30분
+		}
+
+		return member;
+	}
 	
 	
 	// 로그아웃

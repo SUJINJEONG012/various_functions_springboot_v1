@@ -31,8 +31,8 @@
 								<input type="text" id="loginId" name="loginId" placeholder="아이디" title="아이디" />
 							</li>
 							<li>
-								<label for="password" class="skip_info">비밀번호</label>
-								<input type="text" id="password" name="password" title="비밀번호" placeholder="비밀번호" />
+								<label for="memberPw" class="skip_info">비밀번호</label>
+								<input type="text" id="memberPw" name="memberPw" title="비밀번호" placeholder="비밀번호" />
 							</li>
 						</ul>
 						<button type="button" onclick="login();" class="login_btn">로그인</button>
@@ -50,6 +50,48 @@
 	<script th:src="@{/js/common.js}"></script>
 	<script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
 
+
+	<script>
+		window.onload = ()=>{
+			document.querySelectorAll("#loginId, #memberPw").forEach(element =>{
+				element.addEventListener('keyup', (e)=>{
+					if(e.keycode === 13){
+						login();
+					}
+				})	
+			})
+		}
+		
+		//로그인
+		function login(){
+			const form = document.getElementById("loginForm");
+			// form 엘리먼트 가지고 와서 아이디와비밀번호를 입력확인
+			if(!form.loginId.value || !form.memberPw.value){
+				form.loginId.focus();
+				return false;
+			}
+			$.ajax({
+				url: "/member/login",
+				type:"post",
+				dataType: "json",
+				data:{
+					loginId:form.loginId.value,
+					memberPw: form.memberPw.value
+				},
+				async:false,
+				success : function(response){
+					location.href='/'; // 원래주소는 게시판 리스트 볼수있는곳으로 
+				},
+				error : function(request, status, error){
+					console.log(request);
+					console.log(status);
+					alert("아이디와 비밀번호를 확인해주세요.");
+				}
+			})
+			
+			
+		}
+	</script>
 	
 </body>
 </html>
