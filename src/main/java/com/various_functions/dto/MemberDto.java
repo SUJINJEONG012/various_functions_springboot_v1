@@ -7,9 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.various_functions.vo.Gender;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /*
  * 회원가입과 회원정보수정에 사용될 요청 클래스
@@ -29,7 +27,6 @@ public class MemberDto {
 	private String memberAddr2;
 	private String memberAddr3;
 	private int adminCk;
-	private int money;
 	
 	public void encodingPassword(PasswordEncoder passwordEncoder) {
 		if(StringUtils.isEmpty(memberPw)) {
@@ -37,5 +34,6 @@ public class MemberDto {
 		}
 		memberPw = passwordEncoder.encode(memberPw);
 	}
+
 	
 }

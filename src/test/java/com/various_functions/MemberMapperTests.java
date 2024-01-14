@@ -10,6 +10,8 @@ import com.various_functions.dto.MemberDto;
 import com.various_functions.mapper.MemberMapper;
 import com.various_functions.vo.Gender;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @SpringBootTest
 public class MemberMapperTests {
@@ -22,7 +24,8 @@ public class MemberMapperTests {
 	void memberSave() {
 
 		MemberDto memberDto = new MemberDto();
-		memberDto.setLoginId("test2");
+
+		memberDto.setLoginId("test");
 		memberDto.setMemberPw("1234");
 		memberDto.setMemberName("테스트로 넣은 멤버데이터");
 		memberDto.setMemberMail("peekaboo32@naver.com");
@@ -32,10 +35,8 @@ public class MemberMapperTests {
 		memberDto.setMemberAddr2("부산광역시");
 		memberDto.setMemberAddr3("아파트 1동 ");
 		memberDto.setAdminCk(0);
-		memberDto.setMoney(10000);
-		
 		memberMapper.memberSave(memberDto);
-	}
+	}	
 	
 //	@Test
 //	public void memberList() {

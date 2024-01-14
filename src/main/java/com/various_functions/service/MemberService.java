@@ -27,10 +27,10 @@ public class MemberService {
 		MemberVo member = findMemberByLoginId(loginId);
 		String encodedPassword = (member == null) ? "" : member.getMemberPw();
 
-		// 2. 회원 정보 및 비밀번호 체크
-//		if(member == null || passwordEncoder.matches(memberPw, encodedPassword) == false) {
-//			return null;
-//		}
+		//2. 회원 정보 및 비밀번호 체크
+		if(member == null || passwordEncoder.matches(memberPw, encodedPassword) == false) {
+			return null;
+		}
 		
 		// 3. 회원 응답 객체에서 비밀번호를 제거한 후 회원 정보 리턴
 		//member.clearPassword();		
@@ -39,7 +39,7 @@ public class MemberService {
 	
 	// 회원정보 저장(회원가입)
 	@Transactional
-	public Long saveMember(final MemberDto memberDto) {
+	public Long memberSave(final MemberDto memberDto) {
 		memberDto.encodingPassword(passwordEncoder);
 		memberMapper.memberSave(memberDto);
 		return memberDto.getMemberId();

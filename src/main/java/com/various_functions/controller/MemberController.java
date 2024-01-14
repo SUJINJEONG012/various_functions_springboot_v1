@@ -1,12 +1,14 @@
 package com.various_functions.controller;
 
-
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +46,7 @@ public class MemberController {
 		String memberPw = request.getParameter("memberPw");
 		MemberVo member = memberService.login(loginId, memberPw);
 		log.info("member: "+member);
+		
 		// 2. 세션에 회원정보 저장 & 세션 유지시간 설정
 		if(member != null) {
 			HttpSession session = request.getSession();
@@ -73,24 +76,24 @@ public class MemberController {
 	@ResponseBody
 	public Long saveMember(@RequestBody final MemberDto params) {
 		System.out.println("params :: @@@@@" + params);
-		return memberService.saveMember(params);
+		return memberService.memberSave(params);
 	}
 	
-//	// 회원 리스트 조회
-//	@GetMapping({"/members/list"})
-//	public String openMemberList(final MemberVo id, Model model) {
-//		List<MemberVo> members = memberService.findAll(id);
-//		model.addAttribute("memberList", members);
-//		return "member/list";
-//	}
+	// 회원 리스트 조회
+	@GetMapping({"/members/list"})
+	public String openMemberList(final MemberVo id, Model model) {
+		List<MemberVo> members = memberService.findAll(id);
+		model.addAttribute("memberList", members);
+		return "member/list";
+	}
 //	
 //	
-//	// 회원 상세정보 조회
-//	@GetMapping("/members/{loginId}")
-//	@ResponseBody
-//	public MemberVo findMemberByLoginId(@PathVariable final String loginId) {
-//		return memberService.findMemberByLoginId(loginId);
-//	}
+	// 회원 상세정보 조회
+	@GetMapping("/members/{loginId}")
+	@ResponseBody
+	public MemberVo findMemberByLoginId(@PathVariable final String loginId) {
+		return memberService.findMemberByLoginId(loginId);
+	}
 	
 	//회원정보 수정
 	@GetMapping("/members/mypage")
