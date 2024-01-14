@@ -23,7 +23,7 @@
 					<p>LOG<i>IN</i></p>
 				</div>
 
-				<div class="login_input">
+				 <div class="login_input">
 					<form id="loginForm" onsubmit="return false;" autocomplete="off">
 						<ul>
 							<li>
@@ -38,7 +38,7 @@
 						<button type="button" onclick="login();" class="login_btn">로그인</button>
 						<button type="button" onclick="location.href='join'" class="signup_btn">회원가입</button>
 					</form>
-				</div>
+				</div> 
 			</div>
 		</div>
 	</div>
@@ -55,6 +55,7 @@
 	
 		//로그인 이벤트 바인딩
 		window.onload = ()=>{
+			
 			document.querySelectorAll("#loginId, #memberPw").forEach(element =>{
 				element.addEventListener('keyup', (e)=>{
 					if(e.keycode === 13){

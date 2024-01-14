@@ -27,6 +27,7 @@ public class MemberDto {
 	private String memberAddr2;
 	private String memberAddr3;
 	private int adminCk;
+	private int money;
 	
 	public void encodingPassword(PasswordEncoder passwordEncoder) {
 		if(StringUtils.isEmpty(memberPw)) {

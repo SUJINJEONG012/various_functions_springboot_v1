@@ -10,8 +10,6 @@ import com.various_functions.dto.MemberDto;
 import com.various_functions.mapper.MemberMapper;
 import com.various_functions.vo.Gender;
 
-import lombok.extern.slf4j.Slf4j;
-
 
 @SpringBootTest
 public class MemberMapperTests {
@@ -29,13 +27,15 @@ public class MemberMapperTests {
 		memberDto.setMemberPw("1234");
 		memberDto.setMemberName("테스트로 넣은 멤버데이터");
 		memberDto.setMemberMail("peekaboo32@naver.com");
-		memberDto.setGender(Gender.F);
 		memberDto.setBirthday(LocalDate.of(1992, 04, 24));
 		memberDto.setMemberAddr1("120202-120");
 		memberDto.setMemberAddr2("부산광역시");
 		memberDto.setMemberAddr3("아파트 1동 ");
-		
-		memberMapper.memberSave(memberDto);
+		memberDto.setGender(Gender.F);
+		memberDto.setAdminCk(0);
+		memberDto.setMoney(100);;
+	
+		memberMapper.save(memberDto);
 	}	
 	
 //	@Test
