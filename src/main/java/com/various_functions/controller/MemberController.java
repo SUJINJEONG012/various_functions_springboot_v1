@@ -33,6 +33,7 @@ public class MemberController {
 	// 로그인 페이지
 	@GetMapping("/login")
 	public String openLogin() {
+		log.info("로그인페이지 이동");
 		return "member/login";
 	}
 	
@@ -45,6 +46,7 @@ public class MemberController {
 		String loginId = request.getParameter("loginId");
 		String memberPw = request.getParameter("memberPw");
 		MemberVo member = memberService.login(loginId, memberPw);
+		
 		log.info("member: "+member);
 		
 		// 2. 세션에 회원정보 저장 & 세션 유지시간 설정
@@ -53,7 +55,7 @@ public class MemberController {
 			session.setAttribute("loginMember", member);
 			session.setMaxInactiveInterval(60 * 30); //세션타임아웃을 설정하는 메서드, 초를 기준으로 1800초 > 30분
 		}
-
+		log.info("로그인페이지 post");
 		return member;
 	}
 	

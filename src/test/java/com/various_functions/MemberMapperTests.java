@@ -34,7 +34,7 @@ public class MemberMapperTests {
 		memberDto.setMemberAddr1("120202-120");
 		memberDto.setMemberAddr2("부산광역시");
 		memberDto.setMemberAddr3("아파트 1동 ");
-		memberDto.setAdminCk(0);
+		
 		memberMapper.memberSave(memberDto);
 	}	
 	

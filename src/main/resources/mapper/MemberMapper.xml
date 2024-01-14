@@ -29,6 +29,7 @@
 			null,
 			#{adminCk},
 			#{money}
+			
 		)
 		
 	</insert>
