@@ -67,9 +67,12 @@
 		
 		//로그인
 		function login(){
+			
 			const form = document.getElementById("loginForm");
+			
 			// form 엘리먼트 가지고 와서 아이디와비밀번호를 입력확인
 			if(!form.loginId.value || !form.memberPw.value){
+				alert("아이디와 비밀번호를 모두 입력해주세요.");
 				form.loginId.focus();
 				return false;
 			}
@@ -77,11 +80,11 @@
 				url: "/member/login",
 				type:"post",
 				dataType: "json",
-				data:{
-					loginId:form.loginId.value,
-					memberPw: form.memberPw.value
+				data : {
+					loginId : form.loginId.value,
+					memberPw : form.memberPw.value
 				},
-				async:false,
+				//async:false,
 				success : function(response){
 					location.href='/'; // 원래주소는 게시판 리스트 볼수있는곳으로 
 				},

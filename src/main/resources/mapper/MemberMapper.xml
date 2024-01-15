@@ -4,8 +4,21 @@
 
 	<!-- tb_member 테이블 전체칼럼 -->
 	<sql id="memberColumns">
-		member_id, login_id, member_pw, member_name, member_mail, birthday, member_addr1, member_addr2, member_addr3, gender, delete_yn, created_date,
-		modified_date, admin_ck, money
+		member_id, 
+		login_id, 
+		member_pw, 
+		member_name, 
+		member_mail, 
+		gender, 
+		birthday,
+		member_addr1, 
+		member_addr2, 
+		member_addr3, 
+		delete_yn, 
+		created_date,
+		modified_date, 
+		admin_ck, 
+		money
 	</sql>
 
 	<!-- 회원정보 저장(회원가입) -->
@@ -19,23 +32,22 @@
 			#{memberPw},
 			#{memberName},
 			#{memberMail},
+			#{gender},
 			#{birthday},
 			#{memberAddr1},
 			#{memberAddr2},
 			#{memberAddr3},
-			#{gender},
 			0,
 			now(),
 			null,
 			#{adminCk},
 			#{money}
-			
 		)
 		
 	</insert>
 	
 	<!-- 회원상세조회 -->
-	<select id="findByLonginId" parameterType="String" resultType="com.various_functions.vo.MemberVo">
+	<select id="findByLoginId" parameterType="String" resultType="com.various_functions.vo.MemberVo">
 		select
 		<include refid="memberColumns"/>
 		from tb_member

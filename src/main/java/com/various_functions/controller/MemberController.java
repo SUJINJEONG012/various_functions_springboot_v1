@@ -1,5 +1,8 @@
 package com.various_functions.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +34,28 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	// 로그인 페이지
+	@PostMapping("/login")
+	public MemberVo login(HttpServletRequest request) {
+		log.info("post 로그인페이지 @@");
+		// 회원 정보 조회
+		String loginId = request.getParameter("loginId");
+		System.out.println("회원정보 아이디  : " + loginId);
+		String memberPw = request.getParameter("memberPw");
+		System.out.println("회원정보 비밀번호 : " + memberPw);
+		
+		MemberVo member = memberService.login(loginId, memberPw);
+		log.info("post 회원정보조회 @@");
+		System.out.println("회원정보 조회 : " + member);
+		// 세션 회원정보저장 & 세션 유지 시간 설정
+//		if(member != null) {
+//			HttpSession session = request.getSession();
+//			session.setAttribute("loginMember", member);
+//			session.setMaxInactiveInterval(60*30);
+//		}		
+		return member;
+	}
+	
 	//회원정보 저장 회원가입 
 	@PostMapping("/save")
 	@ResponseBody
@@ -44,4 +69,5 @@ public class MemberController {
 	public MemberVo findMemberByLoginId(@PathVariable final String loginId) {
 		return memberService.findMemberByLoginId(loginId);
 	}
+	
 }

@@ -14,6 +14,7 @@ public interface MemberMapper {
 
 	// 회원정보 
 	void save(MemberDto memberDto);
+	
 	// 회원 상세정보
 	MemberVo findByLoginId(String loginId);
 			
