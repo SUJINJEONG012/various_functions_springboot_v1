@@ -22,17 +22,17 @@ public class MemberService {
 	
 	// 로그인 
 	public MemberVo login(final String loginId, final String memberPw) {
-		// 회원정보 및 비밀번호 조회
-		MemberVo member = findMemberByLoginId(loginId);
-		String encodePassword = (member == null) ? "":member.getMemberPw();
-		System.out.println("member : " + member);
-		// 회원정보 및 비밀번호 체크
-//		if(member == null || passwordEncoder.matches(memberPw, encodePassword) == false) {
-//			return null;
-//		}
-		// 회원 응답 객체에서 비밀번호를 제거한 후 회원정보 리턴
-		//member.clearPassword();
-		return member;
+	    // 회원정보 및 비밀번호 조회
+	    MemberVo member = memberMapper.findByLoginId(loginId);
+	    
+	    if(member != null && memberPw.equals(member.getMemberPw())) {
+	    	// 비밀번호 일치하는 경우
+	    	return member;
+	    }else {
+	    	// 로그인 실패
+	    	return null;
+	    }
+	    
 	}
 	
 	// 회원정보 
@@ -43,9 +43,6 @@ public class MemberService {
 		return memberDto.getMemberId();
 	}
 	
-	// 회원상세정보
-	public MemberVo findMemberByLoginId(final String loginId) {
-		return memberMapper.findByLoginId(loginId);
-	}
+	
 	
 }

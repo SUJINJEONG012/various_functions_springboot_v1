@@ -24,7 +24,7 @@
 				</div>
 
 				<div class="login_input">
-					<form id="loginForm" onsubmit="return false;" autocomplete="off" method="post">
+					<form th:action="@{/login}" autocomplete="off" method="post">
 						<ul>
 							<li>
 								<label for="loginId" class="skip_info">아이디</label>
@@ -57,13 +57,26 @@
 	let login_btn = document.querySelector('.login_btn');
 	const loginForm = document.getElementById('loginForm');
 	
-	login_btn.addEventListener("click", function(){
+	login_btn.addEventListener("click", async function(){
 		
 		// alert("로그인 버튼 적용")
 		
 		// 로그인 메서드 서버 요청
-		loginForm.action = '/member/login';
-		loginForm.submit();
+		//loginForm.action = '/';
+		//loginForm.submit();
+		try{
+			let response = await fetch('/member/login', {
+				method: 'post',
+				body: new FormData(loginForm)
+			});
+			if(response.ok){
+				console.log('로그인성공');
+			}else{
+				console.log('로그인 실패');
+			}
+		}catch(error){
+			console.log('서버요청 오류', error);
+		}
 		
 	})
 	</script>
