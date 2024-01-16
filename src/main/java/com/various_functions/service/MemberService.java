@@ -27,11 +27,11 @@ public class MemberService {
 		String encodePassword = (member == null) ? "":member.getMemberPw();
 		System.out.println("member : " + member);
 		// 회원정보 및 비밀번호 체크
-		if(member == null || passwordEncoder.matches(memberPw, encodePassword) == false) {
-			return null;
-		}
+//		if(member == null || passwordEncoder.matches(memberPw, encodePassword) == false) {
+//			return null;
+//		}
 		// 회원 응답 객체에서 비밀번호를 제거한 후 회원정보 리턴
-		member.clearPassword();
+		//member.clearPassword();
 		return member;
 	}
 	
