@@ -1,13 +1,15 @@
 package com.various_functions;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.various_functions.dto.MemberDto;
 import com.various_functions.mapper.MemberMapper;
+import com.various_functions.vo.Gender;
 import com.various_functions.vo.MemberVo;
 
 
@@ -41,15 +43,33 @@ public class MemberMapperTests {
 //	}
 	
 	// 테이블의 uk findByLoginId  조건 게시글 조회하는
+//	@Test
+//	public void findByLoginId() {
+//		MemberVo member = memberMapper.findByLoginId("admin");
+//		try {
+//			String memberJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(member);
+//			System.out.println(memberJson);
+//		}catch(JsonProcessingException e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
+	
+	// 회원수정 테스트
 	@Test
-	public void findByLoginId() {
-		MemberVo member = memberMapper.findByLoginId("admin");
-		try {
-			String memberJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(member);
-			System.out.println(memberJson);
-		}catch(JsonProcessingException e) {
-			throw new RuntimeException(e);
-		}
+	void update() {
+		// 1. 게시글 수정
+		MemberDto memberDto = new MemberDto();
+	
+		memberDto.setMemberId(3L);
+		memberDto.setLoginId("test2222");
+		memberDto.setMemberName("dd");
+		memberDto.setMemberPw("12341234");
+		memberDto.setMemberMail("12341234");
+		memberDto.setMemberAddr1("12341234");
+		memberDto.setMemberAddr2("12341234");
+		memberDto.setMemberAddr3("12341234");
+		
+		memberMapper.update(memberDto);
 	}
 	
 	
