@@ -29,7 +29,13 @@ public class MemberDto {
 	private int adminCk;
 	private int money;
 	
-	
+	//비밀번호를 암호화하는 기능,
+	public void encodingPassword(PasswordEncoder passwordEncoder) {
+		if(StringUtils.isEmpty(memberPw)) {
+			return ;
+		}
+		memberPw = passwordEncoder.encode(memberPw);
+	}		
 
 	
 }

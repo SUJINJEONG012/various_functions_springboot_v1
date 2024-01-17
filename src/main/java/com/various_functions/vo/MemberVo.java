@@ -40,10 +40,5 @@ public class MemberVo {
 		this.memberPw = "";
 	}
 	
-	public void encodingPassword(PasswordEncoder passwordEncoder) {
-		if(StringUtils.isEmpty(memberPw)) {
-			return ;
-		}
-		memberPw = passwordEncoder.encode(memberPw);
-	}
+	
 }
