@@ -23,7 +23,7 @@ public class MemberVo {
 	private String loginId; // 로그인 아이디
 	private String memberPw;
 	private String memberName;
-	private String memberEmail;
+	private String memberMail;
 	private Gender gender;
 	private LocalDate birthday;
 	private String memberAddr1;

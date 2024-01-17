@@ -22,7 +22,7 @@ public interface MemberMapper {
 	 * 쿼리가 실행되면 메서드의 리턴 타입인 MemberVo 클래스객체의 
 	 * 각 멤버변수에 결과값이 매핑(바인딩)
 	 * */
-	MemberVo findByLoginId(Long loginId);
+	MemberVo findByLoginId(String loginId);
 	
 	/* 회원 정보 수정 */
 	void update(MemberDto memberDto);
@@ -36,7 +36,7 @@ public interface MemberMapper {
 	List<MemberVo> findAll();
 	
 	
-	/* 회원 수 카운팅 id중복체크  
+	/* 회원 수 카운팅 id중복체크
 	 * loginId - uk
 	 * return 회원수
 	 * */
