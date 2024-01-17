@@ -11,12 +11,11 @@ import com.various_functions.vo.MemberVo;
 @Mapper
 public interface MemberMapper {
 
-
 	// 회원정보 
 	void save(MemberDto memberDto);
 	
-	// 회원 상세정보
-	MemberVo findByLoginId(String loginId);
+	// 회원 로그인
+	public MemberVo findByLoginId(MemberVo meberVo);
 			
 	
 }
