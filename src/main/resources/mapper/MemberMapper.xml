@@ -40,21 +40,13 @@
 			0,
 			now(),
 			null,
-			#{adminCk},
-			#{money}
+			0,
+			10000
 		)
 		
 	</insert>
 	
-	<!-- 회원상세조회 -->
-	<select id="findByLoginId" parameterType="String" resultType="com.various_functions.vo.MemberVo">
-		select
-		<include refid="memberColumns"/>
-		from tb_member
-		where delete_yn = 0 
-		and login_id= #{value}
-	</select>
-	
+
 	
 	
 	

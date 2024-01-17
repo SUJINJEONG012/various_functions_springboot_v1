@@ -32,45 +32,7 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	// 로그인 요청 페이지
-	@PostMapping("/member/login")
-	public String login(@RequestParam String loginId, @RequestParam String memberPw, Model model) {
-		log.info("post 로그인페이지 @@");
-		
-		//회원정보조회
-		MemberVo member = memberService.login(loginId, memberPw);
-		if(member != null) {
-			model.addAttribute("member", member);
-			return "redirect:/index"; // 로그인 성공 후 이동할 페이지
-		}else {
-			return "/member/login"; // 로그인 실패시 이동할 페이지
-		}
-		
-//		// 회원 정보 조회
-//		String loginId = request.getParameter("loginId");
-//		System.out.println("회원정보 아이디  : " + loginId);
-//		String memberPw = request.getParameter("memberPw");
-//		System.out.println("회원정보 비밀번호 : " + memberPw);
-//		
-//		MemberVo member = memberService.login(loginId, memberPw);
-//		log.info("post 회원정보조회 @@");
-//		System.out.println("회원정보 조회 : " + member);
-		// 세션 회원정보저장 & 세션 유지 시간 설정
-//		if(member != null) {
-//			HttpSession session = request.getSession();
-//			session.setAttribute("loginMember", member);
-//			session.setMaxInactiveInterval(60*30);
-//		}		
-//		return member;
-	}
-	
-	//회원정보 저장 회원가입 
-	@PostMapping("/save")
-	@ResponseBody
-	public Long saveMember(@RequestBody final MemberDto memberDto) {
-		return memberService.saveMember(memberDto);
-	}
-	
+
 	
 	
 }

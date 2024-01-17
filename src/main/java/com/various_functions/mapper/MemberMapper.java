@@ -14,8 +14,6 @@ public interface MemberMapper {
 	// 회원정보 
 	void save(MemberDto memberDto);
 	
-	// 회원 로그인
-	public MemberVo findByLoginId(MemberVo meberVo);
-			
+	
 	
 }

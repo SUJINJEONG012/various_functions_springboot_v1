@@ -1,11 +1,14 @@
 package com.various_functions;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.various_functions.dto.MemberDto;
 import com.various_functions.mapper.MemberMapper;
-import com.various_functions.vo.MemberVo;
+import com.various_functions.vo.Gender;
 
 
 @SpringBootTest
@@ -15,34 +18,32 @@ public class MemberMapperTests {
 	@Autowired
 	private MemberMapper memberMapper;
 	
-//	@Test
-//	void memberSave() {
-//
-//		MemberDto memberDto = new MemberDto();
-//
-//		memberDto.setLoginId("test");
-//		memberDto.setMemberPw("1234");
-//		memberDto.setMemberName("테스트로 넣은 멤버데이터");
-//		memberDto.setMemberMail("peekaboo32@naver.com");
-//		memberDto.setBirthday(LocalDate.of(1992, 04, 24));
-//		memberDto.setMemberAddr1("120202-120");
-//		memberDto.setMemberAddr2("부산광역시");
-//		memberDto.setMemberAddr3("아파트 1동 ");
-//		memberDto.setGender(Gender.F);
-//		memberDto.setAdminCk(0);
-//		memberDto.setMoney(100);;
-//	
-//		memberMapper.save(memberDto);
-//	}
-	
-	//로그인 테스트
 	@Test
-	public void findByLoginId() throws Exception{
-		MemberVo memberVo = new MemberVo();
-		/* 올바른 아이디 비번일 경우 */
-		memberVo.setLoginId("test");
-		memberVo.setMemberPw("d1234");
+	void memberSave() {
+
+		MemberDto memberDto = new MemberDto();
+
+		memberDto.setLoginId("test1");
+		memberDto.setMemberPw("1234");
+		memberDto.setMemberName("테스트로");
+		memberDto.setMemberMail("peekaboo32@naver.com");
+		memberDto.setBirthday(LocalDate.of(1992, 04, 24));
+		memberDto.setMemberAddr1("테스트");
+		memberDto.setMemberAddr2("테스트");
+		memberDto.setMemberAddr3("테스트");
+		memberDto.setGender(Gender.F);
+	
+		memberMapper.save(memberDto);
 	}
+	
+//	//로그인 테스트
+//	@Test
+//	public void findByLoginId() throws Exception{
+//		MemberVo memberVo = new MemberVo();
+//		/* 올바른 아이디 비번일 경우 */
+//		memberVo.setLoginId("test");
+//		memberVo.setMemberPw("d1234");
+//	}
 //	@Test
 //	public void memberList() {
 //		

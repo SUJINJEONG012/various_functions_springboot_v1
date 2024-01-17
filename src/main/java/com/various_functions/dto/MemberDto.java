@@ -29,12 +29,7 @@ public class MemberDto {
 	private int adminCk;
 	private int money;
 	
-	public void encodingPassword(PasswordEncoder passwordEncoder) {
-		if(StringUtils.isEmpty(memberPw)) {
-			return ;
-		}
-		memberPw = passwordEncoder.encode(memberPw);
-	}
+	
 
 	
 }

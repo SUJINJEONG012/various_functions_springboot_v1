@@ -3,6 +3,9 @@ package com.various_functions.vo;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.apache.groovy.parser.antlr4.util.StringUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 //생성자를 통해서 값 변경 목적으로 접근하는 메시지들 차단
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberVo {
 	
 	private Long memberId; //pk 아이디
@@ -36,5 +38,12 @@ public class MemberVo {
 	// 회원상세정보를 조회한 후 비밀번호를 초기화하는 용도로 사용
 	public void clearPassword() {
 		this.memberPw = "";
+	}
+	
+	public void encodingPassword(PasswordEncoder passwordEncoder) {
+		if(StringUtils.isEmpty(memberPw)) {
+			return ;
+		}
+		memberPw = passwordEncoder.encode(memberPw);
 	}
 }
