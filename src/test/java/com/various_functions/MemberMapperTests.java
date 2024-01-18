@@ -74,16 +74,10 @@ public class MemberMapperTests {
 	// 회원삭제 테스트
 	@Test
 	void delete() {
-//	log.info("삭제 이전의 회읜 수 는 : ", memberMapper.findAll().size() , "명 입니다. ");
-//	memberMapper.deleteById(5L);
-//	log.info("삭제 이후의 회읜 수 는 : ", memberMapper.findAll().size() , "명 입니다. ");
-		
+	
 		 System.out.println("삭제 이전의 전체 게시글 개수는 : " + memberMapper.findAll().size() + "개입니다.");
 		 memberMapper.deleteById(5L);
 	     System.out.println("삭제 이후의 전체 게시글 개수는 : " + memberMapper.findAll().size() + "개입니다.");
-	
 	}
-	
-	
 	
 }
