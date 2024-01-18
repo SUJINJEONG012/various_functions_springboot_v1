@@ -2,6 +2,7 @@ package com.various_functions.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.various_functions.interceptor.LoggerInterceptor;
@@ -21,4 +22,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
         .excludePathPatterns("/log*");
 	
 	}
+	@Override
+	public void addResourceHandlers(final ResourceHandlerRegistry registry){
+	    registry.addResourceHandler("/**")
+	            .addResourceLocations("classpath:/templates/", "classpath:/static/");
+
+	}
+
 }
+
+
