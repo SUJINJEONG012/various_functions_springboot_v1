@@ -36,7 +36,11 @@ public class MemberController {
 	@PostMapping("/member/login")
 	@ResponseBody
 	public MemberVo login(HttpServletRequest request) {
+<<<<<<< HEAD
 		// 1. 회원 상세정보 조회
+=======
+		// 1. 회원정보 조회
+>>>>>>> 4f84e11 (json 형태로 로그인 성공!!)
 		String loginId = request.getParameter("loginId");
 		String memberPw =  request.getParameter("memberPw");
 		MemberVo member = memberService.login(loginId, memberPw);
@@ -51,12 +55,21 @@ public class MemberController {
 		
 	}
 	
+<<<<<<< HEAD
 	// 회원 상세 조회
 	@GetMapping("/member/{loginId}")
 	@ResponseBody
 	public MemberVo findMemberById(@PathVariable final String loginId) {
 		return memberService.findMemberById(loginId);
 	}
+=======
+//	// 회원 상세 조회
+//	@GetMapping("/member/${loginId}")
+//	@ResponseBody
+//	public MemberVo findMemberById(@PathVariable final String loginId) {
+//		return memberService.findMemberById(loginId);
+//	}
+>>>>>>> 4f84e11 (json 형태로 로그인 성공!!)
 	
 	
 	
