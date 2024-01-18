@@ -13,6 +13,6 @@ public class MainController {
 	@GetMapping("/")
 	public String main() {
 	log.info("메인에 진입");
-		return "index";
+		return "/index";
 	}
 }
