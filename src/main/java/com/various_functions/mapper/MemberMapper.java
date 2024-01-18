@@ -42,5 +42,4 @@ public interface MemberMapper {
 	 * */
 	int countByLoginId(String loginId);
 	
-	
 }

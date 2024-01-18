@@ -1,19 +1,18 @@
 package com.various_functions;
 
-import java.time.LocalDate;
-import java.util.List;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.various_functions.dto.MemberDto;
 import com.various_functions.mapper.MemberMapper;
-import com.various_functions.vo.Gender;
-import com.various_functions.vo.MemberVo;
+
+import lombok.extern.slf4j.Slf4j;
 
 
 @SpringBootTest
+@Slf4j
 public class MemberMapperTests {
 
 	// 생성자 주입
@@ -55,22 +54,36 @@ public class MemberMapperTests {
 //	}
 	
 	// 회원수정 테스트
-	@Test
-	void update() {
-		// 1. 게시글 수정
-		MemberDto memberDto = new MemberDto();
+//	@Test
+//	void update() {
+//		// 1. 게시글 수정
+//		MemberDto memberDto = new MemberDto();
+//	
+//		memberDto.setMemberId(5L);
+//		memberDto.setLoginId("test2222");
+//		memberDto.setMemberName("dd");
+//		memberDto.setMemberPw("12341234");
+//		memberDto.setMemberMail("12341234");
+//		memberDto.setMemberAddr1("12341234");
+//		memberDto.setMemberAddr2("12341234");
+//		memberDto.setMemberAddr3("12341234");
+//		
+//		memberMapper.update(memberDto);
+//	}
 	
-		memberDto.setMemberId(3L);
-		memberDto.setLoginId("test2222");
-		memberDto.setMemberName("dd");
-		memberDto.setMemberPw("12341234");
-		memberDto.setMemberMail("12341234");
-		memberDto.setMemberAddr1("12341234");
-		memberDto.setMemberAddr2("12341234");
-		memberDto.setMemberAddr3("12341234");
+	// 회원삭제 테스트
+	@Test
+	void delete() {
+//	log.info("삭제 이전의 회읜 수 는 : ", memberMapper.findAll().size() , "명 입니다. ");
+//	memberMapper.deleteById(5L);
+//	log.info("삭제 이후의 회읜 수 는 : ", memberMapper.findAll().size() , "명 입니다. ");
 		
-		memberMapper.update(memberDto);
+		 System.out.println("삭제 이전의 전체 게시글 개수는 : " + memberMapper.findAll().size() + "개입니다.");
+		 memberMapper.deleteById(5L);
+	     System.out.println("삭제 이후의 전체 게시글 개수는 : " + memberMapper.findAll().size() + "개입니다.");
+	
 	}
+	
 	
 	
 }
