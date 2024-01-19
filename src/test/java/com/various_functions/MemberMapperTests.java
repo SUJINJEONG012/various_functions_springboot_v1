@@ -1,12 +1,17 @@
 package com.various_functions;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.various_functions.dto.MemberDto;
 import com.various_functions.mapper.MemberMapper;
+import com.various_functions.vo.Gender;
+import com.various_functions.vo.MemberVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,28 +23,34 @@ public class MemberMapperTests {
 	// 생성자 주입
 	@Autowired
 	private MemberMapper memberMapper;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	//회원 생성 테스트  성공
-//	@Test
-//	void memberSave() {
-//
-//		MemberDto memberDto = new MemberDto();
-//
-//		memberDto.setLoginId("test2");
-//		memberDto.setMemberPw("1234");
-//		memberDto.setMemberName("테스트로");
-//		memberDto.setMemberMail("peekaboo32@naver.com");
-//		memberDto.setBirthday(LocalDate.of(1992, 04, 24));
-//		memberDto.setMemberAddr1("테스트");
-//		memberDto.setMemberAddr2("테스트");
-//		memberDto.setMemberAddr3("테스트");
-//		memberDto.setGender(Gender.F);
-//	
-//		memberMapper.save(memberDto);
-//		
-//		List<MemberVo> members= memberMapper.findAll();
-//		System.out.println("전체 회원은 : " + members.size() + "명 입니다.");
-//	}
+	@Test
+	void memberSave() {
+
+		MemberDto memberDto = new MemberDto();
+
+		memberDto.setLoginId("test1");
+		memberDto.setMemberPw("1234");
+		memberDto.setMemberName("테스트로");
+		memberDto.setMemberMail("peekaboo32@naver.com");
+		memberDto.setBirthday(LocalDate.of(1992, 04, 24));
+		memberDto.setMemberAddr1("테스트");
+		memberDto.setMemberAddr2("테스트");
+		memberDto.setMemberAddr3("테스트");
+		memberDto.setGender(Gender.F);
+	
+		// 입력된 비밀번호를 해시화하여 저장
+        String encodedPassword = passwordEncoder.encode(memberDto.getMemberPw());
+        memberDto.setMemberPw(encodedPassword);
+        
+		memberMapper.save(memberDto);
+		
+		List<MemberVo> members= memberMapper.findAll();
+		System.out.println("전체 회원은 : " + members.size() + "명 입니다.");
+	}
 	
 	// 테이블의 uk findByLoginId  조건 게시글 조회하는
 //	@Test
@@ -72,12 +83,12 @@ public class MemberMapperTests {
 //	}
 	
 	// 회원삭제 테스트
-	@Test
-	void delete() {
-	
-		 System.out.println("삭제 이전의 전체 게시글 개수는 : " + memberMapper.findAll().size() + "개입니다.");
-		 memberMapper.deleteById(5L);
-	     System.out.println("삭제 이후의 전체 게시글 개수는 : " + memberMapper.findAll().size() + "개입니다.");
-	}
+//	@Test
+//	void delete() {
+//	
+//		 System.out.println("삭제 이전의 전체 게시글 개수는 : " + memberMapper.findAll().size() + "개입니다.");
+//		 memberMapper.deleteById(5L);
+//	     System.out.println("삭제 이후의 전체 게시글 개수는 : " + memberMapper.findAll().size() + "개입니다.");
+//	}
 	
 }

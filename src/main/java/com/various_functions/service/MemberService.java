@@ -22,16 +22,21 @@ public class MemberService {
 	
 	//로그인
 	public MemberVo login(final String loginId, final String memberPw) {
+		
 		// 1. 회원 정보 및 비밀번호 조회
 		MemberVo member = findByLoginId(loginId);
-		String encodedPassword = member == null ?  "" : member.getMemberPw();
+		String encodedPassword = (member == null) ?  "" : member.getMemberPw();
+		
+		System.out.println("findByLoginId(loginId): " + findByLoginId(loginId));
+		System.out.println("loginService 설정: " + member);
+		
 		// 2. 회원 정보 및 비밀번호 체크
 		if(member == null || passwordEncoder.matches(memberPw, encodedPassword)) {
 			return null;
 		}
 		
 		// 3. 회원 응답 객체에서 비밀번호를 제거한 후 회원 정보 리턴
-		//member.clearPassword();
+		member.clearPassword();
 		return member;
 	}
 	
