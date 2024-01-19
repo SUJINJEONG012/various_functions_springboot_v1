@@ -71,29 +71,26 @@
 	
 	// 로그인
 	function login() {
+    var formData = {
+        loginId: $('#loginId').val(),
+        memberPw: $("#memberPw").val()
+    };
 
-		var formData = {
-			loginId : $('#loginId').val(),
-			memberPw : $("#memberPw").val()
-		};
-
-		
-		$.ajax({
-			url : '/member/login',
-			type : 'POST',
-			 contentType: 'application/json',
-			 data : JSON.stringify(formData),
-			async : false,
-			success : function (response) {
-				console.log('Server response:', response);
-				location.href = '/post/list';
-			},
-			error : function (request, status, error) {
-				console.error('Error:', error);
-				alert('아이디와 비밀번호를 확인해 주세요.');
-			}
-		})
-	}
+    $.ajax({
+        url: '/member/login',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        success: function (response) {
+            console.log('Server response:', response);
+            location.href = '/post/list';
+        },
+        error: function (request, status, error) {
+            console.error('Error:', error);
+            alert('아이디와 비밀번호를 확인해 주세요.');
+        }
+    });
+}
 
 	</script>
 </body>

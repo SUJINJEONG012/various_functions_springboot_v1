@@ -31,8 +31,7 @@ public class MemberController {
 	}
 	
 	// 로그인 기능 
-	@PostMapping("/member/login")
-	@ResponseBody
+	@PostMapping("/member/login")	
 	public MemberVo login(@RequestBody MemberDto memberDto) {
 		// 1. 회원 상세정보 조회
 		String loginId = memberDto.getLoginId();
