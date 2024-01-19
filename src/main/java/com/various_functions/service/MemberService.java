@@ -23,7 +23,7 @@ public class MemberService {
 	//로그인
 	public MemberVo login(final String loginId, final String memberPw) {
 		// 1. 회원 정보 및 비밀번호 조회
-		MemberVo member = findMemberById(loginId);
+		MemberVo member = findByLoginId(loginId);
 		String encodedPassword = member == null ?  "" : member.getMemberPw();
 		// 2. 회원 정보 및 비밀번호 체크
 		if(member == null || passwordEncoder.matches(memberPw, encodedPassword)) {
@@ -31,7 +31,7 @@ public class MemberService {
 		}
 		
 		// 3. 회원 응답 객체에서 비밀번호를 제거한 후 회원 정보 리턴
-		member.clearPassword();
+		//member.clearPassword();
 		return member;
 	}
 	
@@ -40,11 +40,13 @@ public class MemberService {
 	public Long saveMember(final MemberDto memberDto) {
 		memberDto.encodingPassword(passwordEncoder);
 		memberMapper.save(memberDto);
+	
 		return memberDto.getMemberId();
+		
 	}
 	
 	//회원 상세정보 조회
-	public MemberVo findMemberById(final String loginId) {
+	public MemberVo findByLoginId(final String loginId) {
 		return memberMapper.findByLoginId(loginId);
 	}
 	

@@ -2,6 +2,8 @@ package com.various_functions.dto;
 
 import java.time.LocalDate;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.groovy.parser.antlr4.util.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -35,6 +37,11 @@ public class MemberDto {
 			return ;
 		}
 		memberPw = passwordEncoder.encode(memberPw);
+	}
+
+	public HttpSession getSession() {
+		
+		return null;
 	}		
 
 	

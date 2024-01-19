@@ -38,7 +38,7 @@
 							</li>
 						</ul>
 						<!--<button type="button" onclick="login();" class="login_btn">로그인</button>-->
-						<button type="button" class="login_btn" onclick="login();">로그인</button>
+						<button type="submit" class="login_btn" onclick="login();">로그인</button>
 						<button type="button" onclick="openSignupPopup();" class="signup_btn">회원가입</button>
 					</form>
 				</div>
@@ -52,11 +52,13 @@
 	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
 	<!--<script th:src="@{/js/common.js}"></script>-->
 	<script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 	<script>
 		
 	// Enter 로그인 이벤트 바인딩
 	window.onload = () => {
+		
 		document.querySelectorAll('#loginId, #memberPw').forEach(element => {
 
 			element.addEventListener('keyup', (e) => {
@@ -66,35 +68,33 @@
 			})
 		})
 	}
+	
 	// 로그인
-	function login(){
-		const form = document.getElementById('login_form');
+	function login() {
 
-		if ( !form.loginId.value || !form.memberPw.value ) {
-			alert('아이디와 비밀번호를 모두 입력해 주세요.');
-			form.loginId.focus();
-			return false;
-		}
+		var formData = {
+			loginId : $('#loginId').val(),
+			memberPw : $("#memberPw").val()
+		};
 
+		
 		$.ajax({
 			url : '/member/login',
 			type : 'POST',
-			dataType : 'json',
-			data : {
-				loginId: form.loginId.value,
-				memberPw: form.memberPw.value
-			},
+			 contentType: 'application/json',
+			 data : JSON.stringify(formData),
 			async : false,
 			success : function (response) {
-				location.href = '/';
-				
+				console.log('Server response:', response);
+				location.href = '/post/list';
 			},
 			error : function (request, status, error) {
+				console.error('Error:', error);
 				alert('아이디와 비밀번호를 확인해 주세요.');
 			}
 		})
 	}
-	 
+
 	</script>
 </body>
 </html>
