@@ -39,10 +39,5 @@ public class MemberDto {
 		memberPw = passwordEncoder.encode(memberPw);
 	}
 
-	public HttpSession getSession() {
-		
-		return null;
-	}		
-
 	
 }

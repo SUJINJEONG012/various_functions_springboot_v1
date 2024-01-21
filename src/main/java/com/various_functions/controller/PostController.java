@@ -48,7 +48,7 @@ public class PostController {
 	 * 
 	 * */
 	@GetMapping("/post/write")
-	public String openPostWrite(@RequestParam(value="id", required= false) final Long id, Model model) {
+	public String openPostWrite(@RequestParam(value="memberId", required= false) final Long id, Model model) {
 		if(id != null) {
 			PostResponse post = postService.findPostById(id);
 			model.addAttribute("post", post);

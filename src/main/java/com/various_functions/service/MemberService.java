@@ -31,7 +31,7 @@ public class MemberService {
 		System.out.println("loginService 설정: " + member);
 		
 		// 2. 회원 정보 및 비밀번호 체크
-		if(member == null || passwordEncoder.matches(memberPw, encodedPassword)) {
+		if(member == null || passwordEncoder.matches(memberPw, encodedPassword) == false) {
 			return null;
 		}
 		

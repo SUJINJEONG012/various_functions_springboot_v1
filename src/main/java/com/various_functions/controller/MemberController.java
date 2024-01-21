@@ -32,7 +32,8 @@ public class MemberController {
 	}
 	
 	// 로그인 기능 
-	@PostMapping("/member/login")	
+	@PostMapping("/member/login")
+	@ResponseBody
 	public MemberVo login(HttpServletRequest request) {
 		// 1. 회원 상세정보 조회
 		String loginId = request.getParameter("loginId");
@@ -50,6 +51,14 @@ public class MemberController {
 		return member;
 		
 	}
+	
+	// 회원 정보 저장 (회원가입)
+    @PostMapping("/members/join")
+    @ResponseBody
+    public Long saveMember(@RequestBody final MemberDto memberDto) {
+        return memberService.saveMember(memberDto);
+    }
+	
 	
 
 	// 회원 상세 조회

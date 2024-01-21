@@ -41,7 +41,7 @@
 					<tr th:each="members: ${memberList}">
 						<td th:text="${members.id}"></td>
 						<td th:text="${members.loginId}"></td>
-						<td th:text="${members.name}"></td>
+						<td th:text="${members.userName}"></td>
 						<th th:text="${members.gender}"></th>
 						<th th:text="${members.birthday}"></th>
 						<th th:text="${#temporals.format(members.createdDate, 'yyyy-MM-dd HH:mm')}"></th>
