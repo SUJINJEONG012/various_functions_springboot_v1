@@ -25,7 +25,7 @@
 
 				<div class="login_input">
 
-					<form id="frm_login" method="post" autocomplete="off">
+					<form id="loginForm" onsubmit="return false;" autocomplete="off">
 				
 						<ul>
 							<li>
@@ -37,128 +37,61 @@
 								<input type="text" id="memberPw" name="memberPw" title="비밀번호" placeholder="비밀번호" />
 							</li>
 						</ul>
-						<!--<button type="button" onclick="login();" class="login_btn">로그인</button>-->
-						<button type="button" class="login_btn" id="btn_signin">로그인</button>
-						<button type="button" onclick="openSignupPopup();" class="signup_btn">회원가입</button>
+						<!-- <button type="button" onclick="login();" class="login_btn">로그인</button> -->
+						<button type="button" class="login_btn" id="login_btn">로그인</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	
+	
 
 	
 
-	<!--<script th:src="@{/js/function.js}"></script>-->
+	<script th:src="@{/js/function.js}"></script>
 	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-	<!--<script th:src="@{/js/common.js}"></script>-->
+	<script th:src="@{/js/common.js}"></script>
 	<script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
 	<script>
-		
-	// Enter 로그인 이벤트 바인딩
-	/* window.onload = () => {
-		document.querySelectorAll('#loginId, #memberPw').forEach(element => {
 
-			element.addEventListener('keyup', (e) => {
-				if (e.keyCode === 13) {
-					login();
-				}
-			})
-		})
-	} */
-	
-	/* // 로그인 > 로그인 페이지로 이동은 되는데 login_id =null로 나옴
-	function login() {
-		 
-    let formData = {
-        loginId: $('#loginId').val(),
-        memberPw: $("#memberPw").val()
-    };
-
-    $.ajax({
-        url: '/member/login',1
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(formData),
-        success: function (response) {
-            console.log('Server response:', response);
-            location.href = '/post/list';
-        },
-        error: function (request, status, error) {
-            console.error('Error:', error);
-            alert('아이디와 비밀번호를 확인해 주세요.');
-        }
-    }); 
-}*/
-
- //로그인 login_id는 제대로 나오는데 성공시페이지이동으로 나오지 않음
-/* function login() {
-
-	const form = document.getElementById('login_form');
-
-	if ( !form.loginId.value || !form.memberPw.value ) {
-		alert('아이디와 비밀번호를 모두 입력해 주세요.');
-		form.loginId.focus();
-		return false;
-	}
-
-	$.ajax({
-		url : '/member/login',
-		type : 'POST',
-		dataType : 'json',
-		data : {
-			loginId: form.loginId.value,
-			memberPw: form.memberPw.value
-		},
-		success : function (response) {
-			location.href = '/';
-		},
-		error : function (xhr, status, error) {
-			alert(xhr);
-			alert(status);
-			alert(error)
-			alert('아이디와 비밀번호를 확인해 주세요.');
+	var loginForm = {
+		    init: function() {
+		        loginForm.bind();
+		    },
+		    bind: function() {
+		        $("#login_btn").on('click', function(){
+		           loginForm.login();
+		        });
+		    },
+		    login: function() {
+		        $.ajax({
+		           url: '/member/login',
+		            type: 'POST',
+		            dataType: 'json',
+		            data: {
+		               loginId: $("#loginId").val(),
+		               memberPw: $("#memberPw").val()
+		            },
+		            success: function(res){
+		               if(res.code=='200'){
+		                   alert("로그인 되었습니다.");
+		                   common.goPage("/post/list");
+		               } else if(res.code != 200){
+		            	   
+		               }else {
+		                   alert("gg : "+res.message); //undefined
+		               }
+		               console.log(res);
+		            }
+		        });
+		    }
 		}
-	})
-}  */
 
-var loginForm = {
-	    init: function() {
-	        loginForm.bind();
-	    },
-	    bind: function() {
-	        $("#btn_signin").on('click', function(){
-	           loginForm.signin();
-	        });
-	    },
-	    signin: function() {
-	        $.ajax({
-	           url: '/member/login',
-	            type: 'POST',
-	            dataType: 'json',
-	            data: {
-	            	loginId: $("#loginId").val(),
-	            	memberPw: $("#memberPw").val()
-	            },
-	            success: function(res){
-	               if(res.code=='200'){
-	                   alert("로그인 되었습니다.");
-	                   common.goPage("/board/boardList");
-	               } else {
-	                   alert(res.message);
-	               }
-	               console.log(res);
-	            }
-	        });
-	    }
-	}
-
-	$(function(){
-	   loginForm.init();
-	});
-	 
- 
+		$(function(){
+		   loginForm.init();
+		});
 	</script>
 </body>
 </html>

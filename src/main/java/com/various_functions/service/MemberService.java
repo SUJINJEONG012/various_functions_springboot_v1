@@ -45,9 +45,7 @@ public class MemberService {
 	public Long saveMember(final MemberDto memberDto) {
 		memberDto.encodingPassword(passwordEncoder);
 		memberMapper.save(memberDto);
-	
 		return memberDto.getMemberId();
-		
 	}
 	
 	//회원 상세정보 조회

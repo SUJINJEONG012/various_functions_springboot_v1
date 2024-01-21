@@ -2,20 +2,21 @@ package com.various_functions.dto;
 
 import java.time.LocalDate;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.groovy.parser.antlr4.util.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.various_functions.vo.Gender;
 
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /*
  * 회원가입과 회원정보수정에 사용될 요청 클래스
  * 댓글처리와 마찬가지로 ajax 통신
 */
-@Data
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberDto {
 
 	private Long memberId;

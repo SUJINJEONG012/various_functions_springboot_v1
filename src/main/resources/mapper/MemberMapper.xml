@@ -45,6 +45,7 @@
 		)	
 	</insert>
 	
+	
 
 	<!-- 회원 상세 조회 -->
 	<select id="findByLoginId" parameterType="String" resultType="com.various_functions.vo.MemberVo" >

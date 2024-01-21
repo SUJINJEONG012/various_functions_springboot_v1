@@ -35,6 +35,7 @@ public class MemberController {
 	@PostMapping("/member/login")
 	@ResponseBody
 	public MemberVo login(HttpServletRequest request) {
+
 		// 1. 회원 상세정보 조회
 		String loginId = request.getParameter("loginId");
 		String memberPw =  request.getParameter("memberPw");

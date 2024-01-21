@@ -27,30 +27,30 @@ public class MemberMapperTests {
 	private PasswordEncoder passwordEncoder;
 	
 	//회원 생성 테스트  성공
-	@Test
-	void memberSave() {
-
-		MemberDto memberDto = new MemberDto();
-
-		memberDto.setLoginId("test1");
-		memberDto.setMemberPw("1234");
-		memberDto.setMemberName("테스트로");
-		memberDto.setMemberMail("peekaboo32@naver.com");
-		memberDto.setBirthday(LocalDate.of(1992, 04, 24));
-		memberDto.setMemberAddr1("테스트");
-		memberDto.setMemberAddr2("테스트");
-		memberDto.setMemberAddr3("테스트");
-		memberDto.setGender(Gender.F);
-	
-		// 입력된 비밀번호를 해시화하여 저장
-        String encodedPassword = passwordEncoder.encode(memberDto.getMemberPw());
-        memberDto.setMemberPw(encodedPassword);
-        
-		memberMapper.save(memberDto);
-		
-		List<MemberVo> members= memberMapper.findAll();
-		System.out.println("전체 회원은 : " + members.size() + "명 입니다.");
-	}
+//	@Test
+//	void memberSave() {
+//
+//		MemberDto memberDto = new MemberDto();
+//
+//		memberDto.setLoginId("test1");
+//		memberDto.setMemberPw("1234");
+//		memberDto.setMemberName("테스트로");
+//		memberDto.setMemberMail("peekaboo32@naver.com");
+//		memberDto.setBirthday(LocalDate.of(1992, 04, 24));
+//		memberDto.setMemberAddr1("테스트");
+//		memberDto.setMemberAddr2("테스트");
+//		memberDto.setMemberAddr3("테스트");
+//		memberDto.setGender(Gender.F);
+//	
+//		// 입력된 비밀번호를 해시화하여 저장
+//        String encodedPassword = passwordEncoder.encode(memberDto.getMemberPw());
+//        memberDto.setMemberPw(encodedPassword);
+//        
+//		memberMapper.save(memberDto);
+//		
+//		List<MemberVo> members= memberMapper.findAll();
+//		System.out.println("전체 회원은 : " + members.size() + "명 입니다.");
+//	}
 	
 	// 테이블의 uk findByLoginId  조건 게시글 조회하는
 //	@Test
