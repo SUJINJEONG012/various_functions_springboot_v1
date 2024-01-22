@@ -39,10 +39,12 @@ public class MemberController {
 		// 1. 회원 상세정보 조회
 		String loginId = request.getParameter("loginId");
 		String memberPw =  request.getParameter("memberPw");
+		
 		MemberVo member = memberService.login(loginId, memberPw);
+		
 		log.info("member 데이터 들고오는지 확인 :" + member );
 		log.info("member.loginId :" + member.getLoginId());
-		log.info("member.memberPw :" + member.getMemberPw());
+		log.info("member.memberPw :" + memberPw);
 		
 		
 		// 2. 세션에 회원정보 저장 & 세션 유지시간 설정

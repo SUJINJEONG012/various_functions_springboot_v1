@@ -37,8 +37,8 @@
 								<input type="text" id="memberPw" name="memberPw" title="비밀번호" placeholder="비밀번호" />
 							</li>
 						</ul>
-						<!-- <button type="button" onclick="login();" class="login_btn">로그인</button> -->
-						<button type="button" class="login_btn" id="login_btn">로그인</button>
+						<button type="button" onclick="login();" class="login_btn">로그인</button> 
+						<!--<button type="button" class="login_btn" id="login_btn">로그인</button>-->
 					</form>
 				</div>
 			</div>
@@ -56,16 +56,17 @@
 	<script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
 	<script>
 
-	var loginForm = {
+	/*var loginForm = {
 		    init: function() {
 		        loginForm.bind();
 		    },
 		    bind: function() {
 		        $("#login_btn").on('click', function(){
-		           loginForm.login();
+					loginForm.login();
 		        });
 		    },
 		    login: function() {
+				alert($("#memberPw").val());	
 		        $.ajax({
 		           url: '/member/login',
 		            type: 'POST',
@@ -91,7 +92,48 @@
 
 		$(function(){
 		   loginForm.init();
-		});
+		}); */
+		
+		// Enter 로그인 이벤트 바인딩
+		window.onload = () => {
+			document.querySelectorAll('#loginId, #memberPw').forEach(element => {
+				element.addEventListener('keyup', (e) => {
+					if (e.keyCode === 13) {
+						login();
+					}
+				})
+			})
+		}
+
+
+		// 로그인
+		function login() {
+			alert("DDDdd");
+			const form = document.getElementById('loginForm');
+
+			if ( !form.loginId.value || !form.memberPw.value ) {
+				alert('아이디와 비밀번호를 모두 입력해 주세요.');
+				form.loginId.focus();
+				return false;
+			}
+
+			$.ajax({
+				url : '/member/login',
+				type : 'POST',
+				dataType : 'json',
+				data : {
+					loginId: form.loginId.value,
+					memberPw: form.memberPw.value
+				},
+				async : false,
+				success : function (response) {
+					location.href = '/post/list';
+				},
+				error : function (request, status, error) {
+					alert('아이디와 비밀번호를 확인해 주세요.');
+				}
+			})
+		}
 	</script>
 </body>
 </html>

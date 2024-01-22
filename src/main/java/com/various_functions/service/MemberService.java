@@ -25,16 +25,20 @@ public class MemberService {
 		log.info("서비스 로그인 페이지 진입 !!!");
 		
 		// 1. 회원 정보 및 비밀번호 조회 => 이 부분이 지금 조회가 안됌
-			MemberVo member = findMemberByLoginId(loginId);
+			log.info("loginId :@@@@@ "+loginId);
+		MemberVo member = findMemberByLoginId(loginId);
+		log.info("findMemberLoginId called with loginId2 : " + member.getLoginId());
+		log.info("findMemberLoginId called with memberPw2 : " + member.getMemberPw());
+		
+			String encodedPassword = (member == null) ?  "" : member.getMemberPw();
+			
 		try {
 			log.info("findMemberLoginId called with loginId : " + member.getLoginId());
-			log.info("findMemberLoginId called with loginId : " + member.getMemberPw());
+			log.info("findMemberLoginId called with memberPw : " + member.getMemberPw());
 		}catch(Exception e) {
 			log.error("Error in findMemberByLoginId", e);
 			throw e;
 		}
-		
-		String encodedPassword = (member == null) ?  "" : member.getMemberPw();
 		
 		System.out.println("findByLoginId(loginId): " + findMemberByLoginId(loginId));
 		System.out.println("loginService 설정: " + member);

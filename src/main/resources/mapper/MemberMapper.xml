@@ -48,7 +48,7 @@
 	
 
 	<!-- 회원 상세 조회 -->
-	<select id="findByLoginId" parameterType="String" resultType="com.various_functions.vo.MemberVo" >
+	<select id="findByLoginId" parameterType="string" resultType="com.various_functions.vo.MemberVo" >
 	select 
 	<include refid="memberColumns"/>
 	from tb_member
