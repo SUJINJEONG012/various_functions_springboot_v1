@@ -46,16 +46,13 @@ public class MemberController {
 		log.info("member.loginId :" + member.getLoginId());
 		log.info("member.memberPw :" + memberPw);
 		
-		
 		// 2. 세션에 회원정보 저장 & 세션 유지시간 설정
 		if(member != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", member);
 			session.setMaxInactiveInterval(60*30);
 		}
-		
 		return member;
-		
 	}
 	
 	// 회원 정보 저장 (회원가입)
@@ -64,8 +61,6 @@ public class MemberController {
     public Long saveMember(@RequestBody final MemberDto memberDto) {
         return memberService.saveMember(memberDto);
     }
-	
-	
 
 	// 회원 상세 조회
 	@GetMapping("/member/{loginId}")
@@ -73,15 +68,10 @@ public class MemberController {
 	public MemberVo findMemberById(@PathVariable final String loginId) {
 		return memberService.findMemberByLoginId(loginId);
 	}
-
 	
-	//회원저장
+	// 회원 정보 수정
 	
-	//회원 상세정보 조회
-	
-	
-	
-
+	// 회원 정보 
 	
 	
 }

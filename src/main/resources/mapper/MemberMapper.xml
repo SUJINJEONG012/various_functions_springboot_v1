@@ -67,10 +67,10 @@
 	member_addr1 = #{memberAddr1},
 	member_addr2 = #{memberAddr2},
 	member_addr3 = #{memberAddr3}
-	<!--  이걸로테스트 했을땐 안되는건 아직나머지 설정부분 안해서 그런듯
+	<!--  이걸로테스트 했을땐 안되는건 아직나머지 설정부분 안해서 그런듯-->
 	<if test="member_pw != null and member_pw != ''">,
 	member_pw = #{memberPw}
-	</if> -->
+	</if> 
 	where 
 	member_id = #{memberId}
 	</update>
@@ -101,5 +101,6 @@
 	select count(*) from tb_member
 	where login_id = #{value}
 	</select>
+	
 	
 </mapper>

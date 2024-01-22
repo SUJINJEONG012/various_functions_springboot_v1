@@ -67,10 +67,24 @@ public class MemberService {
 	}
 	
 	//회원 정보수정
-	
+	@Transactional
+	public Long updateMember(final MemberDto memberDto) {
+		memberDto.encodingPassword(passwordEncoder);
+		memberMapper.update(memberDto);
+		return memberDto.getMemberId();
+	}
+
 	//회원 정보삭제
+	@Transactional
+	public Long deleteMemberById(final Long memberId) {
+		memberMapper.deleteById(memberId);
+		return memberId;
+	}
 	
-	//회원 수 카운팅
+	//회원 수 카운팅 => id 중복체크
+	public int countMemberByLongId(final String loginId) {
+		return memberMapper.countByLoginId(loginId);
+	}
 	
 	
 }

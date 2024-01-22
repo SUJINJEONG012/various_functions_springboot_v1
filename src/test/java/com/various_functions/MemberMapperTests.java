@@ -32,15 +32,16 @@ public class MemberMapperTests {
 //
 //		MemberDto memberDto = new MemberDto();
 //
-//		memberDto.setLoginId("test1");
-//		memberDto.setMemberPw("1234");
-//		memberDto.setMemberName("테스트로");
-//		memberDto.setMemberMail("peekaboo32@naver.com");
+//		memberDto.setLoginId("admin");
+//		memberDto.setMemberPw("admin");
+//		memberDto.setMemberName("관리자");
+//		memberDto.setMemberMail("admin@admin.com");
 //		memberDto.setBirthday(LocalDate.of(1992, 04, 24));
-//		memberDto.setMemberAddr1("테스트");
-//		memberDto.setMemberAddr2("테스트");
-//		memberDto.setMemberAddr3("테스트");
+//		memberDto.setMemberAddr1("부산광역시");
+//		memberDto.setMemberAddr2("수영구");
+//		memberDto.setMemberAddr3("하잉");
 //		memberDto.setGender(Gender.F);
+//		memberDto.setAdminCk(1);
 //	
 //		// 입력된 비밀번호를 해시화하여 저장
 //        String encodedPassword = passwordEncoder.encode(memberDto.getMemberPw());

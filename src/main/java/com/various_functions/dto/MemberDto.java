@@ -16,11 +16,12 @@ import lombok.Setter;
  * 회원가입과 회원정보수정에 사용될 요청 클래스
  * 댓글처리와 마찬가지로 ajax 통신
 */
+
 @Getter
-@Setter
+//@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberDto {
-
+	
 	private Long memberId;
 	private String loginId;
 	private String memberPw;
