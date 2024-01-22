@@ -32,8 +32,7 @@ public class MemberDto {
 	private String memberAddr1;
 	private String memberAddr2;
 	private String memberAddr3;
-	private int adminCk;
-	private int money;
+	
 	
 	//비밀번호를 암호화하는 기능,
 	public void encodingPassword(PasswordEncoder passwordEncoder) {
