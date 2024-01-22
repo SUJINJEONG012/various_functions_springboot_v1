@@ -22,12 +22,21 @@ public class MemberService {
 	
 	//로그인
 	public MemberVo login(final String loginId, final String memberPw) {
+		log.info("서비스 로그인 페이지 진입 !!!");
 		
-		// 1. 회원 정보 및 비밀번호 조회
-		MemberVo member = findByLoginId(loginId);
+		// 1. 회원 정보 및 비밀번호 조회 => 이 부분이 지금 조회가 안됌
+			MemberVo member = findMemberByLoginId(loginId);
+		try {
+			log.info("findMemberLoginId called with loginId : " + member.getLoginId());
+			log.info("findMemberLoginId called with loginId : " + member.getMemberPw());
+		}catch(Exception e) {
+			log.error("Error in findMemberByLoginId", e);
+			throw e;
+		}
+		
 		String encodedPassword = (member == null) ?  "" : member.getMemberPw();
 		
-		System.out.println("findByLoginId(loginId): " + findByLoginId(loginId));
+		System.out.println("findByLoginId(loginId): " + findMemberByLoginId(loginId));
 		System.out.println("loginService 설정: " + member);
 		
 		// 2. 회원 정보 및 비밀번호 체크
@@ -49,7 +58,7 @@ public class MemberService {
 	}
 	
 	//회원 상세정보 조회
-	public MemberVo findByLoginId(final String loginId) {
+	public MemberVo findMemberByLoginId(final String loginId) {
 		return memberMapper.findByLoginId(loginId);
 	}
 	

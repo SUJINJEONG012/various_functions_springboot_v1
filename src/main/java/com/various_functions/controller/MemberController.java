@@ -69,7 +69,7 @@ public class MemberController {
 	@GetMapping("/member/{loginId}")
 	@ResponseBody
 	public MemberVo findMemberById(@PathVariable final String loginId) {
-		return memberService.findByLoginId(loginId);
+		return memberService.findMemberByLoginId(loginId);
 	}
 
 	

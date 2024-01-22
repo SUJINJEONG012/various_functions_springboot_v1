@@ -53,7 +53,7 @@
 	<include refid="memberColumns"/>
 	from tb_member
 	where
-	delete_yn = 0 and login_id = #{loginId}
+	delete_yn = 0 and login_id = #{value}
 	</select>
 	
 	<!-- 회원 정보 수정 -->
