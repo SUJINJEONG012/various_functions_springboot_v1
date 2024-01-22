@@ -40,7 +40,10 @@ public class MemberController {
 		String loginId = request.getParameter("loginId");
 		String memberPw =  request.getParameter("memberPw");
 		MemberVo member = memberService.login(loginId, memberPw);
-		System.out.println("JSON DATAss :" + member );
+		log.info("member 데이터 들고오는지 확인 :" + member );
+		log.info("member.loginId :" + member.getLoginId());
+		log.info("member.memberPw :" + member.getMemberPw());
+		
 		
 		// 2. 세션에 회원정보 저장 & 세션 유지시간 설정
 		if(member != null) {
