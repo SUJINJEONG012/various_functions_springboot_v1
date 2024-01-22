@@ -55,11 +55,19 @@ public class MemberController {
 		return member;
 	}
 	
+	// 회원가입 페이지 이동
+	@GetMapping("/member/join")
+	public String saveMember() {
+		log.info("회원가입 페이지 이동!!!!");
+		return "member/join";
+	}
+	
 	// 회원 정보 저장 (회원가입)
-    @PostMapping("/members/join")
-    @ResponseBody
-    public Long saveMember(@RequestBody final MemberDto memberDto) {
-        return memberService.saveMember(memberDto);
+    @PostMapping("/member/join")
+    public String saveMember(final MemberDto memberDto) {
+    	log.info("회원가입 성공 후 메인으로 강제 이동!!");
+        memberService.saveMember(memberDto);
+        return "redirect:/";
     }
 
 	// 회원 상세 조회

@@ -55,10 +55,9 @@ public class MemberService {
 	
 	//회원정보저장
 	@Transactional
-	public Long saveMember(final MemberDto memberDto) {
+	public void saveMember(final MemberDto memberDto) {
 		memberDto.encodingPassword(passwordEncoder);
 		memberMapper.save(memberDto);
-		return memberDto.getMemberId();
 	}
 	
 	//회원 상세정보 조회
