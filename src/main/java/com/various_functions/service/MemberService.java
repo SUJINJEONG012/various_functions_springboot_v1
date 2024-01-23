@@ -61,7 +61,7 @@ public class MemberService {
 		return memberDto.getMemberId();
 	}
 	
-	//회원 상세정보 조회
+	//회원 상세정보 조회 
 	public MemberVo findMemberByLoginId(final String loginId) {
 		return memberMapper.findByLoginId(loginId);
 	}
@@ -82,7 +82,7 @@ public class MemberService {
 	}
 	
 	//회원 수 카운팅 => id 중복체크
-	public int countMemberByLongId(final String loginId) {
+	public int countMemberByLoginId(final String loginId) {
 		return memberMapper.countByLoginId(loginId);
 	}
 	

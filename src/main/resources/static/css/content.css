@@ -88,6 +88,14 @@ section:first-child, #tabmenu + section {margin-top:0;}
 .wr_cm_txt span {display:inline-block; position:relative; padding-left:10px; font-size:12px; color:#888; margin-bottom:10px;}
 .wr_cm_txt span::before {background-position:-65px 0; width:6px; height:7px; position:absolute; top:5px; left:0;}
 
+
+/* 중복아이디 존재하지 않는경우 */
+.id_input_re_1{color : green; display : none;}
+/* 중복아이디 존재하는 경우 */
+.id_input_re_2{ color : red; display : none;}
+	
+	
+	
 .scroll_in {display:block; max-width:100%; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;}
 
 /* bbs_gallery type */

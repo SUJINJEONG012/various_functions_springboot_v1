@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.various_functions.dto.MemberDto;
@@ -80,7 +81,14 @@ public class MemberController {
 	
 	// 회원 정보 수정
 	
-	// 회원 정보 
+	// 회원 정보 삭제 (회원탈퇴)
+	
+	//회원수 카운팅 (id중복체크)
+	@GetMapping("/member/member-count")
+	@ResponseBody
+	public int countMemberByLoginId(@RequestParam final String loginId) {
+		return memberService.countMemberByLoginId(loginId);
+	}
 	
 	
 }

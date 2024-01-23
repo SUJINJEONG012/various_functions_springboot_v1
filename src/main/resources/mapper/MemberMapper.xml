@@ -91,7 +91,7 @@
 	<include refid="memberColumns"/>
 	from tb_member
 	where delete_yn= 0 
-	order by 
+	order by
 	member_id desc
 	</select>
 	
