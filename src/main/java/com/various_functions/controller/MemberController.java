@@ -64,10 +64,11 @@ public class MemberController {
 	
 	// 회원 정보 저장 (회원가입)
     @PostMapping("/member/join")
-    public String saveMember(final MemberDto memberDto) {
+    @ResponseBody
+    public Long saveMember(@RequestBody final MemberDto memberDto) {
     	log.info("회원가입 성공 후 메인으로 강제 이동!!");
-        memberService.saveMember(memberDto);
-        return "redirect:/";
+    	return memberService.saveMember(memberDto);
+   
     }
 
 	// 회원 상세 조회
