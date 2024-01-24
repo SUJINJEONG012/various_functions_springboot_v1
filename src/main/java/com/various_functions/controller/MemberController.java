@@ -68,6 +68,7 @@ public class MemberController {
     @ResponseBody
     public Long saveMember(@RequestBody final MemberDto memberDto) {
     	log.info("회원가입 성공 후 메인으로 강제 이동!!");
+    	
     	return memberService.saveMember(memberDto);
    
     }
