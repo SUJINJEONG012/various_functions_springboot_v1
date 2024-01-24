@@ -25,7 +25,7 @@ public class MemberService {
 		log.info("서비스 로그인 페이지 진입 !!!");
 		
 		// 1. 회원 정보 및 비밀번호 조회 => 이 부분이 지금 조회가 안됌
-			log.info("loginId :@@@@@ "+loginId);
+		log.info("loginId :@@@@@ "+loginId);
 		MemberVo member = findMemberByLoginId(loginId);
 		log.info("findMemberLoginId called with loginId2 : " + member.getLoginId());
 		log.info("findMemberLoginId called with memberPw2 : " + member.getMemberPw());

@@ -4,6 +4,7 @@ package com.various_functions.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -66,11 +67,11 @@ public class MemberController {
 	// 회원 정보 저장 (회원가입)
     @PostMapping("/member/join")
     @ResponseBody
-    public Long saveMember(@RequestBody final MemberDto memberDto) {
-    	log.info("회원가입 성공 후 메인으로 강제 이동!!");
-    	
-    	return memberService.saveMember(memberDto);
-   
+    public ResponseEntity<String> saveMember(@RequestBody final MemberDto memberDto) {
+    	log.info("회원가입 성공여부를 클라이언트에 응답");	
+    	Long memberId= memberService.saveMember(memberDto);
+    	return ResponseEntity.ok("success!!!!!!!");    	
+  
     }
 
 	// 회원 상세 조회

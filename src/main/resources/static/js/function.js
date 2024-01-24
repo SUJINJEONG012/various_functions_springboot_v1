@@ -77,7 +77,13 @@ function callApi(uri, method, params) {
         data : (params) ? JSON.stringify(params) : {},
         async : false,
         success : function (response) {
-            json = response;
+            // 가입시 성공시 메인페이지로 리다이렉트
+           // json = response;
+           if (response.success && response.redirect) {
+                window.location.href = response.redirect;
+            } else {
+                console.log(response.message);
+            }
         },
         error : function (request, status, error) {
             console.log(error)

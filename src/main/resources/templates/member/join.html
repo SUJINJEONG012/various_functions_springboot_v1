@@ -347,7 +347,7 @@ const checkLoginId = async () => {
 }
 
 //유효성 검사
- function valid(form){
+ function valid(){
 	 // 폼 필드 값 가져오기
     let loginId = document.getElementById("loginId").value; // 유저가 입력한 값
     let memberPw = document.forms["signupForm"]["memberPw"].value;
@@ -396,14 +396,20 @@ const checkLoginId = async () => {
 function saveMember() {
   
    // 1. 필드 유효성 검사
-   const form = document.getElementById(form);
-   valid(form);
+    const form = document.getElementById("signupForm");
+    valid(form);
    
    // 2. 파라미터 세팅
-    // Save API 호출
-	//callApi('/member/join', 'post', params);
-    const params = {loginId, memberPw, memberMail};
-    const response = callApi('member/join', 'post', params);
+   const params = {};
+   new FormData(form).forEach((value, key) =>{ 
+	   params[key] = value.trim()
+   
+   });
+   params.birthday = params.birthday.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');
+   
+   
+   // 3. Save API 호출
+	callApi('/member/join', 'post', params);
     
     // 회원가입 성공 시 메시지 출력
     alert('가입을 축하드립니다!\n로그인 후 서비스를 이용해 주세요.');
