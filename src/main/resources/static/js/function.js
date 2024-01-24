@@ -80,7 +80,8 @@ function callApi(uri, method, params) {
             // 가입시 성공시 메인페이지로 리다이렉트
            // json = response;
            if (response.success && response.redirect) {
-                window.location.href = response.redirect;
+                //window.location.href = response.redirect;
+                window.location.href = "https://naver.com";
             } else {
                 console.log(response.message);
             }
