@@ -4,7 +4,7 @@
  * @returns 종성 포함 여부
  */
 function hasCoda(value) {
-    return ((value.charCodeAt(value.length - 1) - 0xAC00) % 28) > 0;
+	return ((value.charCodeAt(value.length - 1) - 0xAC00) % 28) > 0;
 }
 
 
@@ -16,17 +16,17 @@ function hasCoda(value) {
  * @returns 필드 입력(선택) 여부
  */
 function isValid(target, fieldName, focusTarget) {
-    if (target.value.trim()) {
-        return true;
-    }
+	if (target.value.trim()) {
+		return true;
+	}
 
-    const particle = (hasCoda(fieldName)) ? '을' : '를'; // 조사
-    const elementType = (target.type === 'text' || target.type === 'password' || target.type === 'search' || target.type === 'textarea') ? '입력' : '선택';
-    alert( `${fieldName + particle} ${elementType}해 주세요.` );
+	const particle = (hasCoda(fieldName)) ? '을' : '를'; // 조사
+	const elementType = (target.type === 'text' || target.type === 'password' || target.type === 'search' || target.type === 'textarea') ? '입력' : '선택';
+	alert(`${fieldName + particle} ${elementType}해 주세요.`);
 
-    target.value = '';
-    ( !focusTarget ? target : focusTarget).focus();
-    throw new Error(`"${target.id}" is required...`)
+	target.value = '';
+	(!focusTarget ? target : focusTarget).focus();
+	throw new Error(`"${target.id}" is required...`)
 }
 
 
@@ -38,23 +38,23 @@ function isValid(target, fieldName, focusTarget) {
  */
 function getJson(uri, params) {
 
-    let json = {}
+	let json = {}
 
-    $.ajax({
-        url : uri,
-        type : 'get',
-        dataType : 'json',
-        data : params,
-        async : false,
-        success : function (response) {
-            json = response;
-        },
-        error : function (request, status, error) {
-            console.log(error)
-        }
-    })
+	$.ajax({
+		url: uri,
+		type: 'get',
+		dataType: 'json',
+		data: params,
+		async: false,
+		success: function(response) {
+			json = response;
+		},
+		error: function(request, status, error) {
+			console.log(error)
+		}
+	})
 
-    return json;
+	return json;
 }
 
 
@@ -66,30 +66,31 @@ function getJson(uri, params) {
  * @returns json - 결과 데이터
  */
 function callApi(uri, method, params) {
-	  
-    let json = {}
 
-    $.ajax({
-        url : uri,
-        type : method,
-        contentType : 'application/json; charset=utf-8',
-        dataType : 'json',
-        data : (params) ? JSON.stringify(params) : {},
-        async : false,
-        success : function (response) {
-            // 가입시 성공시 메인페이지로 리다이렉트
-           // json = response;
-           if (response.success && response.redirect) {
-                //window.location.href = response.redirect;
-                window.location.href = "https://naver.com";
-            } else {
-                console.log(response.message);
-            }
-        },
-        error : function (request, status, error) {
-            console.log(error)
-        }
-    })
-    console.log("json ::" +json);
-    return json;
+	let json = {}
+
+	$.ajax({
+		url: uri,
+		type: method,
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		data: (params) ? JSON.stringify(params) : {},
+		async: false,
+		success: function(response) {
+			// 가입시 성공시 메인페이지로 리다이렉트
+			// json = response;
+			if (response.success && response.redirect) {
+				//window.location.href = response.redirect;
+				console.log("ㄹ다");
+				location.href = "/absolute/path/to/resource/index";
+			} else {
+				console.log(response.message);
+			}
+		},
+		error: function(request, status, error) {
+			console.log(error)
+		}
+	})
+	console.log("json ::" + json);
+	return json;
 }
