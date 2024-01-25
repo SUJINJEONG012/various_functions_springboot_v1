@@ -65,32 +65,24 @@ function getJson(uri, params) {
  * @param params - Parameters
  * @returns json - 결과 데이터
  */
+// 수정된 callApi 함수
 function callApi(uri, method, params) {
-
-	let json = {}
-
-	$.ajax({
-		url: uri,
-		type: method,
-		contentType: 'application/json; charset=utf-8',
-		dataType: 'json',
-		data: (params) ? JSON.stringify(params) : {},
-		async: false,
-		success: function(response) {
-			// 가입시 성공시 메인페이지로 리다이렉트
-			// json = response;
-			if (response.success && response.redirect) {
-				//window.location.href = response.redirect;
-				console.log("ㄹ다");
-				location.href = "/absolute/path/to/resource/index";
-			} else {
-				console.log(response.message);
-			}
-		},
-		error: function(request, status, error) {
-			console.log(error)
-		}
-	})
-	console.log("json ::" + json);
-	return json;
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: uri,
+            type: method,
+            contentType: 'application/json; charset=utf-8',
+            //dataType: 'json',
+            data: (params) ? JSON.stringify(params) : {},
+            async: false,
+            success: function (response) {
+                console.log("Api 호출 성공", response);
+                resolve(response);
+            },
+            error: function (request, status, error) {
+                console.error("api 호출 실패", error);
+                reject(error);
+            }
+        });
+    });
 }
