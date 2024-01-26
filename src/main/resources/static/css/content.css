@@ -93,7 +93,16 @@ section:first-child, #tabmenu + section {margin-top:0;}
 .id_input_re_1{color : green; display : none;}
 /* 중복아이디 존재하는 경우 */
 .id_input_re_2{ color : red; display : none;}
-	
+
+
+/* 이메일 인증번호 관련 */
+#mail_check_input_box_false{
+    background-color:#ebebe4;
+}
+ 
+#mail_check_input_box_true{
+    background-color:white;
+}	
 	
 	
 .scroll_in {display:block; max-width:100%; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;}
