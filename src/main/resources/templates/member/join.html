@@ -44,7 +44,7 @@
 						</tr>
 						<tr>
 							<th scope="row">메일<span class="es">필수 입력</span></th>
-							<td><input type="text" id="memberMail" name="memberMail" placeholder="이름"  /></td>
+							<td><input type="text" id="memberMail" name="memberMail" placeholder="abc@naver.com"  /></td>
 						</tr>
 						<tr>
 							<th scope="row">성별<span class="es">필수 입력</span></th>
@@ -63,19 +63,20 @@
 						</tr>
 						<tr>
 							<th scope="row">생년월일<span class="es">필수 입력</span></th>
-							<td><input type="number" name="birthday" placeholder="숫자 8자리 입력" /></td>
+							<td><input type="number" name="birthday" placeholder="'19920424' 형태로 입력해주세요." /></td>
 						</tr>
 						<tr>
 							<th scope="row">주소1<span class="es">필수 입력</span></th>
-							<td><input type="text" name="memberAddr1" placeholder="" /></td>
+							<td><input type="text" name="memberAddr1" placeholder="" readonly="readonly"/></td>
+							<span onclick="execution_daum_address()">주소찾기</span>
 						</tr>
 						<tr>
 							<th scope="row">주소2<span class="es">필수 입력</span></th>
-							<td><input type="text" name="memberAddr2" placeholder="" /></td>
+							<td><input type="text" name="memberAddr2" placeholder="" readonly="readonly"/></td>
 						</tr>
 						<tr>
 							<th scope="row">주소3<span class="es">필수 입력</span></th>
-							<td><input type="text" name="memberAddr3" placeholder="" /></td>
+							<td><input type="text" name="memberAddr3" placeholder="" readonly="readonly"/></td>
 						</tr>
 					</tbody>
 				</table>
@@ -85,7 +86,7 @@
 				<button type="button" class="btns btn_bdr2" onclick="closeSignupPopup();">취소</button>
 			</p>
 		</div>
-		<button type="button" class="btn_close" onclick="closeSignupPopup();"><span><i class="far fa-times-circle"></i></span></button>
+		
 	</div>
 
 
@@ -165,6 +166,8 @@
 	    var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 	    if (!emailRegex.test(memberMail)) {
 	        alert("유효한 이메일 주소를 입력하세요.");
+	        document.getElementById("memberMail").focus();
+	        document.getElementById("memberMail").value="";
 	        return false;
 	    }
 
