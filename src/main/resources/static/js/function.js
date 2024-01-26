@@ -80,6 +80,7 @@ function callApi(uri, method, params) {
                 resolve(response);
             },
             error: function (request, status, error) {
+							  
                 console.error("api 호출 실패", error);
                 reject(error);
             }
