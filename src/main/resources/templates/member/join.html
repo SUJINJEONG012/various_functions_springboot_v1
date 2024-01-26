@@ -162,6 +162,21 @@
 				console.error("에러 발생:", error);
 			}
 		}
+		
+		
+		// 인증번호 이메일 전송
+		document.querySelector(".mail_check_button").addEventListener("click", function(){
+			// 여기에 클릭 이벤트 대한 처리코드
+			alert("버튼이 클릭되었습니다.");
+			
+			const memberMail =  document.getElementById("memberMail").value; //입력한 이메일
+			$.ajax({
+				type:"GET",
+				url:"mailCheck?email=" + memberMail
+			});
+			
+		}); 
+		
 
 		// 주소연동 
 		function execution_daum_address() {

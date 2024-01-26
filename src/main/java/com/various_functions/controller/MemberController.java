@@ -64,6 +64,14 @@ public class MemberController {
 		return "member/join";
 	}
 	
+	// 이메일 인증
+	@GetMapping("/member/memberMail")
+	@ResponseBody
+	public void mailCheckGet(String memberMail) {
+		log.info("이메일 데이터 전송 확인");
+		log.info("인증번호 : " + memberMail);
+	}
+	
 	// 회원 정보 저장 (회원가입)
     @PostMapping("/member/join")
     @ResponseBody
