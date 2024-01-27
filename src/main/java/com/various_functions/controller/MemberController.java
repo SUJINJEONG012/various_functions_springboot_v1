@@ -1,6 +1,8 @@
 package com.various_functions.controller;
 
 
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -71,6 +73,11 @@ public class MemberController {
 		// view 로부터 넘어온 데이터 확인
 		log.info("이메일 데이터 전송 확인");
 		log.info("인증번호 : " + email);
+		
+		//인증번호 (난수) 생성
+		Random random = new Random();
+		int checkNum = random.nextInt(888888) + 111111;
+		log.info("인증번호 : " + checkNum);
 	}
 	
 	// 회원 정보 저장 (회원가입)
