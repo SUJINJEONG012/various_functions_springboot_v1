@@ -61,7 +61,7 @@
 
 							<td>
 								<div class="mail_check_input_box" id="mail_check_input_box_false">
-									<input type="text" class="mail_check_input" disabled="disabled"
+									<input type="text" class="mail_check_input"
 										placeholder="인증번호를 입력해주세요.">
 								</div>
 								<div class="mail_check_button">
@@ -234,8 +234,8 @@
 			let loginId = document.getElementById("loginId").value; // 유저가 입력한 값
 			let memberPw = document.getElementById("memberPw").value;
 			let passwordCheck = document.getElementById("passwordCheck").value;
-			let memberMail = document.getElementById("memberMail").value; // 수정된 부분
-
+			let memberMail = document.getElementById("member_mail").value; // 수정된 부분
+			let memberMailCheck = document.querySelector(".mail_check_input").value;
 			let memberAddr1 = document.querySelector('.member_addr1').value;
 			let memberAddr2 = document.querySelector('.member_addr2').value;
 			let memberAddr3 = document.querySelector('.member_addr3').value;
@@ -249,7 +249,9 @@
 			let emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			// 이름 정규식 가~히, 한글로 이루어진 문자만으로 2~6자리
 			let nameReg = /^[가-힣]{2,6}$/;
-
+			// 이메일 정규식
+			let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+			
 			// 아이디 유효성 체크
 			if (!loginIdReg.test(loginId) || loginId.trim() === "") {
 				alert("아이디를 형식에 맞게끔 입력해주세요.");
@@ -275,13 +277,21 @@
 			}
 
 			// 이메일 형식 검사
-			var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-			if (!emailRegex.test(memberMail)) {
+			if (!emailRegex.test(memberMail) || memberMail.trim() === "") {
 				alert("유효한 이메일 주소를 입력하세요.");
 				document.getElementById("memberMail").focus();
 				document.getElementById("memberMail").value = "";
 				return false;
 			}
+			
+			if(memberMailCheck.trim()===""){
+				alert("인증번호를 입력해주세요.");
+				document.getElementById("memberMail").focus();
+				return false;
+			}
+			
+			
+			
 
 			return true;
 
