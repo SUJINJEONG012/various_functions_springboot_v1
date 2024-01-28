@@ -1,6 +1,7 @@
 package com.various_functions.controller;
 
 
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -123,7 +125,16 @@ public class MemberController {
 		return memberService.findMemberByLoginId(loginId);
 	}
 	
-	// 회원 정보 수정
+	// 회원 정보 리스트
+	@GetMapping("/member/list")
+	public String memberList(Model model) {
+		List<MemberVo> members = memberService.findAllMember();
+		model.addAttribute("members" , members);
+		return "member/list";
+	}
+	
+	// 회원정보 수정
+	
 	
 	// 회원 정보 삭제 (회원탈퇴)
 	

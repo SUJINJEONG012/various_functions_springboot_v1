@@ -1,5 +1,7 @@
 package com.various_functions.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -66,6 +68,9 @@ public class MemberService {
 		return memberMapper.findByLoginId(loginId);
 	}
 	
+	// 회원리스트 조회
+	
+	
 	//회원 정보수정
 	@Transactional
 	public Long updateMember(final MemberDto memberDto) {
@@ -84,6 +89,13 @@ public class MemberService {
 	//회원 수 카운팅 => id 중복체크
 	public int countMemberByLoginId(final String loginId) {
 		return memberMapper.countByLoginId(loginId);
+	}
+
+	
+	// 게시글 리스트조회
+	public List<MemberVo> findAllMember() {
+		
+		return null;
 	}
 	
 	
