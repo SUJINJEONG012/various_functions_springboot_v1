@@ -11,16 +11,19 @@ import com.various_functions.interceptor.LoginCheckInterceptor;
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	//메서드 안에 파라피터는 InterceptorRegistry registry,
-	public void addInterceptor(InterceptorRegistry registry) {
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		
+		// 로그 출력
 		 registry.addInterceptor(new LoggerInterceptor())
-         .excludePathPatterns("/css/**", "/images/**", "/js/**");
+         		 .excludePathPatterns("/css/**", "/images/**", "/js/**");
 
+		 // LoginCheckInterceptor 로그인 여부 체크하는 역할
 		 registry.addInterceptor(new LoginCheckInterceptor())
-         .addPathPatterns("/**/*")
-         .excludePathPatterns("/log*");
+         		 .addPathPatterns("/post/*")
+         		 .excludePathPatterns("/log*");
 	}
-
-
 }
 
 

@@ -49,8 +49,7 @@ public class MemberController {
 
 		// 1. 회원 상세정보 조회
 		String loginId = request.getParameter("loginId");
-		String memberPw =  request.getParameter("memberPw");
-		
+		String memberPw =  request.getParameter("memberPw");		
 		MemberVo member = memberService.login(loginId, memberPw);
 		
 		log.info("member 데이터 들고오는지 확인 :" + member );
@@ -64,6 +63,13 @@ public class MemberController {
 			session.setMaxInactiveInterval(60*30);
 		}
 		return member;
+	}
+	
+	// 로그아웃 페이지
+	@PostMapping("/member/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/member/login";
 	}
 	
 	// 회원가입 페이지 이동

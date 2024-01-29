@@ -85,12 +85,14 @@
 	member_id = #{memberId}
 	</delete>
 	
-	<!-- 회원 리스트 조회 -->
+	<!-- 회원 리스트 조회 
+	where delete_yn = 0 을 지우고 삭제된 데이터들도일단뿌려보기 위해
+	-->
 	<select id="findAllMember" resultType="com.various_functions.vo.MemberVo">
 	select 
 	<include refid="memberColumns"/>
 	from tb_member
-	where delete_yn= 0 
+	
 	order by
 	member_id desc
 	</select>
