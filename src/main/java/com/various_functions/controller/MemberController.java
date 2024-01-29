@@ -131,13 +131,7 @@ public class MemberController {
 		return memberService.findMemberByLoginId(loginId);
 	}
 	
-	// 회원 정보 리스트
-	@GetMapping("/member/list")
-	public String memberList(Model model) {
-		List<MemberVo> members = memberService.findAllMember();
-		model.addAttribute("members" , members);
-		return "member/list";
-	}
+	
 	
 	// 회원정보 수정
 	

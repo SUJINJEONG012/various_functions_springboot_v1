@@ -36,14 +36,14 @@
 //	private final JavaMailSender mailSender;
 //	
 //	//로그인 페이지 이동
-//	@GetMapping("/admin/member/login")
+//	@GetMapping("/member/login")
 //	public String openLogin() {
 //		log.info("로그인페이지 진입중");
 //		return "member/login";
 //	}
 //	
 //	// 로그인 기능 
-//	@PostMapping("/admin/member/login")
+//	@PostMapping("/member/login")
 //	@ResponseBody
 //	public MemberVo login(HttpServletRequest request) {
 //
@@ -138,8 +138,6 @@
 //		model.addAttribute("members" , members);
 //		return "member/list";
 //	}
-//	
-//	// 회원정보 수정
 //	
 //	
 //	// 회원 정보 삭제 (회원탈퇴)
