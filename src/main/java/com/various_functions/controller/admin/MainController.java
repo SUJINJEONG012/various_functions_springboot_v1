@@ -1,4 +1,4 @@
-package com.various_functions.controller;
+package com.various_functions.controller.admin;
 
 
 import org.springframework.stereotype.Controller;
@@ -10,9 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MainController {
 
-	@GetMapping("/")
+	@GetMapping("/admin")
 	public String main() {
-	log.info("유저 메인에 진입");
-		return "/index";
+	log.info("관리자 메인에 진입");
+		return "/admin/index";
 	}
 }

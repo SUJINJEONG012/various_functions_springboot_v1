@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/basic">
+<th:block layout:fragment="title">
+	<title>리스트 페이지</title>
+</th:block>
+
+<th:block layout:fragment="content">
+	<div class="page_tits">
+		<h2>회원 관리</h2>
+		<p class="path">
+			<strong>현재위치 :</strong><span>회원</span>
+		</p>
+	</div>
+
+	<div class="content">
+		<section>
+			<!-- 리스트 -->
+			<table class="tb tb_col">
+				<colgroup>
+					<col style="width: auto;" />
+					<col style="width: auto;" />
+					<col style="width: auto;" />
+				</colgroup>
+
+				<thead>
+					<tr>
+						<th scope="col">번호</th>
+						<th scope="col">아이디</th>
+						<th scope="col">이름</th>
+						<th scope="col">성별</th>
+						<th scope="col">생일</th>
+						<th scope="col">가입날짜</th>
+						<th scope="col">수정</th>
+						<th scope="col">삭제</th>
+					</tr>
+				</thead>
+
+				<tbody id="list">
+					<tr th:each="members: ${members}">
+						<td th:text="${members.memberId}"></td>
+						<td th:text="${members.loginId}"></td>
+						<td th:text="${members.memberName}"></td>
+						<th th:text="${members.gender}"></th>
+						<th th:text="${members.birthday}"></th>
+						<th th:text="${#temporals.format(members.createdDate, 'yyyy-MM-dd')}"></th>
+						<th><a th:href="@{mypage}">수정</a></th>
+						<th>삭제</th>
+					</tr>
+				</tbody>
+
+			</table>
+		</section>
+	</div>
+
+</th:block>
+
+</html>
