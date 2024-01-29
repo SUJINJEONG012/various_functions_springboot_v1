@@ -68,7 +68,7 @@ public class MemberService {
 		return memberMapper.findByLoginId(loginId);
 	}
 	
-	// 회원리스트 조회
+
 	
 	
 	//회원 정보수정
@@ -92,11 +92,9 @@ public class MemberService {
 	}
 
 	
-	// 게시글 리스트조회
+	// 회원 리스트조회
 	public List<MemberVo> findAllMember() {
 		
-		return null;
-	}
-	
-	
+		return  memberMapper.findAllMember();
+	}				
 }

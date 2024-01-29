@@ -115,7 +115,7 @@ public class MemberController {
     	log.info("회원가입 성공여부를 클라이언트에 응답");	
     	Long memberId= memberService.saveMember(memberDto);
     	return ResponseEntity.ok("success!!!!!!!");    	
-  
+
     }
 
 	// 회원 상세 조회

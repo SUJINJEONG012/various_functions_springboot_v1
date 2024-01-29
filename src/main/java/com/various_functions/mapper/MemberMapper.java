@@ -33,7 +33,7 @@ public interface MemberMapper {
 	void deleteById(Long MemberId);
 	
 	/* 회원 리스트 조회 */
-	List<MemberVo> findAll();
+	List<MemberVo> findAllMember();
 	
 	/* 회원 수 카운팅 id중복체크
 	 * loginId - uk

@@ -38,13 +38,13 @@
 				</thead>
 
 				<tbody id="list">
-					<tr th:each="members: ${memberList}">
-						<td th:text="${members.id}"></td>
+					<tr th:each="members: ${members}">
+						<td th:text="${members.memberId}"></td>
 						<td th:text="${members.loginId}"></td>
-						<td th:text="${members.userName}"></td>
+						<td th:text="${members.memberName}"></td>
 						<th th:text="${members.gender}"></th>
 						<th th:text="${members.birthday}"></th>
-						<th th:text="${#temporals.format(members.createdDate, 'yyyy-MM-dd HH:mm')}"></th>
+						<th th:text="${#temporals.format(members.createdDate, 'yyyy-MM-dd')}"></th>
 						<th><a th:href="@{mypage}">수정</a></th>
 						<th>삭제</th>
 					</tr>
