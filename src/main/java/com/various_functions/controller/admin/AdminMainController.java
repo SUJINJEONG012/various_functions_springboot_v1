@@ -8,11 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-public class MainController {
+public class AdminMainController {
 
 	@GetMapping("/admin")
 	public String main() {
 	log.info("관리자 메인에 진입");
-		return "/admin/index";
+		return "admin/main";
 	}
 }
