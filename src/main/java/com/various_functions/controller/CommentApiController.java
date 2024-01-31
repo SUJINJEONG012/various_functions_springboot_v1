@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.various_functions.admin.dto.PagingResponse;
 import com.various_functions.dto.CommentSearchDto;
-import com.various_functions.dto.PagingResponse;
 import com.various_functions.service.CommentService;
 import com.various_functions.vo.CommentRequest;
 import com.various_functions.vo.CommentResponse;

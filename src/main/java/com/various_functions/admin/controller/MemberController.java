@@ -1,4 +1,4 @@
-package com.various_functions.controller;
+package com.various_functions.admin.controller;
 
 
 import java.util.List;
@@ -36,14 +36,14 @@ public class MemberController {
 	private final JavaMailSender mailSender;
 	
 	//로그인 페이지 이동
-	@GetMapping("/member/login")
+	@GetMapping("/admin/member/login")
 	public String openLogin() {
 		log.info("로그인페이지 진입중");
-		return "member/login";
+		return "admin/member/login";
 	}
 	
 	// 로그인 기능 
-	@PostMapping("/member/login")
+	@PostMapping("/admin/member/login")
 	@ResponseBody
 	public MemberVo login(HttpServletRequest request) {
 
@@ -66,10 +66,10 @@ public class MemberController {
 	}
 	
 	// 로그아웃 페이지
-	@PostMapping("/member/logout")
+	@PostMapping("/admin/member/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/member/login";
+		return "redirect:/admin/member/login";
 	}
 	
 	// 회원가입 페이지 이동
@@ -125,13 +125,19 @@ public class MemberController {
     }
 
 	// 회원 상세 조회
-	@GetMapping("/member/{loginId}")
+	@GetMapping("admin/member/{loginId}")
 	@ResponseBody
 	public MemberVo findMemberById(@PathVariable final String loginId) {
 		return memberService.findMemberByLoginId(loginId);
 	}
 	
-	
+	// 회원 리스트 조회
+	@GetMapping("admin/member/list")
+	public String findAllMember(Model model) {
+		List<MemberVo> members = memberService.findAllMember();
+		model.addAttribute("members", members);
+		return "admin/member/list";
+	}
 	
 	// 회원정보 수정
 	

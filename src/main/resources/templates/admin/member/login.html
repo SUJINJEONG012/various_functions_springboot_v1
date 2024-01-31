@@ -115,7 +115,7 @@
 			}
 
 			$.ajax({
-				url : '/member/login',
+				url : '/admin/member/login',
 				type : 'POST',
 				dataType : 'json',
 				data : {
@@ -124,7 +124,7 @@
 				},
 				async : false,
 				success : function (response) {
-					location.href = '/post/list';
+					location.href = '/admin/member/list';
 				},
 				error : function (request, status, error) {
 					alert('아이디와 비밀번호를 확인해 주세요.');

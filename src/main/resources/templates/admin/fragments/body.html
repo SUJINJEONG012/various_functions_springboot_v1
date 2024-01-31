@@ -35,19 +35,18 @@
 			<div class="lcontent">
 				<nav>
 					<ul>
-						<li class="has_sub"><a href="javascript: void(0);"><span>게시판
-									관리</span></a>
+						<li class="has_sub"><a href="javascript: void(0);"><span>게시판 관리</span></a>
 							<ul>
-								<li><a href="/post/list" class="on">공지사항 목록</a></li>
-								<li><a href="/post/write">공지사항 글쓰기</a></li>
+								<li><a th:href="@{/admin/post/list}" class="on">공지사항 목록</a></li>
+								<li><a href="/admin/post/write">공지사항 글쓰기</a></li>
 								<li><a href="javascript: alert('준비중입니다.')">자주하는 질문</a></li>
 							</ul>
 						</li>
 							
 						<li class="has_sub"><a href="javascript:void(0);"><span>회원관리</span></a>
 							<ul>
-								<li><a th:href="@{/member/list}" class="on">회원목록</a></li>
-								<li><a th:href="@{/member/mypage}">회원수정</a></li>
+								<li><a th:href="@{/admin/member/list}" class="on">회원목록</a></li>
+								<li><a th:href="@{/admin/member/mypage}">회원수정</a></li>
 							</ul>
 						</li>
 					</ul>
