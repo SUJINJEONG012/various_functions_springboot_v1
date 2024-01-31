@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="admin/fragments/header :: admin-main-head"> </head>
-    <body th:replace="admin/fragments/body :: admin-main-body"></body>
+   	<body th:replace="admin/fragments/body :: admin-main-body">
+		   
+		   <div layout:fragment="content" class="main"></div>
+		   
+	   </body>
 </html>

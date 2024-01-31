@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/header :: main-head"> 
+   <!-- <head th:replace="fragments/header :: main-head"></head>
+    <body th:replace="fragments/body :: main-body">-->
 		
-	</head>
-    <body>
 		<div th:replace="fragments/header::header"></div>
-		<div layout:fragment="main" class="main"></div>	
+		<div layout:fragment="main" class="main"></div>
+		<div layout:fragment="content" class="main"></div>
     	<div th:replace="fragments/footer::footer"></div>
 	</body>
 
