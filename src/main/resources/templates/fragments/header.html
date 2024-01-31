@@ -1,83 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:fragment="main-head">
-	
-<meta charset="UTF-8">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
-<th:block layout:fragment="title">타이틀 헤더</th:block>
+    <th:block layout:fragment="title"></th:block>
 
-<link rel="stylesheet" th:href="@{/css/default.css}"/>
-<link rel="stylesheet" th:href="@{/css/common.css}"/>
-<link rel="stylesheet" th:href="@{/css/content.css}"/>
-<link rel="stylesheet" th:href="@{/css/button.css}"/>
+    <link rel="stylesheet" th:href="@{/css/default.css}" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/content.css}" />
+    <link rel="stylesheet" th:href="@{/css/button.css}" />
 
-<th:block layout:fragment="add-css"></th:block>
-
+    <th:block layout:fragment="add-css"></th:block>
 </head>
-
-<body>
-
-<header th:fragment="header" class="p-3 text-bg-dark mb-auto">
-			<div class="head">
-				<h1>게시판 프로젝트</h1>
-				<div class="top_menu" th:if="${session.loginMember != null}">
-					<div class="login_user">
-						<strong><i class="far fa-user-circle"></i>[[ ${session.loginMember.memberName}]]</strong>님 반갑습니다.
-					</div>
-					<div class="logout">
-						<form action="/logout" method="post">
-						<button type="submit">
-							<span class="skip_info">로그아웃</span><i class="fas fa-sign-out-alt"></i>
-						</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</header>
-		
-		
-		
-		
-		<div id="container">
-
-			<div class="menu_toggle">
-				<span></span>
-			</div>
-
-			<div class="lcontent">
-				<nav>
-					<ul>
-						<li class="has_sub"><a href="javascript: void(0);"><span>게시판
-									관리</span></a>
-							<ul>
-								<li><a href="/post/list" class="on">공지사항 목록</a></li>
-								<li><a href="/post/write">공지사항 글쓰기</a></li>
-								<li><a href="javascript: alert('준비중입니다.')">자주하는 질문</a></li>
-							</ul>
-						</li>
-							
-						<li class="has_sub"><a href="javascript:void(0);"><span>회원관리</span></a>
-							<ul>
-								<li><a th:href="@{/member/list}" class="on">회원목록</a></li>
-								<li><a th:href="@{/member/mypage}">회원수정</a></li>
-							</ul>
-						</li>
-					</ul>
-				</nav>
-			</div>
-			<!-- lcontent -->
-
-			<div class="rcontent">
-				<!-- 페이지별 콘텐츠 -->
-				<th:block layout:fragment="content"></th:block>
-			</div>
-
-		</div>
-		<!-- container end -->		
-		
-</body>
 </html>

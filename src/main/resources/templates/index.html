@@ -2,9 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/basic}">
+      
+<th:block layout:fragment="title">
+    <title>리스트 페이지</title>
+</th:block>
 
-	<main layout:fragment="main">
-		유저메인에 들어갈 콘텐츠
-	</main>
+ <th:block layout:fragment="content">
+  여기가 유저
+ </th:block>
 
 </html>
