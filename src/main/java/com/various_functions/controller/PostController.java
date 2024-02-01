@@ -36,6 +36,9 @@ public class PostController {
 	private final FileService fileService;
 	private final FileUtils fileUtils;
 	
+
+	
+	
 	 
     // 사용자에게 메세지를 전달하고, 페이지를 리다이렉트 한다.
     private String showMessageAndRedirect(final MessageDto params, Model model) {

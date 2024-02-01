@@ -1,58 +1,80 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <body th:fragment="main-body">
 
-	<div id="adm_wrap">
+
 
 		<header class="header">
 			<div class="header_container">
-				
+
 				<div class="logo">
 					<!-- #{pageContent.request.contenxtPath}/  이런식으로 경로 나중에 넣기 -->
 					<a href="" class="logo_container">
 						<h1> 여행을 떠나요🛬 🎈</h1>
 					</a>
 				</div>
-				
+
 				<div class="nav">
 					<ul class="nav_menu">
 						<li><a class="" href=""><span>호텔</span></a></li>
 
-				
-				<li th:if="${session.loginMember == null}">
-					<a th:href="@{/member/login}" class=""><span>공지사항</span></a>
-				</li>
-				<li th:unless="${session.loginMember == null}">
-					<a th:href="@{/post/list}"><span>공지사항</span></a>
-				</li>
-				
+						<li th:if="${session.loginMember == null}">
+							<a th:href="@{/member/login}" class=""><span>공지사항</span></a>
+						</li>
+						<li th:unless="${session.loginMember == null}">
+							<a th:href="@{/post/list}"><span>공지사항</span></a>
+						</li>
 					</ul>
+
+					<div class="nav_account">
+						<div class="nav_account_container">
+							<div class="nav_acco">
+								<!-- 
+								사용 예제 1: <a th:href="@{${pageContext.request.contextPath}/path}">Link</a>
+								사용 예제 2: @{/} 
+								-->
+								<a href="">숙소등록</a>
+							</div>
+
+							<div class="nav_mypage">
+								<div th:if="${session.loginMember == null}">
+									<a th:href="@{/member/login}">로그인</a>
+								</div>
+								<!--<div th:unless="${session.loginMember == null}">
+									<a th:href="@{/member/mypage}">마이페이지</a>
+								</div>-->
+
+								<div th:if="${session.loginMember != null}">
+									<a th:href="@{/member/mypage}">마이페이지</a>
+									<a th:href="@{/member/logout}">로그아웃</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
-				
+
 			</div>
 			<!--header_container end -->
-			
+
 		</header>
-		
-		
-		
+	
+	
+	<!-- 페이지별 콘텐츠 -->
+				<th:block layout:fragment="content"></th:block>
 
 
 
-	</div>
-	<!-- adm_wrap -->
-	
-	
-	
-	
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 	<script th:src="@{/js/function.js}"></script>
 	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-    <script th:src="@{/js/common.js}"></script>
-    <script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-	
+	<script th:src="@{/js/common.js}"></script>
+	<script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
 	<th:block layout:fragment="script"></th:block>
 </body>
+
 </html>

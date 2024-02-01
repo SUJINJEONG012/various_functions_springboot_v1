@@ -31,7 +31,9 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 			response.sendRedirect("/admin/dashboard");
 			return false;
 		}
+		 // 4. 부모 클래스의 preHandle 메서드 호출 후에 추가 작업을 수행하고 true 반환
+		boolean result = HandlerInterceptor.super.preHandle(request, response, handler);
 		
-		return HandlerInterceptor.super.preHandle(request, response, handler);	
+		return result;
 	}
 }
