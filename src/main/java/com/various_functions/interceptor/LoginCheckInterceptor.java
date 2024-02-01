@@ -8,6 +8,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.various_functions.vo.MemberVo;
 
+import lombok.EqualsAndHashCode.CacheStrategy;
+
 public class LoginCheckInterceptor implements HandlerInterceptor {
 
 	@Override
@@ -23,6 +25,13 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 			response.sendRedirect("/member/login");
 			return false;
 		}
+		
+		// 3. 추가 조건체크 (예: 특정역할이나 권한이 있는지 확인)
+		if(member.getAdminCk() == 1) {
+			response.sendRedirect("/admin/dashboard");
+			return false;
+		}
+		
 		return HandlerInterceptor.super.preHandle(request, response, handler);	
 	}
 }

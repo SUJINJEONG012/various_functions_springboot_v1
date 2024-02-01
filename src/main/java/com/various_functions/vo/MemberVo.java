@@ -32,6 +32,8 @@ public class MemberVo {
 	public void clearPassword() {
 		this.memberPw = "";
 	}
+
+	
 	
 	
 }

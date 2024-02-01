@@ -24,6 +24,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
          		 .addPathPatterns("/post/*", "/example/*")
          		 .excludePathPatterns("/log*");
 	}
+	
 }
 
 

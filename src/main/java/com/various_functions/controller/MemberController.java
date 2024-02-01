@@ -1,4 +1,4 @@
-package com.various_functions.admin.controller;
+package com.various_functions.controller;
 
 
 import java.util.List;
@@ -36,14 +36,14 @@ public class MemberController {
 	private final JavaMailSender mailSender;
 	
 	//로그인 페이지 이동
-	@GetMapping("/admin/member/login")
+	@GetMapping("/member/login")
 	public String openLogin() {
 		log.info("로그인페이지 진입중");
-		return "admin/member/login";
+		return "member/login";
 	}
 	
 	// 로그인 기능 
-	@PostMapping("/admin/member/login")
+	@PostMapping("/member/login")
 	@ResponseBody
 	public MemberVo login(HttpServletRequest request) {
 

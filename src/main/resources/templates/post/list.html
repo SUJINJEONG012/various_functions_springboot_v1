@@ -81,7 +81,7 @@
 
 			<!--/* 버튼 */-->
 			<p class="btn_set tr">
-				<a th:href="@{/admin/post/write}" class="btns btn_st3 btn_mid">글쓰기</a>
+				<a th:href="@{/post/write}" class="btns btn_st3 btn_mid">글쓰기</a>
 			</p>
 		</section>
 	</div>
@@ -245,7 +245,7 @@
          // 게시글 상세 페이지 이동
          function goViewPage(id){
 			 const queryString = (location.search) ? location.search + `&id=${id}` : `?id=${id}`;
-			 location.href='/admin/post/view' + queryString;
+			 location.href='/post/view' + queryString;
 		 }
 
      /*]]*/
