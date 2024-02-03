@@ -1,8 +1,14 @@
 package com.various_functions.admin.vo;
 
+import java.util.List;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoomInfoVo {
 
 	private long riid; //객실아이디
@@ -19,4 +25,6 @@ public class RoomInfoVo {
 	private String riextraimg1; // 추가이미지1
 	private String riextraimg2; // 추가이미지2 
 	private long aid; // 숙소아이디 
+	
+	private List<RoomInfoVo> roominfoVo;
 }

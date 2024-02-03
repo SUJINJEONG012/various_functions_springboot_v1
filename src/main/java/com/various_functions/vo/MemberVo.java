@@ -2,14 +2,20 @@ package com.various_functions.vo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.various_functions.admin.vo.RoomInfoVo;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
 //회원데이터 조회
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class MemberVo {
 	
 	private Long memberId; //pk 아이디
