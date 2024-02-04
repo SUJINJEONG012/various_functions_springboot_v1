@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="layout/basic">
 
 <body>
 	<th:block layout:fragment="content">
 
-		<h2>여기서 부터 일단 메인 콘텐츠 </h2>
+		<h2>여기서 부터 일단 메인 콘텐츠</h2>
 		날짜
 
 
 		<div class="">
-			<h4>게시판 글 메인에 출력하는거 테스트 </h4>
+			<h4>게시판 글 메인에 출력하는거 테스트</h4>
 			<ul>
-			<li th:each="accommodation : ${accommodations}">
-			 <h2 th:text="${accommodation.aname}"></h2>
-			 <p th:text="${accommodation.agrade}"></p>
-			 <p th:text="${accommodation.adetail}"></p>
-			 <!-- 이미지 동적으로 설정 -->
-			 <img th:src="@{/images/{imageName}(imageName=${accommodation.amainimg})}"/>
-			
-			</li>
+				<li th:each="accommodation : ${accommodations}">
+					<h2 th:text="${accommodation.aname}"></h2>
+					<p th:text="${accommodation.agrade}"></p>
+					<p th:text="${accommodation.adetail}"></p>
+					 <!-- 이미지 동적으로 설정 --> 
+					<img th:src="@{${accommodation.amainimg}}" />
+
+				</li>
 			</ul>
 		</div>
 

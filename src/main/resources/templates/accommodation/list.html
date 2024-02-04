@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/basic">
+
+<th:block layout:fragment="title">
+	<title>리스트 페이지</title>
+</th:block>
+
+<th:block layout:fragment="content">
+
+	<div>
+		<ul>
+			<li th:each="accommodation : ${accommodations}">
+				<h2 th:text="${accommodation.aname}"></h2>
+				<p th:text="${accommodation.agrade}"></p>
+				<p th:text="${accommodation.adetail}"></p> <!-- 이미지 동적으로 설정 --> <img
+				th:src="@{${accommodation.amainimg}}" />
+
+			</li>
+		</ul>
+
+	</div>
+</th:block>
+</html>
