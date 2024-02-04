@@ -11,25 +11,18 @@
 
 		<div class="">
 			<h4>게시판 글 메인에 출력하는거 테스트 </h4>
-			<br>
-			<br>
-
-			<tr th:if="${!#lists.isEmpty( posts )}" th:each="row, status : ${posts}">
-				<td><input type="checkbox" /></td>
-				<td th:text="${row.noticeYn == false ? (status.size - status.index) : '공지'}"></td>
-				<td class="tl"><a th:href="@{/post/view(id=${row.id})}" th:text="${row.title}"></a></td>
-				<td th:text="${row.writer}"></td>
-				<td th:text="${#temporals.format( row.createdDate, 'yyyy-MM-dd HH:mm' )}"></td>
-				<td th:text="${row.viewCnt}"></td>
-			</tr>
-
-			<tr th:unless="${not #lists.isEmpty( posts )}">
-				<td colspan="5">
-					<div class="no_data_msg">검색된 결과가 없습니다.</div>
-				</td>
-			</tr>
-
+			<ul>
+			<li th:each="accommodation : ${accommodations}">
+			 <h2 th:text="${accommodation.aname}"></h2>
+			 <p th:text="${accommodation.agrade}"></p>
+			 <p th:text="${accommodation.adetail}"></p>
+			 <!-- 이미지 동적으로 설정 -->
+			 <img th:src="@{/images/{imageName}(imageName=${accommodation.amainimg})}"/>
+			
+			</li>
+			</ul>
 		</div>
+
 	</th:block>
 </body>
 
