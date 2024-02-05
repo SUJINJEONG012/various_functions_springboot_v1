@@ -36,11 +36,8 @@ public class PostController {
 	private final FileService fileService;
 	private final FileUtils fileUtils;
 	
-
-	
-	
-	 
-    // 사용자에게 메세지를 전달하고, 페이지를 리다이렉트 한다.
+    
+	// 사용자에게 메세지를 전달하고, 페이지를 리다이렉트 한다.
     private String showMessageAndRedirect(final MessageDto params, Model model) {
     	model.addAttribute("params", params);
     	return "common/messageRedirect";
@@ -50,7 +47,7 @@ public class PostController {
 	 * @RequestParam 화면에서 보낸 파라미터를 전달받는데 사용
 	 * 
 	 * */
-	@GetMapping("/post/write")
+	@GetMapping("/admin/post/write")
 	public String openPostWrite(@RequestParam(value="memberId", required= false) final Long id, Model model) {
 		if(id != null) {
 			PostResponse post = postService.findPostById(id);
@@ -61,7 +58,7 @@ public class PostController {
 	
 	
 	// 신규 게시글 생성
-    @PostMapping("/post/save")
+    @PostMapping("/admin/post/save")
     public String savePost(final PostRequest params, Model model) {
     	log.info("신규게시글 올라오는 지 확");
     	Long id = postService.savePost(params);
@@ -72,7 +69,7 @@ public class PostController {
     }
    
     //게시글 리스트 페이지
-    @GetMapping("/post/list")
+    @GetMapping("/admin/post/list")
     public String openPostList(@ModelAttribute("params") final SearchDto params, Model model) {
     	PagingResponse<PostResponse> response = postService.findAllPost(params);
     	model.addAttribute("response",response);
@@ -83,7 +80,7 @@ public class PostController {
      * 게시글 상세 페이지
      * @RequestParam : HttpServletRequest에서 getParameter의 결과를 파라미터로 전달해달라는 의미
      * */
-    @GetMapping("/post/view")
+    @GetMapping("/admin/post/view")
     public String openPostView(@RequestParam final Long id, Model model) {
     	PostResponse post = postService.findPostById(id);
     	model.addAttribute("post",post);
@@ -91,7 +88,7 @@ public class PostController {
     }
     
     // 기존 게시글 수정
-    @PostMapping("/post/update")
+    @PostMapping("/admin/post/update")
     public String updatePost(final PostRequest params, final SearchDto queryParams, Model model) {
     	
     	// 1. 게시글 정보수정
@@ -117,7 +114,7 @@ public class PostController {
     }
     
     // 게시글 삭제
-    @PostMapping("/post/delete")
+    @PostMapping("/admin/post/delete")
    public String deletePost(@RequestParam Long id, SearchDto queryParams, Model model) {
 	   postService.deletePost(id);
 	   MessageDto message= new MessageDto("게시글이 삭제되었습니다.","/post/list", RequestMethod.GET, queryParamsToMap(queryParams));
