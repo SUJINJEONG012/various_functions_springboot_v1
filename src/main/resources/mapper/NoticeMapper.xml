@@ -2,45 +2,84 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- anamespace 속성에 Mapper인터페이스 경로를 선언해주면 XML mapper가 연결 -->
-<mapper namespace="com.various_functions.admin.mapper.NoticeMapper">
+<mapper
+	namespace="com.various_functions.admin.mapper.NoticeMapper">
 
-<!-- tb_notice 전체칼럼  -->
-<sql id="noticeColumns">
-id, 
-title, 
-content, 
-writer, 
-view_cnt, 
-notice_yn, 
-delete_yn, 
-created_date, 
-modified_date
-</sql>
+	<!-- tb_notice 전체칼럼 -->
+	<sql id="noticeColumns">
+		id,
+		title,
+		content,
+		writer,
+		view_cnt,
+		notice_yn,
+		delete_yn,
+		created_date,
+		modified_date
+	</sql>
 
-<!-- 게시글 저장 -->
-<insert id="noticeSave" parameterType="com.various_functions.admin.dto.NoticeDto">
-	insert into tb_notice(
-		<include refid="noticeColumns"/>
-	) values(
-	#{id},
-	#{title},
-	#{content},
-	#{writer},
-	0,
-	#{noticeYn},
-	0,
-	now(),
-	null
-	)
-</insert>
+	<!-- 게시글 저장 -->
+	<insert id="noticeSave"
+		parameterType="com.various_functions.admin.dto.NoticeDto">
+		insert into tb_notice(
+		<include refid="noticeColumns" />
+		) values(
+		#{id},
+		#{title},
+		#{content},
+		#{writer},
+		0,
+		#{noticeYn},
+		0,
+		now(),
+		null
+		)
+	</insert>
 
-<!-- 게시글 상세정보 조회 -->
-<select id="findById" parameterType="long" resultType="com.various_functions.admin.vo.NoticeVo">
-select 
-<include refid="noticeColumns"/>
-from tb_notice
-where id = #{value}
-</select>
+	<!-- 게시글 상세정보 조회 -->
+	<select id="findById" parameterType="long"
+		resultType="com.various_functions.admin.vo.NoticeVo">
+		select
+		<include refid="noticeColumns" />
+		from tb_notice
+		where id = #{id}
+	</select>
 
+	<!-- 게시글 수정 -->
+	<update id="update"
+		parameterType="com.various_functions.admin.dto.NoticeDto">
+
+		update tb_notice
+		set
+		modified_date = now(),
+		title =
+		#{title},
+		content = #{content},
+		writer = #{writer},
+		notice_yn =
+		#{noticeYn}
+		where id = #{id}
+
+	</update>
+
+	<!-- 게시글 삭제 -->
+	<delete id="deleteById" parameterType="long">
+		update tb_notice
+		set
+		delete_yn = 1
+		where id = #{id}
+	</delete>
+	
+	<!-- 게시글 리스트 조회 -->
+	<select id="findAllMembers" resultType="com.various_functions.admin.vo.NoticeVo">
+		select 
+		<include refid="noticeColumns" />
+		from tb_notice
+		where delete_yn = 0 
+		order by id desc
+	</select>
+	
+	
+	
 
 </mapper>

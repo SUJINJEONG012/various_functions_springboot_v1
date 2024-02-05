@@ -19,17 +19,18 @@ public class NoticeMapperTest {
 	
 //	@Test
 //	 void save() {
-//		PostRequest params = new PostRequest();
+//		NoticeDto params = new NoticeDto();
 //		params.setTitle("1번 게시글 제목");
 //		params.setContent("1번 게시글 내용");
 //		params.setWriter("안젤라");
 //		params.setNoticeYn(false);
-//		postMapper.save(params);
+//		
+//		noticeMapper.noticeSave(params);
 //			
-//		List<PostResponse> posts = postMapper.findAll();
-//		System.out.println("전체 게시글 개수는 : " + posts.size() + "개 입니다.");
+//		List<NoticeVo> notices = noticeMapper.findAllMembers();
+//		System.out.println("전체 게시글 개수는 : " + notices.size() + "개 입니다.");
 //	}
-//	
+
 	
 //	@Test
 //	void findById() {
@@ -65,9 +66,9 @@ public class NoticeMapperTest {
 	
 //	@Test
 //	void delete() {
-//		System.out.println("삭제 이전의 전체 게시글 개수는 : " + postMapper.findAll().size() + "개 입니다.");
-//		postMapper.deletedById(1L);
-//		System.out.println("삭제 이후의 전체 게시글 개수는 : " + postMapper.findAll().size() + "개 입니다.");		
+//		System.out.println("삭제 이전의 전체 게시글 개수는 : " + noticeMapper.findAllMembers().size() + "개 입니다.");
+//		noticeMapper.deleteById(1L);
+//		System.out.println("삭제 이후의 전체 게시글 개수는 : " + noticeMapper.findAllMembers().size() + "개 입니다.");		
 //	}
 }
 
