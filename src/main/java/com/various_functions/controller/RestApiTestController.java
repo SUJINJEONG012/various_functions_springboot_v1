@@ -3,10 +3,10 @@ package com.various_functions.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.various_functions.admin.service.NoticeService;
+import com.various_functions.admin.vo.NoticeResponse;
 import com.various_functions.dto.PagingResponse;
 import com.various_functions.dto.SearchDto;
-import com.various_functions.service.PostService;
-import com.various_functions.vo.PostResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RestApiTestController {
 	
-	private final PostService postService;
+	private final NoticeService postService;
 
 //	@GetMapping("/members")
 //	@ResponseBody
@@ -33,8 +33,8 @@ public class RestApiTestController {
 //	}
 	
 	
-	@GetMapping("/posts")
-	public PagingResponse<PostResponse> findAllPost(){
+	@GetMapping("/notices")
+	public PagingResponse<NoticeResponse> findAllPost(){
 		return postService.findAllPost(new SearchDto());
 	}
 	

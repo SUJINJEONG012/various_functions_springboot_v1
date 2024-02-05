@@ -4,14 +4,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.various_functions.service.PostService;
-import com.various_functions.vo.PostRequest;
+import com.various_functions.admin.service.NoticeService;
+import com.various_functions.admin.vo.NoticeRequest;
 
 @SpringBootTest
-public class PostServiceTest {
+public class NoticeServiceTest {
 
 	@Autowired
-	PostService postService;
+	NoticeService postService;
 	
 //	@Test
 //	void save(){
@@ -26,8 +26,8 @@ public class PostServiceTest {
 	
 	@Test
 	public void saveByForEach() {
-		for(int i = 1; i <= 1000; i++) {
-			PostRequest params = new PostRequest();
+		for(int i = 1; i <= 500; i++) {
+			NoticeRequest params = new NoticeRequest();
 			params.setTitle(i+"번 게시글 제목");
 			params.setContent(i+"번 게시글 내용");
 			params.setWriter("테스터 " + i);

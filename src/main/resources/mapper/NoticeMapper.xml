@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- anamespace 속성에 Mapper인터페이스 경로를 선언해주면 XML mapper가 연결 -->
-<mapper namespace="com.various_functions.mapper.PostMapper">
+<mapper namespace="com.various_functions.admin.mapper.NoticeMapper">
 
 	<!-- tb_table 전체칼럼 -->
 	<sql id="postColumns">
@@ -13,7 +13,7 @@
 
 	<!-- 게시글 저장 -->
 	<insert id="save"
-		parameterType="com.various_functions.vo.PostRequest"
+		parameterType="com.various_functions.admin.vo.NoticeRequest"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into tb_post(
 		<include refid="postColumns" />
@@ -25,7 +25,7 @@
 
 	<!-- 게시글 상세정보 조회 -->
 	<select id="findById" parameterType="long"
-		resultType="com.various_functions.vo.PostResponse">
+		resultType="com.various_functions.admin.vo.NoticeResponse">
 		select
 		<include refid="postColumns" />
 		from tb_post
@@ -35,7 +35,7 @@
 
 	<!-- 게시글 수정 -->
 	<update id="update"
-		parameterType="com.various_functions.vo.PostRequest">
+		parameterType="com.various_functions.admin.vo.NoticeRequest">
 		update tb_post
 		set
 		modified_date = now(),
@@ -58,7 +58,7 @@
 	<!-- 게시글 리스트 조회 -->
 	<select id="findAll"
 		parameterType="com.various_functions.dto.SearchDto"
-		resultType="com.various_functions.vo.PostResponse">
+		resultType="com.various_functions.admin.vo.NoticeResponse">
 		select
 		<include refid="postColumns" />
 		from

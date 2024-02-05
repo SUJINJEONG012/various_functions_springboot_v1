@@ -1,7 +1,5 @@
 package com.various_functions;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,15 +7,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.various_functions.mapper.PostMapper;
-import com.various_functions.vo.PostRequest;
-import com.various_functions.vo.PostResponse;
+import com.various_functions.admin.mapper.NoticeMapper;
+import com.various_functions.admin.vo.NoticeRequest;
+import com.various_functions.admin.vo.NoticeResponse;
 
 @SpringBootTest
-public class PostMapperTest {
+public class NoticeMapperTest {
 
 	@Autowired
-	private PostMapper postMapper;
+	private NoticeMapper noticeMapper;
 	
 //	@Test
 //	 void save() {
@@ -27,7 +25,7 @@ public class PostMapperTest {
 //		params.setWriter("안젤라");
 //		params.setNoticeYn(false);
 //		postMapper.save(params);
-//		
+//			
 //		List<PostResponse> posts = postMapper.findAll();
 //		System.out.println("전체 게시글 개수는 : " + posts.size() + "개 입니다.");
 //	}
@@ -35,7 +33,7 @@ public class PostMapperTest {
 	
 	@Test
 	void findById() {
-		PostResponse post = postMapper.findById(1L);
+		NoticeResponse post = noticeMapper.findById(1L);
 		try {
 			String postJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(post);
 			System.out.println(postJson);
@@ -47,16 +45,16 @@ public class PostMapperTest {
 	@Test
 	void update() {
 		//1. 게시글 수정
-		PostRequest params = new PostRequest();
+		NoticeRequest params = new NoticeRequest();
 		params.setId(1L);
 		params.setTitle("1번 게시글 제목 수정 ");
 		params.setContent("1번 게시글 내용 수정");
 		params.setWriter("안젤라2");
 		params.setNoticeYn(true);
-		postMapper.update(params);
+		noticeMapper.update(params);
 		
 		//2. 게시글 상세정보 조회
-		PostResponse post= postMapper.findById(1L);
+		NoticeResponse post= noticeMapper.findById(1L);
 		try {
 			String postJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(post);
 			System.out.println(postJson);

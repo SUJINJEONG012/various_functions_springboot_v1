@@ -1,4 +1,4 @@
-package com.various_functions.vo;
+package com.various_functions.admin.vo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import lombok.Setter;
  * */
 @Getter
 @Setter
-public class PostRequest {
+public class NoticeRequest {
 //게시판에 글을 작성할 때 입력하는 필드는 제목,내용,작성자,공지글 여부
 	private Long id;
 	private String title;

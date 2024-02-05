@@ -1,4 +1,4 @@
-package com.various_functions.vo;
+package com.various_functions.admin.vo;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostResponse {
+public class NoticeResponse {
 
 	private Long id; //pk
 	private String title; //제목

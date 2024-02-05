@@ -21,7 +21,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 		 // LoginCheckInterceptor 로그인 여부 체크하는 역할
 		 registry.addInterceptor(new LoginCheckInterceptor())
-         		 .addPathPatterns("/post/*", "/example/*")
+         		 .addPathPatterns("/notice/*", "/example/*")
          		 .excludePathPatterns("/log*");
 	}
 	

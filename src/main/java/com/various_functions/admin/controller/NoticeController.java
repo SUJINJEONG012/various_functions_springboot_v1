@@ -1,4 +1,4 @@
-package com.various_functions.controller;
+package com.various_functions.admin.controller;
 
 
 import java.util.HashMap;
@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.various_functions.admin.service.NoticeService;
+import com.various_functions.admin.vo.NoticeRequest;
+import com.various_functions.admin.vo.NoticeResponse;
 import com.various_functions.dto.FileDto;
 import com.various_functions.dto.FileUtils;
 import com.various_functions.dto.MessageDto;
 import com.various_functions.dto.PagingResponse;
 import com.various_functions.dto.SearchDto;
 import com.various_functions.service.FileService;
-import com.various_functions.service.PostService;
 import com.various_functions.vo.FileEntity;
-import com.various_functions.vo.PostRequest;
-import com.various_functions.vo.PostResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +30,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class PostController {
+public class NoticeController {
 
-	private final PostService postService;
+	private final NoticeService postService;
 	private final FileService fileService;
 	private final FileUtils fileUtils;
 	
@@ -47,19 +47,19 @@ public class PostController {
 	 * @RequestParam 화면에서 보낸 파라미터를 전달받는데 사용
 	 * 
 	 * */
-	@GetMapping("/admin/post/write")
+	@GetMapping("/admin/notice/write")
 	public String openPostWrite(@RequestParam(value="memberId", required= false) final Long id, Model model) {
 		if(id != null) {
-			PostResponse post = postService.findPostById(id);
+			NoticeResponse post = postService.findPostById(id);
 			model.addAttribute("post", post);
 		}
-		return "post/write";
+		return "/admin/notice/write";
 	}
 	
 	
 	// 신규 게시글 생성
     @PostMapping("/admin/post/save")
-    public String savePost(final PostRequest params, Model model) {
+    public String savePost(final NoticeRequest params, Model model) {
     	log.info("신규게시글 올라오는 지 확");
     	Long id = postService.savePost(params);
         List<FileDto> files = fileUtils.uploadFiles(params.getFiles());
@@ -69,27 +69,27 @@ public class PostController {
     }
    
     //게시글 리스트 페이지
-    @GetMapping("/admin/post/list")
+    @GetMapping("/admin/notice/list")
     public String openPostList(@ModelAttribute("params") final SearchDto params, Model model) {
-    	PagingResponse<PostResponse> response = postService.findAllPost(params);
+    	PagingResponse<NoticeResponse> response = postService.findAllPost(params);
     	model.addAttribute("response",response);
-    	return "post/list";
+    	return "admin/notice/list";
     }
     
     /*
      * 게시글 상세 페이지
      * @RequestParam : HttpServletRequest에서 getParameter의 결과를 파라미터로 전달해달라는 의미
      * */
-    @GetMapping("/admin/post/view")
+    @GetMapping("/admin/notice/view")
     public String openPostView(@RequestParam final Long id, Model model) {
-    	PostResponse post = postService.findPostById(id);
+    	NoticeResponse post = postService.findPostById(id);
     	model.addAttribute("post",post);
-    	return "post/view";
+    	return "admin/notice/view";
     }
     
     // 기존 게시글 수정
-    @PostMapping("/admin/post/update")
-    public String updatePost(final PostRequest params, final SearchDto queryParams, Model model) {
+    @PostMapping("/admin/notice/update")
+    public String updatePost(final NoticeRequest params, final SearchDto queryParams, Model model) {
     	
     	// 1. 게시글 정보수정
     	postService.updatePost(params);
@@ -114,12 +114,13 @@ public class PostController {
     }
     
     // 게시글 삭제
-    @PostMapping("/admin/post/delete")
+    @PostMapping("/admin/notice/delete")
    public String deletePost(@RequestParam Long id, SearchDto queryParams, Model model) {
 	   postService.deletePost(id);
-	   MessageDto message= new MessageDto("게시글이 삭제되었습니다.","/post/list", RequestMethod.GET, queryParamsToMap(queryParams));
+	   MessageDto message= new MessageDto("게시글이 삭제되었습니다.","/notice/list", RequestMethod.GET, queryParamsToMap(queryParams));
 	   return showMessageAndRedirect(message, model);
    }
+    
     
     // 쿼리 스트링 파리미터를 Map에 담아 반환
     private Map<String, Object> queryParamsToMap(final SearchDto queryParams){

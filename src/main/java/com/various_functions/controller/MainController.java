@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.various_functions.admin.service.AccommodationService;
+import com.various_functions.admin.service.NoticeService;
 import com.various_functions.admin.vo.AccommodationsVo;
-import com.various_functions.service.PostService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MainController {
 
 	@Autowired
-	private PostService postService;
+	private NoticeService noticeService;
 	@Autowired
 	private AccommodationService accommodationService;
 	
