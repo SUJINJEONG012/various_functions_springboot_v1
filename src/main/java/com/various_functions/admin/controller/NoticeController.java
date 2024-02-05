@@ -32,7 +32,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class NoticeController {
 
+	@GetMapping("/admin/notice/list")
+	public String noticeList() {
+		return "admin/notice/list";
+	}
 	
-
-    
 }

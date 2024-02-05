@@ -37,6 +37,16 @@ public class MainController {
 		return "/index";
 	}
 	
+	@GetMapping("/notice")
+	public String main() {
+		log.info("유저 메인에 진입");
+		
+		// 1. 게시글 가져오기
+
+		return "/notice/list";
+	}
+	
+	
 	
 	
 
