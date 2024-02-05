@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NoticeResponse {
+public class NoticeVo {
 
 	private Long id; //pk
 	private String title; //제목

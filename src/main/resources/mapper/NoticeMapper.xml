@@ -13,7 +13,7 @@
 
 	<!-- 게시글 저장 -->
 	<insert id="save"
-		parameterType="com.various_functions.admin.vo.NoticeRequest"
+		parameterType="com.various_functions.admin.dto.NoticeDto"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into tb_notice(
 		<include refid="postColumns" />
@@ -25,7 +25,7 @@
 
 	<!-- 게시글 상세정보 조회 -->
 	<select id="findById" parameterType="long"
-		resultType="com.various_functions.admin.vo.NoticeResponse">
+		resultType="com.various_functions.admin.vo.NoticeVo">
 		select
 		<include refid="postColumns" />
 		from tb_notice
@@ -35,7 +35,7 @@
 
 	<!-- 게시글 수정 -->
 	<update id="update"
-		parameterType="com.various_functions.admin.vo.NoticeRequest">
+		parameterType="com.various_functions.admin.dto.NoticeDto">
 		update tb_notice
 		set
 		modified_date = now(),
@@ -58,7 +58,7 @@
 	<!-- 게시글 리스트 조회 -->
 	<select id="findAll"
 		parameterType="com.various_functions.dto.SearchDto"
-		resultType="com.various_functions.admin.vo.NoticeResponse">
+		resultType="com.various_functions.admin.vo.NoticeVo">
 		select
 		<include refid="postColumns" />
 		from

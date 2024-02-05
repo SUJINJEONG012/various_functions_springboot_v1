@@ -49,7 +49,7 @@ public class MemberMapperTests {
 //        
 //		memberMapper.save(memberDto);
 //		
-//		List<MemberVo> members= memberMapper.findAll();
+//		List<MemberVo> members= memberMapper.findAllMember();
 //		System.out.println("전체 회원은 : " + members.size() + "명 입니다.");
 //	}
 	
