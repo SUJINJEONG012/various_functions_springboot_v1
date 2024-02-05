@@ -15,7 +15,7 @@
 	<insert id="save"
 		parameterType="com.various_functions.admin.vo.NoticeRequest"
 		useGeneratedKeys="true" keyProperty="id">
-		insert into tb_post(
+		insert into tb_notice(
 		<include refid="postColumns" />
 		)values(
 		#{id}, #{title}, #{content}, #{writer}, 0, #{noticeYn}, 0,
@@ -28,7 +28,7 @@
 		resultType="com.various_functions.admin.vo.NoticeResponse">
 		select
 		<include refid="postColumns" />
-		from tb_post
+		from tb_notice
 		where id = #{value}
 	</select>
 
@@ -36,7 +36,7 @@
 	<!-- 게시글 수정 -->
 	<update id="update"
 		parameterType="com.various_functions.admin.vo.NoticeRequest">
-		update tb_post
+		update tb_notice
 		set
 		modified_date = now(),
 		title = #{title},
@@ -62,7 +62,7 @@
 		select
 		<include refid="postColumns" />
 		from
-		tb_post
+		tb_notice
 		where
 		delete_yn = 0
 		<include refid="search" />
@@ -77,7 +77,7 @@
 		parameterType="com.various_functions.dto.SearchDto" resultType="int">
 		select
 		count(*)
-		from tb_post
+		from tb_notice
 		where
 		delete_yn = 0
 		<include refid="search" />
