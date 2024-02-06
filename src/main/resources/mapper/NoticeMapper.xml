@@ -20,7 +20,8 @@
 
 	<!-- 게시글 저장 -->
 	<insert id="noticeSave"
-		parameterType="com.various_functions.admin.dto.NoticeDto">
+		parameterType="com.various_functions.admin.dto.NoticeDto"
+		useGeneratedKeys="true" keyProperty="id">
 		insert into tb_notice(
 		<include refid="noticeColumns" />
 		) values(

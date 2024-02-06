@@ -11,16 +11,16 @@ import com.various_functions.admin.service.NoticeService;
 public class NoticeServiceTest {
 
 	@Autowired
-	NoticeService postService;
+	NoticeService noticeServicce;
 	
 //	@Test
 //	void save(){
-//		PostRequest params = new PostRequest();		
+//		NoticeDto params = new NoticeDto();		
 //		params.setTitle("1번 게시글 제목");	
 //        params.setContent("1번 게시글 내용");
 //        params.setWriter("테스터");
 //        params.setNoticeYn(false);
-//        Long id = postService.savePost(params);
+//        Long id = noticeServicce.noticeSave(params);
 //        System.out.println("생성된 게시글 ID : " + id);
 //	}
 	
