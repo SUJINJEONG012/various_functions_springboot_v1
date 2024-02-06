@@ -15,6 +15,13 @@
 </head>
 
 <body>
+
+ <script th:if="${param.errorMessage}">
+        alert([[${param.errorMessage}]]);
+     
+ </script>
+    
+    
 	<div id="login_wrap">
 		<div id="login_box">
 			<div class="login_con">
@@ -53,7 +60,7 @@
 	<script th:src="@{/js/common.js}"></script>
 	<script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
 	<script>
-
+	
 	/*var loginForm = {
 		    init: function() {
 		        loginForm.bind();
@@ -135,5 +142,6 @@
 		
 		
 	</script>
+
 </body>
 </html>

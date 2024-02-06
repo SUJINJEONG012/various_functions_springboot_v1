@@ -37,7 +37,13 @@ public class MemberController {
 	
 	//로그인 페이지 이동
 	@GetMapping("/member/login")
-	public String openLogin() {
+	public String openLogin(Model model, HttpSession session) {
+//	 메세지를 출력하고싶을때	
+//		String errorMessage = (String) session.getAttribute("errorMessage");	
+//		if(errorMessage != null) {
+//			model.addAttribute("errorMessage", errorMessage);
+//			session.removeAttribute("errorMessage");
+//		}
 		log.info("로그인페이지 진입중");
 		return "member/login";
 	}
