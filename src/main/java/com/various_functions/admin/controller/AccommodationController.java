@@ -24,7 +24,7 @@ public class AccommodationController {
 
 		//숙소리스트 모델에추가
 
-		List<AccommodationsVo> accommodations = accommodationService.getAllAccommodations();
+		List<AccommodationsVo> accommodations = accommodationService.getAllAwccommodations();
 		model.addAttribute("accommodations",accommodations);
 
 		

@@ -22,7 +22,7 @@
 				<input type="hidden" id="id" name="id" th:if="${notice != null}" th:value="${notice.id}" />
 
 				<!-- 서버로 전달할 공지글 여부 -->
-				<input type="hidden" id="noticeYn" name="noticeYn " />
+				<input type="hidden" id="noticeYn" name="noticeYn" />
 				
 				<table class="tb tb_row">
 					<colgroup>
@@ -40,7 +40,7 @@
 									<i></i><label for="isNotice"> 설정</label></span>
 								</span>
 							</td>
-
+							
 							<th scope="등록일">등록일</th>
 							<td colspan="3"><input type="text" id="createdDate" name="createdDate"
 									th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}" readonly>
@@ -90,7 +90,7 @@
 			
 			const form = document.getElementById("saveNoticeForm");
 
-			const fields = [form.title,  form.writer,form.content];
+			const fields = [form.title, form.writer, form.content];
 			const fieldsNames = ['제목', '이름', '내용'];
 
 			for (let i = 0, len = fields.length; i < len; i++) {

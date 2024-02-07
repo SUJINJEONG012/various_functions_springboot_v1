@@ -27,7 +27,7 @@ public class NoticeController {
 		
 		if(id != null) {
 			NoticeVo notice = noticeService.findById(id);
-			model.addAttribute("notice",notice);
+			model.addAttribute("notice", notice);
 		}
 		return "admin/notice/write";
 	}
