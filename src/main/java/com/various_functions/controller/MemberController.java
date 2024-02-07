@@ -72,11 +72,12 @@ public class MemberController {
 	}
 	
 	// 로그아웃 페이지
-	@PostMapping("/admin/member/logout")
+	@PostMapping("/member/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/admin/member/login";
+		return "redirect:/";
 	}
+	
 	
 	// 회원가입 페이지 이동
 	@GetMapping("/member/join")
