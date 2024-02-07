@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- anamespace 속성에 Mapper인터페이스 경로를 선언해주면 XML mapper가 연결 -->
-<mapper
-	namespace="com.various_functions.admin.mapper.NoticeMapper">
+<mapper namespace="com.various_functions.admin.mapper.NoticeMapper">
 
 	<!-- tb_notice 전체칼럼 -->
 	<sql id="noticeColumns">
@@ -57,8 +56,7 @@
 		#{title},
 		content = #{content},
 		writer = #{writer},
-		notice_yn =
-		#{noticeYn}
+		notice_yn = #{noticeYn}
 		where id = #{id}
 
 	</update>

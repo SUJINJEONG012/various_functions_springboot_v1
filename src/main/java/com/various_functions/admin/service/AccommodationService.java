@@ -14,7 +14,7 @@ public class AccommodationService {
 	@Autowired
 	private AccommodationsMapper accommodationsMapper;
 	
-	public List<AccommodationsVo> getAllAccommodations(){
+	public List<AccommodationsVo> getAllAwccommodations(){
 		return accommodationsMapper.getAllAccommodations();
 	}
 }
