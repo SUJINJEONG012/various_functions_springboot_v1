@@ -48,7 +48,6 @@
 	<!-- 게시글 수정 -->
 	<update id="update"
 		parameterType="com.various_functions.admin.dto.NoticeDto">
-
 		update tb_notice
 		set
 		modified_date = now(),
@@ -75,7 +74,9 @@
 		<include refid="noticeColumns" />
 		from tb_notice
 		where delete_yn = 0 
-		order by id desc
+		order by 
+		case when notice_yn = 1 then 0 else 1 end,
+		created_date desc;
 	</select>
 	
 	
