@@ -25,7 +25,7 @@ public interface NoticeMapper {
 	/* 게시글 리스트 조회
 	 * 여러개의 게시글을 리스트에 담아 리턴해주는 역할
 	 * */
-	List<NoticeVo> findAllMembers();
+	List<NoticeVo> findAllNotices();
 	
 	
 	// 게시글 수 

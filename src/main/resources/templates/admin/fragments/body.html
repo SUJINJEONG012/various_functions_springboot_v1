@@ -12,12 +12,13 @@
 					<div class="login_user">
 						<strong><i class="far fa-user-circle"></i>[[ ${session.loginMember.memberName}]]</strong>님 반갑습니다.
 					</div>
+					
 					<div class="logout">
-						<form action="/logout" method="post">
-						<button type="submit">
+						
+						<button type="button" id="logoutBtn">
 							<span class="skip_info">로그아웃</span><i class="fas fa-sign-out-alt"></i>
 						</button>
-						</form>
+						
 					</div>
 				</div>
 			</div>
@@ -75,6 +76,32 @@
     <script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 	
-	<th:block layout:fragment="script"></th:block>
+	<th:block layout:fragment="script">
+		
+	 <!--<script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var logoutBtn = document.getElementById("logoutBtn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function() {
+                    // 로그아웃 요청을 보냄 
+                    fetch('/member/logout', {
+                        method:'POST',
+                        headers: {
+                            'Content-Type' : 'application/json'
+                        }
+                    }).then(response =>{
+                        //리다이렉션 응답을 받으면 현재 페이지를 새로고침하여 로그인 페이지로 이동
+                        if(response.redirected){
+                            window.location.href = response.url;
+                        }
+                    }).catch(error => {
+                        console.log("로그아웃 요청 중 오류 발생 : ", error);
+                    });
+                });
+            }
+        });
+    </script>-->
+	</th:block>
+	
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.various_functions.admin.controller;
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +43,9 @@ public class NoticeController {
 	
 	// 공지사항 리스트
 	@GetMapping("/admin/notice/list")
-	public String noticeList() {
+	public String noticeList(Model model) {
+		List<NoticeVo> notices = noticeService.findAllNotices();
+		model.addAttribute("notices", notices);
 		return "admin/notice/list";
 	}
 	

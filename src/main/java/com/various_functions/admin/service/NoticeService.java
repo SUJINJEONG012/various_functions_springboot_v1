@@ -18,14 +18,14 @@ public class NoticeService {
 
 	private final NoticeMapper noticeMapper;
 	
-	// 게시글 저장
+	// 공지사항 저장
 	@Transactional
 	public Long noticeSave(final NoticeDto noticeDto) {
 		noticeMapper.noticeSave(noticeDto);	
 		return noticeDto.getId();
 	}
 	
-	// 게시글 상세정보 조회
+	// 공지사항 상세정보 조회
 	public NoticeVo findById(final Long id) {
 		return noticeMapper.findById(id);
 	}
@@ -44,8 +44,8 @@ public class NoticeService {
 	}
 	
 	// 게시글 리스트 조회
-	public List<NoticeVo> findAllMembers(){
-		return noticeMapper.findAllMembers();
+	public List<NoticeVo> findAllNotices(){
+		return noticeMapper.findAllNotices();
 	}
 	
 	

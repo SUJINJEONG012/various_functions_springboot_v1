@@ -70,7 +70,7 @@
 	</delete>
 	
 	<!-- 게시글 리스트 조회 -->
-	<select id="findAllMembers" resultType="com.various_functions.admin.vo.NoticeVo">
+	<select id="findAllNotices" resultType="com.various_functions.admin.vo.NoticeVo">
 		select 
 		<include refid="noticeColumns" />
 		from tb_notice

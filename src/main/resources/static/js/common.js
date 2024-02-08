@@ -74,3 +74,27 @@ function popup_win(str,id,w,h,scrollchk){
 	var pop = window.open(str,id,"width="+w+",height="+h+",scrollbars="+scrollchk+",resize=no,location=no ");
 	pop.focus();
 }
+
+
+//로그아웃
+ document.addEventListener("DOMContentLoaded", function() {
+            var logoutBtn = document.getElementById("logoutBtn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function() {
+                    // 로그아웃 요청을 보냄 
+                    fetch('/member/logout', {
+                        method:'POST',
+                        headers: {
+                            'Content-Type' : 'application/json'
+                        }
+                    }).then(response =>{
+                        //리다이렉션 응답을 받으면 현재 페이지를 새로고침하여 로그인 페이지로 이동
+                        if(response.redirected){
+                            window.location.href = response.url;
+                        }
+                    }).catch(error => {
+                        console.log("로그아웃 요청 중 오류 발생 : ", error);
+                    });
+                });
+            }
+        });
