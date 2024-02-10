@@ -43,10 +43,11 @@ public class NoticeService {
 		return id;
 	}
 	
-	// 게시글 리스트 조회
+	// 게시글 리스트 조회 => user, admin 공통으로 들고오기 위한 코드
 	public List<NoticeVo> findAllNotices(){
 		return noticeMapper.findAllNotices();
 	}
+	
 	
 	
 }
