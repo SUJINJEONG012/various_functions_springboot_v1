@@ -12,24 +12,23 @@ import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.vo.AccommodationsVo;
 
 @Controller
-@RequestMapping("/accommodation")
+@RequestMapping("/admin")
 public class AccommodationController {
 	
 	@Autowired
 	private AccommodationService accommodationService;
 	
 
-	@GetMapping("/list")
+	@GetMapping("/accommodation/list")
 	public String accommodationList(Model model) {
-
+		
 		//숙소리스트 모델에추가
-
 		List<AccommodationsVo> accommodations = accommodationService.getAllAwccommodations();
 		model.addAttribute("accommodations",accommodations);
 
 		
         // 해당하는 뷰 페이지의 이름을 반환
-        return "accommodation/list";
+        return "admin/accommodation/list";
 	}
 	
 }

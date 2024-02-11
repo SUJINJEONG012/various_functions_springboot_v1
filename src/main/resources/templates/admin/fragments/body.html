@@ -7,18 +7,21 @@
 
 		<header>
 			<div class="head">
-				<h1><a href="/admin/dashboard">관리자 페이지</a></h1>
+				<h1>
+					<a href="/admin/dashboard">관리자 페이지</a>
+				</h1>
 				<div class="top_menu" th:if="${session.loginMember != null}">
 					<div class="login_user">
-						<strong><i class="far fa-user-circle"></i>[[ ${session.loginMember.memberName}]]</strong>님 반갑습니다.
+						<strong><i class="far fa-user-circle"></i>[[
+							${session.loginMember.memberName}]]</strong>님 반갑습니다.
 					</div>
-					
+
 					<div class="logout">
-						
+
 						<button type="button" id="logoutBtn">
 							<span class="skip_info">로그아웃</span><i class="fas fa-sign-out-alt"></i>
 						</button>
-						
+
 					</div>
 				</div>
 			</div>
@@ -31,20 +34,27 @@
 			<div class="lcontent">
 				<nav>
 					<ul>
-						<li class="has_sub"><a href="javascript: void(0);"><span>게시판 관리</span></a>
+						<li class="has_sub"><a href="javascript: void(0);"><span>게시판
+									관리</span></a>
 							<ul>
-								<li><a th:href="@{/admin/notice/list}" class="on">공지사항 목록</a></li>
+								<li><a th:href="@{/admin/notice/list}" class="on">공지사항
+										목록</a></li>
 								<li><a href="/admin/notice/write">공지사항 글쓰기</a></li>
 								<li><a href="javascript: alert('준비중입니다.')">자주하는 질문</a></li>
+							</ul></li>
+
+						<li class="has_sub"><a href="javascript:void(0);"><span>숙소관리</span></a>
+							<ul>
+								<li><a th:href="@{/admin/accommodation/list}" class="on">숙소목록</a></li>
+								<li><a th:href="@{/admin/accommodation/write}">숙소등록</a></li>
 							</ul>
 						</li>
-							
+
 						<li class="has_sub"><a href="javascript:void(0);"><span>회원관리</span></a>
 							<ul>
 								<li><a th:href="@{/admin/member/list}" class="on">회원목록</a></li>
 								<li><a th:href="@{/admin/member/optout}">회원탈퇴</a></li>
-							</ul>
-						</li>
+							</ul></li>
 					</ul>
 				</nav>
 			</div>
@@ -59,18 +69,20 @@
 		<!-- container end -->
 	</div>
 	<!-- adm_wrap -->
-	
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 	<script th:src="@{/js/function.js}"></script>
 	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-    <script th:src="@{/js/common.js}"></script>
-    <script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-	
+	<script th:src="@{/js/common.js}"></script>
+	<script src="https://kit.fontawesome.com/79613ae794.js"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
 	<th:block layout:fragment="script">
-		
-	 <!--<script th:inline="javascript">
+
+		<!--<script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function() {
             var logoutBtn = document.getElementById("logoutBtn");
             if (logoutBtn) {
@@ -94,6 +106,6 @@
         });
     </script>-->
 	</th:block>
-	
+
 </body>
 </html>
