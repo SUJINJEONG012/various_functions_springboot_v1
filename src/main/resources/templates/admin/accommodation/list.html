@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-관리자 숙소리스트 
-</body>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="admin/layout/basic">
+<th:block layout:fragment="title">
+	<title>관리자 슥서 리스트 페이지</title>
+</th:block>
+
+<th:block layout:fragment="content">
+
+	<section>
+		<table class="tb tb_col">
+			<colgroup>
+				<col style="width: auto;" />
+				<col style="width: auto;" />
+				<col style="width: auto;" />
+			</colgroup>
+
+			<thead>
+				<tr>
+					<th scope="col">번호</th>
+					<th scope="col">카테고리</th>
+					<th scope="col">이름</th>
+					<th scope="col">주소</th>
+					<th scope="col">휴대폰번호</th>
+					<th scope="col">성급</th>
+				</tr>
+			</thead>
+			
+			<tbody id="list">
+				<tr th:each="accommodations : ${accommodations}">
+					<td th:text=${accommodations.aid}></td>
+					<td th:text=${accommodations.acate}></td>
+					<td th:text=${accommodations.aname}></td>
+					<td th:text=${accommodations.aadress}></td>
+					<td th:text=${accommodations.aphone}></td>
+					<td th:text=${accommodations.agrade}></td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</section>
+
+
+</th:block>
+
+
 </html>

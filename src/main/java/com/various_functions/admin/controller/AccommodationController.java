@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.vo.AccommodationsVo;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/admin")
 public class AccommodationController {
 	
@@ -20,9 +25,9 @@ public class AccommodationController {
 	
 
 	@GetMapping("/accommodation/list")
+	
 	public String accommodationList(Model model) {
-		
-		//숙소리스트 모델에추가
+		//숙소리스트 모델에 추가
 		List<AccommodationsVo> accommodations = accommodationService.getAllAwccommodations();
 		model.addAttribute("accommodations",accommodations);
 
