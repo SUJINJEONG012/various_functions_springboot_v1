@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccommodationsVo {
 	
-	private long aid;
-	private String acate;
-	private String aname;
-	private String aadress;
-	private String aphone;
-	private String axcoordi;
-	private int atotalroom;
-	private String agrade;
-	private String adetail;
-	private String amainimg;
-	private LocalDateTime aregdate;
+	private long aid; // 숙소아이디
+	private String acate; //카테고리
+	private String aname; // 숙소이름
+	private String aadress; // 숙소주소
+	private String aphone; //숙소 전화번호
+	private String axcoordi; //숙소 좌표
+	private int atotalroom; // 총객실수
+	private String agrade; //숙소등급
+	private String adetail; //숙소설명
+	private String amainimg; //이미지
+	private LocalDateTime aregdate; //등록날짜
 }

@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.various_functions.admin.dto.AccommodationsDto;
+import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.vo.AccommodationsVo;
 
@@ -23,9 +26,18 @@ public class AccommodationController {
 	@Autowired
 	private AccommodationService accommodationService;
 	
-
-	@GetMapping("/accommodation/list")
+	@GetMapping("/accommodation/write")
+	public String accommodationSave(Model model) {	
+		return "/admin/accommodation/write";
+	}
 	
+	@PostMapping("/accommodation/write")
+	public String saveAccommodation(final AccommodationsDto accommodationsDto) {
+		accommodationService.accommodations(accommodationsDto);
+		return "redirect:/admin/accommodation/write";
+	}
+	
+	@GetMapping("/accommodation/list")	
 	public String accommodationList(Model model) {
 		//숙소리스트 모델에 추가
 		List<AccommodationsVo> accommodations = accommodationService.getAllAwccommodations();
@@ -35,5 +47,7 @@ public class AccommodationController {
         // 해당하는 뷰 페이지의 이름을 반환
         return "admin/accommodation/list";
 	}
+	
+	
 	
 }
