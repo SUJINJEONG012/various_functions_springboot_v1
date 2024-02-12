@@ -11,12 +11,7 @@
 	<section>
 		<form id="saveNoticeForm" method="post" aria-autocomplete="off">
 
-			<!-- 게시글 수정인 경우 -->
-			<input type="hidden" id="id" name="id" th:if="${notice != null}"
-				th:value="${notice.id}" />
 
-			<!-- 서버로 전달할 공지글 여부 -->
-			<input type="hidden" id="noticeYn" name="noticeYn" />
 
 			<table class="tb tb_row">
 				<colgroup>
@@ -28,87 +23,138 @@
 				<tbody>
 
 					<!-- 객실기본정보 start -->
-				<div class="room_basic">
-					<h3 class="room_title">객실 기본 정보</h3>
+					<div class="room_basic">
 
-					<ul>
-						<li class="join-field"><label for=""> <span
-								class="point_color">*</span> 카테고리
-						</label> <input type="text" name="acate" class="input" maxlength="12"
-							lang="en" placeholder="카테고리를 입력해주세요."></li>
+						<h3 class="room_title">객실 기본 정보</h3>
 
-
-						<li class="join-field"><label for=""><span
-								class="point_color">*</span>숙박업소명</label> <input type="text"
-							name="aname" class="input" lang="en" placeholder="숙박업소명을 입력해주세요."></li>
-
-						<li class="join-field">
-						<label for=""><span class="point_color">*</span>전화번호</label> <input type="tel" name="aphone"
-							class="input" maxlength="20" lang="en"
-							placeholder="'-' 없이 전화번호를 입력해주세요."></li>
-
-						<li class="room_map">
-
-							<div class="add_input">
-								<label for=""><span class="point_color">*</span>주소</label> 
-								<input
-									type="text" id="find" name="aaddress" placeholder="주소를 입력해주세요."> <input
-									type="button" value="주소 검색" onclick="go()">
-							</div>
-
-							<div id="map" style="width: 100%; height: 400px;">
-								<input type="hidden" name="aycoordi" id="xcoordi"> <input
-									type="hideen" name="axcoordi" id="ycoordi">
-							</div>
-						</li>
-
-						<li class="join-field"><label for=""> <span
-								class="point_color">*</span>총객실수
-						</label> <input type="text" name="atotalroom" class="input" lang="en"
-							placeholder="총 객실수를 입력해주세요."></li>
+						<ul>
+							<li class="join-field"><label for=""> <span
+									class="point_color">*</span> 카테고리
+							</label> <input type="text" name="acate" class="input" maxlength="12"
+								lang="en" placeholder="카테고리를 입력해주세요."></li>
 
 
+							<li class="join-field"><label for=""> <span
+									class="point_color">*</span>숙박업소명
+							</label> <input type="text" name="aname" class="input" lang="en"
+								placeholder="숙박업소명을 입력해주세요."></li>
 
-						<li><label for=""><span class="point_color">*</span>숙소성급</label>
+							<li class="room_map">
 
-							<div class="star-rating space-x-4 mx-auto">
-								<input type="radio" id="5-stars" name="agrade" value="5"
-									v-model="ratings" /> <label for="5-stars" class="star pr-4">★</label>
-								<input type="radio" id="4-stars" name="agrade" value="4"
-									v-model="ratings" /> <label for="4-stars" class="star">★</label>
-								<input type="radio" id="3-stars" name="agrade" value="3"
-									v-model="ratings" /> <label for="3-stars" class="star">★</label>
-								<input type="radio" id="2-stars" name="agrade" value="2"
-									v-model="ratings" /> <label for="2-stars" class="star">★</label>
-								<input type="radio" id="1-star" name="agrade" value="1"
-									v-model="ratings" /> <label for="1-star" class="star">★</label>
-							</div></li>
+								<div class="add_input">
+									<label for=""><span class="point_color">*</span>주소</label> <input
+										type="text" id="aaddress1" name="aaddress1"
+										placeholder="주소를 입력해주세요." readonly> <input
+										type="button" value="주소 검색" onclick="execution_daum_address()">
+								</div>
 
-						<li><label for=""><span class="point_color">*</span>숙소
-								소개</label> <input type="text" name="adetail" class="input"
-							placeholder="숙소 소개를 입력해주세요."></li>
+								<div id="map" style="width: 100%; height: 400px;"></div> <input
+								type="text" name="aycoordi" id="xcoordi"> <input
+								type="text" name="axcoordi" id="ycoordi">
 
-						<li class="filebox">대표이미지1 <label for=""><div
-									class="btn-upload">파일 업로드하기</div></label> 
-									<input type="file"
-							name="file" id="file" class="file input" multiple="multiple">
-						</li>
+							</li>
 
 
-					</ul>
-				</div>
-				<!-- 객실기본정보 end -->
-					
-					
+							<li class="join-field"><label for=""><span
+									class="point_color">*</span>전화번호</label> <input type="tel"
+								name="aphone" class="input" maxlength="20" lang="en"
+								placeholder="'-' 없이 전화번호를 입력해주세요."></li>
+
+
+							<li class="join-field"><label for=""><span
+									class="point_color">*</span>좌표</label> <input type="text"
+								name="axcoordi" class="input" maxlength="20" lang="en"
+								placeholder="'-' 없이 전화번호를 입력해주세요."></li>
+
+
+
+							<li class="join-field"><label for=""> <span
+									class="point_color">*</span>총객실수
+							</label> <input type="text" name="atotalroom" class="input" lang="en"
+								placeholder="총 객실수를 입력해주세요."></li>
+
+
+
+							<li><label for=""><span class="point_color">*</span>숙소성급</label>
+
+								<div class="star-rating space-x-4 mx-auto">
+									<input type="radio" id="5-stars" name="agrade" value="5"
+										v-model="ratings" /> <label for="5-stars" class="star pr-4">★</label>
+									<input type="radio" id="4-stars" name="agrade" value="4"
+										v-model="ratings" /> <label for="4-stars" class="star">★</label>
+									<input type="radio" id="3-stars" name="agrade" value="3"
+										v-model="ratings" /> <label for="3-stars" class="star">★</label>
+									<input type="radio" id="2-stars" name="agrade" value="2"
+										v-model="ratings" /> <label for="2-stars" class="star">★</label>
+									<input type="radio" id="1-star" name="agrade" value="1"
+										v-model="ratings" /> <label for="1-star" class="star">★</label>
+								</div></li>
+
+							<li><label for=""><span class="point_color">*</span>숙소
+									소개</label> <input type="text" name="adetail" class="input"
+								placeholder="숙소 소개를 입력해주세요."></li>
+
+							<li class="filebox">대표이미지1 <label for=""></label>
+								<div class="btn-upload">파일 업로드하기</div> <input type="file"
+								name="file" id="file" class="file input" multiple="multiple">
+							</li>
+
+
+						</ul>
+					</div>
+					<!-- 객실기본정보 end -->
 				</tbody>
 			</table>
 		</form>
-		<p class="btn_set">
-			<button type="button" id="saveBtn" onclick="saveNotice();"
-				class="btns btn_st3 btn_mid">저장</button>
-			<a th:href="@{/admin/notice/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
-		</p>
+
 	</section>
+
+
+
+
+	<script
+		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+	<script>
+		function execution_daum_address() {
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+							if (data && data.y && data.x) { // data 객체와 그 안의 속성들이 존재하는지 확인
+								var addr = data.address;
+								var lat = data.y;
+								var lng = data.x;
+
+								// 주소 입력란에 주소 입력
+								document.getElementById('aaddress1').value = addr;
+								// 좌표 입력란에 좌표 입력
+								document.getElementById('xcoordi').value = lat;
+								document.getElementById('ycoordi').value = lng;
+
+								// 지도에 마커 표시
+								var mapContainer = document
+										.getElementById('map');
+								var mapOption = {
+									center : new daum.maps.LatLng(lat, lng),
+									level : 3
+								};
+								var map = new daum.maps.Map(mapContainer,
+										mapOption);
+								var markerPosition = new daum.maps.LatLng(lat,
+										lng);
+								var marker = new daum.maps.Marker({
+									position : markerPosition
+								});
+								marker.setMap(map);
+							} else {
+								console
+										.error("Data object or its properties are undefined.");
+							}
+						}
+					}).open();
+		}
+	</script>
+
 </th:block>
 
 </html>
