@@ -28,73 +28,83 @@
 						<h3 class="room_title">객실 기본 정보</h3>
 
 						<ul>
-							<li class="join-field"><label for=""> <span
-									class="point_color">*</span> 카테고리
-							</label> <input type="text" name="acate" class="input" maxlength="12"
+							<li class="join-field"><span
+									class="point_color">*</span> 카테고리<input type="text" name="acate" class="input" maxlength="12"
 								lang="en" placeholder="카테고리를 입력해주세요."></li>
 
 
-							<li class="join-field"><label for=""> <span
+							<li class="join-field"> <span
 									class="point_color">*</span>숙박업소명
-							</label> <input type="text" name="aname" class="input" lang="en"
+							<input type="text" name="aname" class="input" lang="en"
 								placeholder="숙박업소명을 입력해주세요."></li>
 
 							<li class="room_map">
 
 								<div class="add_input">
-									<label for=""><span class="point_color">*</span>주소</label> <input
-										type="text" id="aaddress1" name="aaddress1"
-										placeholder="주소를 입력해주세요." readonly> <input
-										type="button" value="주소 검색" onclick="execution_daum_address()">
+									<label for="aaddress1"><span class="point_color">*</span>우편번호</label> <input
+										type="text" id="aaddress1" name="aaddress1" placeholder="우편번호"
+										readonly="readonly"> <input type="button"
+										value="주소 검색" onclick="execution_daum_address()">
+								</div>
+								<div class="add_input">
+									<label for="aaddress2"><span class="point_color">*</span>주소</label> <input
+										type="text" id="aaddress2" name="aaddress2"
+										placeholder="주소를 입력해주세요." readonly="readonly">
+
 								</div>
 
-								<div id="map" style="width: 100%; height: 400px;"></div> <input
-								type="text" name="aycoordi" id="xcoordi"> <input
-								type="text" name="axcoordi" id="ycoordi">
-
+								<div id="map" style="width: 100%; height: 400px;"></div>
+									<input type="text" name="aycoordi" id="xcoordi"> <input
+										type="text" name="axcoordi" id="ycoordi">
+								
 							</li>
 
 
-							<li class="join-field"><label for=""><span
+							<li class="join-field"><label for="aphone"><span
 									class="point_color">*</span>전화번호</label> <input type="tel"
-								name="aphone" class="input" maxlength="20" lang="en"
+								name="aphone" id="aphone" class="input" maxlength="20" lang="en"
 								placeholder="'-' 없이 전화번호를 입력해주세요."></li>
 
 
-							<li class="join-field"><label for=""><span
-									class="point_color">*</span>좌표</label> <input type="text"
+							<li class="join-field"><label for="axcoordi"><span
+									class="point_color">*</span>좌표</label> <input type="text" id="axcoordi"
 								name="axcoordi" class="input" maxlength="20" lang="en"
 								placeholder="'-' 없이 전화번호를 입력해주세요."></li>
 
 
 
-							<li class="join-field"><label for=""> <span
+							<li class="join-field"><label for="atotalroom"> <span
 									class="point_color">*</span>총객실수
-							</label> <input type="text" name="atotalroom" class="input" lang="en"
+							</label> <input type="text" id="atotalroom" name="atotalroom" class="input" lang="en"
 								placeholder="총 객실수를 입력해주세요."></li>
 
 
 
-							<li><label for=""><span class="point_color">*</span>숙소성급</label>
+							<li><span class="point_color">*</span>숙소성급
 
 								<div class="star-rating space-x-4 mx-auto">
 									<input type="radio" id="5-stars" name="agrade" value="5"
-										v-model="ratings" /> <label for="5-stars" class="star pr-4">★</label>
+										v-model="ratings" /> 
+										<span class="star pr-4">★</span>
 									<input type="radio" id="4-stars" name="agrade" value="4"
-										v-model="ratings" /> <label for="4-stars" class="star">★</label>
+										v-model="ratings" /> 
+										<span class="star">★</span>
 									<input type="radio" id="3-stars" name="agrade" value="3"
-										v-model="ratings" /> <label for="3-stars" class="star">★</label>
+										v-model="ratings" /> 
+										<span class="star">★</span>
 									<input type="radio" id="2-stars" name="agrade" value="2"
-										v-model="ratings" /> <label for="2-stars" class="star">★</label>
+										v-model="ratings" /> 
+										<span class="star">★</span>
 									<input type="radio" id="1-star" name="agrade" value="1"
-										v-model="ratings" /> <label for="1-star" class="star">★</label>
+										v-model="ratings" />
+										 <span  class="star">★</span>
 								</div></li>
 
-							<li><label for=""><span class="point_color">*</span>숙소
-									소개</label> <input type="text" name="adetail" class="input"
+							<li><span class="point_color">*</span>숙소
+									소개<input type="text" name="adetail" class="input"
 								placeholder="숙소 소개를 입력해주세요."></li>
 
-							<li class="filebox">대표이미지1 <label for=""></label>
+							<li class="filebox">대표이미지1 
 								<div class="btn-upload">파일 업로드하기</div> <input type="file"
 								name="file" id="file" class="file input" multiple="multiple">
 							</li>
@@ -110,46 +120,81 @@
 	</section>
 
 
-
-
-	<script
-		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
+		
 		function execution_daum_address() {
 			new daum.Postcode(
 					{
 						oncomplete : function(data) {
-							if (data && data.y && data.x) { // data 객체와 그 안의 속성들이 존재하는지 확인
-								var addr = data.address;
-								var lat = data.y;
-								var lng = data.x;
-
-								// 주소 입력란에 주소 입력
-								document.getElementById('aaddress1').value = addr;
-								// 좌표 입력란에 좌표 입력
-								document.getElementById('xcoordi').value = lat;
-								document.getElementById('ycoordi').value = lng;
-
-								// 지도에 마커 표시
-								var mapContainer = document
-										.getElementById('map');
-								var mapOption = {
-									center : new daum.maps.LatLng(lat, lng),
-									level : 3
-								};
-								var map = new daum.maps.Map(mapContainer,
-										mapOption);
-								var markerPosition = new daum.maps.LatLng(lat,
-										lng);
-								var marker = new daum.maps.Marker({
-									position : markerPosition
-								});
-								marker.setMap(map);
-							} else {
-								console
-										.error("Data object or its properties are undefined.");
+							var addr = ''; // 주소 변수
+							var extraAddr = ''; // 참고항목 변수
+							var lat = data.y; // 위도
+							var lng = data.x; // 경도
+							
+							// 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+							if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+								addr = data.roadAddress;
+							} else { // 사용자가 지번 주소를 선택했을 경우(J)
+								addr = data.jibunAddress;
 							}
+
+							// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+							if (data.userSelectedType === 'R') {
+								// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+								// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+								if (data.bname !== ''
+										&& /[동|로|가]$/g.test(data.bname)) {
+									extraAddr += data.bname;
+								}
+								// 건물명이 있고, 공동주택일 경우 추가한다.
+								if (data.buildingName !== ''
+										&& data.apartment === 'Y') {
+									extraAddr += (extraAddr !== '' ? ', '
+											+ data.buildingName
+											: data.buildingName);
+								}
+								// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+								if (extraAddr !== '') {
+									extraAddr = ' (' + extraAddr + ')';
+								}
+
+								// 주소변수 문자열과 참고항목 문자열 합치기
+								addr += extraAddr;
+							} else {
+								addr += '';
+							}
+
+							// 주소 입력란에 주소 입력
+							document.getElementById('aaddress1').value = data.zonecode;
+							document.getElementById('aaddress2').value = addr;
+							console.log(document.getElementById('aaddress1').value = data.zonecode);
+							// 좌표 입력란에 좌표 입력
+							document.getElementById('xcoordi').value = lat;
+							document.getElementById('ycoordi').value = lng;
+
+							// 주소 입력란의 readonly 속성 제거
+							var addressInput2 = document.getElementById('aaddress2');
+							addressInput2.removeAttribute('readonly');
+							addressInput2.focus();
+
+							// 지도에 마커 표시
+							var mapContainer = document.getElementById('map'); // 지도를 표시할 div
+							console.log(mapContainer);
+							var mapOption = {
+								center : new daum.maps.LatLng(lat, lng), // 지도의 중심좌표
+								level : 3
+							// 지도의 확대 레벨
+							};
+							var map = new daum.maps.Map(mapContainer, mapOption); // 지도 생성
+							var markerPosition = new daum.maps.LatLng(lat, lng); // 마커 위치
+							var marker = new daum.maps.Marker({
+								position : markerPosition
+							}); // 마커 생성
+							marker.setMap(map); // 마커 지도에 표시
+
+							// 주소 검색 창 닫기
+							data.autoClose = true; // 콜백 함수 파라미터에 autoClose 속성 추가
 						}
 					}).open();
 		}
