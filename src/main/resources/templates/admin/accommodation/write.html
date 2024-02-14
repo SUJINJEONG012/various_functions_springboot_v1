@@ -1,161 +1,158 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="admin/layout/basic">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="admin/layout/basic">
 
 
 <th:block layout:fragment="content">
-	
+
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services,clusterer,drawing"></script>
-    
-    <section>
-        <form id="saveNoticeForm" method="post" aria-autocomplete="off">
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services,clusterer,drawing"></script>
 
-            <table class="tb tb_row">
-                <colgroup>
-                    <col style="width: 15%" />
-                    <col style="width: 35%" />
-                    <col style="width: 15%" />
-                </colgroup>
+	<section>
+		<form id="saveNoticeForm" method="post" aria-autocomplete="off">
 
-                <tbody>
+			<table class="tb tb_row">
+				<colgroup>
+					<col style="width: 15%" />
+					<col style="width: 35%" />
+					<col style="width: 15%" />
+				</colgroup>
 
-                    <!-- 객실기본정보 start -->
-                    <div class="room_basic">
+				<tbody>
 
-                        <h3 class="room_title">객실 기본 정보</h3>
+					<!-- 객실기본정보 start -->
+					<div class="room_basic">
 
-                        <ul>
-                            <li class="join-field"><span
-                                    class="point_color">*</span> 카테고리<input type="text" name="acate" class="input" maxlength="12"
-                                lang="en" placeholder="카테고리를 입력해주세요."></li>
+						<h3 class="room_title">객실 기본 정보</h3>
 
+						<ul>
+							<li class="join-field"><span class="point_color">*</span> 카테고리
+								<input type="text" name="acate" lang="en" placeholder="카테고리를 입력해주세요.">
 
-                            <li class="join-field"> <span
-                                    class="point_color">*</span>숙박업소명
-                            <input type="text" name="aname" class="input" lang="en"
-                                placeholder="숙박업소명을 입력해주세요."></li>
-
-                            <li class="room_map">
-
-                                <div class="add_input">
-                                    <label for="aaddress1"><span class="point_color">*</span>우편번호</label> <input
-                                        type="text" id="aaddress1" name="aaddress1" placeholder="우편번호"
-                                        readonly="readonly"> <input type="button"
-                                        value="주소 검색" onclick="execution_daum_address()">
-                                </div>
-                                <div class="add_input">
-                                    <label for="aaddress2"><span class="point_color">*</span>주소</label> <input
-                                        type="text" id="aaddress2" name="aaddress2"
-                                        placeholder="주소를 입력해주세요." readonly="readonly">
-
-                                </div>
-
-                                <div id="map" style="width: 100%; height: 400px;"></div>
-                                    <input type="text" name="aycoordi" id="xcoordi"> <input
-                                        type="text" name="axcoordi" id="ycoordi">
-                                
-                            </li>
+								<select name="acate" class="input">
+									<option value="hotel">호텔</option>
+									<option value="motel">모텔</option>
+									<option value="guesthouse">게스트하우스</option>
+								</select>
+							</li>
 
 
-                            <li class="join-field"><label for="aphone"><span
-                                    class="point_color">*</span>전화번호</label> <input type="tel"
-                                name="aphone" id="aphone" class="input" maxlength="20" lang="en"
-                                placeholder="'-' 없이 전화번호를 입력해주세요."></li>
+							<li class="join-field"> <span class="point_color">*</span>숙박업소명
+								<input type="text" name="aname" class="input" lang="en" placeholder="숙박업소명을 입력해주세요.">
+							</li>
+
+							
+
+							<li class="room_map">
+
+								<div class="add_input">
+									<label for="aaddress1"><span class="point_color">*</span>우편번호</label> <input
+										type="text" id="aaddress1" name="aaddress1" placeholder="우편번호"
+										readonly="readonly"> <input type="button" value="주소 검색"
+										onclick="execution_daum_address()">
+								</div>
+								<div class="add_input">
+									<label for="aaddress2"><span class="point_color">*</span>주소</label> <input
+										type="text" id="aaddress2" name="aaddress2" placeholder="주소를 입력해주세요."
+										readonly="readonly">
+								</div>
+
+								<div id="map" style="width: 100%; height: 400px;"></div>
+
+							</li>
 
 
-                            <li class="join-field"><label for="axcoordi"><span
-                                    class="point_color">*</span>좌표</label> <input type="text" id="axcoordi"
-                                name="axcoordi" class="input" maxlength="20" lang="en"
-                                placeholder="'-' 없이 전화번호를 입력해주세요."></li>
+							<li class="join-field"><label for="aphone"><span class="point_color">*</span>전화번호</label>
+								<input type="tel" name="aphone" id="aphone" class="input" maxlength="20" lang="en"
+									placeholder="'-' 없이 전화번호를 입력해주세요."></li>
 
-
-
-                            <li class="join-field"><label for="atotalroom"> <span
-                                    class="point_color">*</span>총객실수
-                            </label> <input type="text" id="atotalroom" name="atotalroom" class="input" lang="en"
-                                placeholder="총 객실수를 입력해주세요."></li>
+							<li class="join-field"><label for="atotalroom"> <span class="point_color">*</span>총객실수
+								</label> <input type="text" id="atotalroom" name="atotalroom" class="input" lang="en"
+									placeholder="총 객실수를 입력해주세요."></li>
 
 
 
-                            <li><span class="point_color">*</span>숙소성급
+							<li><span class="point_color">*</span>숙소성급
 
-                                <div class="star-rating space-x-4 mx-auto">
-                                    <input type="radio" id="5-stars" name="agrade" value="5"
-                                        v-model="ratings" /> 
-                                        <span class="star pr-4">★</span>
-                                    <input type="radio" id="4-stars" name="agrade" value="4"
-                                        v-model="ratings" /> 
-                                        <span class="star">★</span>
-                                    <input type="radio" id="3-stars" name="agrade" value="3"
-                                        v-model="ratings" /> 
-                                        <span class="star">★</span>
-                                    <input type="radio" id="2-stars" name="agrade" value="2"
-                                        v-model="ratings" /> 
-                                        <span class="star">★</span>
-                                    <input type="radio" id="1-star" name="agrade" value="1"
-                                        v-model="ratings" />
-                                         <span  class="star">★</span>
-                                </div></li>
+								<div class="star-rating space-x-4 mx-auto">
+									<input type="radio" id="5-stars" name="agrade" value="5" v-model="ratings" />
+									<span class="star pr-4">★</span>
+									<input type="radio" id="4-stars" name="agrade" value="4" v-model="ratings" />
+									<span class="star">★</span>
+									<input type="radio" id="3-stars" name="agrade" value="3" v-model="ratings" />
+									<span class="star">★</span>
+									<input type="radio" id="2-stars" name="agrade" value="2" v-model="ratings" />
+									<span class="star">★</span>
+									<input type="radio" id="1-star" name="agrade" value="1" v-model="ratings" />
+									<span class="star">★</span>
+								</div>
+							</li>
 
-                            <li><span class="point_color">*</span>숙소
-                                    소개<input type="text" name="adetail" class="input"
-                                placeholder="숙소 소개를 입력해주세요."></li>
+							<li><span class="point_color">*</span>숙소
+								소개<input type="text" name="adetail" class="input" placeholder="숙소 소개를 입력해주세요."></li>
 
-                            <li class="filebox">대표이미지1 
-                                <div class="btn-upload">파일 업로드하기</div> <input type="file"
-                                name="file" id="file" class="file input" multiple="multiple">
-                            </li>
+							<li class="filebox">대표이미지1
+								<div class="btn-upload">파일 업로드하기</div> <input type="file" name="file" id="file"
+									class="file input" multiple="multiple">
+							</li>
 
 
-                        </ul>
-                    </div>
-                    <!-- 객실기본정보 end -->
-                </tbody>
-            </table>
-        </form>
+						</ul>
+					</div>
+					<!-- 객실기본정보 end -->
+				</tbody>
+			</table>
+		</form>
 
-    </section>
+		<!-- 숙소저장하기 -->
+		<p class="btn_set">
+			<button type="button" id="saveBtn" onclick="saveAcc" class="btns btn_st3 btn_mid">저장</button>
+			<a href="@{/accommodation/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
+		</p>
+
+	</section>
 
 
-    <script>
+	<script>
 		let map;
-        let marker;
+		let marker;
 
-        function initializeMap() {
-            const mapContainer = document.getElementById('map');
-            const options = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667),
-                level: 3
-            };
-            map = new kakao.maps.Map(mapContainer, options);
-            marker = new kakao.maps.Marker({
-                map: map
-            });
-        }
-        
+		function initializeMap() {
+			const mapContainer = document.getElementById('map');
+			const options = {
+				center: new kakao.maps.LatLng(33.450701, 126.570667),
+				level: 3
+			};
+			map = new kakao.maps.Map(mapContainer, options);
+			marker = new kakao.maps.Marker({
+				map: map
+			});
+		}
 
-        function execution_daum_address() {
-            new daum.Postcode({
-                oncomplete: function(data) {
-                    const geocoder = new kakao.maps.services.Geocoder();
-                    geocoder.addressSearch(data.address, function(results, status) {
-                        if (status === kakao.maps.services.Status.OK) {
-                            const coords = new kakao.maps.LatLng(results[0].y, results[0].x);
-                            document.getElementById('aaddress2').value = data.address;
-                            map.panTo(coords);
-                            marker.setPosition(coords);
-                        } else {
-                            alert('주소를 찾을 수 없습니다.');
-                        }
-                    });
-                }
-            }).open();
-        }
 
-        initializeMap();
-</script>
-	
+		function execution_daum_address() {
+			new daum.Postcode({
+				oncomplete: function (data) {
+					const geocoder = new kakao.maps.services.Geocoder();
+					geocoder.addressSearch(data.address, function (results, status) {
+						if (status === kakao.maps.services.Status.OK) {
+							const coords = new kakao.maps.LatLng(results[0].y, results[0].x);
+							document.getElementById('aaddress1').value = data.zonecode; //우편번호를 input요소에 전달
+							document.getElementById('aaddress2').value = data.address;
+							map.panTo(coords);
+							marker.setPosition(coords);
+						} else {
+							alert('주소를 찾을 수 없습니다.');
+						}
+					});
+				}
+			}).open();
+		}
+
+		initializeMap();
+	</script>
+
 </th:block>
 
 </html>

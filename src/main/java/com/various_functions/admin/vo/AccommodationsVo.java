@@ -17,7 +17,6 @@ public class AccommodationsVo {
 	private String aname; // 숙소이름
 	private String aadress; // 숙소주소
 	private String aphone; //숙소 전화번호
-	private String axcoordi; //숙소 좌표
 	private int atotalroom; // 총객실수
 	private String agrade; //숙소등급
 	private String adetail; //숙소설명
