@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PeriodVo {
-
 	private long peid;
-	private String peseason;
-	private LocalDateTime pestart;
+	private String peseason; //시즌 : 비수기/성수기/준성수기
+	private LocalDateTime pestart; // 시작날짜
+	private LocalDateTime peend; // 끝날짜
 	private long aid;
 }

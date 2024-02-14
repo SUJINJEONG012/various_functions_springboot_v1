@@ -21,7 +21,7 @@ public class AccommodationService {
 	@Transactional
 	public Long accommodations(final AccommodationsDto accommodationsDto) {
 		accommodationsMapper.save(accommodationsDto);
-		return accommodationsDto.getId();
+		return accommodationsDto.getAid();
 	}
 	
 	public List<AccommodationsVo> getAllAwccommodations() {

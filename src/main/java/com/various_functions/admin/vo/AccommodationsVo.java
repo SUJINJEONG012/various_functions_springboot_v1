@@ -21,5 +21,5 @@ public class AccommodationsVo {
 	private String agrade; //숙소등급
 	private String adetail; //숙소설명
 	private String amainimg; //이미지
-	private LocalDateTime aregdate; //등록날짜
+	
 }
