@@ -34,7 +34,7 @@ public class AccommodationController {
 	@PostMapping("/accommodation/write")
 	public String saveAccommodation(final AccommodationsDto accommodationsDto) {
 		accommodationService.accommodations(accommodationsDto);
-		return "redirect:/admin/accommodation/write";
+		return "redirect:/admin/accommodation/list";
 	}
 	
 	@GetMapping("/accommodation/list")	
@@ -42,7 +42,6 @@ public class AccommodationController {
 		//숙소리스트 모델에 추가
 		List<AccommodationsVo> accommodations = accommodationService.getAllAwccommodations();
 		model.addAttribute("accommodations",accommodations);
-
 		
         // 해당하는 뷰 페이지의 이름을 반환
         return "admin/accommodation/list";
