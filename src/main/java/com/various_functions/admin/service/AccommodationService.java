@@ -17,32 +17,23 @@ import com.various_functions.admin.vo.AccommodationsVo;
 @Service
 public class AccommodationService {
 
-	@Autowired
-	private AccommodationsMapper accommodationsMapper;
-
-	@Autowired
-	private RoomInfoMapper roomInfoMapper;
+	private final AccommodationsMapper accommodationsMapper;
+	private final RoomInfoMapper roomInfoMapper;
 	
-	
-	@Transactional
-	public void saveAccommodationAndRoomInfo(final AccommodationAndRoomInfoDto accommodationAndRoomInfoDto) {
-		// 숙소 정보 저장
-		AccommodationsDto accommodationsDto = new AccommodationsDto();
-		accommodationsDto.setAname(accommodationAndRoomInfoDto.getAname());
-		
-		accommodationsMapper.insertAccommodation(accommodationsDto);
-		
-		// 객실 정보 저장
-        RoomInfoDto roomInfoDto = new RoomInfoDto();
-        roomInfoDto.setRiroomtype(accommodationAndRoomInfoDto.getRiroomtype());
-        // 나머지 필드 설정
-        
-        roomInfoMapper.insertRoomInfo(roomInfoDto);
+	@Autowired
+	public AccommodationService(AccommodationsMapper accommodationsMapper, RoomInfoMapper roomInfoMapper ) {
+		this.accommodationsMapper = accommodationsMapper;
+		this.roomInfoMapper = roomInfoMapper;
 	}
 	
+	@Transactional
+	public void saveAccommodationAndRoomInfo(AccommodationsDto accommodationsDto, RoomInfoDto roomInfoDto) {
+		// 숙소 정보와 객실 정보를 각각 따로 저장
+        accommodationsMapper.saveAccommodation(accommodationsDto);
+        roomInfoMapper.saveRoomInfo(roomInfoDto);
+	}
 	
-	
-	
+
 	public List<AccommodationsVo> getAllAwccommodations() {
 		return accommodationsMapper.getAllAccommodations();
 	}

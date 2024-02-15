@@ -10,7 +10,7 @@ import com.various_functions.admin.vo.AccommodationsVo;
 @Mapper
 public interface AccommodationsMapper {
 
-	void insertAccommodation(AccommodationsDto accommodationsDto);
+	void saveAccommodation(AccommodationsDto accommodationsDto);
 	
 	AccommodationsDto getAccommodationById(Long aid);
 	

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
@@ -31,8 +32,8 @@ public class AccommodationController {
 	}
 	
 	@PostMapping("/accommodation/save")
-	public String saveAccommodation(final AccommodationAndRoomInfoDto accommodationAndRoomInfoDto) {
-		accommodationService.accommodations(accommodationAndRoomInfoDto);
+	public String saveAccommodation(@RequestBody AccommodationAndRoomInfoDto accommodationAndRoomInfoDto) {
+		accommodationService.saveAccommodationAndRoomInfo(accommodationAndRoomInfoDto.getAccommodationDto(), accommodationAndRoomInfoDto.getRoomInfoDto());
 		return "redirect:/admin/accommodation/list";
 	}
 	
