@@ -1,17 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.various_functions.admin.mapper.AccommodationsMapper">
+<mapper
+	namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
-<!-- 숙소저장 -->
-<insert id="save" parameterType="com.various_functions.admin.dto.AccommodationsDto">
+	<!-- 숙소 정보 삽입 -->
+	<insert id="insertAccommodation"
+		parameterType="com.various_functions.admin.dto.AccommodationsDto">
+		INSERT INTO Accommodations (aid, acate, aname, aadress, aphone, axcoordi,
+		atotalroom, agrade, adetail, amainimg)
+		VALUES (#{aid}, #{acate}, #{aname}, #{aadress}, #{aphone}, #{axcoordi},
+		#{atotalroom}, #{agrade}, #{adetail}, #{amainimg})
+	</insert>
 
-insert into accommodations (aid, acate, aname, aadress, aphone, axcoordi, atotalroom, agrade, adetail, amainimg, aregdate)
-values(#{aid}, #{acate},#{aname},#{aadress},#{aphone},#{axcoordi},#{atotalroom},#{agrade},#{adetail}, #{amainimg},now())
+	<!-- 숙소 정보 조회 -->
+	<select id="getAccommodationById"
+		resultType="com.various_functions.admin.dto.AccommodationsDto">
+		SELECT * FROM Accommodations WHERE aid = #{aid}
+	</select>
 
-</insert>
+	<!-- 숙소 정보 수정 -->
+	<update id="updateAccommodation"
+		parameterType="com.various_functions.admin.dto.AccommodationsDto">
+		UPDATE Accommodations SET acate = #{acate}, aname = #{aname}, aadress =
+		#{aadress}, aphone = #{aphone},
+		axcoordi = #{axcoordi}, atotalroom = #{atotalroom}, agrade = #{agrade},
+		adetail = #{adetail}, amainimg = #{amainimg}
+		WHERE aid = #{aid}
+	</update>
 
-<!--  숙소 리스트 -->
-<select id="getAllAccommodations" resultType="com.various_functions.admin.vo.AccommodationsVo">
-select * from accommodations;
-</select>
+	<!-- 숙소 정보 삭제 -->
+	<delete id="deleteAccommodation" parameterType="long">
+		DELETE FROM Accommodations WHERE aid = #{aid}
+	</delete>
+
+
+	<!-- Accommodations 테이블에 대한 모든 숙소 정보 조회
+	<select id="getAllAccommodations"
+		resultType="com.various_functions.admin.vo.AccommodationsVo">
+		SELECT aid, acate, aname, aadress, aphone, axcoordi, atotalroom, agrade,
+		adetail, amainimg FROM Accommodations
+	</select>
+	 -->
+	 
+	<!-- 숙소 리스트 -->
+	<select id="getAllAccommodations"
+		resultType="com.various_functions.admin.vo.AccommodationsVo">
+		select * from accommodations;
+	</select>
 </mapper>

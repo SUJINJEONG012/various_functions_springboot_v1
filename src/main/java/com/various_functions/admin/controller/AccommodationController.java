@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.various_functions.admin.dto.AccommodationsDto;
-import com.various_functions.admin.dto.NoticeDto;
+import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.vo.AccommodationsVo;
 
@@ -32,8 +31,8 @@ public class AccommodationController {
 	}
 	
 	@PostMapping("/accommodation/save")
-	public String saveAccommodation(final AccommodationsDto accommodationsDto) {
-		accommodationService.accommodations(accommodationsDto);
+	public String saveAccommodation(final AccommodationAndRoomInfoDto accommodationAndRoomInfoDto) {
+		accommodationService.accommodations(accommodationAndRoomInfoDto);
 		return "redirect:/admin/accommodation/list";
 	}
 	

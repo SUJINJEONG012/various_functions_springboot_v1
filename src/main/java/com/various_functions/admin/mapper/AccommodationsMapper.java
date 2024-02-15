@@ -10,8 +10,13 @@ import com.various_functions.admin.vo.AccommodationsVo;
 @Mapper
 public interface AccommodationsMapper {
 
-	void save(AccommodationsDto accommodationsDto);
+	void insertAccommodation(AccommodationsDto accommodationsDto);
 	
-	List<AccommodationsVo> getAllAccommodations();
+	AccommodationsDto getAccommodationById(Long aid);
 	
+	void updateAccommodation(AccommodationsDto accommodationsDto);
+    
+    void deleteAccommodation(Long aid);
+	
+    List<AccommodationsVo> getAllAccommodations();
 }
