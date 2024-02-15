@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="admin/layout/basic">
 
 
 <th:block layout:fragment="content">
 
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services,clusterer,drawing"></script>
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services,clusterer,drawing"></script>
 
 	<section>
 		<!-- 객실기본정보 start -->
@@ -22,12 +22,13 @@
 						<option value="hotel">호텔</option>
 						<option value="motel">모텔</option>
 						<option value="guesthouse">게스트하우스</option>
-				</select></li>
+					</select>
+				</li>
 
 
 				<li class="join-field"><span class="point_color">*</span>숙박업소명
-					<input type="text" name="aname" class="input" lang="en"
-					placeholder="숙박업소명을 입력해주세요."></li>
+					<input type="text" name="aname" class="input" lang="en" placeholder="숙박업소명을 입력해주세요.">
+				</li>
 
 
 
@@ -35,14 +36,13 @@
 
 					<div class="add_input">
 						<label for="aaddress1"><span class="point_color">*</span>우편번호</label>
-						<input type="text" id="aaddress1" name="aaddress1"
-							placeholder="우편번호" readonly="readonly"> <input
-							type="button" value="주소 검색" onclick="execution_daum_address()">
+						<input type="text" id="aaddress1" name="aaddress1" placeholder="우편번호" readonly="readonly">
+						<input type="button" value="주소 검색" onclick="execution_daum_address()">
 					</div>
 					<div class="add_input">
 						<label for="aaddress2"><span class="point_color">*</span>주소</label>
-						<input type="text" id="aaddress2" name="aaddress2"
-							placeholder="주소를 입력해주세요." readonly="readonly">
+						<input type="text" id="aaddress2" name="aaddress2" placeholder="주소를 입력해주세요."
+							readonly="readonly">
 					</div>
 
 					<div id="map" style="width: 100%; height: 400px;"></div>
@@ -50,29 +50,27 @@
 				</li>
 
 
-				<li class="join-field"><label for="aphone"><span
-						class="point_color">*</span>전화번호</label> <input type="tel" name="aphone"
-					id="aphone" class="input" maxlength="20" lang="en"
-					placeholder="'-' 없이 전화번호를 입력해주세요."></li>
+				<li class="join-field"><label for="aphone"><span class="point_color">*</span>전화번호</label> <input
+						type="tel" name="aphone" id="aphone" class="input" maxlength="20" lang="en"
+						placeholder="'-' 없이 전화번호를 입력해주세요."></li>
 
-				<li class="join-field"><label for="atotalroom"> <span
-						class="point_color">*</span>총객실수
-				</label> <input type="text" id="atotalroom" name="atotalroom" class="input"
-					lang="en" placeholder="총 객실수를 입력해주세요."></li>
+				<li class="join-field"><label for="atotalroom"> <span class="point_color">*</span>총객실수
+					</label> <input type="text" id="atotalroom" name="atotalroom" class="input" lang="en"
+						placeholder="총 객실수를 입력해주세요."></li>
 
 
 
 				<li>
-				<span class="point_color">*</span>숙소성급 
-				<input type="hidden" id="agrade" name="agrade" value="0" />
-					
+					<span class="point_color">*</span>숙소성급
+					<input type="hidden" id="agrade" name="agrade" value="0" />
+
 					<div class="star-rating space-x-4 mx-auto">
 						<!-- 별 모양 라디오 버튼 -->
 						<div class="star-rating space-x-4 mx-auto">
-							<span class="star pr-4" data-value="5">★</span> 
-							<span class="star pr-4" data-value="4">★</span> 
-							<span class="star pr-4" data-value="3">★</span> 
-							<span class="star pr-4" data-value="2">★</span> 
+							<span class="star pr-4" data-value="5">★</span>
+							<span class="star pr-4" data-value="4">★</span>
+							<span class="star pr-4" data-value="3">★</span>
+							<span class="star pr-4" data-value="2">★</span>
 							<span class="star" data-value="1">★</span>
 						</div>
 
@@ -80,66 +78,64 @@
 				</li>
 
 
-				<li><span class="point_color">*</span>숙소 소개<input type="text"
-					name="adetail" class="input" placeholder="숙소 소개를 입력해주세요."></li>
-
-
-				<li class="join-field"><span class="point_color">*</span>객실타입 <input
-					type="text" name="riroomtype" class="input" lang="en"
-					placeholder="">
+				<li><span class="point_color">*</span>숙소 소개<input type="text" name="adetail" class="input"
+						placeholder="숙소 소개를 입력해주세요."></li>
+				<li class="filebox">대표이미지1
+					<div class="btn-upload">파일 업로드하기</div> <input type="file" name="amainimg" id="amainimg"
+						class="file input" multiple="multiple">
 				</li>
 
-				<li class="join-field"><span class="point_color">*</span>총객실 <input
-					type="text" name="riroom" class="input" lang="en" placeholder="">
+
+				<!-- 이거일단 주석
+
+				<li class="join-field"><span class="point_color">*</span>객실타입 <input type="text" name="riroomtype"
+						class="input" lang="en" placeholder="">
+				</li>
+
+				<li class="join-field"><span class="point_color">*</span>총객실 <input type="text" name="riroom"
+						class="input" lang="en" placeholder="">
 				</li>
 
 				<li class="join-field"><span class="point_color">*</span>부가서비스
-					<input type="text" name="riservice" class="input" lang="en"
-					placeholder=""></li>
+					<input type="text" name="riservice" class="input" lang="en" placeholder="">
+				</li>
 
-				<li class="join-field"><span class="point_color">*</span>객실크기 <input
-					type="text" name="risize" class="input" lang="en" placeholder="">
+				<li class="join-field"><span class="point_color">*</span>객실크기 <input type="text" name="risize"
+						class="input" lang="en" placeholder="">
 				</li>
 
 				<li class="join-field"><span class="point_color">*</span>숙박가능인원
-					<input type="text" name="riminper" class="input" lang="en"
-					placeholder=""></li>
+					<input type="text" name="riminper" class="input" lang="en" placeholder="">
+				</li>
 
 				<li class="join-field"><span class="point_color">*</span>숙박최대인원
-					<input type="text" name="rimaxper" class="input" lang="en"
-					placeholder=""></li>
+					<input type="text" name="rimaxper" class="input" lang="en" placeholder="">
+				</li>
 
 				<li class="join-field"><span class="point_color">*</span>성수기 요금
-					<input type="text" name="rimaxper" class="input" lang="en"
-					placeholder=""></li>
+					<input type="text" name="rimaxper" class="input" lang="en" placeholder="">
+				</li>
 
 				<li class="join-field"><span class="point_color">*</span>준성수기
-					요금 <input type="text" name="risemipeak" class="input" lang="en"
-					placeholder=""></li>
+					요금 <input type="text" name="risemipeak" class="input" lang="en" placeholder=""></li>
 
 				<li class="join-field"><span class="point_color">*</span>비수기 요금
-					<input type="text" name="rioff" class="input" lang="en"
-					placeholder=""></li>
-
-				<li class="filebox">대표이미지1
-					<div class="btn-upload">파일 업로드하기</div> <input type="file"
-					name="amainimg" id="amainimg" class="file input"
-					multiple="multiple">
+					<input type="text" name="rioff" class="input" lang="en" placeholder="">
 				</li>
 
 
-				<li class="join-field"><span class="point_color">*</span>이미지 <input
-					type="file" name="rimainimg" class="input" lang="en"
-					placeholder="."></li>
+
+				<li class="join-field"><span class="point_color">*</span>이미지 <input type="file" name="rimainimg"
+						class="input" lang="en" placeholder="."></li>
 
 				<li class="join-field"><span class="point_color">*</span>추가이미지1
-					<input type="file" name="riextraimg1" class="input" lang="en"
-					placeholder="."></li>
+					<input type="file" name="riextraimg1" class="input" lang="en" placeholder=".">
+				</li>
 
 				<li class="join-field"><span class="point_color">*</span>추가이미지2
-					<input type="file" name="riextraimg2" class="input" lang="en"
-					placeholder="."></li>
-
+					<input type="file" name="riextraimg2" class="input" lang="en" placeholder=".">
+				</li>
+				-->
 			</ul>
 		</div>
 		<!-- 객실기본정보 end -->
@@ -147,8 +143,7 @@
 
 		<!-- 숙소저장하기 -->
 		<p class="btn_set">
-			<button type="button" id="saveBtn" onclick="saveAcc"
-				class="btns btn_st3 btn_mid">저장</button>
+			<button type="button" id="saveBtn" class="btns btn_st3 btn_mid">저장</button>
 			<a href="@{/accommodation/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
 		</p>
 

@@ -31,7 +31,7 @@ public class AccommodationController {
 		return "/admin/accommodation/write";
 	}
 	
-	@PostMapping("/accommodation/write")
+	@PostMapping("/accommodation/save")
 	public String saveAccommodation(final AccommodationsDto accommodationsDto) {
 		accommodationService.accommodations(accommodationsDto);
 		return "redirect:/admin/accommodation/list";
