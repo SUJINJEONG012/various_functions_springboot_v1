@@ -4,7 +4,7 @@
 	namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
 	<!-- 숙소 정보 삽입 -->
-	<insert id="insertAccommodation"
+	<insert id="saveAccommodation"
 		parameterType="com.various_functions.admin.dto.AccommodationsDto">
 		INSERT INTO Accommodations (aid, acate, aname, aadress, aphone, axcoordi,
 		atotalroom, agrade, adetail, amainimg)
