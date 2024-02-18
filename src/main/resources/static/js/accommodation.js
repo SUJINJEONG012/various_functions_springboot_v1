@@ -81,7 +81,7 @@ document.getElementById("saveBtn").addEventListener("click", function(){
 			//여기에 숙소정보를 가져오거나 직접 넣는다. 
 		  aname : document.querySelector("input[name='aname']").value
 		}
-		console.log("formData : ????" , JSON.stringify(formData));
+		console.log("formData : ????" , JSON.stringify(formData.aname));
 		
 		//객체 생성
 		var xhr = new XMLHttpRequest();
@@ -97,15 +97,18 @@ document.getElementById("saveBtn").addEventListener("click", function(){
 			if(xhr.status >= 200 && xhr.status < 300){
 				//요청이 성공적으로 처리
 				console.log("저장 완료 !");
+				alert("저장완료 !");
 			}else{
 				// 요청이 실패했을 때 실행되는 코드
 				console.log("저장실패!", xhr.statusText);
+				alert("저장실패! 오류발생!");
 			}
 		};
 		
 		// 요청 실패시 동작할 콜백함수정의
 		xhr.onerror = function(){
 			console.log("요청실패 : " , xhr.statusText);
+			alert("요청 실패 ! 서버와의 통신에 문제가 발생했습니다 !");
 		}
 		
 		// 데이터를 json문자열로 변환하여 전송

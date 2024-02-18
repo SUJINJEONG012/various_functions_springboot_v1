@@ -6,7 +6,7 @@
 	<!-- 숙소 정보 삽입 -->
 	<insert id="saveAccommodation"
 		parameterType="com.various_functions.admin.dto.AccommodationsDto">
-		INSERT INTO Accommodations (aid, acate, aname, aadress, aphone, axcoordi,
+		INSERT INTO accommodations (aid, acate, aname, aadress, aphone, axcoordi,
 		atotalroom, agrade, adetail, amainimg)
 		VALUES (#{aid}, #{acate}, #{aname}, #{aadress}, #{aphone}, #{axcoordi},
 		#{atotalroom}, #{agrade}, #{adetail}, #{amainimg})
@@ -15,7 +15,7 @@
 	<!-- 숙소 정보 조회 -->
 	<select id="getAccommodationById"
 		resultType="com.various_functions.admin.dto.AccommodationsDto">
-		SELECT * FROM Accommodations WHERE aid = #{aid}
+		SELECT * FROM accommodations WHERE aid = #{aid}
 	</select>
 
 	<!-- 숙소 정보 수정 -->
@@ -30,7 +30,7 @@
 
 	<!-- 숙소 정보 삭제 -->
 	<delete id="deleteAccommodation" parameterType="long">
-		DELETE FROM Accommodations WHERE aid = #{aid}
+		DELETE FROM accommodations WHERE aid = #{aid}
 	</delete>
 
 

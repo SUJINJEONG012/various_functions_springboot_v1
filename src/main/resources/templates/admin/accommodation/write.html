@@ -3,11 +3,11 @@
 	layout:decorate="admin/layout/basic">
 
 
+
 <th:block layout:fragment="content">
 
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services,clusterer,drawing"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services,clusterer,drawing"></script>
 
 	<section>
 		<!-- 객실기본정보 start -->
@@ -139,7 +139,6 @@
 		</div>
 		<!-- 객실기본정보 end -->
 
-
 		<!-- 숙소저장하기 -->
 		<p class="btn_set">
 			<button type="button" id="saveBtn" class="btns btn_st3 btn_mid">저장</button>
@@ -147,8 +146,8 @@
 		</p>
 
 	</section>
-
-	<script type="text/javascript" src="/js/accommodation.js"></script>
+	
+	<script src="/js/accommodation.js"></script>
 
 </th:block>
 
