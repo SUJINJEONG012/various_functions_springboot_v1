@@ -3,9 +3,34 @@
 <mapper namespace="com.various_functions.admin.mapper.RoomInfoMapper">
 
 	<!-- 객실 정보 삽입 -->
-    <insert id="saveRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto">
-        INSERT INTO room_info (riid, riroomtype, riroom, riservice, risize, riminper, rimaxper, ripeak, risemipeak, rioff, rimainimg, riextraimg1, riextraimg2)
-        VALUES (#{riid}, #{riroomtype}, #{riroom}, #{riservice}, #{risize}, #{riminper}, #{rimaxper}, #{ripeak}, #{risemipeak}, #{rioff}, #{rimainimg}, #{riextraimg1}, #{riextraimg2})
+    <insert id="saveRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto" useGeneratedKeys="true" keyProperty="aid">
+        INSERT INTO room_info (
+        aid,
+        riroomtype, 
+        riroom, 
+        riservice, 
+        risize, 
+        riminper, 
+        rimaxper, 
+        ripeak, 
+        risemipeak, 
+        rioff,
+        rimainimg, 
+        riextraimg1, 
+        riextraimg2)
+        VALUES (1, 
+        #{riroomtype}, 
+        #{riroom}, 
+        #{riservice}, 
+        #{risize}, 
+        #{riminper}, 
+        #{rimaxper}, 
+        #{ripeak}, 
+        #{risemipeak}, 
+        #{rioff}, 
+        #{rimainimg}, 
+        #{riextraimg1}, #{riextraimg2}
+        )
     </insert>
     
     <!-- 객실 정보 조회 -->

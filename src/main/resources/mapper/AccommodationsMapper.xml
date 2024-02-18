@@ -6,10 +6,30 @@
 	<!-- 숙소 정보 삽입 -->
 	<insert id="saveAccommodation"
 		parameterType="com.various_functions.admin.dto.AccommodationsDto">
-		INSERT INTO accommodations (aid, acate, aname, aadress, aphone, axcoordi,
-		atotalroom, agrade, adetail, amainimg)
-		VALUES (#{aid}, #{acate}, #{aname}, #{aadress}, #{aphone}, #{axcoordi},
-		#{atotalroom}, #{agrade}, #{adetail}, #{amainimg})
+		INSERT INTO accommodations (	
+		acate, 
+		aname, 
+		aadress, 
+		aphone, 
+		axcoordi,
+		atotalroom, 
+		agrade, 
+		adetail, 
+		amainimg, 
+		aregdate)
+		VALUES 
+	
+		#{acate}, 
+		#{aname}, 
+		#{aadress}, 
+		#{aphone}, 
+		null,
+		#{atotalroom}, 
+		#{agrade}, 
+		#{adetail}, 
+		#{amainimg},
+		now()
+		)
 	</insert>
 
 	<!-- 숙소 정보 조회 -->
@@ -23,8 +43,11 @@
 		parameterType="com.various_functions.admin.dto.AccommodationsDto">
 		UPDATE Accommodations SET acate = #{acate}, aname = #{aname}, aadress =
 		#{aadress}, aphone = #{aphone},
-		axcoordi = #{axcoordi}, atotalroom = #{atotalroom}, agrade = #{agrade},
-		adetail = #{adetail}, amainimg = #{amainimg}
+		axcoordi = #{axcoordi}, atotalroom = #{atotalroom}, 
+		agrade = #{agrade},
+		adetail = #{adetail}, 
+		amainimg = #{amainimg},
+		
 		WHERE aid = #{aid}
 	</update>
 

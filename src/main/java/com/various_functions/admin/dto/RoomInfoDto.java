@@ -5,11 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-//@AllArgsConstructor
-//@NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoomInfoDto {
 
-	
 	private Long riid;
 	private String riroomtype; // 객실타입
 	private int riroom;// 총객실
@@ -23,4 +22,6 @@ public class RoomInfoDto {
 	private String rimainimg; // 대표이미지
 	private String riextraimg1; // 추가이미지1
 	private String riextraimg2; // 추가이미지2
+	
+	private AccommodationsDto accommodationsDto; 
 }

@@ -1,6 +1,8 @@
 package com.various_functions.admin.dto;
 
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,7 @@ public class AccommodationsDto {
 	private String agrade; //숙소등급
 	private String adetail; //숙소설명
 	private String amainimg; //이미지
+	private LocalDateTime aregdate;
 
 	
 	
