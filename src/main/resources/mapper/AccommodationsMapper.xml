@@ -5,7 +5,7 @@
 
 	<!-- 숙소 정보 삽입 -->
 	<insert id="saveAccommodation"
-		parameterType="com.various_functions.admin.dto.AccommodationsDto">
+		parameterType="com.various_functions.admin.dto.AccommodationsDto" useGeneratedKeys="true" keyProperty="aid">
 		INSERT INTO accommodations (	
 		acate, 
 		aname, 
@@ -16,6 +16,7 @@
 		adetail, 
 		amainimg, 
 		aregdate)
+		
 		VALUES (
 		#{acate}, 
 		#{aname}, 

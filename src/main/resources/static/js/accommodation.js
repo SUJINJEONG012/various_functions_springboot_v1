@@ -79,9 +79,9 @@ document.getElementById("saveBtn").addEventListener("click", function(){
   	alert("클릭!!!");
   	// 저장할 데이터를 가져오거나 직접 구성
   	var accommodationAndRoomInfoDto  = {
-			
+		
 			accommodationDto :{
-				    acate: document.querySelector("select[name='acate']").value,
+			acate: document.querySelector("select[name='acate']").value,
             aname: document.querySelector("input[name='aname']").value,
             aadress: document.querySelector("input[name='aadress']").value,
             aphone: document.querySelector("input[name='aphone']").value,
@@ -91,7 +91,7 @@ document.getElementById("saveBtn").addEventListener("click", function(){
             amainimg: document.querySelector("input[name='amainimg']").value || null,
 			},
 		  roomInfoDto: {
-				    riroomtype: document.querySelector("input[name='riroomtype']").value,
+			riroomtype: document.querySelector("input[name='riroomtype']").value,
             riroom: document.querySelector("input[name='riroom']").value,
             riservice: document.querySelector("input[name='riservice']").value,
             risize: document.querySelector("input[name='risize']").value,
@@ -100,10 +100,11 @@ document.getElementById("saveBtn").addEventListener("click", function(){
             ripeak: document.querySelector("input[name='ripeak']").value,
             risemipeak: document.querySelector("input[name='risemipeak']").value,
             rioff: document.querySelector("input[name='rioff']").value,
+             
             rimainimg: document.querySelector("input[name='rimainimg']").value || null,
-            
             riextraimg1: document.querySelector("input[name='riextraimg1']").value || null,
             riextraimg2: document.querySelector("input[name='riextraimg2']").value || null,
+            
 			}
 		}
 		console.log("formData : " , accommodationAndRoomInfoDto);

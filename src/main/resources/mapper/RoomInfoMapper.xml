@@ -3,9 +3,9 @@
 <mapper namespace="com.various_functions.admin.mapper.RoomInfoMapper">
 
 	<!-- 객실 정보 삽입 -->
-    <insert id="saveRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto" useGeneratedKeys="true" keyProperty="aid">
+    <insert id="saveRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto" 
+    useGeneratedKeys="true" keyProperty="aid">
         INSERT INTO room_info (
-        aid,
         riroomtype, 
         riroom, 
         riservice, 
@@ -18,7 +18,7 @@
         rimainimg, 
         riextraimg1, 
         riextraimg2)
-        VALUES (1, 
+        VALUES ( 
         #{riroomtype}, 
         #{riroom}, 
         #{riservice}, 
