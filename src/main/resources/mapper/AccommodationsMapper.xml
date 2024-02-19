@@ -11,19 +11,16 @@
 		aname, 
 		aadress, 
 		aphone, 
-		axcoordi,
 		atotalroom, 
 		agrade, 
 		adetail, 
 		amainimg, 
 		aregdate)
-		VALUES 
-	
+		VALUES (
 		#{acate}, 
 		#{aname}, 
 		#{aadress}, 
 		#{aphone}, 
-		null,
 		#{atotalroom}, 
 		#{agrade}, 
 		#{adetail}, 
