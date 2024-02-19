@@ -73,15 +73,39 @@ document.addEventListener('click', function() {
 });
 
 
-// 숙소등록 저장 
+// 숙소등록 저장        
 document.getElementById("saveBtn").addEventListener("click", function(){
   	alert("클릭!!!");
   	// 저장할 데이터를 가져오거나 직접 구성
-  	var formData = {
-			//여기에 숙소정보를 가져오거나 직접 넣는다. 
-		  aname : document.querySelector("input[name='aname']").value
+  	var accommodationAndRoomInfoDto  = {
+			
+			accommodationDto :{
+				    acate: document.querySelector("select[name='acate']").value,
+            aname: document.querySelector("input[name='aname']").value,
+            aadress1: document.querySelector("input[name='aaddress1']").value,
+            aadress2: document.querySelector("input[name='aaddress2']").value,
+            aphone: document.querySelector("input[name='aphone']").value,
+            atotalroom: document.querySelector("input[name='atotalroom']").value,
+            agrade: document.getElementById("agrade").value,
+            adetail: document.querySelector("input[name='adetail']").value,
+            amainimg: document.querySelector("input[name='amainimg']").value,
+			},
+		  roomInfoDto: {
+				riroomtype: document.querySelector("input[name='riroomtype']").value,
+            riroom: document.querySelector("input[name='riroom']").value,
+            riservice: document.querySelector("input[name='riservice']").value,
+            risize: document.querySelector("input[name='risize']").value,
+            riminper: document.querySelector("input[name='riminper']").value,
+            rimaxper: document.querySelector("input[name='rimaxper']").value,
+            ripeak: document.querySelector("input[name='ripeak']").value,
+            risemipeak: document.querySelector("input[name='risemipeak']").value,
+            rioff: document.querySelector("input[name='rioff']").value,
+            rimainimg: document.querySelector("input[name='rimainimg']").value,
+            riextraimg1: document.querySelector("input[name='riextraimg1']").value,
+            riextraimg2: document.querySelector("input[name='riextraimg2']").value,
+			}
 		}
-		console.log("formData : ????" , JSON.stringify(formData.aname));
+		console.log("formData : " , accommodationAndRoomInfoDto);
 		
 		//객체 생성
 		var xhr = new XMLHttpRequest();
