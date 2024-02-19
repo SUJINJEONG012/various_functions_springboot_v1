@@ -35,6 +35,12 @@
 		resultType="com.various_functions.admin.dto.AccommodationsDto">
 		SELECT * FROM accommodations WHERE aid = #{aid}
 	</select>
+	
+	<!-- 숙소 이름을 기준으로 숙소 정보를 가져오는 쿼리 -->
+<select id="getAccommodationByName" resultType="com.various_functions.admin.dto.AccommodationsDto">
+    SELECT * FROM accommodations WHERE aname = #{aname}
+</select>
+
 
 	<!-- 숙소 정보 수정 -->
 	<update id="updateAccommodation"

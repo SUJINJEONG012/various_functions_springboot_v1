@@ -23,11 +23,6 @@ public class RoomInfoDto {
 	private String riextraimg1; // 추가이미지1
 	private String riextraimg2; // 추가이미지2
 	
-	//private long aid; // 숙소 아이디
     private AccommodationsDto accommodationsDto;
-    
-//    // AccommodationsDto 객체 설정을 위한 setter 메서드
-//    public void setAccommodationsDto(AccommodationsDto accommodationsDto) {
-//        this.accommodationsDto = accommodationsDto;
-//    }
+
 }
