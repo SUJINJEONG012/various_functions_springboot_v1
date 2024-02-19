@@ -32,10 +32,11 @@ function execution_daum_address() {
 								const coords = new kakao.maps.LatLng(
 									results[0].y,
 									results[0].x);
+								/*우편번호를 input요소에 전달	
 								document
-									.getElementById('aaddress1').value = data.zonecode; //우편번호를 input요소에 전달
+									.getElementById('aaddress1').value = data.zonecode; */
 								document
-									.getElementById('aaddress2').value = data.address;
+									.getElementById('aadress').value = data.address;
 								map.panTo(coords);
 								marker.setPosition(coords);
 							} else {
@@ -82,16 +83,15 @@ document.getElementById("saveBtn").addEventListener("click", function(){
 			accommodationDto :{
 				    acate: document.querySelector("select[name='acate']").value,
             aname: document.querySelector("input[name='aname']").value,
-            aadress1: document.querySelector("input[name='aaddress1']").value,
-            aadress2: document.querySelector("input[name='aaddress2']").value,
+            aadress: document.querySelector("input[name='aadress']").value,
             aphone: document.querySelector("input[name='aphone']").value,
             atotalroom: document.querySelector("input[name='atotalroom']").value,
-            agrade: document.getElementById("agrade").value,
+            agrade: document.getElementById("agrade").value  || null ,
             adetail: document.querySelector("input[name='adetail']").value,
-            amainimg: document.querySelector("input[name='amainimg']").value,
+            amainimg: document.querySelector("input[name='amainimg']").value || null,
 			},
 		  roomInfoDto: {
-				riroomtype: document.querySelector("input[name='riroomtype']").value,
+				    riroomtype: document.querySelector("input[name='riroomtype']").value,
             riroom: document.querySelector("input[name='riroom']").value,
             riservice: document.querySelector("input[name='riservice']").value,
             risize: document.querySelector("input[name='risize']").value,
@@ -100,9 +100,10 @@ document.getElementById("saveBtn").addEventListener("click", function(){
             ripeak: document.querySelector("input[name='ripeak']").value,
             risemipeak: document.querySelector("input[name='risemipeak']").value,
             rioff: document.querySelector("input[name='rioff']").value,
-            rimainimg: document.querySelector("input[name='rimainimg']").value,
-            riextraimg1: document.querySelector("input[name='riextraimg1']").value,
-            riextraimg2: document.querySelector("input[name='riextraimg2']").value,
+            rimainimg: document.querySelector("input[name='rimainimg']").value || null,
+            
+            riextraimg1: document.querySelector("input[name='riextraimg1']").value || null,
+            riextraimg2: document.querySelector("input[name='riextraimg2']").value || null,
 			}
 		}
 		console.log("formData : " , accommodationAndRoomInfoDto);
@@ -136,6 +137,6 @@ document.getElementById("saveBtn").addEventListener("click", function(){
 		}
 		
 		// 데이터를 json문자열로 변환하여 전송
-		xhr.send(JSON.stringify(formData));
+		xhr.send(JSON.stringify(accommodationAndRoomInfoDto));
 		
 });
