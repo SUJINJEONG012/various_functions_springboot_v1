@@ -3,6 +3,16 @@
 <mapper
 	namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
+<!-- 숙소 정보와 객실 정보 함께 삽입 -->
+    <insert id="saveAccommodationAndRoomInfo" parameterType="com.various_functions.admin.dto.AccommodationAndRoomInfoDto" useGeneratedKeys="true" keyProperty="accommodationDto.aid">
+        INSERT INTO accommodations (acate, aname, aadress, aphone, atotalroom, agrade, adetail, amainimg, aregdate)
+        VALUES (#{accommodationDto.acate}, #{accommodationDto.aname}, #{accommodationDto.aadress}, #{accommodationDto.aphone}, #{accommodationDto.atotalroom}, #{accommodationDto.agrade}, #{accommodationDto.adetail}, #{accommodationDto.amainimg}, now());
+        
+        INSERT INTO room_info (riroomtype, riroom, riservice, risize, riminper, rimaxper, ripeak, risemipeak, rioff, rimainimg, riextraimg1, riextraimg2, aid)
+        VALUES (#{roomInfoDto.riroomtype}, #{roomInfoDto.riroom}, #{roomInfoDto.riservice}, #{roomInfoDto.risize}, #{roomInfoDto.riminper}, #{roomInfoDto.rimaxper}, #{roomInfoDto.ripeak}, #{roomInfoDto.risemipeak}, #{roomInfoDto.rioff}, #{roomInfoDto.rimainimg}, #{roomInfoDto.riextraimg1}, #{roomInfoDto.riextraimg2}, LAST_INSERT_ID());
+    </insert>
+    
+    
 	<!-- 숙소 정보 삽입 -->
 	<insert id="saveAccommodation"
 		parameterType="com.various_functions.admin.dto.AccommodationsDto" useGeneratedKeys="true" keyProperty="aid">
@@ -41,14 +51,7 @@
     SELECT * FROM accommodations WHERE aname = #{aname}
 </select>
 
- <!-- 숙소 정보와 객실 정보 함께 삽입 -->
-    <insert id="saveAccommodationAndRoomInfo" parameterType="com.various_functions.admin.dto.AccommodationAndRoomInfoDto" useGeneratedKeys="true" keyProperty="accommodationDto.aid">
-        INSERT INTO accommodations (acate, aname, aadress, aphone, atotalroom, agrade, adetail, amainimg, aregdate)
-        VALUES (#{accommodationDto.acate}, #{accommodationDto.aname}, #{accommodationDto.aadress}, #{accommodationDto.aphone}, #{accommodationDto.atotalroom}, #{accommodationDto.agrade}, #{accommodationDto.adetail}, #{accommodationDto.amainimg}, now());
-        
-        INSERT INTO room_info (riroomtype, riroom, riservice, risize, riminper, rimaxper, ripeak, risemipeak, rioff, rimainimg, riextraimg1, riextraimg2, aid)
-        VALUES (#{roomInfoDto.riroomtype}, #{roomInfoDto.riroom}, #{roomInfoDto.riservice}, #{roomInfoDto.risize}, #{roomInfoDto.riminper}, #{roomInfoDto.rimaxper}, #{roomInfoDto.ripeak}, #{roomInfoDto.risemipeak}, #{roomInfoDto.rioff}, #{roomInfoDto.rimainimg}, #{roomInfoDto.riextraimg1}, #{roomInfoDto.riextraimg2}, LAST_INSERT_ID());
-    </insert>
+ 	
     
     
 	<!-- 숙소 정보 수정 -->
