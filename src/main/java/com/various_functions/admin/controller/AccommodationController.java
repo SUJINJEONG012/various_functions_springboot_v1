@@ -3,6 +3,8 @@ package com.various_functions.admin.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
-import com.various_functions.admin.dto.AccommodationsDto;
-import com.various_functions.admin.dto.RoomInfoDto;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.vo.AccommodationsVo;
 
@@ -34,16 +34,18 @@ public class AccommodationController {
 	}
 	
 	@PostMapping("/accommodation/save")
-	public String saveAccommodation(@RequestBody AccommodationsDto accommodationsDto, RoomInfoDto roomInfoDto) {
-		try {
-			AccommodationAndRoomInfoDto accommodationAndRoomInfoDto = new AccommodationAndRoomInfoDto(accommodationsDto,roomInfoDto);
-			accommodationService.saveAccommodationAndRoomInfo(accommodationsDto, roomInfoDto);
-	            return "redirect:/admin/accommodation/list";
+    public ResponseEntity<String> saveAccommodationAndRoom(@RequestBody AccommodationAndRoomInfoDto dto) throws Exception {
+		
+		try{
+			accommodationService.saveAccommodationAndRoomInfo(dto);
+			return ResponseEntity.ok("저장이 완료되었습니다.");
 		}catch(Exception e) {
-			log.info("Error while saving accommodation and room info", e);
-			return "redirect:/error";
+			log.error("예외발생 :", e); // 예외 스택 트레이스 출력
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("저장 중 오류!");
 		}
-	}
+		
+    }
+	
 	
 	@GetMapping("/accommodation/list")	
 	public String accommodationList(Model model) {

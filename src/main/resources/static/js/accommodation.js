@@ -113,7 +113,7 @@ document.getElementById("saveBtn").addEventListener("click", function(){
 		var xhr = new XMLHttpRequest();
 		
 		// 요청 초기화,(POST요청, 엔드포인트 url 설정)
-		xhr.open('post', '/admin/accommodation/save', true);
+		xhr.open('POST', '/admin/accommodation/save', true);
 		
 		// 요청헤더 설정(json 데이터 전송)
 		xhr.setRequestHeader("Content-Type", "application/json");
