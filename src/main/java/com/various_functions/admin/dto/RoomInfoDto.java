@@ -23,6 +23,7 @@ public class RoomInfoDto {
 	private String riextraimg1; // 추가이미지1
 	private String riextraimg2; // 추가이미지2
 	
+	private Long accommodationId;
     private AccommodationsDto accommodationsDto;
 
 }

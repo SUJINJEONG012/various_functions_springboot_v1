@@ -23,5 +23,10 @@ public class AccommodationsDto {
 	private String adetail; //숙소설명
 	private String amainimg; //이미지
 	
+	public AccommodationsDto toEntity() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 }
