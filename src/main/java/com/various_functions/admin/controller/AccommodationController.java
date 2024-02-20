@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
+import com.various_functions.admin.dto.AccommodationsDto;
+import com.various_functions.admin.dto.RoomInfoDto;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.vo.AccommodationsVo;
 
@@ -32,9 +34,15 @@ public class AccommodationController {
 	}
 	
 	@PostMapping("/accommodation/save")
-	public String saveAccommodation(@RequestBody AccommodationAndRoomInfoDto accommodationAndRoomInfoDto) {
-		accommodationService.saveAccommodationAndRoomInfo(accommodationAndRoomInfoDto.getAccommodationDto(), accommodationAndRoomInfoDto.getRoomInfoDto());
-		return "redirect:/admin/accommodation/list";
+	public String saveAccommodation(@RequestBody AccommodationsDto accommodationsDto, RoomInfoDto roomInfoDto) {
+		try {
+			AccommodationAndRoomInfoDto accommodationAndRoomInfoDto = new AccommodationAndRoomInfoDto(accommodationsDto,roomInfoDto);
+			accommodationService.saveAccommodationAndRoomInfo(accommodationsDto, roomInfoDto);
+	            return "redirect:/admin/accommodation/list";
+		}catch(Exception e) {
+			log.info("Error while saving accommodation and room info", e);
+			return "redirect:/error";
+		}
 	}
 	
 	@GetMapping("/accommodation/list")	
