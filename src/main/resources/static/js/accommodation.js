@@ -106,10 +106,10 @@ document.getElementById("saveBtn").addEventListener("click", function(){
             riextraimg2: document.querySelector("input[name='riextraimg2']").value || null,
             
 			}
-		}
+		};
 		console.log("formData : " , accommodationAndRoomInfoDto);
 		
-		//객체 생성
+		// AJAX 요청을 생성하고 데이터를 서버로 전송
 		var xhr = new XMLHttpRequest();
 		
 		// 요청 초기화,(POST요청, 엔드포인트 url 설정)
@@ -133,7 +133,7 @@ document.getElementById("saveBtn").addEventListener("click", function(){
 		
 		// 요청 실패시 동작할 콜백함수정의
 		xhr.onerror = function(){
-			console.log("요청실패 : " , xhr.statusText);
+			console.log("요청실패 : ", xhr.statusText);
 			alert("요청 실패 ! 서버와의 통신에 문제가 발생했습니다 !");
 		}
 		

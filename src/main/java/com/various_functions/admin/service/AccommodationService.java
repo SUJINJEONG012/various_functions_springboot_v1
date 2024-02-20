@@ -35,10 +35,9 @@ public class AccommodationService {
 		accommodationsMapper.saveAccommodation(dto.getAccommodationDto());
 		
 		// 2. 저장된 숙소 정보의 id 값을 가져옴
-		Long accommodationId = dto.getAccommodationDto().getAid();
+		Long accommodationId = dto.getAccommodationDto().getAid();	
+		// 3. 가져온 숙소 ID를 객실정보에 설정
 		dto.getRoomInfoDto().setAccommodationId(accommodationId);
-		
-		
 		// 4. 객실정보 저장
 		roomInfoMapper.saveRoomInfo(dto.getRoomInfoDto());
 	}
