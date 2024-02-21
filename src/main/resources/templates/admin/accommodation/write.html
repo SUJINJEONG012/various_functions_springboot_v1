@@ -30,7 +30,6 @@
 				</li>
 
 
-
 				<li class="room_map">
 					<div class="add_input">
 						<label for="aadress"><span class="point_color">*</span>주소</label>
@@ -75,8 +74,9 @@
 				<li><span class="point_color">*</span>숙소 소개<input type="text" name="adetail" class="input"
 						placeholder="숙소 소개를 입력해주세요."></li>
 				<li class="filebox">대표이미지1
-					<div class="btn-upload">파일 업로드하기</div> <input type="file" name="amainimg" id="amainimg"
-						class="file input" multiple="multiple">
+					<div class="btn-upload">파일 업로드하기</div> 
+					<input type="file" name="amainimg" id="amainimg" class="file input" accept="image/*" multiple="multiple">
+					<button id="uploadButton">Upload Image</button>
 				</li>
 
 				<li class="join-field"><span class="point_color">*</span>객실타입 <input type="text" name="riroomtype"
@@ -139,6 +139,32 @@
 
 	</section>
 	<script src="/js/accommodation.js"></script>
+	<script>
+		document.getElementById("uploadButon").addEventListener('click', function(){
+			var fileInput = document.getElementById('fileInput');
+			var file = fileInput.files[0];
+			
+			if(file){
+			 var formData = new FormData();
+			 formData.append('image', file);
+			 
+			 fetch('/upload-image',{
+				 method : 'POST',
+				 body : formData
+			 })	
+			 .then(response => response.json())
+			 .then(data =>{
+				 console.log("Image uploaded successfully :" , data.imageUrl);
+				 // 이미지 업로드 성공 후 추가 작업 수행
+			 })
+			 .catch(error =>{
+				 console.error("error uploading image : " , error);
+			 });
+			}else{
+				console.log("No file selected");
+			}
+		})
+	</script>
 	
 	
 

@@ -42,8 +42,6 @@ public class AccommodationService {
 		roomInfoMapper.saveRoomInfo(dto.getRoomInfoDto());
 	}
 
-	
-	
 	public List<AccommodationsVo> getAllAwccommodations() {
 		return accommodationsMapper.getAllAccommodations();
 	}
