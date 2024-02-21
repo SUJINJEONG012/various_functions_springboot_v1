@@ -124,6 +124,7 @@ document.getElementById("saveBtn").addEventListener("click", function(){
 				//요청이 성공적으로 처리
 				console.log("저장 완료 !");
 				alert("저장완료 !");
+				window.location.href="/admin/accommodation/list";
 			}else{
 				// 요청이 실패했을 때 실행되는 코드
 				console.log("저장실패!", xhr.statusText);
