@@ -6,6 +6,9 @@
 
 <th:block layout:fragment="content">
 
+	<script defer src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5"></script>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 	<section>
 		<!-- 객실기본정보 start -->
 		<div class="room_basic">
@@ -136,12 +139,10 @@
 
 	</section>
 
-
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services,clusterer,drawing"></script>
 	<script src="/js/accommodation.js"></script>
 
 	<script>
+	
 		document.getElementById("uploadButon").addEventListener('click', function(){
 			var fileInput = document.getElementById('fileInput');
 			var file = fileInput.files[0];
