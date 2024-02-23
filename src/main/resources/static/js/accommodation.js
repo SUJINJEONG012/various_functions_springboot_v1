@@ -17,6 +17,8 @@ function initializeMap() {
 	marker = new kakao.maps.Marker({
 		map: map
 	});
+	 // Kakao Geocoder 초기화
+    const geocoder = new kakao.maps.services.Geocoder();
 }
 
 function execution_daum_address() {
