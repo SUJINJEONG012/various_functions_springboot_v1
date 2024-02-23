@@ -6,8 +6,8 @@
 
 <th:block layout:fragment="content">
 
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5"></script>
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services"></script>
 
 	<section>
 		<!-- 객실기본정보 start -->
@@ -31,7 +31,9 @@
 				<li class="room_map">
 					<div class="add_input">
 						<label for="aadress"><span class="point_color">*</span>주소</label>
+						
 						<input type="button" value="주소 검색" onclick="execution_daum_address()">
+						
 						<input type="text" id="aadress" name="aadress" placeholder="주소를 입력해주세요."
 							readonly="readonly">
 					</div>
@@ -132,7 +134,6 @@
 
 	<script src="/js/accommodation.js"></script>
 
-	
 
 </th:block>
 
