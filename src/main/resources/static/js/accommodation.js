@@ -74,6 +74,8 @@ document.addEventListener('click', function() {
 });
 
 
+
+
 // 숙소등록 저장        
 document.getElementById("saveBtn").addEventListener("click", function(){
   	alert("클릭!!!");
@@ -141,4 +143,30 @@ document.getElementById("saveBtn").addEventListener("click", function(){
 		// 데이터를 json문자열로 변환하여 전송
 		xhr.send(JSON.stringify(accommodationAndRoomInfoDto));
 		
+		// 객실이미지 파일 업로드 함수 호출
+const fileInputs = document.querySelectorAll(".room-image-input");
+fileInputs.forEach(function(fileInput) {
+    uploadFile(fileInput);
 });
+		
+});
+
+function uploadFile(fileInput) {
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('/uploadFile', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data);
+        alert("파일 업로드 성공!");
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("파일 업로드 실패!");
+    });
+}
