@@ -123,6 +123,15 @@ document.addEventListener('click', function() {
 // 숙소등록 저장        
 document.getElementById("saveBtn").addEventListener("click", function(){
   	alert("클릭!!!");
+  	
+  	//FormData 객체 생성
+  	var formData = new FormData();
+  	
+  	//파일업로드 위한 추가이미지 파일    // 파일 업로드를 위한 추가 이미지 파일
+    var riextraimg1 = document.querySelector("input[name='riextraimg1']").files[0];
+    var riextraimg2 = document.querySelector("input[name='riextraimg2']").files[0];
+
+  	
   	// 저장할 데이터를 가져오거나 직접 구성
   	var accommodationAndRoomInfoDto  = {
 		
@@ -148,12 +157,20 @@ document.getElementById("saveBtn").addEventListener("click", function(){
             rioff: document.querySelector("input[name='rioff']").value || null ,
              
             rimainimg: document.querySelector("input[name='rimainimg']").value || null,
-            riextraimg1: document.querySelector("input[name='riextraimg1']").value || null,
-            riextraimg2: document.querySelector("input[name='riextraimg2']").value || null,
+            //riextraimg1: document.querySelector("input[name='riextraimg1']").value || null,
+            //riextraimg2: document.querySelector("input[name='riextraimg2']").value || null,
             
 			}
 		};
 		console.log("formData : " , accommodationAndRoomInfoDto);
+		
+		// JSON형태로 변환한 데이터를 FormData에 추가
+		formData.append('accommodationAndRoomInfoDto', JSON.stringify(accommodationAndRoomInfoDto));
+		
+		//추가 이미지 파일을 formData에 추가
+		formData.append('riextraimg1', riextraimg1);
+    	formData.append('riextraimg2', riextraimg2);
+		
 		
 		// AJAX 요청을 생성하고 데이터를 서버로 전송
 		var xhr = new XMLHttpRequest();
@@ -185,32 +202,10 @@ document.getElementById("saveBtn").addEventListener("click", function(){
 		}
 		
 		// 데이터를 json문자열로 변환하여 전송
-		xhr.send(JSON.stringify(accommodationAndRoomInfoDto));
-		
-		// 객실이미지 파일 업로드 함수 호출
-const fileInputs = document.querySelectorAll(".room-image-input");
-fileInputs.forEach(function(fileInput) {
-    uploadFile(fileInput);
-});
+		//xhr.send(JSON.stringify(accommodationAndRoomInfoDto));
+		xhr.send(formData);
+
 		
 });
 
-function uploadFile(fileInput) {
-    const file = fileInput.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
 
-    fetch('/uploadFile', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
-        console.log(data);
-        alert("파일 업로드 성공!");
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert("파일 업로드 실패!");
-    });
-}
