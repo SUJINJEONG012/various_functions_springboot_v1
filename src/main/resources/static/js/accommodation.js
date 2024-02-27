@@ -122,6 +122,7 @@ document.addEventListener('click', function() {
 
 // 숙소등록 저장        
 document.getElementById("saveBtn").addEventListener("click", function(){
+  	
   	alert("클릭!!!");
   	
   	//FormData 객체 생성
