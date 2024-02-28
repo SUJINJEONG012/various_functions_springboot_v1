@@ -158,8 +158,7 @@ document.getElementById("saveBtn").addEventListener("click", function(){
             rioff: document.querySelector("input[name='rioff']").value || null ,
              
             rimainimg: document.querySelector("input[name='rimainimg']").value || null,
-            //riextraimg1: document.querySelector("input[name='riextraimg1']").value || null,
-            //riextraimg2: document.querySelector("input[name='riextraimg2']").value || null,
+          
             
 			}
 		};
@@ -170,7 +169,7 @@ document.getElementById("saveBtn").addEventListener("click", function(){
 		
 		//추가 이미지 파일을 formData에 추가
 		formData.append('riextraimg1', riextraimg1);
-    	formData.append('riextraimg2', riextraimg2);
+    formData.append('riextraimg2', riextraimg2);
 		
 		
 		// AJAX 요청을 생성하고 데이터를 서버로 전송
@@ -206,7 +205,7 @@ document.getElementById("saveBtn").addEventListener("click", function(){
 		//xhr.send(JSON.stringify(accommodationAndRoomInfoDto));
 		xhr.send(formData);
 
-		
+
 });
 
 
