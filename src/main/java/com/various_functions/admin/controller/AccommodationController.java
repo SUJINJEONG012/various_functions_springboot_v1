@@ -37,37 +37,8 @@ public class AccommodationController {
 	}
 	
 	@PostMapping("/accommodation/save")
-    public ResponseEntity<String> saveAccommodationAndRoom(
-    		@RequestBody AccommodationAndRoomInfoDto accommodationAndRoomInfoDto,  
-    		@RequestParam("riextraimg1") MultipartFile riextraimg1, 
-    		@RequestParam("riextraimg2") MultipartFile riextraimg2)  {
-		
-		try{
-			// JSON 문자열을 DTO로 객체로 변환
-			ObjectMapper objectMapper = new ObjectMapper();
-			AccommodationAndRoomInfoDto dto = objectMapper.readValue(accommodationAndRoomInfoDto, AccommodationAndRoomInfoDto.class); 
-		
-			// 이미지 파일 저장 및 파일 경로 반환
-	        String img1Url = saveImage(riextraimg1);
-	        String img2Url = saveImage(riextraimg2);
-			
-	        dto.setExtraImage1Url(img1Url);
-	        dto.setExtraImage2Url(img2Url);
-			
-			accommodationService.saveAccommodationAndRoomInfo(dto);
-			
-			// 성공읍답
-			return ResponseEntity.ok("저장 성공");
-		}catch(Exception e) {
-			log.error("예외발생 :", e); // 예외 스택 트레이스 출력
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("저장 중 오류!");
-		}	
-		
-    }
+    
 	
-	private void saveFile(MultipartFile file) {
-		//파일저장 로직 구현
-	}
 
 
 	
