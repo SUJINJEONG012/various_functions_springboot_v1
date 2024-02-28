@@ -156,7 +156,6 @@ document.getElementById("saveBtn").addEventListener("click", function(){
             ripeak: document.querySelector("input[name='ripeak']").value || null ,
             risemipeak: document.querySelector("input[name='risemipeak']").value || null ,
             rioff: document.querySelector("input[name='rioff']").value || null ,
-             
             rimainimg: document.querySelector("input[name='rimainimg']").value || null,
           
             
