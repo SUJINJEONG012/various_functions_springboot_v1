@@ -46,13 +46,9 @@ public class AccommodationController {
 			log.error("예외발생 :", e); // 예외 스택 트레이스 출력
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("저장 중 오류!");
 		}
-		
     }
     
-	
 
-
-	
 	@GetMapping("/accommodation/list")	
 	public String accommodationList(Model model) {
 		//숙소리스트 모델에 추가
