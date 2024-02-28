@@ -1,52 +1,4 @@
-/**
- * 
- */
-
-
-// 지도불러오는 스크립트
-/*let map;
-let marker;
-
-function initializeMap() {
-	const mapContainer = document.getElementById('map');
-	const options = {
-		center: new kakao.maps.LatLng(33.450701, 126.570667),
-		level: 3
-	};
-	map = new kakao.maps.Map(mapContainer, options);
-	marker = new kakao.maps.Marker({
-		map: map
-	});
-	
-}
-
-function execution_daum_address() {
-	
-	new daum.Postcode(
-		{
-			oncomplete: function(data) {
-				const geocoder = new kakao.maps.services.Geocoder();
-				geocoder.addressSearch(data.address, function(results, status) {
-							if (status === kakao.maps.services.Status.OK) {
-								const coords = new kakao.maps.LatLng( results[0].y,	results[0].x);
-								
-								document.getElementById('aadress').value = data.address;
-								
-								marker.setPosition(coords);
-								map.panTo(coords);
-							} else {
-								alert('주소를 찾을 수 없습니다.');
-							}
-						});
-					}
-				}).open();
-}
-
-initializeMap();
-
-*/
-
-
+//지도
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
             center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
@@ -129,10 +81,7 @@ document.getElementById("saveBtn").addEventListener("click", function(){
   	var formData = new FormData();
   	
   	//파일업로드 위한 추가이미지 파일    // 파일 업로드를 위한 추가 이미지 파일
-    var riextraimg1 = document.querySelector("input[name='riextraimg1']").files[0];
-    var riextraimg2 = document.querySelector("input[name='riextraimg2']").files[0];
-
-  	
+    
   	// 저장할 데이터를 가져오거나 직접 구성
   	var accommodationAndRoomInfoDto  = {
 		
@@ -158,17 +107,12 @@ document.getElementById("saveBtn").addEventListener("click", function(){
             rioff: document.querySelector("input[name='rioff']").value || null ,
             rimainimg: document.querySelector("input[name='rimainimg']").value || null,
           
-            
+            riextraimg1 : document.querySelector("input[name='riextraimg1']").value || null,
+    		riextraimg2 : document.querySelector("input[name='riextraimg2']").value || null
+  	
 			}
 		};
-		console.log("formData : " , accommodationAndRoomInfoDto);
-		
-		// JSON형태로 변환한 데이터를 FormData에 추가
-		formData.append('accommodationAndRoomInfoDto', JSON.stringify(accommodationAndRoomInfoDto));
-		
-		//추가 이미지 파일을 formData에 추가
-		formData.append('riextraimg1', riextraimg1);
-    formData.append('riextraimg2', riextraimg2);
+	
 		
 		
 		// AJAX 요청을 생성하고 데이터를 서버로 전송
@@ -201,8 +145,8 @@ document.getElementById("saveBtn").addEventListener("click", function(){
 		}
 		
 		// 데이터를 json문자열로 변환하여 전송
-		//xhr.send(JSON.stringify(accommodationAndRoomInfoDto));
-		xhr.send(formData);
+		xhr.send(JSON.stringify(accommodationAndRoomInfoDto));
+		//xhr.send(formData);
 
 
 });

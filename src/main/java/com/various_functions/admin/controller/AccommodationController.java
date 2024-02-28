@@ -38,7 +38,7 @@ public class AccommodationController {
 	
 	@PostMapping("/accommodation/save")
     public ResponseEntity<String> saveAccommodationAndRoom(@RequestBody AccommodationAndRoomInfoDto dto) throws Exception {
-		
+		log.info("@@@@@@@@@@ 컨트롤러 저장 @");
 		try{
 			accommodationService.saveAccommodationAndRoomInfo(dto);
 			return ResponseEntity.ok("저장이 완료되었습니다.");

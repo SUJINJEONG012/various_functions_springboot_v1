@@ -41,19 +41,7 @@ public class AccommodationService {
 		roomInfoMapper.saveRoomInfo(dto.getRoomInfoDto());
 	}
 	
-	//파일저장 메서드
-	public String saveImage(MultipartFile file) {
-		try {
-            // 이미지 파일 저장 로직 구현
-            // 저장된 파일의 경로를 반환
-            String savedFilePath = "/path/to/saved/file.jpg";
-            return savedFilePath;
-        } catch (Exception e) {
-            // 파일 저장 실패 시 예외 처리
-            e.printStackTrace();
-            return null;
-        }
-	}
+	
 	
 
 	public List<AccommodationsVo> getAllAwccommodations() {
