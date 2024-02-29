@@ -25,6 +25,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
          		 .excludePathPatterns("/log*");
 	}
 	
+	
+	
+	@Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        // 설정을 추가할 수 있음
+        resolver.setDefaultEncoding("UTF-8");
+        return resolver;
+    }
+	
+	
+	
 }
 
 
