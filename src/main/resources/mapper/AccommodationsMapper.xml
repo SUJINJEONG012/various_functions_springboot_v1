@@ -3,7 +3,7 @@
 <mapper
 	namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
-<!-- 숙소 정보와 객실 정보 함께 삽입 -->
+	<!-- 숙소 정보와 객실 정보 함께 삽입 -->
     <insert id="saveAccommodationAndRoomInfo" parameterType="com.various_functions.admin.dto.AccommodationAndRoomInfoDto" useGeneratedKeys="true" keyProperty="accommodationDto.aid">
         INSERT INTO accommodations (acate, aname, aadress, aphone, atotalroom, agrade, adetail, amainimg, aregdate)
         VALUES (#{accommodationDto.acate}, #{accommodationDto.aname}, #{accommodationDto.aadress}, #{accommodationDto.aphone}, #{accommodationDto.atotalroom}, #{accommodationDto.agrade}, #{accommodationDto.adetail}, #{accommodationDto.amainimg}, now());

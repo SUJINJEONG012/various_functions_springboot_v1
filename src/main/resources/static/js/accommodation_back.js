@@ -77,6 +77,7 @@ document.getElementById("saveBtn").addEventListener("click", function(){
   	
   	alert("클릭!!!");
   	
+  	
   	//FormData 객체 생성
   	var formData = new FormData();
   	

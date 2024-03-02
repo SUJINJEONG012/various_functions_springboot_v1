@@ -73,7 +73,7 @@ document.addEventListener('click', function() {
 
 
 // 숙소등록 저장        
-document.getElementById("saveBtn").addEventListener("click", function(){
+/*document.getElementById("saveBtn").addEventListener("click", function(){
   	
   	// FormData 객체를 사용하여 폼 데이터를 가져옴
   	var formData = new FormData(document.querySelector('form'));
@@ -97,6 +97,32 @@ document.getElementById("saveBtn").addEventListener("click", function(){
     console.error('There has been a problem with your fetch operation:', error);
   });
   	
-});
+});*/
+
+function saveBtn(){
+	
+	// 폼 데이터 가져오기
+  	var formData = new FormData(document.getElementById("saveFormAccommodations"));
+  
+  
+	// AJAX 요청 설정
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/admin/accommodation/save"); // POST 방식으로 "/saveFormData" 엔드포인트에 요청 보내기
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      console.log("Success:", xhr.responseText);
+    } else {
+      console.error("Error:", xhr.responseText);
+    }
+  };
+  xhr.onerror = function () {
+    console.error("Request failed");
+  };
+  
+  // 폼 데이터 전송
+  console.log("formData : " , formData);
+  xhr.send(formData);
+  
+}
 
 
