@@ -37,16 +37,28 @@ public class AccommodationController {
 	}
 	
 	@PostMapping("/accommodation/save")
-    public ResponseEntity<String> saveAccommodationAndRoom(@RequestBody AccommodationAndRoomInfoDto dto) throws Exception {
-		log.info("@@@@@@@@@@ 컨트롤러 저장 @");
-		try{
-			accommodationService.saveAccommodationAndRoomInfo(dto);
-			return ResponseEntity.ok("저장이 완료되었습니다.");
-		}catch(Exception e) {
-			log.error("예외발생 :", e); // 예외 스택 트레이스 출력
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("저장 중 오류!");
-		}
-    }
+	public ResponseEntity<String> saveAccommodationAndRoom(@RequestParam("file") MultipartFile file, @RequestParam("dto") String dtoJson) throws Exception {
+	    log.info("@@@@@@@@@@ 컨트롤러 저장 @");
+	    try {
+	        ObjectMapper objectMapper = new ObjectMapper();
+	        AccommodationAndRoomInfoDto dto = objectMapper.readValue(dtoJson, AccommodationAndRoomInfoDto.class);
+
+	        // Process the file
+	        if (!file.isEmpty()) {
+	            // You can save the file or process it according to your requirements
+	            // For example, you can save it to a specific directory
+	            String fileName = file.getOriginalFilename();
+	            byte[] bytes = file.getBytes();
+	            // Process the file data
+	        }
+
+	        accommodationService.saveAccommodationAndRoomInfo(dto, file);
+	        return ResponseEntity.ok("저장이 완료되었습니다.");
+	    } catch (Exception e) {
+	        log.error("예외발생 :", e); // 예외 스택 트레이스 출력
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("저장 중 오류!");
+	    }
+	}
     
 
 	@GetMapping("/accommodation/list")	
