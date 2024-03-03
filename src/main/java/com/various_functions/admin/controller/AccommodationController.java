@@ -3,13 +3,11 @@ package com.various_functions.admin.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.vo.AccommodationsVo;
+import com.various_functions.service.FileService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +29,8 @@ public class AccommodationController {
 	
 	@Autowired
 	private AccommodationService accommodationService;
+	@Autowired
+	private FileService fileService;
 	
 	@GetMapping("/accommodation/write")
 	public String accommodationSave(Model model) {	
@@ -39,25 +40,23 @@ public class AccommodationController {
 	@PostMapping("/accommodation/save")
 	public ResponseEntity<String> saveAccommodationAndRoom(@RequestParam("file") MultipartFile file, @RequestParam("dto") String dtoJson) throws Exception {
 	    log.info("@@@@@@@@@@ 컨트롤러 저장 @");
-	    try {
-	        ObjectMapper objectMapper = new ObjectMapper();
-	        AccommodationAndRoomInfoDto dto = objectMapper.readValue(dtoJson, AccommodationAndRoomInfoDto.class);
-
-	        // Process the file
-	        if (!file.isEmpty()) {
-	            // You can save the file or process it according to your requirements
-	            // For example, you can save it to a specific directory
-	            String fileName = file.getOriginalFilename();
-	            byte[] bytes = file.getBytes();
-	            // Process the file data
-	        }
-
-	        accommodationService.saveAccommodationAndRoomInfo(dto, file);
-	        return ResponseEntity.ok("저장이 완료되었습니다.");
-	    } catch (Exception e) {
-	        log.error("예외발생 :", e); // 예외 스택 트레이스 출력
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("저장 중 오류!");
-	    }
+	    
+	    //파일저장
+	    String fileName = fileService.saveFile(file);
+	    
+	    // json 문자열을 객체로 변환
+	    ObjectMapper objectMapper = new ObjectMapper();
+	    AccommodationAndRoomInfoDto dto = objectMapper.readValue(dtoJson, AccommodationAndRoomInfoDto.class);
+	    
+	    // DTO에 파일 이름 추가
+	    dto.getAccommodationDto().setAmainimg(uploadPath + "/" + fileName);
+	   
+	    
+	    // 숙소정보와 파일 처리 로직을 통합하여 처리
+	    accommodationService.saveAccommodationAndRoomInfo(dto, file);
+	   
+	    
+	    return ResponseEntity.ok("저장이 완료되었습니다.");
 	}
     
 

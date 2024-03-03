@@ -12,8 +12,6 @@ public class AccommodationAndRoomInfoDto {
 	private AccommodationsDto accommodationDto;
     private RoomInfoDto roomInfoDto;
     
-    //파일경로를 저장할 필드 추가
-    private String accommodationImageFilePath;
-    private String roomImageFilePath;
+
     
 }

@@ -73,34 +73,58 @@ document.addEventListener('click', function() {
 
 
 // 숙소등록 저장        
-document.getElementById("saveBtn").addEventListener("click", function() {
-	alert("dd")
-	// 폼 데이터 가져오기
-	var formData = new FormData(document.getElementById("saveFormAccommodations"));
+document.addEventListener("DOMContentLoaded", function() {
+	document.getElementById("saveBtn").addEventListener("click", function(e) {
 
-	alert(formData);
-	// AJAX 요청 설정
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/admin/accommodation/save"); // POST 방식으로 "/saveFormData" 엔드포인트에 요청 보내기
-	xhr.onload = function() {
-		if (xhr.status >= 200 && xhr.status < 300) {
-			console.log("Success:", xhr.responseText);
-		} else {
-			console.error("Error:", xhr.responseText);
+		// 기본 동작인 폼 제출을 중지
+		e.preventDefault();
+
+		// 숙소 이름이 비어 있는지 확인
+		const inputs = document.getElementsByClassName("input");
+		let isEmpty = false;
+
+		for (let i = 0; i < inputs.length; i++) {
+			if (inputs[i].value.trim() === "") { // 각 입력 요소의 값을 trim하여 비어 있는지 확인
+				isEmpty = true;
+				break;
+			}
 		}
-	};
-	xhr.onerror = function() {
-		console.error("Request failed");
-	};
 
-	// 폼 데이터 전송
-	console.log("formData : ", formData);
-	xhr.send(formData);
+		if (isEmpty) {
+			// 하나 이상의 입력 값이 비어 있을 경우 사용자에게 알림
+			alert("입력값을 제대로 입력해주세요.");
+			return;
+		}
 
+		// 숙소 이름이 비어 있지 않으면 폼 제출
+		const formData = new FormData();
+
+		for (let i = 0; i < inputs.length; i++) {
+			formData.append(inputs[i].name, inputs[i].value);
+		}
+
+
+		// AJAX 요청 설정
+		const xhr = new XMLHttpRequest();
+
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					alert("숙소등록 성공!");
+					console.log("요청 성공!");
+					console.log(xhr.responseText); // 서버에서의 응답 확인
+				} else {
+					alert("숙소등록에 실패!");
+					console.log("요청 실패...");
+				}
+			}
+		};
+
+		xhr.open('POST', '/admin/accommodation/save');
+		xhr.send(formData);
+
+	});
 
 });
-
-
-
 
 

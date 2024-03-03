@@ -32,7 +32,7 @@ public class AccommodationService {
 	
 	@Transactional
 	public void saveAccommodationAndRoomInfo(AccommodationAndRoomInfoDto dto, MultipartFile file) throws Exception {		
-				
+		log.info("숙소등록저장하는 부분 진입확인");
 		// 숙소 정보 저장
 		accommodationsMapper.saveAccommodation(dto.getAccommodationDto());
 		
