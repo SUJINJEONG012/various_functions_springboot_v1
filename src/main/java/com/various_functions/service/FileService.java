@@ -14,24 +14,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileService {
+	
 	@Value("${file.upload.path}")
     private String uploadPath; // 프로퍼티 파일에 설정된 파일 업로드 경로
 
-    public String saveFile(MultipartFile file) throws IOException {
-        if (file.isEmpty()) {
-            throw new IllegalArgumentException("업로드된 파일이 비어 있습니다.");
-        }
-
-        // 파일 이름 생성 (UUID 사용)
-        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-
+	public void saveFile(MultipartFile file) throws IOException {
         // 파일 저장 경로 설정
-        Path filePath = Paths.get(uploadPath + File.separator + fileName);
+        Path filePath = Paths.get(uploadPath + File.separator + file.getOriginalFilename());
 
         // 파일 저장
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-        return fileName; // 저장된 파일 이름 반환
     }
 	
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.vo.AccommodationsVo;
@@ -21,55 +20,52 @@ import com.various_functions.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/admin")
 public class AccommodationController {
-	
+
 	@Autowired
 	private AccommodationService accommodationService;
 	@Autowired
 	private FileService fileService;
-	
+
 	@GetMapping("/accommodation/write")
-	public String accommodationSave(Model model) {	
+	public String accommodationSave(Model model) {
 		return "/admin/accommodation/write";
 	}
-	
-	@PostMapping("/accommodation/save")
-	public ResponseEntity<String> saveAccommodationAndRoom(@RequestParam("file") MultipartFile file, @RequestParam("dto") String dtoJson) throws Exception {
-	    log.info("@@@@@@@@@@ 컨트롤러 저장 @");
-	    
-	    //파일저장
-	    String fileName = fileService.saveFile(file);
-	    
-	    // json 문자열을 객체로 변환
-	    ObjectMapper objectMapper = new ObjectMapper();
-	    AccommodationAndRoomInfoDto dto = objectMapper.readValue(dtoJson, AccommodationAndRoomInfoDto.class);
-	    
-	    // DTO에 파일 이름 추가
-	    dto.getAccommodationDto().setAmainimg(uploadPath + "/" + fileName);
-	   
-	    
-	    // 숙소정보와 파일 처리 로직을 통합하여 처리
-	    accommodationService.saveAccommodationAndRoomInfo(dto, file);
-	   
-	    
-	    return ResponseEntity.ok("저장이 완료되었습니다.");
-	}
-    
 
-	@GetMapping("/accommodation/list")	
-	public String accommodationList(Model model) {
-		//숙소리스트 모델에 추가
-		List<AccommodationsVo> accommodations = accommodationService.getAllAwccommodations();
-		model.addAttribute("accommodations",accommodations);
+	@PostMapping("/accommodation/save")
+	public ResponseEntity<String> saveAccommodation(@RequestParam("file") MultipartFile file,
+			@RequestParam("dto") String dtoJson) {
 		
-        // 해당하는 뷰 페이지의 이름을 반환
-        return "admin/accommodation/list";
+		try {
+           // 파일 업로드 서비스를 사용하여 파일 저장
+			String fileName = file != null ? file.getOriginalFilename() : null;
+
+			// 숙소 정보 저장
+			AccommodationAndRoomInfoDto dto = objectMapper.readValue(dtoJson, AccommodationAndRoomInfoDto.class);
+			dto.getAccommodationDto().setAmainimg(fileName);
+			accommodationService.saveAccommodationAndRoomInfo(dto, file);
+
+			return ResponseEntity.ok("Accommodation saved successfully.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("Failed to save accommodation.");
+		}
+		
 	}
-	
-	
-	
+
+	@GetMapping("/accommodation/list")
+	public String accommodationList(Model model) {
+		// 숙소리스트 모델에 추가
+		List<AccommodationsVo> accommodations = accommodationService.getAllAwccommodations();
+		model.addAttribute("accommodations", accommodations);
+
+		// 해당하는 뷰 페이지의 이름을 반환
+		return "admin/accommodation/list";
+	}
+
 }
