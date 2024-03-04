@@ -10,8 +10,8 @@ import com.various_functions.vo.FileEntity;
 @Mapper
 public interface AccommodationsFileMapper {
 
-	// 파일 정보 저장
-	void saveAll(List<AccommodationsFileDto> files);
+	// 파일 등록 메서드
+	void insertAccommodationsFile(AccommodationsFileDto accommodationsFileDto);
 	
 	//List<FileEntity> findAllByPostId(Long aid);
 	
