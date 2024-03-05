@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.service.NoticeService;
 import com.various_functions.admin.vo.NoticeVo;
+import com.various_functions.dto.SearchDto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,22 +42,12 @@ public class NoticeController {
 		return "redirect:/admin/notice/list";
 	}
 
-	// 공지사항 리스트
-	@GetMapping("/admin/notice/list")
-	public String adminNoticeList(Model model) {
-		return noticeList(model,"admin/notice/list");
-	}
 
-	// 공지사항 리스트
-	@GetMapping("/notice/list")
-	public String userNoticeList(Model model) {
-		return noticeList(model,"notice/list");
-	}
 	
-	private String noticeList(Model model, String viewName) {
-		List<NoticeVo> notices = noticeService.findAllNotices();
+	private String noticeList(@ModelAttribute("searchs") final SearchDto searchDto, Model model) {
+		List<NoticeVo> notices = noticeService.findAllNotices(searchDto);
 		model.addAttribute("notices", notices);
-		return viewName;
+		return "/admin/notice/list";
 	}
 
 }

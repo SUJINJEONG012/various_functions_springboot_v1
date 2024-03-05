@@ -14,7 +14,7 @@ created_date,
 deleted_date
 </sql>
 <!-- 파일 등록 쿼리 -->
-    <insert id="insertAccommodationsFile" parameterType="com.various_functions.dto.AccommodationsFileDto">
+    <insert id="insertAccommodationsFile" parameterType="com.various_functions.admin.dto.AccommodationsFileDto">
         INSERT INTO accommodations_file (aid, fileName, uploadPath, uuid)
         VALUES (#{aid}, #{fileName}, #{uploadPath}, #{uuid})
     </insert>

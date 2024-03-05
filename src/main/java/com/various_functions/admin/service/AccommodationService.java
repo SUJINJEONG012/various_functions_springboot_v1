@@ -30,6 +30,7 @@ public class AccommodationService {
 		this.roomInfoMapper = roomInfoMapper;
 	}
 	
+	
 	@Transactional
 	public void saveAccommodationAndRoomInfo(AccommodationAndRoomInfoDto dto){		
 		log.info("숙소등록저장하는 부분 진입확인");

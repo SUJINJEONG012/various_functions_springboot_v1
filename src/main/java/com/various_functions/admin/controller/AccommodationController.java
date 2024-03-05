@@ -37,26 +37,26 @@ public class AccommodationController {
 		return "/admin/accommodation/write";
 	}
 
-	@PostMapping("/accommodation/save")
-	public ResponseEntity<String> saveAccommodation(@RequestParam("file") MultipartFile file,
-			@RequestParam("dto") String dtoJson) {
-		
-		try {
-           // 파일 업로드 서비스를 사용하여 파일 저장
-			String fileName = file != null ? file.getOriginalFilename() : null;
-
-			// 숙소 정보 저장
-			AccommodationAndRoomInfoDto dto = objectMapper.readValue(dtoJson, AccommodationAndRoomInfoDto.class);
-			dto.getAccommodationDto().setAmainimg(fileName);
-			accommodationService.saveAccommodationAndRoomInfo(dto, file);
-
-			return ResponseEntity.ok("Accommodation saved successfully.");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.badRequest().body("Failed to save accommodation.");
-		}
-		
-	}
+//	@PostMapping("/accommodation/save")
+//	public ResponseEntity<String> saveAccommodation(@RequestParam("file") MultipartFile file,
+//			@RequestParam("dto") String dtoJson) {
+//		
+//		try {
+//           // 파일 업로드 서비스를 사용하여 파일 저장
+//			String fileName = file != null ? file.getOriginalFilename() : null;
+//
+//			// 숙소 정보 저장
+//			AccommodationAndRoomInfoDto dto = objectMapper.readValue(dtoJson, AccommodationAndRoomInfoDto.class);
+//			dto.getAccommodationDto().setAmainimg(fileName);
+//			accommodationService.saveAccommodationAndRoomInfo(dto, file);
+//
+//			return ResponseEntity.ok("Accommodation saved successfully.");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return ResponseEntity.badRequest().body("Failed to save accommodation.");
+//		}
+//		
+//	}
 
 	@GetMapping("/accommodation/list")
 	public String accommodationList(Model model) {
