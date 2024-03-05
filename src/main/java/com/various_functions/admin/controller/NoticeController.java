@@ -41,13 +41,17 @@ public class NoticeController {
 		noticeService.noticeSave(noticeDto);
 		return "redirect:/admin/notice/list";
 	}
-
-
 	
-	private String noticeList(@ModelAttribute("searchs") final SearchDto searchDto, Model model) {
-		List<NoticeVo> notices = noticeService.findAllNotices(searchDto);
+	@GetMapping("/notice/list")
+	public String userNoticeList(Model model) {
+		return noticeList(model, "notice/list");
+	}
+	
+	
+	private String noticeList(Model model, String viewName) {
+		List<NoticeVo> notices = noticeService.findAllNotices();
 		model.addAttribute("notices", notices);
-		return "/admin/notice/list";
+		return viewName;
 	}
 
 }

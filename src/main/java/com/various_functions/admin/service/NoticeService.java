@@ -45,8 +45,8 @@ public class NoticeService {
 	}
 	
 	// 게시글 리스트 조회 => user, admin 공통으로 들고오기 위한 코드
-	public List<NoticeVo> findAllNotices(final SearchDto searchDto){
-		return noticeMapper.findAllNotices(searchDto);
+	public List<NoticeVo> findAllNotices(){
+		return noticeMapper.findAllNotices();
 	}
 	
 	

@@ -87,7 +87,7 @@
 		order by 
 		case when notice_yn = 1 then 0 else 1 end,
 		created_date desc
-		limit #{offset}, #{recordSize};
+		<!-- limit #{offset}, #{recordSize}; -->
 	</select>
 	
 	<!-- 게시글 수 카운팅 -->

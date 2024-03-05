@@ -28,8 +28,9 @@ public interface NoticeMapper {
 	 * 
 	 * 여러개의 게시글을 리스트에 담아 리턴해주는 역할 
 	 * 2024.3.5 searchDto 매개변수로 담아서 검색 부분추가
+	 * SearchDto searchDto
 	 * */
-	List<NoticeVo> findAllNotices(SearchDto searchDto);
+	List<NoticeVo> findAllNotices();
 	
 	
 	// 게시글 수 
