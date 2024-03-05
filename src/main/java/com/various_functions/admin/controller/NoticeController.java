@@ -48,10 +48,18 @@ public class NoticeController {
 	}
 	
 	
+	@GetMapping("/admin/notice/list")
+	public String adminNoticeList(Model model) {
+		return noticeList(model, "/admin/notice/list");
+	}
+	
+	
+	
 	private String noticeList(Model model, String viewName) {
 		List<NoticeVo> notices = noticeService.findAllNotices();
 		model.addAttribute("notices", notices);
 		return viewName;
 	}
 
+	
 }
