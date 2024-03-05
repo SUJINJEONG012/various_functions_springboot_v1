@@ -20,7 +20,7 @@ public class SearchDto {
 		this.pageSize = 10;
 	}
 	
-//	public int getOffset() {
-//		return (page -1) * recordSize;
-//	}
+	public int getOffset() {
+		return (page -1) * recordSize;
+	}
 }
