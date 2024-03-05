@@ -23,11 +23,15 @@ public class LoggerAspect {
 				StringUtils.contains(name, "Service") ? "Service ===> " :
 				StringUtils.contains(name, "Mapper") ? "Mapper ===> ":	
 				"";
-		log.debug("@@ type:: " + type);
-		log.debug("@@ name:: " + name);
-		log.debug("@@ joinPoint.getSignature():: " + joinPoint.getSignature());
-		log.debug("@@ joinPoint.getSignature().getName():: " + joinPoint.getSignature().getName());
+//		log.debug("@@ type:: " + type);
+//		log.debug("@@ name:: " + name);
+//		log.debug("@@ joinPoint.getSignature():: " + joinPoint.getSignature());
+//		log.debug("@@ joinPoint.getSignature().getName():: " + joinPoint.getSignature().getName());
 		
+		
+		/*
+		 * signature객체가 가진 정보를 이용해서, 어떤 클래스의 어떤 메서드가 호출되었는지를 로그로 출력하는 기능
+		 * */
 		log.debug("전체적인 합 : " +type + name + "." + joinPoint.getSignature().getName() + "()");
 		
 		return joinPoint.proceed();
