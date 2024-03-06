@@ -48,6 +48,11 @@ public class NoticeController {
 		return "redirect:/admin/notice/list";
 	}
 	
+//	@PostMapping("/admin/notice/save")
+//	public String saveNotice(final NoticeDto noticeDto) {
+//		noticeService.noticeSave(noticeDto);
+//		return "redirect:/admin/notice/list";
+//	}
 	
 	
 	@GetMapping("/notice/list")
