@@ -5,14 +5,15 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.various_functions.admin.dto.NoticeDto;
+import com.various_functions.admin.dto.NoticeFileDto;
+import com.various_functions.admin.service.NoticeFileService;
 import com.various_functions.admin.service.NoticeService;
 import com.various_functions.admin.vo.NoticeVo;
-import com.various_functions.dto.SearchDto;
+import com.various_functions.utils.FileUtils;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 public class NoticeController {
 
 	private final NoticeService noticeService;
+	private final NoticeFileService noticeFileService;
+	private final FileUtils fileUtils;
 
 	// 게시글 작성 페이지
 	@GetMapping("/admin/notice/write")
@@ -37,10 +40,15 @@ public class NoticeController {
 
 	// 공지사항작성
 	@PostMapping("/admin/notice/save")
-	public String saveNotice(final NoticeDto noticeDto) {
-		noticeService.noticeSave(noticeDto);
+	public String saveNotice(final NoticeDto noticeDto, Model model) {
+		Long id = noticeService.noticeSave(noticeDto);
+		List<NoticeFileDto> files = fileUtils.uploadFiles(noticeDto.getFiles());
+		noticeFileService.saveFiles(id, files);
+		
 		return "redirect:/admin/notice/list";
 	}
+	
+	
 	
 	@GetMapping("/notice/list")
 	public String userNoticeList(Model model) {
