@@ -29,9 +29,8 @@ public class AccommodationController {
 
 	@Autowired
 	private AccommodationService accommodationService;
-	@Autowired
-	private FileService fileService;
 
+	
 	@GetMapping("/accommodation/write")
 	public String accommodationSave(Model model) {
 		return "/admin/accommodation/write";
