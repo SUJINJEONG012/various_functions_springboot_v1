@@ -16,11 +16,12 @@
 				<th scope="col">등록일</th>
 				<th scope="col">조회</th>
 			</tr>
+			</thead>
 		<tbody>
 			<!-- 공지사항 데이터를 반복하면서 테이블에 출력 -->
 			<tr th:if="${not #lists.isEmpty(notices)}" th:each="notice : ${notices}">
 
-				<td th:text="${notice.noticeYn ? '공지글' : notice.id}"></td>
+				<td th:text="${notice.noticeYn ? '공지글' : notice.noticeId}"></td>
 				
 				<td th:text="${notice.title}"></td>
 				<td th:text="${notice.writer}"></td>
@@ -31,7 +32,7 @@
 				<td colspan="2">게시물이 없습니다.</td>
 			</tr>
 		</tbody>
-		</thead>
+		
 	</table>
 
 </th:block>

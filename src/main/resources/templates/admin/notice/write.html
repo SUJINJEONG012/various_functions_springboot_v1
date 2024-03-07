@@ -21,8 +21,8 @@
 				enctype="multipart/form-data">
 
 				<!-- 게시글 수정인 경우 -->
-				<input type="hidden" id="id" name="id" th:if="${notice != null}"
-					th:value="${notice.id}" />
+				<input type="hidden" id="noticeId" name="noticeId" th:if="${notice != null}"
+					th:value="${notice.noticeId}" />
 
 				<!-- 서버로 전달할 공지글 여부 -->
 				<input type="hidden" id="noticeYn" name="noticeYn" />
@@ -68,7 +68,7 @@
 									cols="50" rows="10" placeholder="내용을 입력해 주세요."></textarea></td>
 						</tr>
 
-						<tr>
+						<!-- <tr>
 							<th>첨부파일</th>
 							<td colspan="3">
 								<div class="file_list">
@@ -83,7 +83,7 @@
 									</div>
 								</div>
 							</td>
-						</tr>
+						</tr> -->
 
 					</tbody>
 				</table>
@@ -121,7 +121,7 @@
 			form.noticeYn.value = form.isNotice.checked;
 
 			form.action = [[${notice == null} ]] ?'/admin/notice/save' : '/admin/notice/update';
-		form.submit();
+			form.submit();
 		
 		}
 

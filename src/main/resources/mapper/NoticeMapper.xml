@@ -6,7 +6,7 @@
 
 	<!-- tb_notice 전체칼럼 -->
 	<sql id="noticeColumns">
-		id,
+		notice_id,
 		title,
 		content,
 		writer,
@@ -20,11 +20,11 @@
 	<!-- 게시글 저장 -->
 	<insert id="noticeSave"
 		parameterType="com.various_functions.admin.dto.NoticeDto"
-		useGeneratedKeys="true" keyProperty="id">
+		useGeneratedKeys="true" keyProperty="noticeId">
 		insert into tb_notice(
 		<include refid="noticeColumns" />
 		) values(
-		#{id},
+		#{noticeId},
 		#{title},
 		#{content},
 		#{writer},
@@ -42,7 +42,7 @@
 		select
 		<include refid="noticeColumns" />
 		from tb_notice
-		where id = #{id}
+		where notice_id = #{noticeId}
 	</select>
 
 	<!-- 게시글 수정 -->
@@ -56,7 +56,7 @@
 		content = #{content},
 		writer = #{writer},
 		notice_yn = #{noticeYn}
-		where id = #{id}
+		where notice_id = #{noticeId}
 
 	</update>
 
@@ -65,7 +65,7 @@
 		update tb_notice
 		set
 		delete_yn = 1
-		where id = #{id}
+		where notice_id = #{noticeId}
 	</delete>
 	
 	<!-- 게시글 리스트 조회, 
@@ -77,7 +77,7 @@
 	 1일 경우에는 먼저 나오도록 정렬하고, 그 다음에는 created_date 컬럼을 내림차순으로 정렬합니다. 즉, 먼저 공지사항이 있는 글이 나오고, 
 	 그 다음에는 작성일자가 최신인 순서대로 정렬
 	 -->
-	<select id="findAllNotices" parameterType="com.various_functions.dto.SearchDto" resultType="com.various_functions.admin.vo.NoticeVo">
+	<select id="findAllNotices" resultType="com.various_functions.admin.vo.NoticeVo">
 		select 
 		<include refid="noticeColumns" />
 		from 
@@ -87,12 +87,10 @@
 		order by 
 		case when notice_yn = 1 then 0 else 1 end,
 		created_date desc
-		<!-- limit #{offset}, #{recordSize}; -->
+		<!--  limit #{offset}, #{recordSize};-->
 	</select>
 	
 	<!-- 게시글 수 카운팅 -->
-	
-	
 	
 	
 

@@ -27,8 +27,8 @@ public class NoticeService {
 	}
 	
 	// 공지사항 상세정보 조회
-	public NoticeVo findById(final Long id) {
-		return noticeMapper.findById(id);
+	public NoticeVo findById(final Long noticeId) {
+		return noticeMapper.findById(noticeId);
 	}
 	
 	// 게시글 수정

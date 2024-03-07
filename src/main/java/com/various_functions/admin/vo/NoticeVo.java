@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NoticeVo {
 
-	private Long id; //pk
+	private Long noticeId; //pk
 	private String title; //제목
 	private String content; //내용
 	private String writer; //작성자

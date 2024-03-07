@@ -15,13 +15,13 @@ public interface NoticeMapper {
 	void noticeSave(NoticeDto noticeDto);
 	
 	// 게시글 상세정보 조회 (특정 게시글 pk값으로 조회)
-	NoticeVo findById(Long id);
+	NoticeVo findById(Long noticeId);
 	
 	// 게시글 수정
 	void update(NoticeDto noticeDto);
 
 	// 게시글 삭제 
-	void deleteById(Long id);
+	void deleteById(Long noticeId);
 	
 	/* 게시글 리스트 조회
 	 * @return 게시글 리스트

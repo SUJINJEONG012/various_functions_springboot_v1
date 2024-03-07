@@ -39,21 +39,21 @@ public class NoticeController {
 	}
 
 	// 공지사항작성
-	@PostMapping("/admin/notice/save")
-	public String saveNotice(final NoticeDto noticeDto, Model model) {
-		Long id = noticeService.noticeSave(noticeDto);
-		
-		List<NoticeFileDto> files = fileUtils.uploadFiles(noticeDto.getFiles());
-		noticeFileService.saveFiles(id, files); // 업로르도딘 파일을 db에 저장
-		
-		return "redirect:/admin/notice/list";
-	}
-	
 //	@PostMapping("/admin/notice/save")
-//	public String saveNotice(final NoticeDto noticeDto) {
-//		noticeService.noticeSave(noticeDto);
+//	public String saveNotice(final NoticeDto noticeDto, Model model) {
+//		Long id = noticeService.noticeSave(noticeDto);
+//		
+//		List<NoticeFileDto> files = fileUtils.uploadFiles(noticeDto.getFiles());
+//		noticeFileService.saveFile(id, files); // 업로르도딘 파일을 db에 저장
+//		
 //		return "redirect:/admin/notice/list";
 //	}
+	
+	@PostMapping("/admin/notice/save")
+	public String saveNotice(final NoticeDto noticeDto) {
+		noticeService.noticeSave(noticeDto);
+		return "redirect:/admin/notice/list";
+	}
 	
 	
 	@GetMapping("/notice/list")
