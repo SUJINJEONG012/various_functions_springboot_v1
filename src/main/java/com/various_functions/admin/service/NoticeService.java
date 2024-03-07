@@ -23,7 +23,7 @@ public class NoticeService {
 	@Transactional
 	public Long noticeSave(final NoticeDto noticeDto) {
 		noticeMapper.noticeSave(noticeDto);	
-		return noticeDto.getId();
+		return noticeDto.getNoticeId();
 	}
 	
 	// 공지사항 상세정보 조회
@@ -35,13 +35,13 @@ public class NoticeService {
 	@Transactional
 	public Long noticeUpdate(final NoticeDto noticeDto) {
 		noticeMapper.update(noticeDto);
-		return noticeDto.getId();
+		return noticeDto.getNoticeId();
 	}
 	
 	// 게시글 삭제
-	public Long delete(final Long id) {
-		noticeMapper.deleteById(id);
-		return id;
+	public Long delete(final Long noticeId) {
+		noticeMapper.deleteById(noticeId);
+		return noticeId;
 	}
 	
 	// 게시글 리스트 조회 => user, admin 공통으로 들고오기 위한 코드

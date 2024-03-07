@@ -14,19 +14,19 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class NoticeFileService {
+public class NoticeFileService {	
 
 	private final NoticeFileMapper noticeFileMapper;
 	
 	@Transactional
-	public void saveFiles(final Long noticeId, final List<NoticeFileDto> files) {
-		if(CollectionUtils.isEmpty(files)) {
-			return;
-		}
-		
-		for(NoticeFileDto file : files) {
-			file.setNoticeId(noticeId);
-		}
-		noticeFileMapper.noticeFilesaveAll(files);
-	}
+	public void saveFile(final Long noticeId, final List<NoticeFileDto> files) {
+		if (CollectionUtils.isEmpty(files)) {
+            return;
+        }
+        for (NoticeFileDto file : files) {
+            file.setNoticeId(noticeId);
+        }
+        noticeFileMapper.noticeFilesaveAll(files);
+    }
+	
 }

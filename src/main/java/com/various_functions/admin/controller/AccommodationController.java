@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.vo.AccommodationsVo;
-import com.various_functions.service.FileService;
+import com.various_functions.service.NoticeFileService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
