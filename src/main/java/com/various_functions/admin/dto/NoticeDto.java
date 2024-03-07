@@ -22,7 +22,7 @@ public class NoticeDto {
 	private String writer;
 	private Boolean noticeYn;
 	
-	//파일추가
+	//파일추가 연관관계
 	private List<MultipartFile> files = new ArrayList<>();
 	
 }
