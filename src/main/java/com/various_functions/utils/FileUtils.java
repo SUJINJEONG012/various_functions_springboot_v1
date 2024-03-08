@@ -26,7 +26,9 @@ public class FileUtils {
      * @return DB에 저장할 파일 정보 List
      */
     public List<NoticeFileDto> uploadFiles(final List<MultipartFile> multipartFiles) {
-        List<NoticeFileDto> files = new ArrayList<>();
+        
+    	List<NoticeFileDto> files = new ArrayList<>();
+        
         for (MultipartFile multipartFile : multipartFiles) {
             if (multipartFile.isEmpty()) {
                 continue;
