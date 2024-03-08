@@ -28,5 +28,6 @@ public class NoticeFileService {
         }
         noticeFileMapper.noticeFilesaveAll(files);
     }
+  
 	
 }

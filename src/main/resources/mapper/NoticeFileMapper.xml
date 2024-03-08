@@ -17,7 +17,7 @@
 	</sql>
 	
 	<!-- 파일정보 저장 -->
-	<insert id="NoticeFilesaveAll" parameterType="list">
+	<insert id="noticeFilesaveAll" parameterType="list">
 		insert into tb_file (
 		<include refid="fileColumns"/>
 		)values 
