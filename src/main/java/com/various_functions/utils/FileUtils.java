@@ -57,6 +57,7 @@ public class FileUtils {
 
         try {
             multipartFile.transferTo(uploadFile);
+            // 썸네일 부분 추가하기.
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

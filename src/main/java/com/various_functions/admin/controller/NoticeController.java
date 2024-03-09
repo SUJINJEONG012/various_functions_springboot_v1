@@ -43,9 +43,12 @@ public class NoticeController {
 	public String saveNotice(final NoticeDto noticeDto, Model model) {
 		Long noticeId = noticeService.noticeSave(noticeDto);
 		
-		List<NoticeFileDto> files = fileUtils.uploadFiles(noticeDto.getFilesffxx());
-		noticeFileService.saveFile(noticeId, files); // 업로르도딘 파일을 db에 저장
+		//다중파일 업로드시
+		//List<NoticeFileDto> files = fileUtils.uploadFiles(noticeDto.getFilesffxx());
+		//noticeFileService.saveFile(noticeId, files); // 업로르도딘 파일을 db에 저장
 		
+		NoticeFileDto file= fileUtils.uploadFile(noticeDto.getFile());
+		noticeFileService.saveFile(noticeId, file);
 		return "redirect:/admin/notice/list";
 	}
 	

@@ -11,5 +11,6 @@ public interface NoticeFileMapper {
 
 	// 파일정보 저장
 	void noticeFilesaveAll(List<NoticeFileDto> noticeFiles);
+	void noticeFileSave(NoticeFileDto noticeFile);
 	
 }

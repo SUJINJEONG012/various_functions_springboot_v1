@@ -18,6 +18,7 @@ public class NoticeFileService {
 
 	private final NoticeFileMapper noticeFileMapper;
 	
+	// 다중파일 업로드
 	@Transactional
 	public void saveFile(final Long noticeId, final List<NoticeFileDto> files) {
 		if (CollectionUtils.isEmpty(files)) {
@@ -28,6 +29,17 @@ public class NoticeFileService {
         }
         noticeFileMapper.noticeFilesaveAll(files);
     }
-  
+
+	@Transactional
+	public void saveFile(final Long noticeId, final NoticeFileDto file) {
+		if(file == null) {
+			return;
+		}
+		file.setNoticeId(noticeId);
+		noticeFileMapper.noticeFileSave(file);
+	}
+	
+
+	
 	
 }
