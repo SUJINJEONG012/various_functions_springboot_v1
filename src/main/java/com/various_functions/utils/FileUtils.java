@@ -18,7 +18,8 @@ import com.various_functions.admin.dto.NoticeFileDto;
 @Component
 public class FileUtils {
 
-	private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
+	//private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
+	private final String uploadPath = Paths.get("/","Users", "jeongsujin", "upload").toString();
 	
 	/**
      * 다중 파일 업로드
@@ -27,15 +28,15 @@ public class FileUtils {
      */
     public List<NoticeFileDto> uploadFiles(final List<MultipartFile> multipartFiles) {
         
-    	List<NoticeFileDto> files = new ArrayList<>();
+    	List<NoticeFileDto> filesff = new ArrayList<>();
         
         for (MultipartFile multipartFile : multipartFiles) {
             if (multipartFile.isEmpty()) {
                 continue;
             }
-            files.add(uploadFile(multipartFile));
+            filesff.add(uploadFile(multipartFile));
         }
-        return files;
+        return filesff;
     }
 
     /**
