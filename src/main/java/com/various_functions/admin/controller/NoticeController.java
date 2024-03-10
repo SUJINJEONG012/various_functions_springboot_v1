@@ -80,8 +80,10 @@ public class NoticeController {
 	}
 	
 	//게시글 상세 페이지
-	public String NoticeView(@RequestParam final Long NoticeId, Model model) {
-		NoticeVo notice = noticeService.findById(NoticeId);
+	@GetMapping("/admin/notice/view")
+	public String NoticeView(@RequestParam final Long noticeId, Model model) {
+		NoticeVo notice = noticeService.findById(noticeId);
+		model.addAttribute("notice", notice);
 		return "/admin/notice/view";
 	}
 
