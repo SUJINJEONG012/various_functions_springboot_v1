@@ -67,8 +67,6 @@ public class NoticeController {
 	// 유저 게시글 리스트 페이지
 	@GetMapping("/notice/list")
 	public String userNoticeList(Model model) {
-		log.info("userNoticeList");
-		System.out.println("유저 게시물 리스트 페이지 !@@@");
 		return noticeList(model, "notice/list");
 	}
 
@@ -78,13 +76,22 @@ public class NoticeController {
 		model.addAttribute("notices", notices);
 		return viewName;
 	}
-	
-	//게시글 상세 페이지
+
+	@GetMapping("/notice/view")
+	private String userNoticeView(@RequestParam Long noticeId, Model model) {
+		return NoticeView(noticeId, model, "/notice/view");
+	}
+
 	@GetMapping("/admin/notice/view")
-	public String NoticeView(@RequestParam final Long noticeId, Model model) {
+	private String adminNoticeView(@RequestParam Long noticeId, Model model) {
+		return NoticeView(noticeId, model, "/admin/notice/view");
+	}
+
+	// 게시글 상세 페이지
+	public String NoticeView(@RequestParam final Long noticeId, Model model, String viewName) {
 		NoticeVo notice = noticeService.findById(noticeId);
 		model.addAttribute("notice", notice);
-		return "/admin/notice/view";
+		return viewName;
 	}
 
 }
