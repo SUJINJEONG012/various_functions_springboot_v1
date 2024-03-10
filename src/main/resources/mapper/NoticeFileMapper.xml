@@ -34,5 +34,23 @@
 			)
 		</foreach>
 	</insert>
+	
+	<!--  -->
+	<insert id="noticeFileSave" parameterType="com.various_functions.admin.dto.NoticeFileDto">
+	insert into tb_file (
+		<include refid="fileColumns"/>
+		)values (
+		#{fileId},
+			#{noticeId},
+			#{originalName},
+			#{saveName},
+			#{size},
+			0,
+			now(),
+			null
+		)
+	</insert>
+	
+	
 
 </mapper>
