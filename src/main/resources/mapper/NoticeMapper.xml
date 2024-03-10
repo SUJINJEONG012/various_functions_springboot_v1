@@ -90,6 +90,8 @@
 		<!--  limit #{offset}, #{recordSize};-->
 	</select>
 	
+	
+	
 	<!-- 게시글 수 카운팅 -->
 	
 	

@@ -42,41 +42,41 @@ public class NoticeController {
 	@PostMapping("/admin/notice/save")
 	public String saveNotice(final NoticeDto noticeDto, Model model) {
 		Long noticeId = noticeService.noticeSave(noticeDto);
-		
-		//다중파일 업로드시
-		//List<NoticeFileDto> files = fileUtils.uploadFiles(noticeDto.getFilesffxx());
-		//noticeFileService.saveFile(noticeId, files); // 업로르도딘 파일을 db에 저장
-		
-		NoticeFileDto file= fileUtils.uploadFile(noticeDto.getFile());
+
+		// 다중파일 업로드시
+		// List<NoticeFileDto> files = fileUtils.uploadFiles(noticeDto.getFilesffxx());
+		// noticeFileService.saveFile(noticeId, files); // 업로르도딘 파일을 db에 저장
+
+		NoticeFileDto file = fileUtils.uploadFile(noticeDto.getFile());
 		noticeFileService.saveFile(noticeId, file);
 		return "redirect:/admin/notice/list";
 	}
-	
+
 //	@PostMapping("/admin/notice/save")
 //	public String saveNotice(final NoticeDto noticeDto) {
 //		noticeService.noticeSave(noticeDto);
 //		return "redirect:/admin/notice/list";
 //	}
-	
-	
-	@GetMapping("/notice/list")
-	public String userNoticeList(Model model) {
-		return noticeList(model, "notice/list");
-	}
-	
-	
+
+	// 관리자 페이지 리스트페이지
 	@GetMapping("/admin/notice/list")
 	public String adminNoticeList(Model model) {
 		return noticeList(model, "/admin/notice/list");
 	}
-	
-	
-	
+
+	// 유저 게시글 리스트 페이지
+	@GetMapping("/notice/list")
+	public String userNoticeList(Model model) {
+		log.info("userNoticeList");
+		System.out.println("유저 게시물 리스트 페이지 !@@@");
+		return noticeList(model, "notice/list");
+	}
+
+	// 유저,어드민 페이지 공통으로 사용하기 위한 메서드
 	private String noticeList(Model model, String viewName) {
 		List<NoticeVo> notices = noticeService.findAllNotices();
 		model.addAttribute("notices", notices);
 		return viewName;
 	}
 
-	
 }

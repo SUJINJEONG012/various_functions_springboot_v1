@@ -55,6 +55,5 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		}
 		// 4. 관리자로 로그인한 경우
 		return true;
-
 	}
 }

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.vo.NoticeVo;
-import com.various_functions.dto.SearchDto;
+
 
 @Mapper
 public interface NoticeMapper {
@@ -17,11 +17,13 @@ public interface NoticeMapper {
 	// 게시글 상세정보 조회 (특정 게시글 pk값으로 조회)
 	NoticeVo findById(Long noticeId);
 	
+	
 	// 게시글 수정
 	void update(NoticeDto noticeDto);
 
 	// 게시글 삭제 
 	void deleteById(Long noticeId);
+	
 	
 	/* 게시글 리스트 조회
 	 * @return 게시글 리스트
@@ -34,7 +36,7 @@ public interface NoticeMapper {
 	
 	
 	// 게시글 수 
-	int count(SearchDto searchDto);
+	//int count(SearchDto searchDto);
 	
 
 }
