@@ -78,5 +78,11 @@ public class NoticeController {
 		model.addAttribute("notices", notices);
 		return viewName;
 	}
+	
+	//게시글 상세 페이지
+	public String NoticeView(@RequestParam final Long NoticeId, Model model) {
+		NoticeVo notice = noticeService.findById(NoticeId);
+		return "/admin/notice/view";
+	}
 
 }

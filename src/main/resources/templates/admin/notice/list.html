@@ -41,7 +41,7 @@
 
 				<td th:text="${notice.noticeYn ? '공지글' : notice.noticeId}"></td>
 				
-				<td th:text="${notice.title}"></td>
+				<td><a th:href="@{/admin/notice/view(noticeId=${notice.noticeId})}" th:text="${notice.title}"></a></td>
 				<td th:text="${notice.writer}"></td>
 				<td th:text="${notice.createdDate}"></td>
 				<td th:text="${notice.viewCnt}"></td>
