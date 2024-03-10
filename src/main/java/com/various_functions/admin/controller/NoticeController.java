@@ -2,6 +2,8 @@ package com.various_functions.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,9 +80,26 @@ public class NoticeController {
 	}
 
 	@GetMapping("/notice/view")
-	private String userNoticeView(@RequestParam Long noticeId, Model model) {
+	private String userNoticeView(@RequestParam Long noticeId, Model model, HttpSession session) {
+		log.info("유저페이지 상세보기 공지사항");
+		
+		// 세션에서 현재 사용자 정보를 가져옵니다.
+		String loginId =  (String) session.getAttribute("loginId");
+		log.info("세션에서 현재 사용자 정보를 가져옵니다." + loginId); // null로 나옴
+		// 게시물 상세 정보를 가져옵니다.
+		NoticeVo notice = noticeService.findById(noticeId);
+		model.addAttribute("notice", notice);
+		
+		// 게시물을 작성한 사용자의 이름을 가져옵니다.
+		String memberName = notice.getWriter();
+		log.info("게시물을 작성한 사용자의 이름을 가져오기 : " + memberName);
+		
+		// 현재 로그인한 사용자와 게시물 작성자의 이름이 동일한지 확인합니다.
+		boolean isCurrentUserAuthor = loginId != null && loginId.equals(memberName);
+		model.addAttribute("isCurrentUserAuthor", isCurrentUserAuthor);
 		return NoticeView(noticeId, model, "/notice/view");
 	}
+	
 
 	@GetMapping("/admin/notice/view")
 	private String adminNoticeView(@RequestParam Long noticeId, Model model) {

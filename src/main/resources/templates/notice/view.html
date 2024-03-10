@@ -46,17 +46,24 @@
 						<th scope="row">내용</th>
 						<td colspan="3">[[${notice.content}]]</td>
 					</tr>
-					
-					
+
+
 
 				</tbody>
 			</table>
-			
+
 			<p class="btn_set">
-                    <a th:href="@{/notice/write( id=${notice.noticeId} )}" class="btns btn_bdr4 btn_mid">수정</a>
-                    <button type="button" class="btns btn_bdr1 btn_mid">삭제</button>
-                    <a th:href="@{/notice/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
-                </p>
+				<!-- 수정버튼 -->
+				<span th:if="${isCurrentUserAuthor}"> <a
+					th:href="@{/notice/write( id=${notice.noticeId} )}"
+					class="btns btn_bdr4 btn_mid">수정</a>
+				</span>
+				<!-- 삭제버튼 -->
+
+				<button th:if="${isCurrentUserAuthor}" type="button"
+					class="btns btn_bdr1 btn_mid">삭제</button>
+				<a th:href="@{/notice/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
+			</p>
 		</section>
 	</div>
 
@@ -68,6 +75,26 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		/*<![CDATA[*/
+
+		// 삭제버튼
+		function deleteNotice(noticeId) {
+			if (confirm('정말로 삭제하시겠습니까?')) {
+				// 삭제 요청을 서버에 보냅니다. (Ajax 등을 사용하여 구현)
+				var xhr = new XMLHttpRequest();
+				xhr.open('DELETE', '/notice/delete/' + noticeId, true);
+				xhr.onload = function() {
+					if (xhr.status === 200) {
+						// 성공적으로 삭제되었을 경우, 적절한 동작을 수행합니다.
+						alert('게시물이 삭제되었습니다.');
+						location.reload(); // 페이지 새로고침
+					} else {
+						// 삭제에 실패한 경우, 적절한 오류 처리를 수행합니다.
+						alert('게시물 삭제에 실패했습니다.');
+					}
+				};
+				xhr.send();
+			}
+		}
 
 		/*]]>*/
 	</script>
