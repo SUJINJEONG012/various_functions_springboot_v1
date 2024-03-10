@@ -7,6 +7,9 @@
 
 <th:block layout:fragment="content">
 	<h2>공지사항 리스트</h2>
+	
+	<div class="content">
+	
 	<table class="tb tb_col">
 		<thead>
 			<tr>
@@ -17,6 +20,7 @@
 				<th scope="col">조회</th>
 			</tr>
 			</thead>
+			
 		<tbody>
 			<!-- 공지사항 데이터를 반복하면서 테이블에 출력 -->
 			<tr th:if="${not #lists.isEmpty(notices)}" th:each="notice : ${notices}">
@@ -32,12 +36,24 @@
 				<td colspan="2">게시물이 없습니다.</td>
 			</tr>
 		</tbody>
-		
 	</table>
+	
+	<!-- 페이지네이션 -->
+	<div class="paging">
+		<a href="#" class="page_bt first">첫 페이지</a>
+		<a href="#" class="page_bt prev">이전 페이지 그룹</a>
+		<p><span class="on">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a></p>
+		<a href="#" class="page_bt next">다음 페이지 그룹</a><a href="" class="page_bt last">마지막 페이지</a>
+	</div>
+	
+	<!-- 버튼 -->
+	<p class="btn_set tr">
+		<a th:href="@{/admin/notice/write}" class="btns btn_st3 btn_mid">글쓰기</a>
+	</p>
+	
+</div>
 
 </th:block>
-
-
 
 
 <th:block layout:fragment="script">
