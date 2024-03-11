@@ -10,6 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class InquiryController {
 
+	@GetMapping("/inquiry/write")
+	public String InquiryWrite() {
+		return "/inquiry/write";
+	}
 	@GetMapping("/inquiry/list")
 	public String InquiryList() {
 		log.info("문의글 페이지 진입!!!!");
