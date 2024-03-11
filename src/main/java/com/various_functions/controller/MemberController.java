@@ -67,6 +67,7 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", member);
 			session.setMaxInactiveInterval(60*30);
+			session.setAttribute("isAdmin", member.isAdmin());
 		}
 		
 		// 다른곳에서 세션에 저장된 회원 정보를 확인하는 코드

@@ -48,9 +48,9 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		}
 
 		// 3. 추가 조건체크 (예: 특정역할이나 권한이 있는지 확인)
-		if (member.getAdminCk() != 1) {
-			response.sendRedirect("/"); // 관리자가 아닌 경우 메인 페이지로 리다이렉트
+		if (!member.isAdmin()) {
 			session.setAttribute("errorMessage", "접근에 제한되었습니다.");
+			response.sendRedirect("/"); // 관리자가 아닌 경우 메인 페이지로 리다이렉트
 			return false;
 		}
 		// 4. 관리자로 로그인한 경우

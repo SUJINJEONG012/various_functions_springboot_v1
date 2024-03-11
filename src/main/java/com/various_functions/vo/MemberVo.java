@@ -38,6 +38,10 @@ public class MemberVo {
 	public void clearPassword() {
 		this.memberPw = "";
 	}
+	
+	public boolean isAdmin() {
+		return adminCk == 1;
+	}
 
 	
 	
