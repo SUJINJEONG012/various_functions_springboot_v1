@@ -24,9 +24,9 @@
 	<!-- 회원정보 저장(회원가입) -->
 	<insert id="save" parameterType="com.various_functions.dto.MemberDto"
 		useGeneratedKeys="true" keyProperty="memberId">
-		insert into tb_member(
+		insert into members(
 			<include refid="memberColumns" />
-		)values(
+		)values( 
 			#{memberId},
 			#{loginId},
 			#{memberPw},
@@ -51,14 +51,14 @@
 	<select id="findByLoginId" parameterType="string" resultType="com.various_functions.vo.MemberVo" >
 	select 
 	<include refid="memberColumns"/>
-	from tb_member
+	from members
 	where
 	delete_yn = 0 and login_id = #{value}
 	</select>
 	
 	<!-- 회원 정보 수정 -->
 	<update id="update" parameterType="com.various_functions.dto.MemberDto">
-	update tb_member
+	update members
 	set
 	modified_date = now(),
 	member_name = #{memberName},
@@ -91,16 +91,14 @@
 	<select id="findAllMember" resultType="com.various_functions.vo.MemberVo">
 	select 
 	<include refid="memberColumns"/>
-	from tb_member
-	
+	from members	
 	order by
 	member_id desc
 	</select>
-	
-	
+
 	<!-- 회원 수 카운팅 (아이디 중복 체크) -->
 	<select id="countByLoginId" parameterType="String" resultType="int">
-	select count(*) from tb_member
+	select count(*) from members
 	where login_id = #{value}
 	</select>
 	

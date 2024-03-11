@@ -21,7 +21,7 @@
 	<insert id="noticeSave"
 		parameterType="com.various_functions.admin.dto.NoticeDto"
 		useGeneratedKeys="true" keyProperty="noticeId">
-		insert into tb_notice(
+		insert into notice(
 		<include refid="noticeColumns" />
 		) values(
 		#{noticeId},
@@ -41,7 +41,7 @@
 		resultType="com.various_functions.admin.vo.NoticeVo">
 		select
 		<include refid="noticeColumns" />
-		from tb_notice
+		from notice
 		where notice_id = #{noticeId}
 	</select>
 
@@ -81,7 +81,7 @@
 		select 
 		<include refid="noticeColumns" />
 		from 
-			tb_notice
+			notice
 		where 
 			delete_yn = 0 
 		order by 
@@ -94,7 +94,7 @@
 	<select id="findNoticeUserById" parameterType="string" resultType="com.various_functions.admin.vo.NoticeVo">
 		select 
 		<include refid="noticeColumns" />
-	 	from tb_notice 
+	 	from notice 
 		where
 		login_id = #{loginId}
 	</select>

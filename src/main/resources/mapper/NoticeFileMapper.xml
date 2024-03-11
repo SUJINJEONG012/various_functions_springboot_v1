@@ -18,7 +18,7 @@
 	
 	<!-- 파일정보 저장 -->
 	<insert id="noticeFilesaveAll" parameterType="list">
-		insert into tb_file (
+		insert into notice_file (
 		<include refid="fileColumns"/>
 		)values 
 		<foreach item="file" collection="list" separator=",">
@@ -37,10 +37,10 @@
 	
 	<!--  -->
 	<insert id="noticeFileSave" parameterType="com.various_functions.admin.dto.NoticeFileDto">
-	insert into tb_file (
+	insert into notice_file (
 		<include refid="fileColumns"/>
 		)values (
-		#{fileId},
+			#{fileId},
 			#{noticeId},
 			#{originalName},
 			#{saveName},
@@ -50,7 +50,6 @@
 			null
 		)
 	</insert>
-	
 	
 
 </mapper>
