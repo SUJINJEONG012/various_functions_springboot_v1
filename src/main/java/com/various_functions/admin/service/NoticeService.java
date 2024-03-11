@@ -43,9 +43,15 @@ public class NoticeService {
 		return noticeId;
 	}
 	
-	// 게시글 리스트 조회 => user, admin 공통으로 들고오기 위한 코드
+	// 게시글 전체 리스트 조회 => user, admin 공통으로 들고오기 위한 코드
 	public List<NoticeVo> findAllNotices(){
 		return noticeMapper.findAllNotices();
+	}
+
+	// 내가 쓴글 리스트 조회하기 -> 마이페이지에서 사용 할 메서드
+	public List<NoticeVo> findNoticeUserById(String loginId) {
+		// 데이터베이스에서 해당 사용자가 작성한 게시글을 조회하여 반환하는 로직
+		return null;
 	}
 	
 	

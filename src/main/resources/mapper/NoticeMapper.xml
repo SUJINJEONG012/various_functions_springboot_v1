@@ -90,6 +90,15 @@
 		<!--  limit #{offset}, #{recordSize};-->
 	</select>
 	
+	<!-- 해당 아이디 게시글 조회 => 마이페이지  -->	
+	<select id="findNoticeUserById" parameterType="string" resultType="com.various_functions.admin.vo.NoticeVo">
+		select 
+		<include refid="noticeColumns" />
+	 	from tb_notice 
+		where
+		login_id = #{loginId}
+	</select>
+
 	
 	
 	<!-- 게시글 수 카운팅 -->

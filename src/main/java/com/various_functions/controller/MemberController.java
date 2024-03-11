@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.various_functions.admin.service.NoticeService;
+import com.various_functions.admin.vo.NoticeVo;
 import com.various_functions.dto.MemberDto;
 import com.various_functions.service.MemberService;
 import com.various_functions.vo.MemberVo;
@@ -31,7 +33,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberController {
+	
 	private final MemberService memberService;
+	private final NoticeService noticeService;
 	
 	private final JavaMailSender mailSender;
 	
@@ -152,8 +156,33 @@ public class MemberController {
 		return "admin/member/list";
 	}
 	
-	// 회원정보 수정
-	
+	// 회원정보 수정 (마이페이지)
+	@GetMapping("/member/mypage")
+	public String myPage(HttpSession session, Model model) {
+		// 세션에서 현재 사용자 정보가져오기 => getAttribute("loginMember") 세션에 저장되는 속성명은 개발자가 임의로 정할 수 있따.
+		MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+		if(loginMember == null) {
+			// 세션이 없는 경우 로그인 페이지로 이동하거나 다른 처리를 수행
+			return "redirect://member/login";
+		}
+		
+		// 사용자가 작성한 글 조회 => 현재는 공지사항으로 되어있는걸 나중에 이걸 문의하는 게시판으로 이동
+		List<NoticeVo> userNotices = noticeService.findNoticeUserById(loginMember.getLoginId());
+		model.addAttribute("userNotices", userNotices);
+		return "/member/mypage";
+	}
+
+	// 글삭제
+//	@PostMapping("/mypage/delete/{postId}")
+//	public String deletePost(@PathVariable("postId") Long postId) {
+//	    // 글 삭제
+//	    boolean deleted = postService.deletePost(postId);
+//	    if (deleted) {
+//	        return "redirect:/mypage?deleteSuccess=true"; // 삭제 성공 시 마이페이지로 이동
+//	    } else {
+//	        return "redirect:/mypage?deleteError=true"; // 삭제 실패 시 마이페이지로 이동
+//	    }
+//	}
 	
 	// 회원 정보 삭제 (회원탈퇴)
 	

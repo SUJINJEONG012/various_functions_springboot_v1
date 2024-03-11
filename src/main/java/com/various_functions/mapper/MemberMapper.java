@@ -34,6 +34,7 @@ public interface MemberMapper {
 	/* 회원 리스트 조회 */
 	List<MemberVo> findAllMember();
 	
+	
 	/* 회원 수 카운팅 id중복체크
 	 * loginId - uk
 	 * return 회원수
