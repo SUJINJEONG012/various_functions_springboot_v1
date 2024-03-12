@@ -59,7 +59,7 @@
 				</table>
 			</form>
 			<p class="btn_set">
-				<button type="button" id="saveBtn" onclick="saveInquiry();"
+				<button type="button" id="saveBtn"
 					class="btns btn_st3 btn_mid">저장</button>
 				<a th:href="@{//list}" class="btns btn_bdr3 btn_mid">뒤로</a>
 			</p>
@@ -86,7 +86,8 @@
 			
 			xhr.onload = function(){
 				if(xhr.status === 200) {
-					alert("글이 성공적으로 게시 !");
+					alert(xhr.responseText); // 서버에서 받은 메세지를 출력
+					window.location.href="/inquiry/list"; // 리다이렉트 수행
 				}else{
 					alert("글 게시 오류가 발생했습니다.", xhr.statusText);
 				}

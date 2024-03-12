@@ -1,14 +1,13 @@
 package com.various_functions.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.various_functions.admin.service.NoticeFileService;
-import com.various_functions.admin.service.NoticeService;
 import com.various_functions.dto.InquiryDto;
 import com.various_functions.service.InquiryService;
-import com.various_functions.utils.FileUtils;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +24,10 @@ public class InquiryController {
 		return "/inquiry/write";
 	}
 	
-	@PostMapping("/inquiry/write")
-	public String InquiryWrite(final InquiryDto inquiryDto) {
-		Long inquiryId = inquiryService.inquirySave(inquiryDto);
-		return "redirect:/inquiry/list";
+	@PostMapping("/inquiry/save")
+	public ResponseEntity<String> InquiryWrite(final InquiryDto inquiryDto, Model model) {
+		inquiryService.inquirySave(inquiryDto);
+		return ResponseEntity.ok("글이 성공적으로 게시되었습니다.");
 		
 	}
 	

@@ -22,7 +22,6 @@ insert into inquiry(
 #{title},
 #{content},
 #{writer},
-#{viewCnt},
 0,
 0,
 now(),
