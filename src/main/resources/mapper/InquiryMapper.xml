@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.various_functions.mapper.InquiryMapper">
+
+<sql id="inquiryColumns">
+ inquiry_id, 
+ title,
+ content,
+ writer,
+ view_cnt,
+ delete_yn,
+ created_date,
+ modified_date
+</sql>
+
+<insert id="inquirySave" parameterType="com.various_functions.dto.InquiryDto" useGeneratedKeys="true" keyProperty="inquiryId">
+
+insert into inquiry(
+<include refid="inquiryColumns"/>
+) values(
+#{inquiryId},
+#{title},
+#{content},
+#{writer},
+#{viewCnt},
+0,
+0,
+now(),
+null
+)
+</insert>
+
+</mapper>
