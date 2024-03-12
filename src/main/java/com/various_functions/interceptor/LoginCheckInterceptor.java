@@ -37,7 +37,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 			}
 		}
 		
-
 		// 3. 추가 조건체크 (예: 특정역할이나 권한이 있는지 확인)		
 		if (!member.isAdmin()) {
 		    if (member.getAdminCk() != 0) { // adminCk가 0이 아닌 경우
@@ -47,7 +46,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		    }
 		}
 		
-
 		// 4. 관리자로 로그인한 경우
 		return true;
 	}
