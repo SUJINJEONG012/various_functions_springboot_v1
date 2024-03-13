@@ -3,6 +3,7 @@ package com.various_functions.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.various_functions.dto.MemberDto;
 import com.various_functions.vo.MemberVo;
@@ -33,6 +34,10 @@ public interface MemberMapper {
 	
 	/* 회원 리스트 조회 */
 	List<MemberVo> findAllMember();
+	
+	// 회원 이름 가져오기
+	String findMemberNameById(@Param("memberId") Long memberId);
+	
 	
 	
 	/* 회원 수 카운팅 id중복체크

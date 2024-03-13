@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.various_functions.dto.InquiryDto;
 import com.various_functions.service.InquiryService;
+import com.various_functions.service.MemberService;
 import com.various_functions.vo.InquiryVo;
 import com.various_functions.vo.MemberVo;
 
@@ -25,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class InquiryController {
 	
 	private final InquiryService inquiryService;
+	private final MemberService memberService;
 
 	@GetMapping("/inquiry/write")
 	public String Inquiry(final InquiryDto inquiryDto, Model model, HttpSession session) {
@@ -44,9 +46,10 @@ public class InquiryController {
 		// 외래키로 설정된 회원 아이디를 inquiryDto에 설정
 		inquiryDto.setMemberId(member.getMemberId());
 		log.info("member.getMemberId() : " + member.getMemberId());
-		//문의글 저장처리
-		inquiryService.inquirySave(inquiryDto);
 		
+		
+		// 문의글 저장처리
+		inquiryService.inquirySave(inquiryDto);
 		return ResponseEntity.ok("글이 성공적으로 게시되었습니다.");
 		
 	}
@@ -56,6 +59,12 @@ public class InquiryController {
 		log.info("문의글 페이지 진입!!!!");
 	
 		List<InquiryVo> inquirys = inquiryService.findAllInquiry();
+		
+		// 문의하기 리스트에 작성자이름 출력
+		for(InquiryVo inquiry : inquirys) {
+			String memberName = memberService.getMemberNameById(inquiry.getMemberId());
+			inquiry.setMemberName(memberName);
+		}
 		model.addAttribute("inquirys",inquirys);
 		return "/inquiry/list";
 	}

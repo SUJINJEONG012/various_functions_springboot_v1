@@ -68,8 +68,9 @@ public class MemberService {
 		return memberMapper.findByLoginId(loginId);
 	}
 	
-
-	
+	public String getMemberNameById(Long memberId) {
+		return memberMapper.findMemberNameById(memberId);
+	}
 	
 	//회원 정보수정
 	@Transactional

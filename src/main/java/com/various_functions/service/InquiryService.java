@@ -30,5 +30,10 @@ public class InquiryService {
 		return inquiryMapper.findAllInquiry();
 	}
 	
+	 // 문의글 전체 리스트와 작성자 회원 이름 출력하기
+    public List<InquiryVo> findAllInquiryWithMemberNames() {
+        return inquiryMapper.findAllInquiryWithMemberNames();
+    }
+	
 
 }

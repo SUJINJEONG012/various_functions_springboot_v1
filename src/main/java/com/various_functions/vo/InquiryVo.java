@@ -21,5 +21,11 @@ public class InquiryVo {
 	private LocalDateTime modifiedDate;
 	
 	private Long memberId;
+	private String memberName; // 문의글 시  작성자이름 표출하기 위해 조인하기위한 필드
 	
+	
+	// memberName 필드에 대한 setter 메서드
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
 }

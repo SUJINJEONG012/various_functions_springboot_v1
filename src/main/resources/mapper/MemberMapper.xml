@@ -56,6 +56,14 @@
 	delete_yn = 0 and login_id = #{value}
 	</select>
 	
+	<!-- 회원 이름 조회하기 -->
+	<select id="findMemberNameById" resultType="String" parameterType="Long">
+	select member_name
+	from members
+	where member_id= #{memberId}
+	</select>
+	
+	
 	<!-- 회원 정보 수정 -->
 	<update id="update" parameterType="com.various_functions.dto.MemberDto">
 	update members

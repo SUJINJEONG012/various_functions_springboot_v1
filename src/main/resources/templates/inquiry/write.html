@@ -21,10 +21,10 @@
 				enctype="multipart/form-data">
 
 				<!-- 게시글 수정인 경우 -->
-				<input type="hidden" id="inquiryId" name="inquiryId" th:if="${inquiry != null}"
-					th:value="${inquiry.inquiryId}" />
+				<input type="hidden" id="inquiryId" name="inquiryId"
+					th:if="${inquiry != null}" th:value="${inquiry.inquiryId}" />
 
-				
+
 				<table class="tb tb_row">
 					<colgroup>
 						<col style="width: 15%" />
@@ -33,37 +33,27 @@
 					</colgroup>
 
 					<tbody>
-
-						
 						<tr>
 							<th>제목 <span class="es">필수 입력</span></th>
 							<td colspan="3"><input type="text" id="title" name="title"
 								maxlength="50" placeholder="제목을 입력해 주세요." /></td>
 						</tr>
-
-				
-						
 						<tr>
 							<th>작성자</th>
-							<td colspan="3"><span th:text="${session.loginMember.memberName}"></span></td>
-							
+							<td colspan="3">
+							<input type="text" th:value="${session.loginMember.memberName}" readonly /></td>
 						</tr>
-						
-
 						<tr>
 							<th>내용 <span class="es">필수 입력</span></th>
 							<td colspan="3"><textarea id="content" name="content"
 									cols="50" rows="10" placeholder="내용을 입력해 주세요."></textarea></td>
 						</tr>
 
-						
-
 					</tbody>
 				</table>
 			</form>
 			<p class="btn_set">
-				<button type="button" id="saveBtn"
-					class="btns btn_st3 btn_mid">저장</button>
+				<button type="button" id="saveBtn" class="btns btn_st3 btn_mid">저장</button>
 				<a th:href="@{//list}" class="btns btn_bdr3 btn_mid">뒤로</a>
 			</p>
 		</section>
@@ -75,29 +65,30 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		/*<![CDATA[*/
-		
-		document.addEventListener('DOMContentLoaded', function(){
+
+		document.addEventListener('DOMContentLoaded', function() {
 			var saveBtn = document.getElementById("saveBtn");
-			saveBtn.addEventListener('click', function(){
-			
-			 // form 데이터를 가져옴
-			 var formData = new FormData(document.getElementById('saveInquiryForm'));
-			
-			// ajax요청을 생성
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', '/inquiry/save');
-			
-			xhr.onload = function(){
-				if(xhr.status === 200) {
-					alert(xhr.responseText); // 서버에서 받은 메세지를 출력
-					window.location.href="/inquiry/list"; // 리다이렉트 수행
-				}else{
-					alert("글 게시 오류가 발생했습니다.", xhr.statusText);
-				}
-			};
-			
-			xhr.send(formData);
-			
+			saveBtn.addEventListener('click', function() {
+
+				// form 데이터를 가져옴
+				var formData = new FormData(document
+						.getElementById('saveInquiryForm'));
+
+				// ajax요청을 생성
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', '/inquiry/save');
+
+				xhr.onload = function() {
+					if (xhr.status === 200) {
+						alert(xhr.responseText); // 서버에서 받은 메세지를 출력
+						window.location.href = "/inquiry/list"; // 리다이렉트 수행
+					} else {
+						alert("글 게시 오류가 발생했습니다.", xhr.statusText);
+					}
+				};
+
+				xhr.send(formData);
+
 			});
 		})
 
