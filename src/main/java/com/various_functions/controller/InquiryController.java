@@ -1,5 +1,7 @@
 package com.various_functions.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.various_functions.dto.InquiryDto;
 import com.various_functions.service.InquiryService;
+import com.various_functions.vo.InquiryVo;
 import com.various_functions.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
@@ -26,8 +29,7 @@ public class InquiryController {
 	@GetMapping("/inquiry/write")
 	public String Inquiry(final InquiryDto inquiryDto, Model model, HttpSession session) {
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
-		log.info("member 제대로 들고온느지 확인 : ", member);
-		model.addAttribute("LoginInMember", member);
+
 		return "/inquiry/write";
 	}
 	
@@ -39,17 +41,22 @@ public class InquiryController {
 			return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/member/login?message=로그인이 필요합니다.").build();
 		}
 		
+		// 외래키로 설정된 회원 아이디를 inquiryDto에 설정
+		inquiryDto.setMemberId(member.getMemberId());
+		log.info("member.getMemberId() : " + member.getMemberId());
 		//문의글 저장처리
 		inquiryService.inquirySave(inquiryDto);
-		// 모델에 회원정보추가
-		model.addAttribute("loginMember", member);
+		
 		return ResponseEntity.ok("글이 성공적으로 게시되었습니다.");
 		
 	}
 	
 	@GetMapping("/inquiry/list")
-	public String InquiryList() {
+	public String InquiryList(Model model) {
 		log.info("문의글 페이지 진입!!!!");
+	
+		List<InquiryVo> inquirys = inquiryService.findAllInquiry();
+		model.addAttribute("inquirys",inquirys);
 		return "/inquiry/list";
 	}
 }

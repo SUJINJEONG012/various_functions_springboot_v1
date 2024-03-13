@@ -10,5 +10,6 @@ public class InquiryDto {
 		private String title;
 		private String content;
 		private Long memberId;
+
 		
 }

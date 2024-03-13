@@ -21,17 +21,16 @@
 		</thead>
 		
 		<tbody>
-			<!-- 공지사항 데이터를 반복하면서 테이블에 출력 -->
-			<tr th:if="${not #lists.isEmpty(notices)}" th:each="notice : ${notices}">
+			<!-- 문의글 데이터를 반복하면서 테이블에 출력 -->
+			<tr th:if="${not #lists.isEmpty(inquirys)}" th:each="inquiry : ${inquirys}">
 
-				<td th:text="${notice.noticeYn ? '공지글' : notice.noticeId}"></td>
-				
-				<td><a th:href="@{/notice/view(noticeId=${notice.noticeId})}" th:text="${notice.title}"></a></td>
-				<td th:text="${notice.writer}"></td>
-				<td th:text="${notice.createdDate}"></td>
-				<td th:text="${notice.viewCnt}"></td>
+				<td th:text="${inquiry.inquiryId}"></td>
+				<td><a th:href="@{/inquiry/view(inquiryId=${inquiry.inquiryId})}" th:text="${inquiry.title}"></a></td>
+				<td th:text="${inquiry.memberId}"></td>
+				<td th:text="${inquiry.createdDate}"></td>
+				<td th:text="${inquiry.viewCnt}"></td>
 			</tr>
-			<tr th:if="${#lists.isEmpty(notices)}">
+			<tr th:if="${#lists.isEmpty(inquirys)}">
 				<td colspan="2">게시물이 없습니다.</td>
 			</tr>
 		</tbody>

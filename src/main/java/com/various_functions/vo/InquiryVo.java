@@ -21,4 +21,5 @@ public class InquiryVo {
 	private LocalDateTime modifiedDate;
 	
 	private Long memberId;
+	
 }

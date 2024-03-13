@@ -1,11 +1,14 @@
 package com.various_functions.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
 import com.various_functions.dto.InquiryDto;
 import com.various_functions.mapper.InquiryMapper;
+import com.various_functions.vo.InquiryVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,5 +24,11 @@ public class InquiryService {
 		inquiryMapper.inquirySave(inquiryDto);
 		return inquiryDto.getInquiryId();
 	} 
+	
+	// 문의글 전체 리스트 조회 
+	public List<InquiryVo> findAllInquiry(){
+		return inquiryMapper.findAllInquiry();
+	}
+	
 
 }
