@@ -55,7 +55,7 @@ public class MemberController {
 	// 로그인 기능 
 	@PostMapping("/member/login")
 	@ResponseBody
-	public MemberVo login(HttpServletRequest request) {
+	public MemberVo login(HttpServletRequest request, HttpSession session) {
 
 		// 1. 회원 상세정보 조회
 		String loginId = request.getParameter("loginId");
@@ -67,17 +67,13 @@ public class MemberController {
 		log.info("member.memberPw :" + memberPw);
 		
 		// 2. 세션에 회원정보 저장 & 세션 유지시간 설정
-		if(member != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginMember", member);
-			session.setMaxInactiveInterval(60*30);
+		if(member != null) {	
+			session.setAttribute("loginMember", member); // 세션에 로그인한 회원 정보 저장
+			log.info("세션에 저장된 회원 정보: " + session.getAttribute("loginMember"));
+			session.setMaxInactiveInterval(60*30); // 세션 유효기간 : 30분
 			session.setAttribute("isAdmin", member.isAdmin());
 		}
-		
-		// 다른곳에서 세션에 저장된 회원 정보를 확인하는 코드
-		//HttpSession session = request.getSession();
-		//MemberVo loginMember = (MemberVo) session.getAttribute(loginId);
-		
+
 		return member;
 	}
 	

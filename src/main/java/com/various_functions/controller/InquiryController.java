@@ -24,7 +24,10 @@ public class InquiryController {
 	private final InquiryService inquiryService;
 
 	@GetMapping("/inquiry/write")
-	public String InquiryWrite() {
+	public String Inquiry(final InquiryDto inquiryDto, Model model, HttpSession session) {
+		MemberVo member = (MemberVo) session.getAttribute("loginMember");
+		log.info("member 제대로 들고온느지 확인 : ", member);
+		model.addAttribute("LoginInMember", member);
 		return "/inquiry/write";
 	}
 	
@@ -35,8 +38,11 @@ public class InquiryController {
 		if(member == null ) {
 			return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/member/login?message=로그인이 필요합니다.").build();
 		}
+		
 		//문의글 저장처리
 		inquiryService.inquirySave(inquiryDto);
+		// 모델에 회원정보추가
+		model.addAttribute("loginMember", member);
 		return ResponseEntity.ok("글이 성공적으로 게시되었습니다.");
 		
 	}

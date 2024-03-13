@@ -9,6 +9,6 @@ public class InquiryDto {
 		private Long inquiryId;
 		private String title;
 		private String content;
-		private String writer;
+		private Long memberId;
 		
 }

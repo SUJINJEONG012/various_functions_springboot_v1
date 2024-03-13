@@ -15,9 +15,10 @@ public class InquiryVo {
 	private Long inquiryId;
 	private String title;
 	private String content;
-	private String writer;
 	private int viewCnt;
 	private Boolean deleteYn;
 	private LocalDateTime createdDate;
 	private LocalDateTime modifiedDate;
+	
+	private Long memberId;
 }

@@ -6,7 +6,7 @@
  inquiry_id, 
  title,
  content,
- writer,
+ member_id,
  view_cnt,
  delete_yn,
  created_date,
@@ -14,19 +14,27 @@
 </sql>
 
 <insert id="inquirySave" parameterType="com.various_functions.dto.InquiryDto" useGeneratedKeys="true" keyProperty="inquiryId">
-
 insert into inquiry(
 <include refid="inquiryColumns"/>
 ) values(
 #{inquiryId},
 #{title},
 #{content},
-#{writer},
+#{memberId},
 0,
 0,
 now(),
 null
 )
 </insert>
-
+  
+<resultMap id="inquiryResultMap" type="com.various_functions.dto.InquiryDto">
+ <id property="inquiryId" column="inquiry_id" />
+ <result property="title" column="title"/>
+ <result property="content" column="content"/>
+ <result property="memberId" column="member_id"/>
+</resultMap>
+ 
+ 
+ 
 </mapper>
