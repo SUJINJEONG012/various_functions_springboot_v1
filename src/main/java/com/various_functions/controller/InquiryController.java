@@ -68,4 +68,10 @@ public class InquiryController {
 		model.addAttribute("inquirys",inquirys);
 		return "/inquiry/list";
 	}
+	
+	@GetMapping("/inquiry/view")
+	public String inquiryView() {
+		return "/inquiry/view";
+	}
+	
 }

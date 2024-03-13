@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.various_functions.admin.dto.AccommodationsFileDto;
-import com.various_functions.mapper.AccommodationsFileMapper;
+import com.various_functions.admin.mapper.AccommodationsFileMapper;
 
 @Service
 public class AccommodationsFileService {
