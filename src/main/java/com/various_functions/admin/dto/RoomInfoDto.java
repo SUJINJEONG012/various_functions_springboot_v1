@@ -19,13 +19,8 @@ public class RoomInfoDto {
 	private int ripeak; // 성수기 요금
 	private int risemipeak; // 준성수기 요금
 	private int rioff; // 비수기 요금
-	private String rimainimg; // 대표이미지
-	private String riextraimg1; // 추가이미지1
-	private String riextraimg2; // 추가이미지2
 	
-	private String fileName;
-	
-	private Long accommodationId;
+	private Long aid;
     private AccommodationsDto accommodationsDto;
 
 }
