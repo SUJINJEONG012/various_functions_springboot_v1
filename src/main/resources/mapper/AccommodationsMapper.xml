@@ -8,7 +8,7 @@
         INSERT INTO accommodations (acate, aname, aadress, aphone, atotalroom, agrade, adetail, aregdate)
         VALUES (#{accommodationDto.acate}, #{accommodationDto.aname}, #{accommodationDto.aadress}, #{accommodationDto.aphone}, #{accommodationDto.atotalroom}, #{accommodationDto.agrade}, #{accommodationDto.adetail}, now());
         
-        INSERT INTO room_info (riroomtype, riroom, riservice, risize, riminper, rimaxper, ripeak, risemipeak, rioff, rimainimg, riextraimg1, riextraimg2, aid)
+        INSERT INTO room_info (riroomtype, riroom, riservice, risize, riminper, rimaxper, ripeak, risemipeak, rioff,  aid)
         VALUES (#{roomInfoDto.riroomtype}, #{roomInfoDto.riroom}, #{roomInfoDto.riservice}, #{roomInfoDto.risize}, #{roomInfoDto.riminper}, #{roomInfoDto.rimaxper}, #{roomInfoDto.ripeak}, #{roomInfoDto.risemipeak}, #{roomInfoDto.rioff}, LAST_INSERT_ID());
     </insert>
     
@@ -59,9 +59,7 @@
 		#{aadress}, aphone = #{aphone},
 		axcoordi = #{axcoordi}, atotalroom = #{atotalroom}, 
 		agrade = #{agrade},
-		adetail = #{adetail}, 
-		amainimg = #{amainimg},
-		
+		adetail = #{adetail}
 		WHERE aid = #{aid}
 	</update>
 
