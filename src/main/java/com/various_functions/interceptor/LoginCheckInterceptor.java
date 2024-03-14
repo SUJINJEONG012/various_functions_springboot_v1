@@ -25,10 +25,10 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		
 		
 		// 2. 회원정보 체크
-//		if (member == null || member.getDeleteYn()) {
-//			response.sendRedirect("/member/login");
-//			return false;
-//		}
+		if (member == null || member.getDeleteYn()) {
+			response.sendRedirect("/member/login");
+			return false;
+		}
 		
 		if(request.getRequestURI().startsWith("/inquiry")) {
 			if(member == null) {

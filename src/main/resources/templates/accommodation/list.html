@@ -14,8 +14,10 @@
 			<li th:each="accommodation : ${accommodations}">
 				<p th:text="${accommodation.aname}"></p>
 				<p th:text="${accommodation.agrade}"></p>
-				<p th:text="${accommodation.adetail}"></p> <!-- 이미지 동적으로 설정 --> <img
-				th:src="@{${accommodation.amainimg}}" />
+				<p th:text="${accommodation.adetail}"></p>
+				 <!-- 이미지 동적으로 설정 
+				 <img th:src="@{${accommodation.amainimg}}" />
+				 --> 
 
 			</li>
 		</ul>

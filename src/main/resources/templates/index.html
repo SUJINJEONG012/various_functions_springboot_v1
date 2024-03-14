@@ -7,9 +7,9 @@
 	<th:block layout:fragment="content">
 
 		<div th:if="${errorMessage}">
-        <script th:inline="javascript">
+       <!-- <script th:inline="javascript">
             alert([[${errorMessage}]]);
-        </script>
+        </script>-->
     	</div>
     
     
@@ -24,8 +24,9 @@
 					<h2 th:text="${accommodation.aname}"></h2>
 					<p th:text="${accommodation.agrade}"></p>
 					<p th:text="${accommodation.adetail}"></p>
-					 <!-- 이미지 동적으로 설정 --> 
+					 <!-- 이미지 동적으로 설정
 					<img th:src="@{${accommodation.amainimg}}" />
+					 --> 
 
 				</li>
 			</ul>

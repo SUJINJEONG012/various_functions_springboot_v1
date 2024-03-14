@@ -97,30 +97,22 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 		// 숙소 이름이 비어 있지 않으면 폼 제출
-		const formData = new FormData();
-
-		for (let i = 0; i < inputs.length; i++) {
-			formData.append(inputs[i].name, inputs[i].value);
-		}
-
-
+		const formData = new FormData(document.getElementById("saveFormAccommodations"));
+		
+  
 		// AJAX 요청 설정
 		const xhr = new XMLHttpRequest();
 
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === XMLHttpRequest.DONE) {
-				if (xhr.status === 200) {
-					alert("숙소등록 성공!");
-					console.log("요청 성공!");
-					console.log(xhr.responseText); // 서버에서의 응답 확인
-				} else {
-					alert("숙소등록에 실패!");
-					console.log("요청 실패...");
-				}
+		xhr.open("POST", "/admin/accommodation/save");
+		xhr.onload = function(){
+			if(xhr.status === 200){
+				alert(xhr.repsonseText);
+				window.location.href="/";
+			}else{
+				alert("글 게시 오류가 발생했습니다.", xhr.statusText);
 			}
 		};
-
-		xhr.open('POST', '/admin/accommodation/save');
+		
 		xhr.send(formData);
 
 	});
