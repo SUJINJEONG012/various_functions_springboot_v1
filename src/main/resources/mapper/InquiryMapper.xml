@@ -52,11 +52,11 @@ null
  <select id="findAllInquiryWithMemberName" resultType="com.various_functions.vo.InquiryVo">
  select 
  <include refid="inquiryColumns"/>
- m.member_name as author_name
- from inquiry i
- inner join members m on i.member_id = m.id
- where i.delete_yn = 0
- order by i.created_date desc
+ m.member_name
+FROM inquiry i
+INNER JOIN members m ON i.member_id = m.member_id
+WHERE i.delete_yn = 0
+ORDER BY i.created_date DESC;
  </select>
  
  
