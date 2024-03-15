@@ -92,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		if (isEmpty) {
 			// 하나 이상의 입력 값이 비어 있을 경우 사용자에게 알림
+			alert(isEmpty);
 			alert("입력값을 제대로 입력해주세요.");
 			return;
 		}
@@ -106,7 +107,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		xhr.open("POST", "/admin/accommodation/save");
 		xhr.onload = function(){
 			if(xhr.status === 200){
-				alert(xhr.repsonseText);
+				alert(xhr.responseText);
+				console.log(xhr.responseText);
 				window.location.href="/";
 			}else{
 				alert("글 게시 오류가 발생했습니다.", xhr.statusText);
