@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper
 	namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
@@ -18,14 +19,13 @@
 		parameterType="com.various_functions.admin.dto.AccommodationsDto" useGeneratedKeys="true" keyProperty="aid">
 		INSERT INTO accommodations (	
 		acate, 
-		aname, 
+		aname,
 		aadress, 
 		aphone, 
 		atotalroom, 
 		agrade, 
 		adetail, 
-		aregdate)
-		
+		aregdate)		
 		VALUES (
 		#{acate}, 
 		#{aname}, 
@@ -55,9 +55,8 @@
 	<!-- 숙소 정보 수정 -->
 	<update id="updateAccommodation"
 		parameterType="com.various_functions.admin.dto.AccommodationsDto">
-		UPDATE Accommodations SET acate = #{acate}, aname = #{aname}, aadress =
-		#{aadress}, aphone = #{aphone},
-		axcoordi = #{axcoordi}, atotalroom = #{atotalroom}, 
+		UPDATE accommodations SET acate = #{acate}, aname = #{aname}, aadress = #{aadress}, aphone = #{aphone},
+		 atotalroom = #{atotalroom}, 
 		agrade = #{agrade},
 		adetail = #{adetail}
 		WHERE aid = #{aid}
@@ -69,17 +68,12 @@
 	</delete>
 
 
-	<!-- Accommodations 테이블에 대한 모든 숙소 정보 조회
+	<!-- Accommodations 테이블에 대한 모든 숙소 정보 조회-->
 	<select id="getAllAccommodations"
 		resultType="com.various_functions.admin.vo.AccommodationsVo">
-		SELECT aid, acate, aname, aadress, aphone, axcoordi, atotalroom, agrade,
-		adetail, amainimg FROM Accommodations
+		SELECT aid, acate, aname, aadress, aphone, atotalroom, agrade, adetail FROM accommodations
 	</select>
-	 -->
 	 
-	<!-- 숙소 리스트 -->
-	<select id="getAllAccommodations"
-		resultType="com.various_functions.admin.vo.AccommodationsVo">
-		select * from accommodations;
-	</select>
+	 
+	
 </mapper>

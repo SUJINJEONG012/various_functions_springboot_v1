@@ -8,7 +8,7 @@
     useGeneratedKeys="true" keyProperty="riid">
         INSERT INTO room_info (
         aid,
-        riroomtype, 
+        riroom_type, 
         riroom, 
         riservice, 
         risize, 
@@ -19,7 +19,7 @@
         rioff
        )
         VALUES ( 
-        #{accommodationId},
+        #{aId},
         #{riroomtype}, 
         #{riroom}, 
         #{riservice}, 

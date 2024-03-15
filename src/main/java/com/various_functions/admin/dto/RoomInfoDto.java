@@ -18,8 +18,7 @@ public class RoomInfoDto {
 	private int rimaxper; // 숙박최대인원
 	private int ripeak; // 성수기 요금
 	private int risemipeak; // 준성수기 요금
-	private int rioff; // 비수기 요금
-	
+	private int rioff; // 비수기 요금	
 	private Long aid;
     private AccommodationsDto accommodationsDto;
 

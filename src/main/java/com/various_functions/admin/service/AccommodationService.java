@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
+import com.various_functions.admin.dto.AccommodationsDto;
 import com.various_functions.admin.mapper.AccommodationsMapper;
 import com.various_functions.admin.mapper.RoomInfoMapper;
 import com.various_functions.admin.vo.AccommodationsVo;
@@ -32,19 +33,21 @@ public class AccommodationService {
 	
 	
 	@Transactional
-	public void saveAccommodationAndRoomInfo(AccommodationAndRoomInfoDto dto){		
-		log.info("숙소등록저장하는 부분 진입확인");
-		// 숙소 정보 저장
-		accommodationsMapper.saveAccommodation(dto.getAccommodationDto());
+	public Long saveAccommodationAndRoomInfo(final AccommodationAndRoomInfoDto dto){		
+	
+		log.info("숙소등록 저장하는 부분 진입확인");
 		
-		// 저장된 숙소 정보의 id 값을 가져옴
-		Long aId = dto.getAccommodationDto().getAid();	
-		
-		// 가져온 숙소 ID를 객실정보에 설정
+		//숙소저장
+		accommodationsMapper.saveAccommodation(dto);
+		//저장된 숙소정보와 id값 가져옴
+		Long aId = dto.getAccommodationDto().getAid();
+		//가져온 숙소id를 객실정보에 설정
 		dto.getRoomInfoDto().setAid(aId);
 		
-		// 객실정보 저장
-		roomInfoMapper.saveRoomInfo(dto.getRoomInfoDto());
+		//객실정보 저장
+		Long roomId = roomInfoMapper.saveRoomInfo(dto.getRoomInfoDto());
+		
+		return roomId;
 		
 	}
 
