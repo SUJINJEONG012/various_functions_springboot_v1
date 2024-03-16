@@ -108,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		xhr.onload = function(){
 			if(xhr.status === 200){
 				alert(xhr.responseText);
-				console.log(xhr.responseText);
 				window.location.href="/";
 			}else{
 				alert("글 게시 오류가 발생했습니다.", xhr.statusText);
