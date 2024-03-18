@@ -32,14 +32,17 @@ public class AccommodationController {
 	
 	@GetMapping("/accommodation/write")
 	public String accommodationSave(Model model) {
+		 log.info("로그 메시지");
 		return "/admin/accommodation/write";
 	}
 
 	@PostMapping("/accommodation/save")
-    public ResponseEntity<String> saveAccommodationAndRoomInfo(@RequestBody AccommodationAndRoomInfoDto dto, Model model)  {
+    public ResponseEntity<String> saveAccommodationAndRoomInfo(@RequestBody AccommodationAndRoomInfoDto dto)  {
 		log.info("@@@@@@@@@@ 컨트롤러 저장 @");
 		accommodationService.saveAccommodationAndRoomInfo(dto);
 		return ResponseEntity.ok("글이 성공적으!!!");
+		
+		
     }
 
 	

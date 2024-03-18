@@ -23,7 +23,7 @@ public class InquiryService {
 	public Long inquirySave(final InquiryDto inquiryDto) {
 		inquiryMapper.inquirySave(inquiryDto);
 		return inquiryDto.getInquiryId();
-	} 
+	}
 	
 	// 문의글 전체 리스트 조회 
 	public List<InquiryVo> findAllInquiry(){

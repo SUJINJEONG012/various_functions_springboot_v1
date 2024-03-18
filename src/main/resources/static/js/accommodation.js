@@ -73,8 +73,10 @@ document.addEventListener('click', function() {
 // 숙소등록 저장        
 document.addEventListener("DOMContentLoaded", function() {
 	
-	var saveBtn = document.getElementById("saveBtn");
+	let saveBtn = document.getElementById("saveBtn");
+	
 	saveBtn.addEventListener("click", function() {
+	
 		alert("숙소저장 버튼 클릭!");
 		// 기본 동작인 폼 제출을 중지
 		//e.preventDefault();
@@ -98,18 +100,19 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 		// 숙소 이름이 비어 있지 않으면 폼 제출
-		var formData = new FormData(document.getElementById("saveFormAccommodations"));
+	 	let formData = new FormData(document.getElementById("saveFormAccommodations"));
 		
-  
-		// AJAX 요청 설정
+		alert("formdata :" , formData);
+  		// AJAX 요청 설정
 		const xhr = new XMLHttpRequest();
-
+		
 		xhr.open("POST", "/admin/accommodation/save");
 		
 		xhr.onload = function(){
-			if(xhr.status === 200){
+			if(xhr.status === 200 && xhr.status < 300){
+				//요청이 성공적일때 
 				alert(xhr.responseText);
-				window.location.href="/";
+				window.location.href = "/";
 			}else{
 				alert("글 게시 오류가 발생했습니다.", xhr.statusText);
 			}

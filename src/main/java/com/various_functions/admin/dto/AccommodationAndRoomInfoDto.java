@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccommodationAndRoomInfoDto {
 
-	private AccommodationsDto accommodationDto;
+	private AccommodationsDto accommodationsDto;
     private RoomInfoDto roomInfoDto;
-    //private AccommodationsFileDto  accommodationsFileDto;
+
 }

@@ -19,7 +19,7 @@
         rioff
        )
         VALUES ( 
-        #{aId},
+        #{aid},
         #{riroomtype}, 
         #{riroom}, 
         #{riservice}, 

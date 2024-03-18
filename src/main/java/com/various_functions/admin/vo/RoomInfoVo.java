@@ -23,6 +23,5 @@ public class RoomInfoVo {
 	private int rioff; //비수기 
 
 	private long aid; // 숙소아이디 
-	
 	private List<RoomInfoVo> roominfoVo;
 }

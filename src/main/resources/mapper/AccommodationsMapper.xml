@@ -4,61 +4,47 @@
 <mapper namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
 	<!-- 숙소 정보와 객실 정보 함께 삽입 -->
-    <insert id="saveAccommodation" 
-    	parameterType="com.various_functions.admin.dto.AccommodationAndRoomInfoDto" 
-    	useGeneratedKeys="true" 
-    	keyProperty="accommodationDto.aid">
-        INSERT INTO accommodations (acate, aname, aadress, aphone, atotalroom, agrade, adetail, aregdate)
-        VALUES (#{accommodationDto.acate}, #{accommodationDto.aname}, #{accommodationDto.aadress}, #{accommodationDto.aphone}, #{accommodationDto.atotalroom}, #{accommodationDto.agrade}, #{accommodationDto.adetail}, now());
-        
-        INSERT INTO room_info (riroomtype, riroom, riservice, risize, riminper, rimaxper, ripeak, risemipeak, rioff,  aid)
-        VALUES (#{roomInfoDto.riroomtype}, #{roomInfoDto.riroom}, #{roomInfoDto.riservice}, #{roomInfoDto.risize}, #{roomInfoDto.riminper}, #{roomInfoDto.rimaxper}, #{roomInfoDto.ripeak}, #{roomInfoDto.risemipeak}, #{roomInfoDto.rioff}, LAST_INSERT_ID());
-    </insert>
-    
-    
-	<!-- 숙소 정보 삽입
 	<insert id="saveAccommodation"
-		parameterType="com.various_functions.admin.dto.AccommodationsDto" useGeneratedKeys="true" keyProperty="aid">
-		INSERT INTO accommodations (	
-		acate, 
-		aname,
-		aadress,
-		aphone, 
-		atotalroom, 
-		agrade, 
-		adetail, 
-		aregdate)		
-		VALUES (
-		#{acate}, 
-		#{aname}, 
-		#{aadress}, 
-		#{aphone}, 
-		#{atotalroom}, 
-		#{agrade}, 
-		#{adetail}, 
-		now()
-		)
-	</insert> -->
+		parameterType="com.various_functions.admin.dto.AccommodationAndRoomInfoDto"
+		useGeneratedKeys="true" keyProperty="accommodationsDto.aid">
+		INSERT INTO accommodations (acate, aname, aadress, aphone, atotalroom,
+		agrade, adetail, aregdate)
+		VALUES (#{accommodationsDto.acate}, #{accommodationsDto.aname},
+		#{accommodationsDto.aadress}, #{accommodationsDto.aphone},
+		#{accommodationsDto.atotalroom}, #{accommodationsDto.adetail} ,#{accommodationsDto.agrade},
+		 now());
+
+		INSERT INTO room_info (riroomtype,  riroom, riservice, risize, riminper,
+		rimaxper, ripeak, risemipeak, rioff, aid)
+		VALUES (#{roomInfoDto.riroomtype}, #{roomInfoDto.riroom},
+		#{roomInfoDto.riservice}, #{roomInfoDto.risize},
+		#{roomInfoDto.riminper}, #{roomInfoDto.rimaxper},
+		#{roomInfoDto.ripeak}, #{roomInfoDto.risemipeak},
+		#{roomInfoDto.rioff}, LAST_INSERT_ID());
+	</insert>
+
 
 	<!-- 숙소 정보 조회 -->
 	<select id="getAccommodationById"
 		resultType="com.various_functions.admin.dto.AccommodationsDto">
 		SELECT * FROM accommodations WHERE aid = #{aid}
 	</select>
-	
-	<!-- 숙소 이름을 기준으로 숙소 정보를 가져오는 쿼리 -->
-<select id="getAccommodationByName" resultType="com.various_functions.admin.dto.AccommodationsDto">
-    SELECT * FROM accommodations WHERE aname = #{aname}
-</select>
 
- 	
-    
-    
+	<!-- 숙소 이름을 기준으로 숙소 정보를 가져오는 쿼리 -->
+	<select id="getAccommodationByName"
+		resultType="com.various_functions.admin.dto.AccommodationsDto">
+		SELECT * FROM accommodations WHERE aname = #{aname}
+	</select>
+
+
+
+
 	<!-- 숙소 정보 수정 -->
 	<update id="updateAccommodation"
 		parameterType="com.various_functions.admin.dto.AccommodationsDto">
-		UPDATE accommodations SET acate = #{acate}, aname = #{aname}, aadress = #{aadress}, aphone = #{aphone},
-		 atotalroom = #{atotalroom}, 
+		UPDATE accommodations SET acate = #{acate}, aname =
+		#{aname}, aadress = #{aadress}, aphone = #{aphone},
+		atotalroom = #{atotalroom},
 		agrade = #{agrade},
 		adetail = #{adetail}
 		WHERE aid = #{aid}
@@ -66,16 +52,18 @@
 
 	<!-- 숙소 정보 삭제 -->
 	<delete id="deleteAccommodation" parameterType="long">
-		DELETE FROM accommodations WHERE aid = #{aid}
+		DELETE FROM
+		accommodations WHERE aid = #{aid}
 	</delete>
 
 
-	<!-- Accommodations 테이블에 대한 모든 숙소 정보 조회-->
+	<!-- Accommodations 테이블에 대한 모든 숙소 정보 조회 -->
 	<select id="getAllAccommodations"
 		resultType="com.various_functions.admin.vo.AccommodationsVo">
-		SELECT aid, acate, aname, aadress, aphone, atotalroom, agrade, adetail FROM accommodations
+		SELECT aid, acate, aname, aadress, aphone, atotalroom,
+		agrade, adetail FROM accommodations
 	</select>
-	 
-	 
-	
+
+
+
 </mapper>

@@ -20,6 +20,6 @@ public class RoomInfoDto {
 	private int risemipeak; // 준성수기 요금
 	private int rioff; // 비수기 요금	
 	private Long aid;
-    private AccommodationsDto accommodationsDto;
+	private AccommodationsDto accommodationsDto;
 
 }

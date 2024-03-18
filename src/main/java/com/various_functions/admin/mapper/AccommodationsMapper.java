@@ -15,7 +15,7 @@ public interface AccommodationsMapper {
 	
 	AccommodationsDto getAccommodationById(Long aid);
 	
-	//AccommodationsDto getAccommodationByName(String aname);
+	AccommodationsDto getAccommodationByName(String aname);
 	
 	void updateAccommodation(AccommodationsDto accommodationsDto);
     
