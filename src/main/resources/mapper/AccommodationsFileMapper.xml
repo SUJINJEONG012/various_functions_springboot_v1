@@ -1,89 +1,99 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!-- <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.various_functions.admin.mapper.AccommodationsFileMapper">
+<mapper
+	namespace="com.various_functions.admin.mapper.AccommodationsFileMapper">
 
-<!-- 테이블 전체 칼럼 -->
-<sql id="fileColumns">
-id, 
-post_id, 
-original_name, 
-save_name, 
-size, 
-delete_yn, 
-created_date,
-deleted_date
-</sql>
+	테이블 전체 칼럼
+	<sql id="fileColumns">
+		id,
+		post_id,
+		original_name,
+		save_name,
+		size,
+		delete_yn,
+		created_date,
+		deleted_date
+	</sql>
 
-<!-- 파일 등록 쿼리 -->
-    <insert id="insertAccommodationsFile" parameterType="com.various_functions.admin.dto.AccommodationsFileDto">
-        INSERT INTO accommodations_file (aid, fileName, uploadPath, uuid)
-        VALUES (#{aid}, #{fileName}, #{uploadPath}, #{uuid})
-    </insert>
-    
-    
-<!-- 파일 정보 저장 -->
-<insert id="saveAll" parameterType="list">
-insert into tb_file(
-<include refid="fileColumns"/>
-) values 
-<foreach item="file" collection="list" separator=",">
-(
- #{file.id},
- #{file.postId},
- #{file.originalName},
- #{file.saveName},
- #{file.size},
- 0,
- now(),
- null
-)
-</foreach>
-</insert>
+	파일 등록 쿼리
+	<insert id="insertAccommodationsFile"
+		parameterType="com.various_functions.admin.dto.AccommodationsFileDto">
+		INSERT INTO accommodations_file (aid, fileName, uploadPath, uuid)
+		VALUES (#{aid}, #{fileName}, #{uploadPath}, #{uuid})
+	</insert>
 
 
-<!-- 파일 리스트 조회 -->
-<select id="findAllByPostId" parameterType="long" resultType="com.various_functions.vo.FileEntity">
-
-	select <include refid="fileColumns" />
-	from tb_file
-	where
-	delete_yn = 0
-	and post_id = #{value}
-	order by id
-</select>
-
-<!-- 파일 리스트 조회 -->
-<select id="findAllByIds" parameterType="list" resultType="com.various_functions.vo.FileEntity">
-select <include refid="fileColumns"/>
-from tb_file
-where 
-delete_yn = 0
-and id IN 
-<foreach item="id" collection="list" open="(" separator="," close=")">
-#{id}
-</foreach>
-order by id 
-</select>
+	파일 정보 저장
+	<insert id="saveAll" parameterType="list">
+		insert into tb_file(
+		<include refid="fileColumns" />
+		) values
+		<foreach item="file" collection="list" separator=",">
+			(
+			#{file.id},
+			#{file.postId},
+			#{file.originalName},
+			#{file.saveName},
+			#{file.size},
+			0,
+			now(),
+			null
+			)
+		</foreach>
+	</insert>
 
 
-<!-- 파일 상세정보 조회 -->
-<select id="findById" parameterType="long" resultType="com.various_functions.vo.FileEntity">
-select <include refid="fileColumns"/>
-from tb_file
-where delete_yn = 0
-and id = #{value}
-</select>
+	파일 리스트 조회
+	<select id="findAllByPostId" parameterType="long"
+		resultType="com.various_functions.vo.FileEntity">
 
-<!-- 파일 삭제 -->
-<delete id="deleteAllByIds" parameterType="list">
-update tb_file
-set
-delete_yn =1,
-deleted_date = now()
-where id in
-<foreach item="id" collection="list" open="(" separator="," close=")">
- #{id}
-</foreach> 
-</delete>
+		select
+		<include refid="fileColumns" />
+		from tb_file
+		where
+		delete_yn = 0
+		and post_id = #{value}
+		order by id
+	</select>
 
-</mapper>
+	파일 리스트 조회
+	<select id="findAllByIds" parameterType="list"
+		resultType="com.various_functions.vo.FileEntity">
+		select
+		<include refid="fileColumns" />
+		from tb_file
+		where
+		delete_yn = 0
+		and id IN
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+		order by id
+	</select>
+
+
+	파일 상세정보 조회
+	<select id="findById" parameterType="long"
+		resultType="com.various_functions.vo.FileEntity">
+		select
+		<include refid="fileColumns" />
+		from tb_file
+		where delete_yn = 0
+		and id = #{value}
+	</select>
+
+	파일 삭제
+	<delete id="deleteAllByIds" parameterType="list">
+		update tb_file
+		set
+		delete_yn =1,
+		deleted_date = now()
+		where id in
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper> -->

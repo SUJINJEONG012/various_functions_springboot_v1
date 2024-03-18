@@ -21,7 +21,7 @@ public class RoomInfoVo {
 	private int ripeak; //성수기 
 	private int risemipeak; //준성수기 
 	private int rioff; //비수기 
- 	
+
 	private long aid; // 숙소아이디 
 	
 	private List<RoomInfoVo> roominfoVo;

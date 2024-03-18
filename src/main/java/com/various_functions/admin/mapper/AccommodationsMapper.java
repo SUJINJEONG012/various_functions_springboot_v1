@@ -22,4 +22,5 @@ public interface AccommodationsMapper {
     void deleteAccommodation(Long aid);
 	
     List<AccommodationsVo> getAllAccommodations();
+
 }

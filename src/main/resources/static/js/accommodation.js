@@ -70,14 +70,14 @@ document.addEventListener('click', function() {
 });
 
 
-
-
 // 숙소등록 저장        
 document.addEventListener("DOMContentLoaded", function() {
-	document.getElementById("saveBtn").addEventListener("click", function(e) {
-
+	
+	var saveBtn = document.getElementById("saveBtn");
+	saveBtn.addEventListener("click", function() {
+		alert("숙소저장 버튼 클릭!");
 		// 기본 동작인 폼 제출을 중지
-		e.preventDefault();
+		//e.preventDefault();
 
 		// 숙소 이름이 비어 있는지 확인
 		const inputs = document.getElementsByClassName("input");
@@ -98,13 +98,14 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 		// 숙소 이름이 비어 있지 않으면 폼 제출
-		const formData = new FormData(document.getElementById("saveFormAccommodations"));
+		var formData = new FormData(document.getElementById("saveFormAccommodations"));
 		
   
 		// AJAX 요청 설정
 		const xhr = new XMLHttpRequest();
 
 		xhr.open("POST", "/admin/accommodation/save");
+		
 		xhr.onload = function(){
 			if(xhr.status === 200){
 				alert(xhr.responseText);
