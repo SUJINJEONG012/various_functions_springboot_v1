@@ -3,26 +3,30 @@
 
 <mapper namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
+
 	<!-- 숙소 정보와 객실 정보 함께 삽입 -->
-	<insert id="saveAccommodation"
-		parameterType="com.various_functions.admin.dto.AccommodationAndRoomInfoDto"
-		useGeneratedKeys="true" keyProperty="accommodationsDto.aid">
-		INSERT INTO accommodations (acate, aname, aadress, aphone, atotalroom,
-		agrade, adetail, aregdate)
-		VALUES (#{accommodationsDto.acate}, #{accommodationsDto.aname},
-		#{accommodationsDto.aadress}, #{accommodationsDto.aphone},
-		#{accommodationsDto.atotalroom}, #{accommodationsDto.adetail} ,#{accommodationsDto.agrade},
-		 now());
+	<resultMap type="com.various_functions.admin.dto.AccommodationAndRoomInfoDto" 
+		id="AccommodationAndRoomInfoDtoResultMap">
+		<association property="accommodationsDto" resultMap="AccommodationsDto"/>
+   		<association property="roomInfoDto" resultMap="RoomInfoDto"/>
+	</resultMap>
+	
+	<insert id="saveAccommodation" parameterType="com.various_functions.admin.dto.AccommodationsDto" 
+    useGeneratedKeys="true" keyProperty="aid">
+    INSERT INTO accommodations (
+        acate, aname, aadress, aphone, atotalroom, agrade, adetail, aregdate 
+    ) VALUES (
+        #{acate}, #{aname}, #{aadress}, #{aphone}, #{atotalroom}, #{agrade}, #{adetail}, NOW()
+    )
 
-		INSERT INTO room_info (riroomtype,  riroom, riservice, risize, riminper,
-		rimaxper, ripeak, risemipeak, rioff, aid)
-		VALUES (#{roomInfoDto.riroomtype}, #{roomInfoDto.riroom},
-		#{roomInfoDto.riservice}, #{roomInfoDto.risize},
-		#{roomInfoDto.riminper}, #{roomInfoDto.rimaxper},
-		#{roomInfoDto.ripeak}, #{roomInfoDto.risemipeak},
-		#{roomInfoDto.rioff}, LAST_INSERT_ID());
-	</insert>
+    </insert>
 
+	<select id="selectAccommodationAndRoomInfo" resultType="com.various_functions.admin.dto.AccommodationAndRoomInfoDto">
+		select a.*, r.*
+		from accommodations a
+		join room_info r on a.aid =r.aid
+		
+	</select>
 
 	<!-- 숙소 정보 조회 -->
 	<select id="getAccommodationById"
@@ -44,10 +48,12 @@
 		parameterType="com.various_functions.admin.dto.AccommodationsDto">
 		UPDATE accommodations SET acate = #{acate}, aname =
 		#{aname}, aadress = #{aadress}, aphone = #{aphone},
-		atotalroom = #{atotalroom},
+		atotalroom =
+		#{atotalroom},
 		agrade = #{agrade},
 		adetail = #{adetail}
-		WHERE aid = #{aid}
+		WHERE aid =
+		#{aid}
 	</update>
 
 	<!-- 숙소 정보 삭제 -->

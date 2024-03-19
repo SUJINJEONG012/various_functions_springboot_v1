@@ -7,8 +7,9 @@ import com.various_functions.admin.dto.RoomInfoDto;
 @Mapper
 public interface RoomInfoMapper {
 	
+	//Long saveRoomInfo(RoomInfoDto roomInfoDto);
 	Long saveRoomInfo(RoomInfoDto roomInfoDto);
-    
+	
     RoomInfoDto getRoomInfoById(Long riid);
     
     void updateRoomInfo(RoomInfoDto roomInfoDto);
