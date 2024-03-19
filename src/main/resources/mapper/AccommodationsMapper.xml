@@ -28,10 +28,9 @@
 		<result property="adetail" column="adetail" />
 		<result property="aregdate" column="aregdate" />
 
-		<association property="roomInfo"
-			javaType="com.various_functions.admin.dto.RoomInfoDto">
-			<id property="rid" column="rid" />
-			<result property="riroomtype" column="riroom_type" />
+		<association property="roomInfo" javaType="com.various_functions.admin.dto.RoomInfoDto">
+			<id property="riid" column="riid" />
+			<result property="riroomtype" column="riroomtype" />
 			<result property="riroom" column="riroom" />
 			<result property="riservice" column="riservice" />
 			<result property="risize" column="risize" />

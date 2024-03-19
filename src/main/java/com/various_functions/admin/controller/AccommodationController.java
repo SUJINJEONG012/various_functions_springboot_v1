@@ -1,7 +1,5 @@
 package com.various_functions.admin.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,9 +9,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.various_functions.admin.dto.AccommodationsDto;
+import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
+import com.various_functions.admin.dto.RoomInfoDto;
 import com.various_functions.admin.service.AccommodationService;
-import com.various_functions.admin.vo.AccommodationsVo;
+import com.various_functions.admin.service.RoomInfoService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +26,8 @@ public class AccommodationController {
 
 	@Autowired
 	private AccommodationService accommodationService;
+	@Autowired
+	private RoomInfoService roomInfoService;
 
 	
 	@GetMapping("/accommodation/write")
@@ -36,10 +37,18 @@ public class AccommodationController {
 	}
 
 	@PostMapping("/accommodation/save")
-    public ResponseEntity<String> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationsDto accommodationsDto)  {
+    public ResponseEntity<String> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationAndRoomInfoDto accommodationAndRoomInfoDto)  {
 		log.info("@@@@@@@@@@ 컨트롤러 저장 @");
-		accommodationService.saveAccommodation(accommodationsDto);
-		return ResponseEntity.ok("글이 성공적으!!!");
+		
+		// 숙소정보저장
+		accommodationService.saveAccommodation(accommodationAndRoomInfoDto.getAccommodationsDto());
+		
+		// 객실정보저장
+		for(RoomInfoDto roomInfoDto : accommodationAndRoomInfoDto.getRoomInfoList()) {
+			roomInfoDto.setAid(accommodationAndRoomInfoDto.getAccommodationsDto().getAid());
+			roomInfoService.saveRoomInfo(roomInfoDto);
+		}
+		return ResponseEntity.ok("숙소정보와 객실정보가 성공적으로 저장!");
 		
 		
     }
