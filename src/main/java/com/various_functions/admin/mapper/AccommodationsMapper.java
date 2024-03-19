@@ -15,6 +15,7 @@ public interface AccommodationsMapper {
 	
 	void saveAccommodation(AccommodationsDto accommodationsDto);
 	
+	
 	AccommodationsDto getAccommodationById(Long aid);
 	
 	AccommodationsDto getAccommodationByName(String aname);
@@ -23,6 +24,6 @@ public interface AccommodationsMapper {
     
     void deleteAccommodation(Long aid);
 	
-    List<AccommodationsVo> getAllAccommodations();
+    List<AccommodationsVo> getAccommodationsWithRoomInfo();
 
 }

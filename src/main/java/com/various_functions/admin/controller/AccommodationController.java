@@ -3,16 +3,15 @@ package com.various_functions.admin.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
+import com.various_functions.admin.dto.AccommodationsDto;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.vo.AccommodationsVo;
 
@@ -37,23 +36,23 @@ public class AccommodationController {
 	}
 
 	@PostMapping("/accommodation/save")
-    public ResponseEntity<String> saveAccommodationAndRoomInfo(final AccommodationAndRoomInfoDto dto)  {
+    public ResponseEntity<String> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationsDto accommodationsDto)  {
 		log.info("@@@@@@@@@@ 컨트롤러 저장 @");
-		accommodationService.saveAccommodationAndRoomInfo(dto);
+		accommodationService.saveAccommodation(accommodationsDto);
 		return ResponseEntity.ok("글이 성공적으!!!");
 		
 		
     }
 
 	
-	@GetMapping("/accommodation/list")
-	public String accommodationList(Model model) {
-		// 숙소리스트 모델에 추가
-		List<AccommodationsVo> accommodations = accommodationService.getAllAwccommodations();
-		model.addAttribute("accommodations", accommodations);
-
-		// 해당하는 뷰 페이지의 이름을 반환
-		return "admin/accommodation/list";
-	}
+//	@GetMapping("/accommodation/list")
+//	public String accommodationList(Model model) {
+//		// 숙소리스트 모델에 추가
+//		List<AccommodationsVo> accommodations = accommodationService.getAllAwccommodations();
+//		model.addAttribute("accommodations", accommodations);
+//
+//		// 해당하는 뷰 페이지의 이름을 반환
+//		return "admin/accommodation/list";
+//	}
 
 }
