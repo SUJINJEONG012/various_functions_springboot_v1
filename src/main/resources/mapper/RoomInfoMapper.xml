@@ -2,12 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.various_functions.admin.mapper.RoomInfoMapper">
 
-
 	<!-- 객실 정보 삽입 -->
     <insert id="saveRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto" 
     useGeneratedKeys="true" keyProperty="riid">
         INSERT INTO room_info (
-        aid,
         riroomtype, 
         riroom, 
         riservice, 
@@ -16,10 +14,10 @@
         rimaxper, 
         ripeak, 
         risemipeak, 
-        rioff
+        rioff,
+        aid
        )
-        VALUES(
-        #{aid},
+        VALUES( 
         #{riroomtype}, 
         #{riroom}, 
         #{riservice}, 
@@ -28,7 +26,8 @@
         #{rimaxper}, 
         #{ripeak}, 
         #{risemipeak}, 
-        #{rioff}
+        #{rioff},
+         #{aid}
         )
     </insert>
     
