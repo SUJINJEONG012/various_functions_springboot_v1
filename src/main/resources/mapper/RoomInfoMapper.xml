@@ -15,10 +15,8 @@
         rimaxper, 
         ripeak, 
         risemipeak, 
-        rioff,
-        rimainimg, 
-        riextraimg1, 
-        riextraimg2)
+        rioff
+        )
         VALUES ( 
         #{accommodationId},
         #{riroomtype}, 
@@ -29,40 +27,27 @@
         #{rimaxper}, 
         #{ripeak}, 
         #{risemipeak}, 
-        #{rioff}, 
-        #{rimainimg}, 
-        #{riextraimg1}, 
-        #{riextraimg2}
+        #{rioff}
         )
     </insert>
     
-<<<<<<< HEAD
+
     <!-- 객실 정보 조회 -->
 	<select id="getRoomInfoById" resultType="com.various_functions.admin.dto.RoomInfoDto">
 		select * from room_info where riid = #{riid}
 	</select>    
-=======
+
     <!--객실 정보 조회 -->
 	<select id="getRoomInfoByAccommodationId" resultType="com.various_functions.admin.dto.RoomInfoDto">
 		select * from room_info where aid = #{aid}
 	</select>    
 	
-    <!-- 객실 정보 수정 -->
-	<!-- <update id="updateRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto">
-        UPDATE room_info 
-        SET 
-        riroomtype = #{riroomtype}, riroom = #{riroom}, riservice = #{riservice}, risize = #{risize},
-        riminper = #{riminper}, rimaxper = #{rimaxper}, ripeak = #{ripeak}, risemipeak = #{risemipeak}, 
-        rioff = #{rioff}
-        WHERE riid = #{riid}
-    </update>-->
->>>>>>> f8cd5eb (숙소등록 aid setter 인식못하는 이유)
+
 
     <!-- 객실 정보 수정 -->
 	<update id="updateRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto">
         UPDATE room_info SET riroomtype = #{riroomtype}, riroom = #{riroom}, riservice = #{riservice}, risize = #{risize},
-        riminper = #{riminper}, rimaxper = #{rimaxper}, ripeak = #{ripeak}, risemipeak = #{risemipeak}, rioff = #{rioff},
-        rimainimg = #{rimainimg}, riextraimg1 = #{riextraimg1}, riextraimg2 = #{riextraimg2}
+        riminper = #{riminper}, rimaxper = #{rimaxper}, ripeak = #{ripeak}, risemipeak = #{risemipeak}, rioff = #{rioff}
         WHERE riid = #{riid}
     </update>
 

@@ -13,8 +13,7 @@
 		aphone, 
 		atotalroom, 
 		agrade, 
-		adetail, 
-		amainimg, 
+		adetail,
 		aregdate)
 		
 		VALUES (
@@ -24,8 +23,7 @@
 		#{aphone}, 
 		#{atotalroom}, 
 		#{agrade}, 
-		#{adetail}, 
-		#{amainimg},
+		#{adetail},
 		now()
 		)
 	</insert>
@@ -58,8 +56,7 @@
 		#{aadress}, aphone = #{aphone},
 		axcoordi = #{axcoordi}, atotalroom = #{atotalroom}, 
 		agrade = #{agrade},
-		adetail = #{adetail}, 
-		amainimg = #{amainimg},
+		adetail = #{adetail}
 		
 		WHERE aid = #{aid}
 	</update>
@@ -70,14 +67,6 @@
 	</delete>
 
 
-	<!-- Accommodations 테이블에 대한 모든 숙소 정보 조회
-	<select id="getAllAccommodations"
-		resultType="com.various_functions.admin.vo.AccommodationsVo">
-		SELECT aid, acate, aname, aadress, aphone, axcoordi, atotalroom, agrade,
-		adetail, amainimg FROM Accommodations
-	</select>
-	 -->
-	 
 	<!-- 숙소 리스트 -->
 	<select id="getAllAccommodations"
 		resultType="com.various_functions.admin.vo.AccommodationsVo">

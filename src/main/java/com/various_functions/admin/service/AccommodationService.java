@@ -30,19 +30,12 @@ public class AccommodationService {
 	}
 	
 	@Transactional
-	public void saveAccommodation(final AccommodationsDto accommodationsDto){		
+	public void saveAccommodationAndRoomInfo(final AccommodationsDto accommodationsDto){		
 		log.info("숙소등록 저장하는 부분 진입확인");
 		
 		accommodationsMapper.saveAccommodation(accommodationsDto);
 		log.info("숙소저장하는 매퍼에 저장되는지 확인!");
 		
-		//숙소가 저장된 후 해당 숙소의 id를 얻어옴
-		long aid = accommodationsDto.getAid();
-		log.info("accommodationsDto.getAid() :들고온느지 확인 ");
-		
-		
-		// 4. 객실정보 저장
-		roomInfoMapper.saveRoomInfo(dto.getRoomInfoDto());
 	}
 
 	
