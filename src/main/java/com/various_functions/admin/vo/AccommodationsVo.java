@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccommodationsVo {
 	
-	private Long aid; // 숙소아이디
+	private long aid; // 숙소아이디
 	private String acate; //카테고리
 	private String aname; // 숙소이름
 	private String aadress; // 숙소주소

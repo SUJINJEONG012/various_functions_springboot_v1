@@ -18,7 +18,7 @@ public class PaymentVo {
 	private long ptotal;
 	private String prefund; //한불시 : y
 	private String ptoken;
-	private long rid;
-	private long member_id;
+	private long riid;
+	private long aid;
 	
 }

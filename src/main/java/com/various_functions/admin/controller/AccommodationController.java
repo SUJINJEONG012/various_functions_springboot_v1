@@ -42,6 +42,7 @@ public class AccommodationController {
 		
 		// 숙소정보저장
 		accommodationService.saveAccommodation(accommodationAndRoomInfoDto.getAccommodationsDto());
+		log.info("숙소정보저장!!!!확인");
 		
 		// 객실정보저장
 		for(RoomInfoDto roomInfoDto : accommodationAndRoomInfoDto.getRoomInfoList()) {

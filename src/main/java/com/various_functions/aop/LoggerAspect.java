@@ -33,8 +33,10 @@ public class LoggerAspect {
 		 * signature객체가 가진 정보를 이용해서, 어떤 클래스의 어떤 메서드가 호출되었는지를 로그로 출력하는 기능
 		 * AOP 설정을 통해 어떤 클래스의 어떤 메서드가 실행되었는지 한눈에 확인할 수 있게 되었습니다.
 		 * */
-		log.debug("전체적인 합 : " +type + name + "." + joinPoint.getSignature().getName() + "()");
+		log.info("전체적인 합 : " +type + name + "." + joinPoint.getSignature().getName() + "()");
 		
 		return joinPoint.proceed();
 	}
+	
+	
 }

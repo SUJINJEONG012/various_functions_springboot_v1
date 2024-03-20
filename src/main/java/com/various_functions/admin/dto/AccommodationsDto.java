@@ -3,15 +3,17 @@ package com.various_functions.admin.dto;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccommodationsDto {
 
-	private Long aid; // 숙소아이디
+	private long aid; // 숙소아이디
 	private String acate; //카테고리
 	private String aname; // 숙소이름
 	private String aadress; // 숙소주소
@@ -21,9 +23,5 @@ public class AccommodationsDto {
 	private String adetail; //숙소설명
 	private List<RoomInfoDto> roomInfoList;
 	
-	// Setter 메서드 추가
-    public void setAid(Long aid) {
-        this.aid = aid;
-    }
 	
 }

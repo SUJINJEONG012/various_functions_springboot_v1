@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper
-	namespace="com.various_functions.admin.mapper.AccommodationsMapper">
+<mapper namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
-  <!-- Accommodations와 RoomInfo 테이블을 조인하는 쿼리 -->
+	<!-- 사용자가 입력한 값을 저장하는 메서드에 대한 쿼리 -->
+	<insert id="saveAccommodation"
+        parameterType="com.various_functions.admin.dto.AccommodationsDto"
+        useGeneratedKeys="true" keyProperty="aid">
+    INSERT INTO accommodations (
+    acate, aname, aadress, aphone, atotalroom, agrade, adetail, aregdate
+    ) VALUES (
+    #{acate}, #{aname}, #{aadress}, #{aphone}, #{atotalroom}, #{agrade},
+    #{adetail}, NOW()
+    )
+	</insert>
+
+  	<!-- Accommodations와 RoomInfo 테이블을 조인하는 쿼리 -->
 	<select id="selectAccommodationAndRoomInfo"
 		resultType="com.various_functions.admin.dto.AccommodationAndRoomInfoDto">
 		select a.*, r.*
 		from accommodations a
 		join room_info r on
 		a.aid =r.aid
-
 	</select>
 
 	<!-- Accommodations와 RoomInfo를 조인하여 매핑할 resultMap -->
@@ -39,66 +49,28 @@
 			<result property="ripeak" column="ripeak" />
 			<result property="risemipeak" column="risemipeak" />
 			<result property="rioff" column="rioff" />
-
 		</association>
 
 	</resultMap>
-
-
-	<!-- 사용자가 입력한 값을 저장하는 메서드에 대한 쿼리 -->
-	<insert id="saveAccommodation"
-		parameterType="com.various_functions.admin.dto.AccommodationsDto"
-		useGeneratedKeys="true" keyProperty="aid">
-		INSERT INTO accommodations (
-		acate, aname, aadress, aphone, atotalroom, agrade, adetail, aregdate
-		) VALUES (
-		#{acate}, #{aname}, #{aadress}, #{aphone}, #{atotalroom}, #{agrade},
-		#{adetail}, NOW()
-		)
-
-	</insert>
 
 	 <!-- 사용자가 입력한 값을 조회하여 VO로 반환하는 메서드에 대한 쿼리 -->
     <select id="getAccommodationsWithRoomInfo" resultMap="AccommodationsWithRoomInfoResultMap">
         SELECT * FROM accommodations WHERE aid = #{aid}
     </select>
 	
-	
 	<!-- 숙소 이름을 기준으로 숙소 정보를 가져오는 쿼리 -->
 	<select id="getAccommodationByName"
 		resultType="com.various_functions.admin.dto.AccommodationsDto">
 		SELECT * FROM accommodations WHERE aname = #{aname}
 	</select>
+<!-- 숙소 정보 조회 -->
+<select id="getAccommodationById" resultType="com.various_functions.admin.dto.AccommodationsDto">
+    SELECT * FROM accommodations WHERE aid = #{aid}
+</select>
 
 
 
-
-	<!-- 숙소 정보 수정 -->
-	<update id="updateAccommodation"
-		parameterType="com.various_functions.admin.dto.AccommodationsDto">
-		UPDATE accommodations SET acate = #{acate}, aname =
-		#{aname}, aadress = #{aadress}, aphone = #{aphone},
-		atotalroom =
-		#{atotalroom},
-		agrade = #{agrade},
-		adetail = #{adetail}
-		WHERE aid =
-		#{aid}
-	</update>
-
-	<!-- 숙소 정보 삭제 -->
-	<delete id="deleteAccommodation" parameterType="long">
-		DELETE FROM
-		accommodations WHERE aid = #{aid}
-	</delete>
-
-
-	<!-- Accommodations 테이블에 대한 모든 숙소 정보 조회 -->
-	<select id="getAllAccommodations"
-		resultType="com.various_functions.admin.vo.AccommodationsVo">
-		SELECT aid, acate, aname, aadress, aphone, atotalroom,
-		agrade, adetail FROM accommodations
-	</select>
+	
 
 
 
