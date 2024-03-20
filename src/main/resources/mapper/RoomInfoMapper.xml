@@ -2,9 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.various_functions.admin.mapper.RoomInfoMapper">
 
+
 	<!-- 객실 정보 삽입 -->
-    <insert id="saveRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto">
+    <insert id="saveRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto" 
+    useGeneratedKeys="true" keyProperty="riid">
         INSERT INTO room_info (
+        aid,
         riroomtype, 
         riroom, 
         riservice, 
@@ -14,9 +17,11 @@
         ripeak, 
         risemipeak, 
         rioff,
-        aid
-       )
-        VALUES( 
+        rimainimg, 
+        riextraimg1, 
+        riextraimg2)
+        VALUES ( 
+        #{accommodationId},
         #{riroomtype}, 
         #{riroom}, 
         #{riservice}, 
@@ -25,31 +30,31 @@
         #{rimaxper}, 
         #{ripeak}, 
         #{risemipeak}, 
-        #{rioff},
-         #{aid}
+        #{rioff}, 
+        #{rimainimg}, 
+        #{riextraimg1}, 
+        #{riextraimg2}
         )
     </insert>
     
-    <!--객실 정보 조회 -->
-	<select id="getRoomInfoByAccommodationId" resultType="com.various_functions.admin.dto.RoomInfoDto">
-		select * from room_info where aid = #{aid}
+    <!-- 객실 정보 조회 -->
+	<select id="getRoomInfoById" resultType="com.various_functions.admin.dto.RoomInfoDto">
+		select * from room_info where riid = #{riid}
 	</select>    
-	
-    <!-- 객실 정보 수정 -->
-	<!-- <update id="updateRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto">
-        UPDATE room_info 
-        SET 
-        riroomtype = #{riroomtype}, riroom = #{riroom}, riservice = #{riservice}, risize = #{risize},
-        riminper = #{riminper}, rimaxper = #{rimaxper}, ripeak = #{ripeak}, risemipeak = #{risemipeak}, 
-        rioff = #{rioff}
-        WHERE riid = #{riid}
-    </update>-->
 
-    <!-- 객실 정보 삭제-->
-    <!-- <delete id="deleteRoomInfo" parameterType="long">
+    <!-- 객실 정보 수정 -->
+	<update id="updateRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto">
+        UPDATE room_info SET riroomtype = #{riroomtype}, riroom = #{riroom}, riservice = #{riservice}, risize = #{risize},
+        riminper = #{riminper}, rimaxper = #{rimaxper}, ripeak = #{ripeak}, risemipeak = #{risemipeak}, rioff = #{rioff},
+        rimainimg = #{rimainimg}, riextraimg1 = #{riextraimg1}, riextraimg2 = #{riextraimg2}
+        WHERE riid = #{riid}
+    </update>
+
+    <!-- 객실 정보 삭제 -->
+    <delete id="deleteRoomInfo" parameterType="long">
         DELETE FROM room_info WHERE riid = #{riid}
     </delete>
-	-->
+
 
 
 </mapper>

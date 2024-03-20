@@ -41,7 +41,7 @@ public class AccommodationController {
 		log.info("@@@@@@@@@@ 컨트롤러 저장 @");
 		
 		// 숙소정보저장
-		accommodationService.saveAccommodation(accommodationAndRoomInfoDto.getAccommodationsDto());
+		accommodationService.saveAccommodationAndRoomInfo(accommodationAndRoomInfoDto.getAccommodationsDto());
 		log.info("숙소정보저장!!!!확인");
 		
 		// 객실정보저장

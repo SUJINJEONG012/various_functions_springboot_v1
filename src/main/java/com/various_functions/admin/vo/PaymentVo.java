@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PaymentVo {
 
-	private long pid;
+	private Long pid;
 	private String pmethod;
 	private LocalDateTime pdate;
-	private long ptotal;
+	private Long ptotal;
 	private String prefund; //한불시 : y
 	private String ptoken;
-	private long riid;
-	private long aid;
+	private Long riid;
+	private Long aid;
 	
 }

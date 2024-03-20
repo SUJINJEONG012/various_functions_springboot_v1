@@ -1,5 +1,7 @@
 package com.various_functions.admin.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import com.various_functions.admin.dto.AccommodationsDto;
 import com.various_functions.admin.dto.RoomInfoDto;
 import com.various_functions.admin.mapper.AccommodationsMapper;
 import com.various_functions.admin.mapper.RoomInfoMapper;
+import com.various_functions.admin.vo.AccommodationsVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,28 +20,34 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AccommodationService { 
 
+	private final AccommodationsMapper accommodationsMapper;
+	private final RoomInfoMapper roomInfoMapper;
+	
 	@Autowired
-	private AccommodationsMapper accommodationsMapper;
-	private RoomInfoMapper roomInfoMapper;
-
+	public AccommodationService(AccommodationsMapper accommodationsMapper, RoomInfoMapper roomInfoMapper ) {
+		this.accommodationsMapper = accommodationsMapper;
+		this.roomInfoMapper = roomInfoMapper;
+	}
 	
 	@Transactional
-	public void saveAccommodation(final AccommodationsDto accommodationsDto){		
-		log.info("숙소등록 저장하는 부분 진입확인");
+	public void saveAccommodationAndRoomInfo(AccommodationAndRoomInfoDto dto) throws Exception {		
+		// 1. 숙소 정보 저장
+		accommodationsMapper.saveAccommodation(dto.getAccommodationsDto());
 		
-		accommodationsMapper.saveAccommodation(accommodationsDto);
-		log.info("숙소저장하는 매퍼에 저장되는지 확인!");
+		// 2. 저장된 숙소 정보의 id 값을 가져옴
+		Long accommodationId = dto.getAccommodationsDto().getAid();
+		dto.getRoomInfoDto().setAid(accommodationId);
 		
-		//숙소가 저장된 후 해당 숙소의 id를 얻어옴
-		long aid = accommodationsDto.getAid();
-		log.info("accommodationsDto.getAid() :들고온느지 확인 ");
 		
-		//객실정보에 숙소의 id를 설정하여 저장
-		for(RoomInfoDto roomInfo : accommodationsDto.getRoomInfoList()) {
-			roomInfo.setAid(aid);
-			roomInfoMapper.saveRoomInfo(roomInfo);	
-		}
+		// 4. 객실정보 저장
+		roomInfoMapper.saveRoomInfo(dto.getRoomInfoDto());
 	}
 
-		
+	
+	
+	public List<AccommodationsVo> getAllAwccommodations() {
+		return accommodationsMapper.getAllAccommodations();
+	}
+
+	
 }

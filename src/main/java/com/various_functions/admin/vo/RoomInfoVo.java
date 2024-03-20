@@ -5,13 +5,15 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoomInfoVo {
 
-	private long riid; //객실아이디
+	private Long riid; //객실아이디
 	private String riroomtype; // 객실타입 
 	private int riroom; // 총 객실 
 	private String riservice; // 부가서비스
@@ -22,6 +24,6 @@ public class RoomInfoVo {
 	private int risemipeak; //준성수기 
 	private int rioff; //비수기 
 
-	private long aid; // 숙소아이디 
+	private Long aid; // 숙소아이디 
 	private List<RoomInfoVo> roominfoVo;
 }

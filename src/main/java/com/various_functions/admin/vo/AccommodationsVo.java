@@ -5,14 +5,16 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 // 숙소
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccommodationsVo {
 	
-	private long aid; // 숙소아이디
+	private Long aid; // 숙소아이디
 	private String acate; //카테고리
 	private String aname; // 숙소이름
 	private String aadress; // 숙소주소
