@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RoomInfoDto {
 
-	private Long riid;
+	private long riid;
 	private String riroomtype; // 객실타입
 	private int riroom;// 총객실
 	private String riservice;// 부가서비스
@@ -19,7 +19,7 @@ public class RoomInfoDto {
 	private int ripeak; // 성수기 요금
 	private int risemipeak; // 준성수기 요금
 	private int rioff; // 비수기 요금	
-	private Long aid;
+	private long aid;
 	
 
 }

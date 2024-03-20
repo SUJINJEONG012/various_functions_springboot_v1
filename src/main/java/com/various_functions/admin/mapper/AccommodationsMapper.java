@@ -13,13 +13,15 @@ public interface AccommodationsMapper {
 
 	void saveAccommodation(AccommodationsDto accommodationsDto);
 	
-	AccommodationsDto getAccommodationById(Long aid);
+	
+	
+	AccommodationsDto getAccommodationById(long aid);
 	
 	AccommodationsDto getAccommodationByName(String aname);
 	
 	void updateAccommodation(AccommodationsDto accommodationsDto);
     
-    void deleteAccommodation(Long aid);
+    void deleteAccommodation(long aid);
 	
     List<AccommodationsVo> getAccommodationsWithRoomInfo();
 
