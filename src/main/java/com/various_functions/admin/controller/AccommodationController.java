@@ -28,12 +28,6 @@ public class AccommodationController {
 	private final AccommodationService accommodationService;
     private final RoomInfoService roomInfoService;
 
-    @Autowired
-    public AccommodationController(AccommodationService accommodationService, RoomInfoService roomInfoService) {
-        this.accommodationService = accommodationService;
-        this.roomInfoService = roomInfoService;
-    }
-
 	
 	@GetMapping("/accommodation/write")
 	public String accommodationSave(Model model) {
