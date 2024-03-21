@@ -14,5 +14,5 @@ public class AccommodationAndRoomInfoDto {
 	private AccommodationsDto accommodationsDto;
     private RoomInfoDto roomInfoDto;
     private List<RoomInfoDto> roomInfoList;
-
+    
 }

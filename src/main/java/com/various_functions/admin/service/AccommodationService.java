@@ -14,22 +14,33 @@ import com.various_functions.admin.dto.RoomInfoDto;
 import com.various_functions.admin.mapper.AccommodationsMapper;
 import com.various_functions.admin.mapper.RoomInfoMapper;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class AccommodationService { 
 
 	private final AccommodationsMapper accommodationsMapper;
-	
-	@Autowired
-	public AccommodationService(AccommodationsMapper accommodationsMapper) {
-		this.accommodationsMapper = accommodationsMapper;
-	}
+	private final RoomInfoMapper roomInfoMapper;
 	
 	@Transactional
-	public void insertAccommodation(AccommodationsDto accommodationsDto) {
-		accommodationsMapper.insertAccommodation(accommodationsDto);
+	public void insertAccommodation(AccommodationAndRoomInfoDto accommodationAndRoomInfoDto) {
+		log.info("insertAccommodation 메서드 진입 ");
+		if (accommodationAndRoomInfoDto == null) {
+            throw new IllegalArgumentException("AccommodationAndRoomInfoDto is null");
+        }
+		
+		log.info("insertAccommodation 숙소 정보 저장 전 ");
+		// 숙소 정보 저장
+        accommodationsMapper.insertAccommodation(accommodationAndRoomInfoDto.getAccommodationsDto());
+        log.info("insertAccommodation 숙소 정보 저장 후 ");
+        // 객실 정보 저장
+//        for (RoomInfoDto roomInfoDto : accommodationAndRoomInfoDto.getRoomInfoList()) {
+//            roomInfoMapper.insertRoomInfo(roomInfoDto);
+//        }
+		
 	}
 	
 	

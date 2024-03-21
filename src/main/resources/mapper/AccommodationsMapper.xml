@@ -5,7 +5,7 @@
 
 <insert id="insertAccommodation" parameterType="com.various_functions.admin.dto.AccommodationsDto">
     INSERT INTO accommodations (
-    acate, aname, aadress,aphone,atotalroom,agrade,adetail)
+    acate, aname, aadress, aphone, atotalroom, agrade, adetail)
     VALUES (#{acate}, #{aname}, #{aadress}, #{aphone},#{atotalroom},#{agrade},#{adetail})
 </insert>
 

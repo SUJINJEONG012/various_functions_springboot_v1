@@ -26,8 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 public class AccommodationController {
 
 	private final AccommodationService accommodationService;
-    private final RoomInfoService roomInfoService;
-
 	
 	@GetMapping("/accommodation/write")
 	public String accommodationSave(Model model) {
@@ -36,23 +34,27 @@ public class AccommodationController {
 	}
 
 	@PostMapping("/accommodation/save")
-    public ResponseEntity<String> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationAndRoomInfoDto accommodationAndRoomInfoDto)  {
+    public ResponseEntity<String> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationAndRoomInfoDto accommodationAndRoomInfoDto, Model model)  {
 		log.info("@@@@@@@@@@ 컨트롤러 저장 @");
 		
-		 try {
-	            // 숙소 정보 삽입
-	            accommodationService.insertAccommodation(accommodationAndRoomInfoDto.getAccommodationsDto());
+		if (accommodationAndRoomInfoDto == null) {
+	        log.error("AccommodationAndRoomInfoDto is null");
+	        return ResponseEntity.badRequest().body("AccommodationAndRoomInfoDto is null");
+	    }
 
-	            // 객실 정보 삽입
-	            for (RoomInfoDto roomInfoDto : accommodationAndRoomInfoDto.getRoomInfoList()) {
-	                roomInfoService.insertRoomInfo(roomInfoDto);
-	            }
-
-	            return ResponseEntity.ok("Accommodation and RoomInfo added successfully");
-	        } catch (Exception e) {
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add Accommodation and RoomInfo");
-	        }
-		
+		try {
+			log.info("Before calling accommodationService.insertAccommoda");
+            accommodationService.insertAccommodation(accommodationAndRoomInfoDto);
+            log.info("@@@@@@@@@@ 서비스부분저장  @");
+            return ResponseEntity.ok("Accommodation and RoomInfo added successfully");
+        } catch (IllegalArgumentException e) {
+        	log.info("@@@@@@@@@@ 서비스부분저장 2 @");
+            return ResponseEntity.badRequest().body("Invalid input: " + e.getMessage());
+        } catch (Exception e) {
+        	log.info("@@@@@@@@@@ 서비스부분저장3  @");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add Accommodation and RoomInfo");
+        }
+		 
 		
     }
 
