@@ -3,20 +3,12 @@
 <mapper
 	namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
-	<insert id="saveAccommodationAndRoomInfo" parameterType="com.example.dto.AccommodationAndRoomInfoDto">
-        <!-- 숙소 정보 저장 -->
-        INSERT INTO accommodations (accommodation_name, accommodation_location, ...) 
-        VALUES (#{accommodationsDto.accommodationName}, #{accommodationsDto.accommodationLocation}, ...);
-        
-        <!-- 저장된 숙소의 ID 가져오기 -->
-        <selectKey resultType="long" keyProperty="accommodationsDto.aid" order="AFTER">
-            SELECT LAST_INSERT_ID() AS aid;
-        </selectKey>
-        
-        <!-- 객실 정보 저장 -->
-        <foreach collection="roomInfoList" item="roomInfo" separator=";">
-            INSERT INTO room_info ( roomtype, riservice, risize, riminper, rimaxper,ripeak,risemipeak,rioff,aid) 
-            VALUES (#{roomInfo.roomtype},#{roomInfo.riservice},#{roomInfo.risize},#{roomInfo.riminper},#{roomInfo.rimaxper},{roomInfo.ripeak},{roomInfo.risemipeak},{roomInfo.rioff}, #{accommodationsDto.aid});
-        </foreach>
-    </insert>
+<insert id="insertAccommodation" parameterType="com.various_functions.admin.dto.AccommodationsDto">
+    INSERT INTO accommodations (
+    acate, aname, aadress,aphone,atotalroom,agrade,adetail)
+    VALUES (#{acate}, #{aname}, #{aadress}, #{aphone},#{atotalroom},#{agrade},#{adetail})
+</insert>
+
+
+	
 </mapper>

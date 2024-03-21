@@ -1,5 +1,7 @@
 package com.various_functions.admin.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.various_functions.admin.dto.RoomInfoDto;
@@ -7,12 +9,7 @@ import com.various_functions.admin.dto.RoomInfoDto;
 @Mapper
 public interface RoomInfoMapper {
 	
-	Long saveRoomInfo(RoomInfoDto roomInfoDto);
+	//객실정보 저장
+	void insertRoomInfo(RoomInfoDto roomInfoDto);
 	
-    RoomInfoDto getRoomInfoById(Long riid);
-    
-    void updateRoomInfo(RoomInfoDto roomInfoDto);
-    
-    void deleteRoomInfo(Long riid);
-    
 }

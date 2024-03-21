@@ -1,6 +1,7 @@
 package com.various_functions.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +25,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin")
 public class AccommodationController {
 
-	@Autowired
-	private AccommodationService accommodationService;
-	@Autowired
-	private RoomInfoService roomInfoService;
+	private final AccommodationService accommodationService;
+    private final RoomInfoService roomInfoService;
+
+    @Autowired
+    public AccommodationController(AccommodationService accommodationService, RoomInfoService roomInfoService) {
+        this.accommodationService = accommodationService;
+        this.roomInfoService = roomInfoService;
+    }
 
 	
 	@GetMapping("/accommodation/write")
@@ -37,12 +42,22 @@ public class AccommodationController {
 	}
 
 	@PostMapping("/accommodation/save")
-    public ResponseEntity<String> saveAccommodationAndRoomInfo(AccommodationAndRoomInfoDto accommodationAndRoomInfoDto)  {
+    public ResponseEntity<String> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationAndRoomInfoDto accommodationAndRoomInfoDto)  {
 		log.info("@@@@@@@@@@ 컨트롤러 저장 @");
 		
-		accommodationService.saveAccommodationAndRoomInfo(accommodationAndRoomInfoDto);
-	
-		return ResponseEntity.ok("숙소정보와 객실정보가 성공적으로 저장!");
+		 try {
+	            // 숙소 정보 삽입
+	            accommodationService.insertAccommodation(accommodationAndRoomInfoDto.getAccommodationsDto());
+
+	            // 객실 정보 삽입
+	            for (RoomInfoDto roomInfoDto : accommodationAndRoomInfoDto.getRoomInfoList()) {
+	                roomInfoService.insertRoomInfo(roomInfoDto);
+	            }
+
+	            return ResponseEntity.ok("Accommodation and RoomInfo added successfully");
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add Accommodation and RoomInfo");
+	        }
 		
 		
     }

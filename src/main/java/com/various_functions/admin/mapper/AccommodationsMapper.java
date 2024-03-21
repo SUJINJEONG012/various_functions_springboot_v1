@@ -11,19 +11,6 @@ import com.various_functions.admin.vo.AccommodationsVo;
 @Mapper
 public interface AccommodationsMapper {
 
-	//void saveAccommodation(AccommodationsDto accommodationsDto);
-	void saveAccommodation(AccommodationAndRoomInfoDto accommodationAndRoomInfoDto);
+	void insertAccommodation(AccommodationsDto accommodationsDto);
 	
-	AccommodationsDto getAccommodationById(long aid);
-	
-	AccommodationsDto getAccommodationByName(String aname);
-	
-	void updateAccommodation(AccommodationsDto accommodationsDto);
-    
-    void deleteAccommodation(long aid);
-	
-    List<AccommodationsVo> getAccommodationsWithRoomInfo();
-
-	List<AccommodationsVo> getAllAccommodations();
-
 }
