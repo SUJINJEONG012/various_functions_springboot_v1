@@ -37,28 +37,14 @@ public class AccommodationController {
 	}
 
 	@PostMapping("/accommodation/save")
-    public ResponseEntity<String> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationAndRoomInfoDto accommodationAndRoomInfoDto)  {
+    public ResponseEntity<String> saveAccommodationAndRoomInfo(AccommodationAndRoomInfoDto accommodationAndRoomInfoDto)  {
 		log.info("@@@@@@@@@@ 컨트롤러 저장 @");
 		
-		// 숙소정보저장
-		accommodationService.saveAccommodationAndRoomInfo(accommodationAndRoomInfoDto.getAccommodationsDto());
-		log.info("숙소정보저장!!!!확인");
-		
+		accommodationService.saveAccommodationAndRoomInfo(accommodationAndRoomInfoDto);
 	
 		return ResponseEntity.ok("숙소정보와 객실정보가 성공적으로 저장!");
 		
 		
     }
-
-	
-//	@GetMapping("/accommodation/list")
-//	public String accommodationList(Model model) {
-//		// 숙소리스트 모델에 추가
-//		List<AccommodationsVo> accommodations = accommodationService.getAllAwccommodations();
-//		model.addAttribute("accommodations", accommodations);
-//
-//		// 해당하는 뷰 페이지의 이름을 반환
-//		return "admin/accommodation/list";
-//	}
 
 }

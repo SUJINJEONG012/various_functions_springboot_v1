@@ -30,19 +30,34 @@ public class AccommodationService {
 	}
 	
 	@Transactional
-	public void saveAccommodationAndRoomInfo(final AccommodationsDto accommodationsDto){		
+	public void saveAccommodationAndRoomInfo(AccommodationAndRoomInfoDto accommodationAndRoomInfoDto){		
 		log.info("숙소등록 저장하는 부분 진입확인");
 		
-		accommodationsMapper.saveAccommodation(accommodationsDto);
-		log.info("숙소저장하는 매퍼에 저장되는지 확인!");
+		// 숙소정보저장
+		AccommodationsDto accommodationsDto = accommodationAndRoomInfoDto.getAccommodationsDto();
+		accommodationsMapper.saveAccommodation(accommodationAndRoomInfoDto);
 		
+		//숙소 앋이디 가져오기
+		Long accommodationId = accommodationsDto.getAid();
+		
+		// 객실정보 저장 => 숙소한곳에는 여러개의 객실이 있으니 리스트로 들고옴
+		RoomInfoDto roomInfoDto = accommodationAndRoomInfoDto.getRoomInfoDto();
+		if(roomInfoDto != null) {
+			// 숙소 정보 아이디 설정
+			roomInfoDto.setAid(accommodationId);
+			roomInfoMapper.saveRoomInfo(roomInfoDto);
+		}
+		
+		List<RoomInfoDto> roomInfoList = accommodationAndRoomInfoDto.getRoomInfoList();
+				if(roomInfoList != null ) {
+			for(RoomInfoDto roomInfo : roomInfoList) {
+				// 숙소정보 아이디 설정
+				roomInfo.setAid(accommodationId);
+				roomInfoMapper.saveRoomInfo(roomInfo);
+			}
+		}
 	}
 
 	
-	
-	public List<AccommodationsVo> getAllAwccommodations() {
-		return accommodationsMapper.getAllAccommodations();
-	}
-
 	
 }
