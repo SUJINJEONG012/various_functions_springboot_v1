@@ -26,22 +26,26 @@ public class AccommodationService {
 	private final RoomInfoMapper roomInfoMapper;
 	
 	@Transactional
-	public void insertAccommodation(AccommodationAndRoomInfoDto accommodationAndRoomInfoDto) {
-		log.info("insertAccommodation 메서드 진입 ");
-		if (accommodationAndRoomInfoDto == null) {
-            throw new IllegalArgumentException("AccommodationAndRoomInfoDto is null");
-        }
+	public Long insertAccommodation(AccommodationsDto accommodationsDto) {
 		
-		log.info("insertAccommodation 숙소 정보 저장 전 ");
-		// 숙소 정보 저장
-        accommodationsMapper.insertAccommodation(accommodationAndRoomInfoDto.getAccommodationsDto());
-        log.info("insertAccommodation 숙소 정보 저장 후 ");
-        // 객실 정보 저장
-//        for (RoomInfoDto roomInfoDto : accommodationAndRoomInfoDto.getRoomInfoList()) {
-//            roomInfoMapper.insertRoomInfo(roomInfoDto);
-//        }
-		
+	    log.info("insertAccommodation 메서드 진입 ");
+	    
+	    if (accommodationsDto == null) {
+	        log.error("AccommodationsDto is null");
+	    } else {
+	    	
+	        log.info("insertAccommodation 숙소 정보 저장 전 ");
+	        // 숙소 정보 저장
+	        accommodationsMapper.insertAccommodation(accommodationsDto);
+	        log.info("insertAccommodation 숙소 정보 저장 후 ");
+	        
+	        // 저장된 숙소의 키(주키)를 가져오기 위해 MyBatis의 selectKey를 사용하여 생성된 키를 가져옴
+	        Long aid = accommodationsDto.getAid();
+	        
+	        return aid;
+	    }
+	    
+	    return null;
 	}
-	
 	
 }

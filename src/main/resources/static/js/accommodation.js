@@ -100,22 +100,22 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 	
-    // AJAX 요청 설정
-		const xhr = new XMLHttpRequest();
-		
-		xhr.open("POST", "/admin/accommodation/save");
-		xhr.onload = function(){
-			if(xhr.status === 200 && xhr.status < 300){
-				//요청이 성공적일때 
-				alert(xhr.responseText);
-				window.location.href = "/";
-			}else{
-				alert("글 게시 오류가 발생했습니다.", xhr.statusText);
-			}
-		};
-		
-		xhr.send(formData);
-
+   $.ajax({
+		 url:"/admin/accommodation/save",
+		 type:"POST",
+		 data:formData,
+		 processData:false,
+		 contentType:false,
+		 success:function(response){
+			 console.log(response);
+			 alert("요청성공!");
+			 alert("응답데이터 : " +response);
+		 },
+		 error:function(xhr, status, error){
+			 console.error("요청 실패 : ",error);
+		 }
+		 
+	 })
 	});
 
 });

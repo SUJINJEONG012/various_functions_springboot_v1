@@ -3,12 +3,34 @@
 <mapper
 	namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
-<insert id="insertAccommodation" parameterType="com.various_functions.admin.dto.AccommodationsDto">
+<insert id="insertAccommodation" 
+parameterType="com.various_functions.admin.dto.AccommodationAndRoomInfoDto"
+useGeneratedKeys="true" keyProperty="aid"
+>
+   
+   
     INSERT INTO accommodations (
     acate, aname, aadress, aphone, atotalroom, agrade, adetail)
-    VALUES (#{acate}, #{aname}, #{aadress}, #{aphone},#{atotalroom},#{agrade},#{adetail})
+    VALUES (
+    #{acate}, 
+    #{aname}, 
+    #{aadress}, 
+    #{aphone},#{atotalroom},#{agrade},#{adetail}
+    )
 </insert>
 
+
+    <update id="updateAccommodation" parameterType="com.various_functions.admin.dto.AccommodationsDto">
+        UPDATE accommodations SET name = #{name}, address = #{address} WHERE id = #{id}
+    </update>
+    
+    <delete id="deleteAccommodation" parameterType="Long">
+        DELETE FROM accommodations WHERE id = #{id}
+    </delete>
+    
+    <select id="getAccommodationById" parameterType="Long" resultType="com.various_functions.admin.dto.AccommodationsDto">
+        SELECT * FROM accommodations WHERE id = #{id}
+    </select>
 
 	
 </mapper>

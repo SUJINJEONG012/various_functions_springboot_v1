@@ -3,9 +3,12 @@
 <mapper namespace="com.various_functions.admin.mapper.RoomInfoMapper">
 
 	<!-- 객실 정보 삽입 -->
-    <insert id="insertRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto">
+    <insert id="insertRoomInfo" 
+    parameterType="com.various_functions.admin.dto.AccommodationAndRoomInfoDto"
+    useGeneratedKeys="true" keyProperty="riid">
+        <!-- 객실 정보를 삽입하고 생성된 키를 가져옴 -->
+        
         INSERT INTO room_info (
-        aid,
         riroomtype, 
         riroom, 
         riservice, 
@@ -14,10 +17,10 @@
         rimaxper, 
         ripeak, 
         risemipeak, 
-        rioff
-        )
-        VALUES ( 
-        (LAST_INSERT_ID(),
+        rioff,
+        aid,
+        ) 
+        VALUES (
         #{riroomtype}, 
         #{riroom}, 
         #{riservice}, 
@@ -26,7 +29,8 @@
         #{rimaxper}, 
         #{ripeak}, 
         #{risemipeak}, 
-        #{rioff}
+        #{rioff},
+        #{aid}
         )
     </insert>
     

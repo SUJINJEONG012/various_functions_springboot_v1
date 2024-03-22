@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccommodationAndRoomInfoDto {
-
 	private AccommodationsDto accommodationsDto;
     private RoomInfoDto roomInfoDto;
     private List<RoomInfoDto> roomInfoList;
-    
 }

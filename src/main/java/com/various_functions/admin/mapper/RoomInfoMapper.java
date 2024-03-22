@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
 import com.various_functions.admin.dto.RoomInfoDto;
 
 @Mapper
