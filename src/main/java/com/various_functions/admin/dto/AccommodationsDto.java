@@ -22,6 +22,5 @@ public class AccommodationsDto {
 	private String agrade; //숙소등급
 	private String adetail; //숙소설명
 
-	
-	
+		
 }

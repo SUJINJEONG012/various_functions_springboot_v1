@@ -19,7 +19,16 @@ public class RoomInfoDto {
 	private int ripeak; // 성수기 요금
 	private int risemipeak; // 준성수기 요금
 	private int rioff; // 비수기 요금	
-	private Long aid;
+	private AccommodationsDto accommodations;
 	
+	// AccommodationDto를 설정하는 메서드
+    public void setAccommodation(AccommodationsDto accommodation) {
+        this.accommodations = accommodation;
+    }
+
+    // AccommodationDto를 반환하는 메서드
+    public AccommodationsDto getAccommodation() {
+        return accommodations;
+    }
 
 }

@@ -3,33 +3,68 @@
 <mapper
 	namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
-<insert id="insertAccommodation" 
-parameterType="com.various_functions.admin.dto.AccommodationsDto"
-useGeneratedKeys="true" keyProperty="aid"
->
-    INSERT INTO accommodations (
-    acate, aname, aadress, aphone, atotalroom, agrade, adetail)
-    VALUES (
-    #{acate}, 
-    #{aname}, 
-    #{aadress}, 
-    #{aphone},#{atotalroom},#{agrade},#{adetail}
-    )
-</insert>
+	<insert id="insertAccommodation" parameterType="com.various_functions.admin.dto.AccommodationsDto" useGeneratedKeys="true" keyProperty="aid">
+	<!-- 객실 정보를 삽입하고 생성된 키를 가져옴 -->      
+        INSERT INTO accommodations (
+        acate, 
+        aname, 
+        aadress, 
+        aphone, 
+        atotalroom, 
+        agrade, 
+        adetail
+        ) 
+        VALUES (
+        #{acate}, 
+        #{aname}, 
+        #{aadress}, 
+        #{aphone}, 
+        #{atotalroom}, 
+        #{agrade}, 
+        #{adetail}   
+        )
+        
+	</insert>
+
+ 	<!-- 숙소와 해당 숙소의 객실 정보를 함께 조회하는 resultMap -->
+    <resultMap id="accommodationWithRooms" type="com.various_functions.admin.dto.AccommodationsDto">
+        <id property="aid" column="aid"/>
+        <result property="acate" column="acate"/>
+        <result property="aname" column="aname"/>
+        <result property="aadress" column="aadress"/>
+        <result property="aphone" column="aphone"/>
+        <result property="atotalroom" column="atotalroom"/>
+        <result property="agrade" column="agrade"/>
+        <result property="adetail" column="adetail"/>
+        
+        <!-- 숙소의 객실 정보를 담을 collection 설정 -->
+        <collection property="room_info" resultMap="com.various_functions.admin.dto.RoomInfoDto">
+            <id property="riid" column="riid"/>
+            <result property="riroomtype" column="riroomtype"/>
+            <result property="riroom" column="riroom"/>
+            <result property="riservice" column="riservice"/>
+            <result property="risize" column="risize"/>
+            <result property="riminper" column="riminper"/>
+            <result property="rimaxper" column="rimaxper"/>
+            <result property="ripeak" column="ripeak"/>
+            <result property="risemipeak" column="risemipeak"/>
+            <result property="rioff" column="rioff"/>
+        	<!-- 숙소와 객실 정보 간의 외래 키를 매핑 -->
+        	<result property="aid" column="aid"/>
+        </collection>
+    </resultMap>
 
 
-    <update id="updateAccommodation" 
-    parameterType="com.various_functions.admin.dto.AccommodationsDto">
-        UPDATE accommodations SET name = #{name}, address = #{address} WHERE id = #{id}
-    </update>
-    
-    <delete id="deleteAccommodation" parameterType="Long">
-        DELETE FROM accommodations WHERE id = #{id}
-    </delete>
-    
-    <select id="getAccommodationById" parameterType="Long" resultType="com.various_functions.admin.dto.AccommodationsDto">
-        SELECT * FROM accommodations WHERE id = #{id}
+    <!-- 숙소와 해당 숙소의 객실 정보를 함께 조회하는 쿼리 -->
+    <select id="getAccommodationWithRooms" 
+    resultMap="accommodationWithRooms" 
+    parameterType="Long">
+        SELECT a.*, r.*
+        FROM accommodations a
+        LEFT JOIN room_info r ON a.aid = r.aid
+        WHERE a.aid = #{id}
     </select>
+    
 
 	
 </mapper>

@@ -11,6 +11,6 @@ import com.various_functions.admin.vo.AccommodationsVo;
 @Mapper
 public interface AccommodationsMapper {
 
-	void insertAccommodation(AccommodationsDto accommodationsDto);
+	Long insertAccommodation(AccommodationsDto accommodationsDto);
 	
 }
