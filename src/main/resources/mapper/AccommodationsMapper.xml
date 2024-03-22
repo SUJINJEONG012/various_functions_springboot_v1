@@ -4,11 +4,9 @@
 	namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
 <insert id="insertAccommodation" 
-parameterType="com.various_functions.admin.dto.AccommodationAndRoomInfoDto"
+parameterType="com.various_functions.admin.dto.AccommodationsDto"
 useGeneratedKeys="true" keyProperty="aid"
 >
-   
-   
     INSERT INTO accommodations (
     acate, aname, aadress, aphone, atotalroom, agrade, adetail)
     VALUES (
@@ -20,7 +18,8 @@ useGeneratedKeys="true" keyProperty="aid"
 </insert>
 
 
-    <update id="updateAccommodation" parameterType="com.various_functions.admin.dto.AccommodationsDto">
+    <update id="updateAccommodation" 
+    parameterType="com.various_functions.admin.dto.AccommodationsDto">
         UPDATE accommodations SET name = #{name}, address = #{address} WHERE id = #{id}
     </update>
     
