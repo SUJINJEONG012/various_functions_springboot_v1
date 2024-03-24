@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccommodationsDto {
 
-	private Long aid; // 숙소아이디
-	private String acate; //카테고리
-	private String aname; // 숙소이름
-	private String aadress; // 숙소주소
-	private String aphone; //숙소 전화번호
-	private int atotalroom; // 총객실수
-	private String agrade; //숙소등급
-	private String adetail; //숙소설명
+	private Long accommodationId; // 숙소아이디
+	private String accommodationCate; //카테고리
+	private String anaaccommodationName; // 숙소이름
+	private String accommodationAdress; // 숙소주소
+	private String accommodationPhone; //숙소 전화번호
+	private int accommodationTotalroom; // 총객실수
+	private String accommodationGrade; //숙소등급
+	private String accommodationDetail; //숙소설명
 	
 	private List<RoomInfoDto> roomInfoList; 	
 }

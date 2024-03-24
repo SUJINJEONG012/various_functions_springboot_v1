@@ -28,13 +28,16 @@ public class AccommodationService {
 		log.info("insertAccommodation 메서드 진입 ");
 
 		// 숙소정보저장
-		Long aid= accommodationsMapper.insertAccommodation(accommodationsDto);
-		// 객실정보에숙소아이디 저장
-		roomInfoDto.setAid(aid);
-		
-		Long riid = roomInfoMapper.insertRoomInfo(roomInfoDto);
-		
-		return aid;
+		Long accommodationId= accommodationsMapper.insertAccommodation(accommodationsDto);		
+		log.info("서비스단 Received aid: {}", accommodationId); 
+//		
+//		// 객실정보에숙소아이디 저장
+//		roomInfoDto.setAccommodationId(aid);
+//		log.info("RoomInfoDto에 Aid 설정: {}", aid);
+//		 
+//		Long riid = roomInfoMapper.insertRoomInfo(roomInfoDto);
+//		log.info("서비스단 Received riid: {}", riid);
+		return accommodationId;
 	}
 
 }

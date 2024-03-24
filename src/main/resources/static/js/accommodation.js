@@ -22,7 +22,7 @@ function execution_daum_address() {
 			var addr = data.address; // 최종 주소 변수
 
 			// 주소 정보를 해당 필드에 넣는다.
-			document.getElementById("aadress").value = addr;
+			document.getElementById("accommodationAdress").value = addr;
 			// 주소로 상세 정보를 검색
 			geocoder.addressSearch(data.address, function(results, status) {
 				// 정상적으로 검색이 완료됐으면
@@ -48,7 +48,7 @@ function execution_daum_address() {
 // 별 모양 라디오 버튼 처리
 document.addEventListener('click', function() {
 	const stars = document.querySelectorAll('.star');
-	const agradeInput = document.getElementById('agrade');
+	const agradeInput = document.getElementById('accommodationGrade');
 
 	stars.forEach(function(star) {
 		star.addEventListener('click', function() {

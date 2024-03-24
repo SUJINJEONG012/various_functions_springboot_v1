@@ -21,7 +21,7 @@
 			<ul>
 				<li class="join-field">
 					<span class="point_color">*</span> 카테고리
-					<select name="acate" class="input">
+					<select name="accommodationCate" class="input">
 						<option value="hotel">호텔</option>
 						<option value="motel">모텔</option>
 						<option value="guesthouse">게스트하우스</option>
@@ -29,16 +29,16 @@
 				</li>
 
 				<li class="join-field"><span class="point_color">*</span>숙박업소명
-					<input type="text" name="aname" class="input" lang="en" placeholder="숙박업소명을 입력해주세요.">
+					<input type="text" name="anaaccommodationName" class="input" lang="en" placeholder="숙박업소명을 입력해주세요.">
 				</li>
 
 				<li class="room_map">
 					<div class="add_input">
-						<label for="aadress"><span class="point_color">*</span>주소</label>
+						<label for="accommodationAdress"><span class="point_color">*</span>주소</label>
 						
 						<input type="button" value="주소 검색" onclick="execution_daum_address()">
 						
-						<input type="text" id="aadress" name="aadress"  class="input" placeholder="주소를 입력해주세요."
+						<input type="text" id="accommodationAdress" name="accommodationAdress" class="input" placeholder="주소를 입력해주세요."
 							readonly="readonly">
 					</div>
 
@@ -46,17 +46,17 @@
 
 				</li>
 
-				<li class="join-field"><label for="aphone"><span class="point_color">*</span>전화번호</label> <input
-						type="tel" name="aphone" id="aphone" class="input" maxlength="20" lang="en"
+				<li class="join-field"><label for="accommodationPhone"><span class="point_color">*</span>전화번호</label> <input
+						type="tel" name="accommodationPhone" id="accommodationPhone" class="input" maxlength="20" lang="en"
 						placeholder="'-' 없이 전화번호를 입력해주세요."></li>
 
-				<li class="join-field"><label for="atotalroom"> <span class="point_color">*</span>총객실수
-					</label> <input type="text" id="atotalroom" name="atotalroom" class="input" lang="en"
+				<li class="join-field"><label for="accommodationTotalroom"> <span class="point_color">*</span>총객실수
+					</label> <input type="text" id="accommodationTotalroom" name="accommodationTotalroom" class="input" lang="en"
 						placeholder="총 객실수를 입력해주세요."></li>
 
 				<li>
 					<span class="point_color">*</span>숙소성급
-					<input type="hidden" id="agrade" name="agrade" value="0" />
+					<input type="hidden" id="accommodationGrade" name="accommodationGrade" value="0" />
 
 					<div class="star-rating space-x-4 mx-auto">
 						<!-- 별 모양 라디오 버튼 -->
@@ -70,44 +70,41 @@
 
 					</div>
 				</li>
-				<li><span class="point_color">*</span>숙소 소개<input type="text" name="adetail" class="input"
+				<li><span class="point_color">*</span>숙소 소개<input type="text" name="accommodationDetail" class="input"
 						placeholder="숙소 소개를 입력해주세요."></li>
 				
 				<!-- 객실 소개 -->
 				<h2>객실소개 부분 </h2>
-				<li class="join-field"><span class="point_color">*</span>객실타입 <input type="text" name="riroomtype"
+				<li class="join-field"><span class="point_color">*</span>객실타입 <input type="text" name="roomRoomtype"
 						class="input" lang="en" placeholder="">
 				</li>
 
-				<li class="join-field"><span class="point_color">*</span>총객실 <input type="text" name="riroom"
-						class="input" lang="en" placeholder="">
-				</li>
-
+				
 				<li class="join-field"><span class="point_color">*</span>부가서비스
-					<input type="text" name="riservice" class="input" lang="en" placeholder="">
+					<input type="text" name="roomService" class="input" lang="en" placeholder="">
 				</li>
 
-				<li class="join-field"><span class="point_color">*</span>객실크기 <input type="text" name="risize"
+				<li class="join-field"><span class="point_color">*</span>객실크기 <input type="text" name="roomSize"
 						class="input" lang="en" placeholder="">
 				</li>
 
 				<li class="join-field"><span class="point_color">*</span>숙박가능인원
-					<input type="text" name="riminper" class="input" lang="en" placeholder="">
+					<input type="text" name="roomMinper" class="input" lang="en" placeholder="">
 				</li>
 
 				<li class="join-field"><span class="point_color">*</span>숙박최대인원
-					<input type="text" name="rimaxper" class="input" lang="en" placeholder="">
+					<input type="text" name="roomMaxper" class="input" lang="en" placeholder="">
 				</li>
 
 				<li class="join-field"><span class="point_color">*</span>성수기 요금
-					<input type="text" name="ripeak" class="input" lang="en" placeholder="">
+					<input type="text" name="roomPeak" class="input" lang="en" placeholder="">
 				</li>
 
 				<li class="join-field"><span class="point_color">*</span>준성수기
-					요금 <input type="text" name="risemipeak" class="input" lang="en" placeholder=""></li>
+					요금 <input type="text" name="roomSemipeak" class="input" lang="en" placeholder=""></li>
 
 				<li class="join-field"><span class="point_color">*</span>비수기 요금
-					<input type="text" name="rioff" class="input" lang="en" placeholder="">
+					<input type="text" name="roomOff" class="input" lang="en" placeholder="">
 				</li> 
 				
 				<!--<li class="filebox">대표이미지(썸네일)

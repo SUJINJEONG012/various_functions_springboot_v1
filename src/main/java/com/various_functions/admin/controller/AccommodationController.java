@@ -46,20 +46,28 @@ public class AccommodationController {
 		log.info("Received AccommodationsDto: {}", accommodationsDto);
 		log.info("Received RoomInfoDto: {}", roomInfoDto);
 		// accommodationsDto에서 숙소 아이디를 가져와서 roomInfoDto에 설정
-	    Long aid = accommodationsDto.getAid();
-	    log.info("aid : {}",accommodationsDto.getAid());
+	    Long accommodationId = accommodationsDto.getAccommodationId();
+	    log.info("accommodationId : {}",accommodationsDto.getAccommodationId());
+
+	    if(accommodationId != null) {
+	    	return ResponseEntity.status(HttpStatus.CREATED).body("accommodation saved successfully with ID: " + accommodationId);
+	    }else {
+	    	return ResponseEntity.badRequest().body("Failed to save accommodation");
+	    }
 	    
-	    roomInfoDto.setAid(aid);
-		log.info("roomInfoDto.setAid(aid): {}", aid);
+//	    roomInfoDto.setAccommodationId(accommodationId);
+//		log.info("roomInfoDto.setAid(aid): {}", accommodationId);
+	
+//		//숙소정보와 객실정보 저장 
+//		Long saveId = accommodationService.insertAccommodationAndRoomInfo(accommodationsDto,roomInfoDto);
+//		
+//		if(saveId != null) {
+//			return ResponseEntity.status(HttpStatus.CREATED).body("Accommodation and Room inf saved successfully");
+//		}else {
+//			return ResponseEntity.badRequest().body("Failed");
+//		}
 		
-		//숙소정보와 객실정보 저장 
-		Long saveId = accommodationService.insertAccommodationAndRoomInfo(accommodationsDto,roomInfoDto);
 		
-		if(saveId != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body("Accommodation and Room inf saved successfully");
-		}else {
-			return ResponseEntity.badRequest().body("Failed");
-		}
         
     }
 	

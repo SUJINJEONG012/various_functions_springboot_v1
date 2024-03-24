@@ -1,70 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.various_functions.admin.mapper.AccommodationsMapper">
+<mapper namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
-	<insert id="insertAccommodation" parameterType="com.various_functions.admin.dto.AccommodationsDto" useGeneratedKeys="true" keyProperty="aid">
-	<!-- 객실 정보를 삽입하고 생성된 키를 가져옴 -->      
-        INSERT INTO accommodations (
-        acate, 
-        aname, 
-        aadress, 
-        aphone, 
-        atotalroom, 
-        agrade, 
-        adetail
-        ) 
-        VALUES (
-        #{acate}, 
-        #{aname}, 
-        #{aadress}, 
-        #{aphone}, 
-        #{atotalroom}, 
-        #{agrade}, 
-        #{adetail}   
-        )
-        
-	</insert>
+<insert id="insertAccommodation" parameterType="com.various_functions.admin.dto.AccommodationsDto" 
+    useGeneratedKeys="true" keyProperty="accommodationId">
+    <!-- 숙소 정보를 삽입하고 생성된 키를 가져옴 -->      
+    INSERT INTO accommodations (
+    accommodation_cate, 
+    accommodation_name, 
+    accommodation_adress,
+    accommodation_phone, 
+    accommodation_totalroom, 
+    accommodation_grade, 
+    accommodation_detail
+    ) 
+    VALUES (
+    #{accommodationCate}, 
+    #{anaaccommodationName}, 
+    #{accommodationAdress}, 
+    #{accommodationPhone}, 
+    #{accommodationTotalroom}, 
+    #{accommodationGrade}, 
+    #{accommodationDetail}   
+    )
+</insert>
 
- 	<!-- 숙소와 해당 숙소의 객실 정보를 함께 조회하는 resultMap -->
-    <resultMap id="accommodationWithRooms" type="com.various_functions.admin.dto.AccommodationsDto">
-        <id property="aid" column="aid"/>
-        <result property="acate" column="acate"/>
-        <result property="aname" column="aname"/>
-        <result property="aadress" column="aadress"/>
-        <result property="aphone" column="aphone"/>
-        <result property="atotalroom" column="atotalroom"/>
-        <result property="agrade" column="agrade"/>
-        <result property="adetail" column="adetail"/>
-        
-        <!-- 숙소의 객실 정보를 담을 collection 설정 -->
-        <collection property="roomInfoList" resultMap="roomInfoResultMap">
-            <id property="riid" column="riid"/>
-            <result property="riroomtype" column="riroomtype"/>
-            <result property="riroom" column="riroom"/>
-            <result property="riservice" column="riservice"/>
-            <result property="risize" column="risize"/>
-            <result property="riminper" column="riminper"/>
-            <result property="rimaxper" column="rimaxper"/>
-            <result property="ripeak" column="ripeak"/>
-            <result property="risemipeak" column="risemipeak"/>
-            <result property="rioff" column="rioff"/>
-        	<!-- 숙소와 객실 정보 간의 외래 키를 매핑 -->
-        	<result property="aid" column="aid"/>
-        </collection>
-    </resultMap>
-
-
-    <!-- 숙소와 해당 숙소의 객실 정보를 함께 조회하는 쿼리 -->
-    <select id="getAccommodationWithRooms" 
-    resultMap="accommodationWithRooms" 
-    parameterType="Long">
-        SELECT a.*, r.*
-        FROM accommodations a
-        LEFT JOIN room_info r ON a.aid = r.aid
-        WHERE a.aid = #{id}
-    </select>
-    
-
-	
 </mapper>

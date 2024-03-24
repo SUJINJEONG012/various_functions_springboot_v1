@@ -33,7 +33,7 @@ public class RoomInfoService {
         log.info("insertRoomInfo 객실 정보 저장 후 ");
 
         // 저장된 객실의 키(주키)를 가져오기 위해 MyBatis의 selectKey를 사용하여 생성된 키를 가져옴
-        Long riid = roomInfoDto.getRiid();
+        Long riid = roomInfoDto.getRoomId();
         return riid;
     }
 
