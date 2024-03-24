@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.various_functions.admin.dto.AccommodationsDto;
 import com.various_functions.admin.dto.RoomInfoDto;
 import com.various_functions.admin.mapper.AccommodationsMapper;
+import com.various_functions.admin.mapper.RoomInfoMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,32 +18,22 @@ import lombok.extern.slf4j.Slf4j;
 public class AccommodationService {
 
 	private final AccommodationsMapper accommodationsMapper;
-	private final RoomInfoService roomInfoService; 
+	private final RoomInfoMapper roomInfoMapper; 
 	
 	@Transactional
-	public Long insertAccommodation(AccommodationsDto accommodationsDto) {
+	public Long insertAccommodationAndRoomInfo(
+			AccommodationsDto accommodationsDto,
+			RoomInfoDto roomInfoDto) {
+		
 		log.info("insertAccommodation 메서드 진입 ");
 
-		if (accommodationsDto == null) {
-			log.error("AccommodationsDto is null");
-			return null;
-		}
-
-		log.info("insertAccommodation 숙소 정보 저장 전 ");
-		// 숙소 정보 저장
-		accommodationsMapper.insertAccommodation(accommodationsDto);
-		log.info("insertAccommodation 숙소 정보 저장 후 ");
-
+		// 숙소정보저장
+		Long aid= accommodationsMapper.insertAccommodation(accommodationsDto);
+		// 객실정보에숙소아이디 저장
+		roomInfoDto.setAid(aid);
 		
-		Long aid = accommodationsDto.getAid();
+		Long riid = roomInfoMapper.insertRoomInfo(roomInfoDto);
 		
-		// 객실 정보 저장
-		if(aid != null) {
-			RoomInfoDto roomInfoDto = new RoomInfoDto();
-			roomInfoDto.setAccommodations(accommodationsDto.getAid());
-			Long riid = roomInfoService.insertRoomInfo(roomInfoDto);
-			log.info("insertAccommodation 객실 정보 저장 후");
-		}
 		return aid;
 	}
 

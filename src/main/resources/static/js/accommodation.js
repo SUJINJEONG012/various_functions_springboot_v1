@@ -74,9 +74,11 @@ document.addEventListener('click', function() {
 document.addEventListener("DOMContentLoaded", function() {	
 	let acsaveBtn = document.getElementById("acsaveBtn");
 	acsaveBtn.addEventListener("click", function(e) {
+	
 	// 숙소 이름이 비어 있지 않으면 폼 제출
-  let formData = new FormData(document.getElementById("saveFormAccommodations"));
+  	let formData = new FormData(document.getElementById("saveFormAccommodations"));
   
+  	
 	alert("숙소저장 버튼 클릭!");
 	// 기본 동작인 폼 제출을 중지
 	e.preventDefault();
@@ -109,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		 success:function(response){
 			 console.log(response);
 			 alert("요청성공!");
-			 alert("응답데이터 : " +response);
+			 alert("응답데이터 : " + response);
 		 },
 		 error:function(xhr, status, error){
 			 console.error("요청 실패 : ",error);

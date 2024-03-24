@@ -1,5 +1,7 @@
 package com.various_functions.admin.controller;
 
+import java.io.IOException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.various_functions.admin.dto.AccommodationsDto;
 import com.various_functions.admin.dto.RoomInfoDto;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.service.RoomInfoService;
@@ -34,41 +37,32 @@ public class AccommodationController {
 		return "/admin/accommodation/write";
 	}
 
-//	@PostMapping("/accommodation/save")
-//	@ResponseBody
-//    public ResponseEntity<Long> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationsDto accommodationsDto) {
-//       
-//		Long aid = accommodationService.insertAccommodation(accommodationsDto);
-//        
-//		if (aid != null) {
-//            return new ResponseEntity<>(aid, HttpStatus.CREATED); // 숙소 정보가 성공적으로 저장될 경우, 201 Created 상태 코드와 주키를 반환
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 요청이 잘못되었을 경우, 400 Bad Request 상태 코드 반환
-//        }
-//        
-//    }
-	
 	@PostMapping("/accommodation/save")
-    @ResponseBody
-    public ResponseEntity<Long> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationAndRoomInfoDto dto) {
-        try {
-            
-        	Long aid = accommodationService.insertAccommodation(dto.getAccommodationsDto());
-            
-            if (aid != null) {
-                // 객실 정보 저장
-                for (RoomInfoDto roomInfoDto : dto.getRoomInfoList()) {
-                    roomInfoDto.setAid(aid); // 숙소 정보의 주 키를 객실 정보에 설정
-                    roomInfoService.insertRoomInfo(roomInfoDto);
-                }
-                return new ResponseEntity<>(aid, HttpStatus.CREATED); // 숙소 정보가 성공적으로 저장될 경우, 201 Created 상태 코드와 주키를 반환
-            } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 숙소 정보 저장 실패 시, 400 Bad Request 상태 코드 반환
-            }
-        } catch (Exception e) {
-            log.error("Error while saving accommodation and room information", e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 서버 오류 발생 시, 500 Internal Server Error 상태 코드 반환
-        }
+	@ResponseBody
+    public ResponseEntity<String> saveAccommodationAndRoomInfo(
+    		@ModelAttribute AccommodationsDto accommodationsDto,
+    		@ModelAttribute RoomInfoDto roomInfoDto) {
+       
+		log.info("Received AccommodationsDto: {}", accommodationsDto);
+		log.info("Received RoomInfoDto: {}", roomInfoDto);
+		// accommodationsDto에서 숙소 아이디를 가져와서 roomInfoDto에 설정
+	    Long aid = accommodationsDto.getAid();
+	    log.info("aid : {}",accommodationsDto.getAid());
+	    
+	    roomInfoDto.setAid(aid);
+		log.info("roomInfoDto.setAid(aid): {}", aid);
+		
+		//숙소정보와 객실정보 저장 
+		Long saveId = accommodationService.insertAccommodationAndRoomInfo(accommodationsDto,roomInfoDto);
+		
+		if(saveId != null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body("Accommodation and Room inf saved successfully");
+		}else {
+			return ResponseEntity.badRequest().body("Failed");
+		}
+        
     }
+	
+	
 
 }

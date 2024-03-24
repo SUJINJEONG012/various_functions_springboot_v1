@@ -11,6 +11,6 @@ import com.various_functions.admin.dto.RoomInfoDto;
 public interface RoomInfoMapper {
 	
 	//객실정보 저장
-	void insertRoomInfo(RoomInfoDto roomInfoDto);
+	Long insertRoomInfo(RoomInfoDto roomInfoDto);
 	
 }

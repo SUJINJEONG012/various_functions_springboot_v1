@@ -38,7 +38,7 @@
         <result property="adetail" column="adetail"/>
         
         <!-- 숙소의 객실 정보를 담을 collection 설정 -->
-        <collection property="room_info" resultMap="com.various_functions.admin.dto.RoomInfoDto">
+        <collection property="roomInfoList" resultMap="roomInfoResultMap">
             <id property="riid" column="riid"/>
             <result property="riroomtype" column="riroomtype"/>
             <result property="riroom" column="riroom"/>

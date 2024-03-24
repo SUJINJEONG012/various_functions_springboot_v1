@@ -3,12 +3,10 @@ package com.various_functions.admin.dto;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccommodationsDto {
@@ -21,6 +19,6 @@ public class AccommodationsDto {
 	private int atotalroom; // 총객실수
 	private String agrade; //숙소등급
 	private String adetail; //숙소설명
-
-		
+	
+	private List<RoomInfoDto> roomInfoList; 	
 }
