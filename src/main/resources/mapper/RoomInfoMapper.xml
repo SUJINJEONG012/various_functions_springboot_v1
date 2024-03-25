@@ -19,7 +19,7 @@
         room_peak, 
         room_semipeak, 
         room_off,
-        accommodationId
+        accommodation_id
         ) 
         VALUES (
         #{roomRoomtype}, 
@@ -30,7 +30,7 @@
         #{roomPeak}, 
         #{roomSemipeak}, 
         #{roomOff},
-        #{accommodations.accommodationId}
+        #{accommodationId}
         )
     </insert>
     

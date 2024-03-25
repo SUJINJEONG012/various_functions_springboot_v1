@@ -1,12 +1,9 @@
 package com.various_functions.admin.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
 public class RoomInfoDto {
 
 	private Long roomId; //객실아이디
@@ -18,7 +15,25 @@ public class RoomInfoDto {
 	private int roomPeak; //성수기 
 	private int roomSemipeak; //준성수기 
 	private int roomOff; //비수기 
-	private Long accommodationId; // 숙소아이디 
+	private Long accommodationId; // 숙소아이디
+	
+//	@Builder
+//	public RoomInfoDto(String roomRoomtype, String roomService, String roomSize, int roomMinper, int roomMaxper, int roomPeak, int roomSemipeak, int roomOff) {
+//		this.roomRoomtype = roomRoomtype;
+//		this.roomService = roomService;
+//		this.roomSemipeak = roomSemipeak;
+//		this.roomSize = roomSize;
+//		this.roomMinper = roomMinper;
+//		this.roomMaxper = roomMaxper;
+//		this.roomPeak = roomPeak;
+//		this.roomSemipeak = roomSemipeak;
+//		this.roomOff = roomOff;
+//	}
+//	
+	//  객실정보는 숙소정보가 insert k후에 처리
+	public void setAccommodationId(Long accommodationId) {
+		this.accommodationId = accommodationId;
+	}
 	
 	
 }

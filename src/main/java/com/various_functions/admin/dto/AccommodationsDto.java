@@ -20,5 +20,7 @@ public class AccommodationsDto {
 	private String accommodationGrade; //숙소등급
 	private String accommodationDetail; //숙소설명
 	
-	private List<RoomInfoDto> roomInfoList; 	
+	//객실정보 연관관계 
+	private Long roomId;
+	private List<RoomInfoDto> roomInfoList;
 }

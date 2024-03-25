@@ -1,6 +1,6 @@
 package com.various_functions.admin.controller;
 
-import java.io.IOException;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.various_functions.admin.dto.AccommodationsDto;
 import com.various_functions.admin.dto.RoomInfoDto;
 import com.various_functions.admin.service.AccommodationService;
@@ -42,29 +40,18 @@ public class AccommodationController {
     		@ModelAttribute AccommodationsDto accommodationsDto) {
 		
 		Long accommodationId = accommodationService.insertAccommodationAndRoomInfo(accommodationsDto);
-//		log.info("Received AccommodationsDto: {}", accommodationsDto);
-//		log.info("Received RoomInfoDto: {}", roomInfoDto);
-//		// accommodationsDto에서 숙소 아이디를 가져와서 roomInfoDto에 설정
-//	    Long accommodationId = accommodationsDto.getAccommodationId();
-//	    log.info("accommodationId : {}",accommodationsDto.getAccommodationId());
-
-	   
-	    
-//	    roomInfoDto.setAccommodationId(accommodationId);
-//		log.info("roomInfoDto.setAid(aid): {}", accommodationId);
-	
-//		//숙소정보와 객실정보 저장 
-//		Long saveId = accommodationService.insertAccommodationAndRoomInfo(accommodationsDto,roomInfoDto);
-//		
-//		if(saveId != null) {
-//			return ResponseEntity.status(HttpStatus.CREATED).body("Accommodation and Room inf saved successfully");
-//		}else {
-//			return ResponseEntity.badRequest().body("Failed");
-//		}
+		log.info("Received AccommodationsDto: {}", accommodationsDto);
 		
-	    if(accommodationId != null) {
-	    	return ResponseEntity.ok("숙소정보가 성공적으로 저장되었습니다.");
-	    }else {
+		if(accommodationId != null) {
+			List<RoomInfoDto> roomInfoList = accommodationsDto.getRoomInfoList();
+			if(roomInfoList != null) {
+				for(RoomInfoDto roomInfo : roomInfoList) {
+					roomInfo.setAccommodationId(accommodationId);
+					roomInfoService.insertRoomInfo(accommodationId, roomInfo);
+				}
+			}
+			return ResponseEntity.ok("숙소정보가 성공적으로 저장되었습니다.");
+		} else {
 	    	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("숙소 정보 저장에 실패했습니다.");
 	    }
         
