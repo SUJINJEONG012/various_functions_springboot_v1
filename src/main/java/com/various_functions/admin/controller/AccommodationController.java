@@ -56,6 +56,9 @@ public class AccommodationController {
 	}
 	
 	// 속수 조회 리스트
+	private String accommodationsList(Model model,String viewName ) {
+		return viewName;
+	}
 	
 	
 	
