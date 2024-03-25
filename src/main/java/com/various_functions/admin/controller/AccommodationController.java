@@ -72,9 +72,5 @@ public class AccommodationController {
 	    model.addAttribute("accommodations", accommodations);   
 	    return "admin/accommodation/list";
 	}
-	
-	
-	
-	
 
 }

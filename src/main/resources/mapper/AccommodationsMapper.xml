@@ -31,8 +31,7 @@
 	SELECT
 	*
     FROM accommodations 
-    
-    
+   
 </select>
 
 
