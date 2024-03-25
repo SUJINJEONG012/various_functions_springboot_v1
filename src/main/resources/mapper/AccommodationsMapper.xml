@@ -28,16 +28,10 @@
 
 <!-- 숙소등록 리스트  -->
 <select id="findAllAccommodations" resultType="com.various_functions.admin.vo.AccommodationsVo">
-	select 
-	accommodation_cate, 
-    accommodation_name, 
-    accommodation_adress,
-    accommodation_phone, 
-    accommodation_totalroom, 
-    accommodation_grade, 
-    accommodation_detail
-    from accommodations 
-    where accommodationId ={accommodationId}
+	SELECT
+	*
+    FROM accommodations 
+    
     
 </select>
 

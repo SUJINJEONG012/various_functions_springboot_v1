@@ -20,20 +20,22 @@ import lombok.extern.slf4j.Slf4j;
 public class AccommodationService {
 
 	private final AccommodationsMapper accommodationsMapper;
-	private final RoomInfoMapper roomInfoMapper; 
-	
+	private final RoomInfoMapper roomInfoMapper;
+
 	@Transactional
-	public Long insertAccommodationAndRoomInfo(
-		AccommodationsDto accommodationsDto) {
-		
+	public Long insertAccommodationAndRoomInfo(AccommodationsDto accommodationsDto) {
+
 		log.info("insertAccommodation 메서드 진입 ");
 
 		// 숙소정보저장
-		accommodationsMapper.insertAccommodation(accommodationsDto);	
+		accommodationsMapper.insertAccommodation(accommodationsDto);
 		return accommodationsDto.getAccommodationId();
 	}
-	
-	public List<AccommodationsVo> findAllAccommodations(){
+
+	public List<AccommodationsVo> findAllAccommodations() {
+		List<AccommodationsVo> accommodations = accommodationsMapper.findAllAccommodations();
+		log.info("Found {} accommodations", accommodations.size());
+        
 		return accommodationsMapper.findAllAccommodations();
 	}
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.various_functions.admin.dto.AccommodationAndRoomInfoDto;
 import com.various_functions.admin.dto.AccommodationsDto;
 import com.various_functions.admin.vo.AccommodationsVo;
 
@@ -15,4 +14,5 @@ public interface AccommodationsMapper {
 	
 	// 숙소 전체 리스트 조회
 	List<AccommodationsVo> findAllAccommodations();
+	
 }

@@ -3,13 +3,11 @@ package com.various_functions.admin.vo;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 // 숙소
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccommodationsVo {
@@ -23,4 +21,5 @@ public class AccommodationsVo {
 	private String accommodationGrade; //숙소등급
 	private String accommodationDetail ; //숙소설명
 	private LocalDateTime accommodationRegdate;
+
 }
