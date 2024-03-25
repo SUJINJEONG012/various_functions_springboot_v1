@@ -38,22 +38,17 @@ public class AccommodationController {
 	}
 
 	@PostMapping("/accommodation/save")
-	@ResponseBody
     public ResponseEntity<String> saveAccommodationAndRoomInfo(
-    		@ModelAttribute AccommodationsDto accommodationsDto,
-    		@ModelAttribute RoomInfoDto roomInfoDto) {
-       
-		log.info("Received AccommodationsDto: {}", accommodationsDto);
-		log.info("Received RoomInfoDto: {}", roomInfoDto);
-		// accommodationsDto에서 숙소 아이디를 가져와서 roomInfoDto에 설정
-	    Long accommodationId = accommodationsDto.getAccommodationId();
-	    log.info("accommodationId : {}",accommodationsDto.getAccommodationId());
+    		@ModelAttribute AccommodationsDto accommodationsDto) {
+		
+		Long accommodationId = accommodationService.insertAccommodationAndRoomInfo(accommodationsDto);
+//		log.info("Received AccommodationsDto: {}", accommodationsDto);
+//		log.info("Received RoomInfoDto: {}", roomInfoDto);
+//		// accommodationsDto에서 숙소 아이디를 가져와서 roomInfoDto에 설정
+//	    Long accommodationId = accommodationsDto.getAccommodationId();
+//	    log.info("accommodationId : {}",accommodationsDto.getAccommodationId());
 
-	    if(accommodationId != null) {
-	    	return ResponseEntity.status(HttpStatus.CREATED).body("accommodation saved successfully with ID: " + accommodationId);
-	    }else {
-	    	return ResponseEntity.badRequest().body("Failed to save accommodation");
-	    }
+	   
 	    
 //	    roomInfoDto.setAccommodationId(accommodationId);
 //		log.info("roomInfoDto.setAid(aid): {}", accommodationId);
@@ -67,7 +62,11 @@ public class AccommodationController {
 //			return ResponseEntity.badRequest().body("Failed");
 //		}
 		
-		
+	    if(accommodationId != null) {
+	    	return ResponseEntity.ok("숙소정보가 성공적으로 저장되었습니다.");
+	    }else {
+	    	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("숙소 정보 저장에 실패했습니다.");
+	    }
         
     }
 	

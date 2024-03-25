@@ -22,15 +22,14 @@ public class AccommodationService {
 	
 	@Transactional
 	public Long insertAccommodationAndRoomInfo(
-			AccommodationsDto accommodationsDto,
-			RoomInfoDto roomInfoDto) {
+			AccommodationsDto accommodationsDto) {
 		
 		log.info("insertAccommodation 메서드 진입 ");
 
 		// 숙소정보저장
 		Long accommodationId= accommodationsMapper.insertAccommodation(accommodationsDto);		
-		log.info("서비스단 Received aid: {}", accommodationId); 
-//		
+		log.info("서비스단 Received accommodationId : {}", accommodationId); 
+		
 //		// 객실정보에숙소아이디 저장
 //		roomInfoDto.setAccommodationId(aid);
 //		log.info("RoomInfoDto에 Aid 설정: {}", aid);

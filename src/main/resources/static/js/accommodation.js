@@ -76,16 +76,16 @@ document.addEventListener("DOMContentLoaded", function() {
 	acsaveBtn.addEventListener("click", function(e) {
 	
 	// 숙소 이름이 비어 있지 않으면 폼 제출
-  	let formData = new FormData(document.getElementById("saveFormAccommodations"));
+  let formData = new FormData(document.getElementById("saveFormAccommodations"));
   
-  	
 	alert("숙소저장 버튼 클릭!");
+	
 	// 기본 동작인 폼 제출을 중지
 	e.preventDefault();
 
-		// 숙소 이름이 비어 있는지 확인
-		const inputs = document.getElementsByClassName("input");
-		let isEmpty = false;
+	// 숙소 이름이 비어 있는지 확인
+	const inputs = document.querySelectorAll("#saveFormAccommodations.input");
+	let isEmpty = false;
 
 		for (let i = 0; i < inputs.length; i++) {
 			if (inputs[i].value.trim() === "") { // 각 입력 요소의 값을 trim하여 비어 있는지 확인
@@ -96,28 +96,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		if (isEmpty) {
 			// 하나 이상의 입력 값이 비어 있을 경우 사용자에게 알림
-			alert(isEmpty);
 			alert("입력값을 제대로 입력해주세요.");
 			return;
 		}
-
 	
    $.ajax({
-		 url:"/admin/accommodation/save",
-		 type:"POST",
-		 data:formData,
-		 processData:false,
-		 contentType:false,
+		 url : "/admin/accommodation/save",
+		 type : "POST",
+		 data : formData,
+		 processData : false,
+		 contentType : false,
 		 success:function(response){
 			 console.log(response);
 			 alert("요청성공!");
 			 alert("응답데이터 : " + response);
 		 },
 		 error:function(xhr, status, error){
-			 console.error("요청 실패 : ",error);
+			 console.error("요청 실패 : ", error);
 		 }
 		 
-	 })
+	 });
 	});
 
 });
