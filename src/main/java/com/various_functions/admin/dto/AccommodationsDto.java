@@ -21,6 +21,5 @@ public class AccommodationsDto {
 	private String accommodationDetail; //숙소설명
 	
 	//객실정보 연관관계 
-	private Long roomId;
 	private List<RoomInfoDto> roomInfoList;
 }

@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			alert("입력값을 제대로 입력해주세요.");
 			return;
 		}
-	
+		
    $.ajax({
 		 url : "/admin/accommodation/save",
 		 type : "POST",

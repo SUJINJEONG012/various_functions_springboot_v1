@@ -24,7 +24,8 @@ public class RoomInfoService {
         log.info("insertRoomInfo 메서드 진입 ");
         
         roomInfoDto.setAccommodationId(accommodationId);
-     
+        
+        
         roomInfoMapper.insertRoomInfo(roomInfoDto);
       
     }

@@ -27,7 +27,7 @@ public class AccommodationService {
 		log.info("insertAccommodation 메서드 진입 ");
 
 		// 숙소정보저장
-		accommodationsMapper.insertAccommodation(accommodationsDto);		
+		accommodationsMapper.insertAccommodation(accommodationsDto);	
 		return accommodationsDto.getAccommodationId();
 	}
 

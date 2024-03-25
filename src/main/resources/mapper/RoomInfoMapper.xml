@@ -6,8 +6,7 @@
 
 	<!-- 객실 정보 삽입 -->
     <insert id="insertRoomInfo" 
-    parameterType="com.various_functions.admin.dto.RoomInfoDto"
-    useGeneratedKeys="true" keyProperty="roomId">
+    parameterType="com.various_functions.admin.dto.RoomInfoDto">
        
         <!-- 객실 정보를 삽입하고 생성된 키를 가져옴 -->      
         INSERT INTO room_info (

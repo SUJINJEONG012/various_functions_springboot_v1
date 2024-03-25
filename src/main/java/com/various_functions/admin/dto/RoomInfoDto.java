@@ -17,19 +17,19 @@ public class RoomInfoDto {
 	private int roomOff; //비수기 
 	private Long accommodationId; // 숙소아이디
 	
-//	@Builder
-//	public RoomInfoDto(String roomRoomtype, String roomService, String roomSize, int roomMinper, int roomMaxper, int roomPeak, int roomSemipeak, int roomOff) {
-//		this.roomRoomtype = roomRoomtype;
-//		this.roomService = roomService;
-//		this.roomSemipeak = roomSemipeak;
-//		this.roomSize = roomSize;
-//		this.roomMinper = roomMinper;
-//		this.roomMaxper = roomMaxper;
-//		this.roomPeak = roomPeak;
-//		this.roomSemipeak = roomSemipeak;
-//		this.roomOff = roomOff;
-//	}
-//	
+	@Builder
+	public RoomInfoDto(String roomRoomtype, String roomService, String roomSize, int roomMinper, int roomMaxper, int roomPeak, int roomSemipeak, int roomOff) {
+		this.roomRoomtype = roomRoomtype;
+		this.roomService = roomService;
+		this.roomSemipeak = roomSemipeak;
+		this.roomSize = roomSize;
+		this.roomMinper = roomMinper;
+		this.roomMaxper = roomMaxper;
+		this.roomPeak = roomPeak;
+		this.roomSemipeak = roomSemipeak;
+		this.roomOff = roomOff;
+	}
+
 	//  객실정보는 숙소정보가 insert k후에 처리
 	public void setAccommodationId(Long accommodationId) {
 		this.accommodationId = accommodationId;
