@@ -36,7 +36,8 @@ public class AccommodationController {
 	}
 
 	@PostMapping("/accommodation/save")
-	public ResponseEntity<String> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationsDto accommodationsDto, @ModelAttribute RoomInfoDto roomInfoDto) {
+	public ResponseEntity<String> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationsDto accommodationsDto, 
+			@ModelAttribute RoomInfoDto roomInfoDto) {
 
 		Long accommodationId = accommodationService.insertAccommodationAndRoomInfo(accommodationsDto);
 		log.info("Received AccommodationsDto: {}", accommodationsDto);
@@ -53,5 +54,11 @@ public class AccommodationController {
 		}
 
 	}
+	
+	// 속수 조회 리스트
+	
+	
+	
+	
 
 }

@@ -13,4 +13,6 @@ public interface AccommodationsMapper {
 
 	Long insertAccommodation(AccommodationsDto accommodationsDto);
 	
+	// 숙소 전체 리스트 조회
+	List<AccommodationsVo> findAllAccommodations();
 }
