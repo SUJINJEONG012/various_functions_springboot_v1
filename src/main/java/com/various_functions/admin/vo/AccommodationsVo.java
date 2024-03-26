@@ -13,7 +13,7 @@ public class AccommodationsVo {
 	
 	private Long accommodationId; // 숙소아이디
 	private String accommodationCate; //카테고리
-	private String anaaccommodationName; // 숙소이름
+	private String accommodationName; // 숙소이름
 	private String accommodationAdress; // 숙소주소
 	private String accommodationPhone; //숙소 전화번호
 	private int accommodationTotalroom; // 총객실수

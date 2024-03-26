@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.various_functions.admin.dto.AccommodationsDto;
@@ -33,10 +34,16 @@ public class AccommodationService {
 	}
 
 	public List<AccommodationsVo> findAllAccommodations() {
+		log.info("서비스단 !!!!리스트 조회");
 		List<AccommodationsVo> accommodations = accommodationsMapper.findAllAccommodations();
+		 if (accommodations != null) {
+		        log.info("Found {} accommodations", accommodations.size());
+		    } else {
+		        log.warn("No accommodations found");
+		    }
 		log.info("Found {} accommodations", accommodations.size());
         
-		return accommodationsMapper.findAllAccommodations();
+		return accommodations;
 	}
 
 }

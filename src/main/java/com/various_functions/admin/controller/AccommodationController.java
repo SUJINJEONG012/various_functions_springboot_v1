@@ -42,7 +42,6 @@ public class AccommodationController {
 		Long accommodationId = accommodationService.insertAccommodationAndRoomInfo(accommodationsDto);
 		log.info("Received AccommodationsDto: {}", accommodationsDto);
 
-
 		if (accommodationId != null) {
 			// 객실정보를 저장하는 메서드 호출
 			log.info("accommodationId 이 아라는거 로그 출력");
@@ -58,19 +57,18 @@ public class AccommodationController {
 	
 	// 숙소 조회 리스트
 	@GetMapping("/accommodation/list")
-	private String accommodationsList(Model model) {
+	public String accommodationsList(Model model) {
 		log.info("숙소 리스트 페이지 진입!!!");
-	    List<AccommodationsVo> accommodations = null;
-	    try {
-	        accommodations = accommodationService.findAllAccommodations();
-	        log.info("Retrieved {} accommodations in the controller", accommodations.size());
-	    } catch (Exception e) {
-	        log.error("Failed to retrieve accommodations in the controller: {}", e.getMessage());
-	        // 예외 처리: 실패 시 메시지를 모델에 추가하거나 다른 처리를 수행할 수 있음
-	        model.addAttribute("error", "Failed to retrieve accommodations");
-	    }
+	    List<AccommodationsVo> accommodations = accommodationService.findAllAccommodations();
 	    model.addAttribute("accommodations", accommodations);   
 	    return "admin/accommodation/list";
 	}
+	
+//	@GetMapping("/accommodation/list")
+//	public ResponseEntity<List<AccommodationsVo>> getAllAccommodations() {
+//	    List<AccommodationsVo> accommodations = accommodationService.findAllAccommodations();
+//	    return ResponseEntity.ok(accommodations);
+//	}
+	
 
 }

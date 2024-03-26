@@ -36,19 +36,21 @@
 			
 			<tbody id="list">
 				<tr th:each="accommodation : ${accommodations}">
-					<td th:text=${accommodation.accommodationId}></td>
-					<td th:text=${accommodation.accommodationCate}></td>
-					<td th:text=${accommodation.anaaccommodationName}></td>
-					<td th:text=${accommodation.accommodationAdress}></td>
-					<td th:text=${accommodation.accommodationPhone}></td>
-					<td th:text=${accommodation.accommodationGrade}></td>
-					<td>
-					 <!-- 이미지 동적으로 설정
+					<td th:text="${accommodation.accommodationId}"></td>
+					<td th:text="${accommodation.accommodationCate}"></td>
+					<td th:text="${accommodation.accommodationName}"></td>
+					<td th:text="${accommodation.accommodationAdress}"></td>
+					<td th:text="${accommodation.accommodationPhone}"></td>
+					<td th:text="${accommodation.accommodationGrade}"></td>
+					<!--<td>
+					  이미지 동적으로 설정
 					<img class="img" th:src="@{${accommodations.amainimg}}" />
-					 --></td>
+					 </td>-->
 					  
 				</tr>
 			</tbody>
+			
+			
 		</table>
 	</section>
 

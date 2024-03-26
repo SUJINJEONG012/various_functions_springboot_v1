@@ -13,7 +13,7 @@ public class AccommodationsDto {
 
 	private Long accommodationId; // 숙소아이디
 	private String accommodationCate; //카테고리
-	private String anaaccommodationName; // 숙소이름
+	private String accommodationName; // 숙소이름
 	private String accommodationAdress; // 숙소주소
 	private String accommodationPhone; //숙소 전화번호
 	private int accommodationTotalroom; // 총객실수
@@ -21,5 +21,5 @@ public class AccommodationsDto {
 	private String accommodationDetail; //숙소설명
 	
 	//객실정보 연관관계 
-	private List<RoomInfoDto> roomInfoList;
+	//private List<RoomInfoDto> roomInfoList;
 }
