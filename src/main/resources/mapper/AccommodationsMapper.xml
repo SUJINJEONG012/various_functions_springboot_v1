@@ -31,6 +31,7 @@
 	SELECT
 	*
     FROM accommodations 
+   	ORDER BY accommodation_regdate DESC
    
 </select>
 

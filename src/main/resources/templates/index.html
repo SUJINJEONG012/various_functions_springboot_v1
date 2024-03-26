@@ -12,18 +12,17 @@
         </script>-->
     	</div>
     
-    
-		<h2>여기서 부터 일단 메인 콘텐츠</h2>
-		날짜
-
+   
 
 		<div class="">
-			<h4>게시판 글 메인에 출력하는거 테스트</h4>
+			<h4>숙소리스트 </h4>
 			<ul>
 				<li th:each="accommodation : ${accommodations}">
-					<h2 th:text="${accommodation.aname}"></h2>
-					<p th:text="${accommodation.agrade}"></p>
-					<p th:text="${accommodation.adetail}"></p>
+				
+					<h2 th:text="${accommodation.accommodationName}"></h2>
+					<p th:text="${accommodation.accommodationCate}"></p>
+					<p th:text="${accommodation.accommodationGrade + '등급'}"></p>
+					<p th:text="${accommodation.accommodationDetail}"></p>
 					 <!-- 이미지 동적으로 설정
 					<img th:src="@{${accommodation.amainimg}}" />
 					 --> 

@@ -38,11 +38,12 @@ public class MainController {
 		// 1. 게시글 가져오기
 		
 		// 2. 숙소리스트 가져오기
-		//List<AccommodationsVo> accommodations = accommodationService.getAllAwccommodations();
-		//model.addAttribute("accommodations",accommodations);
-
+		List<AccommodationsVo> accommodations = accommodationService.findAllAccommodations();
+		model.addAttribute("accommodations",accommodations);
+		
 		return "/index";
 	}
+	
 	
 	@GetMapping("/notice")
 	public String main() {

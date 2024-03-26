@@ -35,7 +35,8 @@
     
     
     <select id="findRoomsByAccommodationId" resultType="com.various_functions.admin.vo.RoomInfoVo">
-    select * from room_info;
+    select * from room_info
+    WHERE accommodation_id = #{accommodationId}
     </select>
     
 

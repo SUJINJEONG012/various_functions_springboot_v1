@@ -28,48 +28,23 @@
 						<th scope="col">이름</th>
 						<th scope="col">주소</th>
 						<th scope="col">휴대폰번호</th>
-						<th scope="col">성급</th>
-						<th scope="col">객실타입 </th>
+						<th scope="col">성급</th>			
 						<th scope="col">객실가격</th>
+						<th scope="col">객실타입</th>
 					</tr>
 				</thead>
 
 				<tbody th:each="accommodation : ${accommodations}">
+				<tr>
 						<td th:text="${accommodation.accommodationId}"></td>
 						<td th:text="${accommodation.accommodationCate}"></td>
 						<td th:text="${accommodation.accommodationName}"></td>
 						<td th:text="${accommodation.accommodationAdress}"></td>
 						<td th:text="${accommodation.accommodationPhone}"></td>
 						<td th:text="${accommodation.accommodationGrade}"></td>
-						<td th:text="${accommodation.accommodationGrade}"></td>
 						
-						
-						<!--<td>
-					  이미지 동적으로 설정
-						<img class="img" th:src="@{${accommodations.amainimg}}" />
-					 </td>-->
-
-					<td th:each="room : ${accommodation.rooms}">
-						<ul>
-								<li th:text="${room.roomRoomtype}"></li>
-								<li th:text="${roo    m.roomMinper}">만원</li>
-						</ul>
-					</td>
-					<td>
-						
-					</td>
-						
-					
-					<!--<td>
-							<ul>
-								<li th:each="room : ${accommodation.rooms}">
-									 객실 정보 출력 
-									<span th:text="${room.roomRoomtype}"></span>
-									 다른 객실 정보 출력 
-								</li>
-								
-							</ul>
-						</td>-->
+						<td th:each="room : ${accommodation.rooms}" th:text="${room.roomMinper + '만원'}"></td>
+						<td th:each="room : ${accommodation.rooms}" th:text="${room.roomRoomtype}"></td>
 						
 					</tr>
 				

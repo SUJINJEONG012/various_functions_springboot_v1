@@ -23,19 +23,18 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/admin")
 public class AccommodationController {
 
 	private final AccommodationService accommodationService;
 	private final RoomInfoService roomInfoService;
 
-	@GetMapping("/accommodation/write")
+	@GetMapping("/admin/accommodation/write")
 	public String accommodationSave(Model model) {
 		log.info("로그 메시지");
 		return "/admin/accommodation/write";
 	}
 
-	@PostMapping("/accommodation/save")
+	@PostMapping("/admin/accommodation/save")
 	public ResponseEntity<String> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationsDto accommodationsDto, 
 			@ModelAttribute RoomInfoDto roomInfoDto) {
 
@@ -53,15 +52,25 @@ public class AccommodationController {
 		}
 
 	}
-
+	
+	
+	@GetMapping("/admin/accommodation/list")
+	public String AdminAccommodationsList(Model model){
+		return accommodationsList(model,"admin/accommodation/list");
+	}
+	
+	@GetMapping("/accommodation/list")
+	public String UserAccommodationsList(Model model){
+		return accommodationsList(model,"accommodation/list");
+	}
+	
 	
 	// 숙소 조회 리스트
-	@GetMapping("/accommodation/list")
-	public String accommodationsList(Model model) {
+	public String accommodationsList(Model model, String viewName) {
 		log.info("숙소 리스트 페이지 진입!!!");
 	    List<AccommodationsVo> accommodations = accommodationService.findAllAccommodations();
 	    model.addAttribute("accommodations", accommodations);   
-	    return "admin/accommodation/list";
+	    return viewName;
 	}
 
 

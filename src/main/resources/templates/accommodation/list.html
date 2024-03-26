@@ -10,19 +10,21 @@
 
 <th:block layout:fragment="content">
 
-	<div >
-		<ul>
-			<li th:each="accommodation : ${accommodations}">
-				<p th:text="${accommodation.aname}"></p>
-				<p th:text="${accommodation.agrade}"></p>
-				<p th:text="${accommodation.adetail}"></p>
-				 <!-- 이미지 동적으로 설정 
-				 <img th:src="@{${accommodation.amainimg}}" />
-				 --> 
+	<div class="">
+			<h4>숙소리스트 </h4>
+			<ul>
+				<li th:each="accommodation : ${accommodations}">
+				
+					<h2 th:text="${accommodation.accommodationName}"></h2>
+					<p th:text="${accommodation.accommodationCate}"></p>
+					<p th:text="${accommodation.accommodationGrade + '등급'}"></p>
+					<p th:text="${accommodation.accommodationDetail}"></p>
+					 <!-- 이미지 동적으로 설정
+					<img th:src="@{${accommodation.amainimg}}" />
+					 --> 
 
-			</li>
-		</ul>
-
-	</div>
+				</li>
+			</ul>
+		</div>
 </th:block>
 </html>
