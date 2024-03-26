@@ -16,7 +16,7 @@
     ) 
     VALUES (
     #{accommodationCate}, 
-    #{anaaccommodationName}, 
+    #{accommodationName}, 
     #{accommodationAdress}, 
     #{accommodationPhone}, 
     #{accommodationTotalroom}, 
