@@ -33,6 +33,11 @@
         )
     </insert>
     
+    
+    <select id="findRoomsByAccommodationId" resultType="com.various_functions.admin.vo.RoomInfoVo">
+    select * from room_info;
+    </select>
+    
 
 
 </mapper>

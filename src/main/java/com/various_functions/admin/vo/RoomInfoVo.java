@@ -24,5 +24,5 @@ public class RoomInfoVo {
 	private int roomOff; //비수기 
 
 	private Long accommodationId; // 숙소아이디 
-	private List<RoomInfoVo> roominfoVo;
+	private AccommodationsVo accommodation;
 }

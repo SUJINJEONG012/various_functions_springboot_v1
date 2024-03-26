@@ -1,6 +1,8 @@
 package com.various_functions.admin.vo;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,5 +22,7 @@ public class AccommodationsVo {
 	private String accommodationGrade; //숙소등급
 	private String accommodationDetail ; //숙소설명
 	private LocalDateTime accommodationRegdate;
+	
+	private List<RoomInfoVo> rooms; // 객실 정보 리스트
 
 }

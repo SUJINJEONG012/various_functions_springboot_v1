@@ -63,12 +63,6 @@ public class AccommodationController {
 	    model.addAttribute("accommodations", accommodations);   
 	    return "admin/accommodation/list";
 	}
-	
-//	@GetMapping("/accommodation/list")
-//	public ResponseEntity<List<AccommodationsVo>> getAllAccommodations() {
-//	    List<AccommodationsVo> accommodations = accommodationService.findAllAccommodations();
-//	    return ResponseEntity.ok(accommodations);
-//	}
-	
+
 
 }

@@ -27,7 +27,7 @@
 
 
 <!-- 숙소등록 리스트  -->
-<select id="findAllAccommodations" resultType="com.various_functions.admin.dto.AccommodationsDto">
+<select id="findAllAccommodations" resultType="com.various_functions.admin.vo.AccommodationsVo">
 	SELECT
 	*
     FROM accommodations 
