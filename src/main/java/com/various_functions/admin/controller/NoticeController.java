@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,9 @@ import com.various_functions.admin.dto.NoticeFileDto;
 import com.various_functions.admin.service.NoticeFileService;
 import com.various_functions.admin.service.NoticeService;
 import com.various_functions.admin.vo.NoticeVo;
+import com.various_functions.service.MemberService;
 import com.various_functions.utils.FileUtils;
+import com.various_functions.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +32,7 @@ public class NoticeController {
 	private final NoticeService noticeService;
 	private final NoticeFileService noticeFileService;
 	private final FileUtils fileUtils;
+	private final MemberService memberService;
 
 	// 게시글 작성 페이지
 	@GetMapping("/admin/notice/write")
@@ -42,7 +47,11 @@ public class NoticeController {
 
 	// 공지사항작성
 	@PostMapping("/admin/notice/save")
-	public String saveNotice(final NoticeDto noticeDto, Model model) {
+	public String saveNotice(final NoticeDto noticeDto, Model model,HttpSession session) {
+		MemberVo member = (MemberVo) session.getAttribute("loginMember");
+		if(member == null) {
+			return "redirect:/member/login";
+		}
 		Long noticeId = noticeService.noticeSave(noticeDto);
 
 		// 다중파일 업로드시
@@ -78,34 +87,21 @@ public class NoticeController {
 		model.addAttribute("notices", notices);
 		return viewName;
 	}
+	
+	
+	
 
 	@GetMapping("/notice/view")
 	private String userNoticeView(@RequestParam Long noticeId, Model model, HttpSession session) {
 		log.info("유저페이지 상세보기 공지사항");
-
-		// 세션에서 현재 사용자 정보를 가져옵니다.
-		String loginId = (String) session.getAttribute("loginId");
-		log.info("세션에서 현재 사용자 정보를 가져옵니다." + loginId); // null로 나옴
-		// 게시물 상세 정보를 가져옵니다.
-		NoticeVo notice = noticeService.findById(noticeId);
-		model.addAttribute("notice", notice);
-
-		// 게시물을 작성한 사용자의 이름을 가져옵니다.
-		String memberName = notice.getWriter();
-		log.info("게시물을 작성한 사용자의 이름을 가져오기 : " + memberName);
-
-		// 현재 로그인한 사용자와 게시물 작성자의 이름이 동일한지 확인합니다.
-		boolean isCurrentUserAuthor = loginId != null && loginId.equals(memberName);
-		model.addAttribute("isCurrentUserAuthor", isCurrentUserAuthor);
 		return NoticeView(noticeId, model, "/notice/view");
 	}
 
+	
 	@GetMapping("/admin/notice/view")
 	private String adminNoticeView(@RequestParam Long noticeId, Model model) {
 		return NoticeView(noticeId, model, "/admin/notice/view");
 	}
-
-	
 
 	// 게시글 상세 페이지
 	public String NoticeView(@RequestParam final Long noticeId, Model model, String viewName) {
