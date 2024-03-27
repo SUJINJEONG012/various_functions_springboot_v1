@@ -30,6 +30,37 @@
 				</li>
 			</ul>
 		</div>
+		
+		
+		
+		<table class="tb tb_col">
+		<thead>
+			<tr>
+				<th scope="col">번호</th>
+				<th scope="col">제목</th>
+				<th scope="col">작성자</th>
+				<th scope="col">등록일</th>
+				<th scope="col">조회</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<!-- 공지사항 데이터를 반복하면서 테이블에 출력 -->
+			<tr th:if="${not #lists.isEmpty(recentnotices)}" th:each="notice : ${recentnotices}">
+
+				<td th:text="${notice.noticeYn ? '공지글' : notice.noticeId}"></td>
+				
+				<td><a th:href="@{/notice/view(noticeId=${notice.noticeId})}" th:text="${notice.title}"></a></td>
+				<td th:text="${notice.writer}"></td>
+				<td th:text="${notice.createdDate}"></td>
+				<td th:text="${notice.viewCnt}"></td>
+			</tr>
+			<tr th:if="${#lists.isEmpty(recentnotices)}">
+				<td colspan="5">게시물이 없습니다.</td>
+			</tr>
+		</tbody>
+		
+	</table>
 
 	</th:block>
 	

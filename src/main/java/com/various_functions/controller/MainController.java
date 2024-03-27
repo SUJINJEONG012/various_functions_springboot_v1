@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.service.NoticeService;
 import com.various_functions.admin.vo.AccommodationsVo;
+import com.various_functions.admin.vo.NoticeVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,6 +37,9 @@ public class MainController {
 			session.removeAttribute("errorMessage"); // 세션에서 메시지 제거
 		}
 		// 1. 게시글 가져오기
+		
+		List<NoticeVo> recentnotices = noticeService.findRecentNotices();
+		model.addAttribute("recentnotices", recentnotices);
 		
 		// 2. 숙소리스트 가져오기
 		List<AccommodationsVo> accommodations = accommodationService.findAllAccommodations();

@@ -54,6 +54,11 @@ public class NoticeService {
 		return null;
 	}
 	
+	// 메인에 최근게시물 5개 출력
+	public List<NoticeVo> findRecentNotices(){
+		return noticeMapper.findRecentNotices();
+	}
+	
 	
 	
 }

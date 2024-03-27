@@ -99,6 +99,12 @@
 		login_id = #{loginId}
 	</select>
 
+	<!-- 최근게시물 5개 -->
+	<select id="findRecentNotices" resultType="com.various_functions.admin.vo.NoticeVo">
+		select * from notice
+		order by created_date desc
+		limit 5
+	</select>
 	
 	
 	<!-- 게시글 수 카운팅 -->

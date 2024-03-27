@@ -36,6 +36,9 @@ public interface NoticeMapper {
 	
 	List<NoticeVo> findNoticeUserById();
 	
+	/* 최근 게시물 5개 */
+	List<NoticeVo> findRecentNotices();
+	
 	// 게시글 수 
 	//int count(SearchDto searchDto);
 	
