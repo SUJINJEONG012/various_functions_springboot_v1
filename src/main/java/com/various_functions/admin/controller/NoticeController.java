@@ -1,11 +1,11 @@
 package com.various_functions.admin.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +48,13 @@ public class NoticeController {
 	// 공지사항작성
 	@PostMapping("/admin/notice/save")
 	public String saveNotice(final NoticeDto noticeDto, Model model,HttpSession session) {
+		// 현재 시간을 가져와서 포맷팅하여 로그로 출력
+	    LocalDateTime currentTime = LocalDateTime.now();
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	    String formattedTime = currentTime.format(formatter);
+		log.info("글작성시 시간 체크 : " +formattedTime);
+		
+		
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
 		if(member == null) {
 			return "redirect:/member/login";
