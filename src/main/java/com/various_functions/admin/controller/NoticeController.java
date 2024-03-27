@@ -52,7 +52,7 @@ public class NoticeController {
 	    LocalDateTime currentTime = LocalDateTime.now();
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	    String formattedTime = currentTime.format(formatter);
-		log.info("글작성시 시간 체크 : " +formattedTime);
+		
 		
 		
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
@@ -67,6 +67,7 @@ public class NoticeController {
 
 		NoticeFileDto file = fileUtils.uploadFile(noticeDto.getFile());
 		noticeFileService.saveFile(noticeId, file);
+		log.info("글작성시 시간 체크 : " +formattedTime);
 		return "redirect:/admin/notice/list";
 	}
 
