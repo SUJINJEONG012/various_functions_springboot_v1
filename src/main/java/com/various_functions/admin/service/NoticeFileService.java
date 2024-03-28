@@ -30,6 +30,7 @@ public class NoticeFileService {
         noticeFileMapper.noticeFilesaveAll(files);
     }
 
+	// 파일저장
 	@Transactional
 	public void saveFile(final Long noticeId, final NoticeFileDto file) {
 		if(file == null) {

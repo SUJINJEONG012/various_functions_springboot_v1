@@ -24,16 +24,18 @@ public class AccommodationService {
 	private final RoomInfoMapper roomInfoMapper;
 	private final RoomInfoService roomInfoService;
 
+	// 숙소저장
 	@Transactional
 	public Long insertAccommodationAndRoomInfo(AccommodationsDto accommodationsDto) {
 
 		log.info("insertAccommodation 메서드 진입 ");
-
 		// 숙소정보저장
 		accommodationsMapper.insertAccommodation(accommodationsDto);
 		return accommodationsDto.getAccommodationId();
 	}
+	
 
+    // 게시글 리스트
 	public List<AccommodationsVo> findAllAccommodations() {
 		
 		log.info("서비스단 !!!!리스트 조회");

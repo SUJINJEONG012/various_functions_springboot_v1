@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.dto.NoticeFileDto;
@@ -69,13 +70,11 @@ public class NoticeController {
 		noticeFileService.saveFile(noticeId, file);
 		log.info("글작성시 시간 체크 : " +formattedTime);
 		return "redirect:/admin/notice/list";
+		
+	
+		
 	}
 
-//	@PostMapping("/admin/notice/save")
-//	public String saveNotice(final NoticeDto noticeDto) {
-//		noticeService.noticeSave(noticeDto);
-//		return "redirect:/admin/notice/list";
-//	}
 
 	// 관리자 페이지 리스트페이지
 	@GetMapping("/admin/notice/list")

@@ -2,6 +2,7 @@ package com.various_functions.admin.controller;
 
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -50,6 +51,9 @@ public class AccommodationController {
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("숙소 정보 저장에 실패했습니다.");
 		}
+		
+		// 파일등록
+		//List<AccommodationsFileDto> files = 
 
 	}
 	
