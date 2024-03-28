@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 public class NoticeFileDto {
 
-	private long fileId; // 파일번호
-	private long noticeId; // 게시글번호 
+	private Long fileId; // 파일번호
+	private Long noticeId; // 게시글번호 
 	private String originalName; // 원본파일명
 	private String saveName; //저장 파일명
 	private int size; //사이즈

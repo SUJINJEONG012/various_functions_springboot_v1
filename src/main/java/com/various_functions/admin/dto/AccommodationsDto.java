@@ -1,10 +1,16 @@
 package com.various_functions.admin.dto;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 @Data
 @AllArgsConstructor
@@ -22,4 +28,8 @@ public class AccommodationsDto {
 	
 	//객실정보 연관관계 
 	private List<RoomInfoDto> roomInfoList;
+	
+	//파일추가 연관관계<
+	private List<MultipartFile> files = new ArrayList<>();
+	private MultipartFile file;
 }
