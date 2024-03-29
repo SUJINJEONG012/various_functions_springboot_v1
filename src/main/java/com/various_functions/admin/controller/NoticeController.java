@@ -2,6 +2,7 @@ package com.various_functions.admin.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.dto.NoticeFileDto;
@@ -53,8 +53,7 @@ public class NoticeController {
 	    LocalDateTime currentTime = LocalDateTime.now();
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	    String formattedTime = currentTime.format(formatter);
-		
-		
+	
 		
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
 		if(member == null) {
@@ -113,7 +112,16 @@ public class NoticeController {
 	// 게시글 상세 페이지
 	public String NoticeView(@RequestParam final Long noticeId, Model model, String viewName) {
 		NoticeVo notice = noticeService.findById(noticeId);
+		List<NoticeFileDto> files = noticeFileService.findFilesByNoticeId(noticeId);
+		
+		// 이미지 파일의 로컬 경로를 생성하여 모델에 추가
+		List<String> imagePaths = new ArrayList<>();
+		for(NoticeFileDto file: files) {
+			String imagePath ="/images/" + file.getSaveName();
+			imagePaths.add(imagePath);
+		}
 		model.addAttribute("notice", notice);
+		model.addAttribute("imagePaths", imagePaths);
 		return viewName;
 	}
 

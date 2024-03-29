@@ -13,4 +13,7 @@ public interface NoticeFileMapper {
 	void noticeFilesaveAll(List<NoticeFileDto> noticeFiles);
 	void noticeFileSave(NoticeFileDto noticeFile);
 	
+	// 이미지 데이터 반환
+	List<NoticeFileDto> findFilesByNoticeId(Long noticeId);
+	
 }

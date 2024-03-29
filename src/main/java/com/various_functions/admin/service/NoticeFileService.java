@@ -1,6 +1,7 @@
 package com.various_functions.admin.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -40,7 +41,12 @@ public class NoticeFileService {
 		noticeFileMapper.noticeFileSave(file);
 	}
 	
+	// 공지사항 id를 기반으로 파일정보 조회
+	public List<NoticeFileDto> findFilesByNoticeId(Long noticeId){
+		return noticeFileMapper.findFilesByNoticeId(noticeId);
+	}
+	
+	
+	
 
-	
-	
 }

@@ -46,17 +46,34 @@
 						<th scope="row">내용</th>
 						<td colspan="3">[[${notice.content}]]</td>
 					</tr>
-					
-					
+
+					<!-- 파일 정보가 있는 경우에만 표시 -->
+					<tr th:if="${not #lists.isEmpty(imagePaths)}">
+						<th scope="row">파일</th>
+						<td colspan="3">
+							<div th:each="imagePath : ${imagePaths}">
+								<!-- 이미지 파일을 클릭하면 새로운 탭에서 이미지를 열도록 설정 -->
+								<a th:href="@{'/download/' + ${imagePath}}" target="_blank">
+									<img th:src="@{'/images/' + ${imagePath}}" th:alt="Image">
+								</a>
+							</div>
+						</td>
+					</tr>
+					<!-- 파일 정보가 없는 경우 -->
+					<tr th:if="${#lists.isEmpty(imagePaths)}">
+						<th scope="row">파일</th>
+						<td colspan="3">첨부된 파일이 없습니다.</td>
+					</tr>
 
 				</tbody>
 			</table>
-			
+
 			<p class="btn_set">
-                    <a th:href="@{/notice/write( id=${notice.noticeId} )}" class="btns btn_bdr4 btn_mid">수정</a>
-                    <button type="button" class="btns btn_bdr1 btn_mid">삭제</button>
-                    <a th:href="@{/notice/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
-                </p>
+				<a th:href="@{/notice/write( id=${notice.noticeId} )}"
+					class="btns btn_bdr4 btn_mid">수정</a>
+				<button type="button" class="btns btn_bdr1 btn_mid">삭제</button>
+				<a th:href="@{/notice/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
+			</p>
 		</section>
 	</div>
 

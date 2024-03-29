@@ -19,7 +19,10 @@ import com.various_functions.admin.dto.NoticeFileDto;
 public class FileUtils {
 
 	//private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
-	private final String uploadPath = Paths.get("/","Users", "jeongsujin", "upload").toString();
+	//private final String uploadPath = Paths.get("/","Users", "jeongsujin", "upload").toString();
+	
+	private final String uploadPath = Paths.get("src", "main", "resources", "static", "images").toString();
+
 	
 	/**
      * 다중 파일 업로드
@@ -34,6 +37,7 @@ public class FileUtils {
             if (multipartFile.isEmpty()) {
                 continue;
             }
+            
             filesff.add(uploadFile(multipartFile));
         }
         return filesff;
@@ -86,30 +90,24 @@ public class FileUtils {
      * 업로드 경로 반환
      * @return 업로드 경로
      */
-    private String getUploadPath() {
-        return makeDirectories(uploadPath);
+    private String getUploadPath(final String addPath) {
+    	return makeDirectories(uploadPath, addPath);
     }
 
-    /**
-     * 업로드 경로 반환
-     * @param addPath - 추가 경로
-     * @return 업로드 경로
-     */
-    private String getUploadPath(final String addPath) {
-        return makeDirectories(uploadPath + File.separator + addPath);
-    }
+
 
     /**
      * 업로드 폴더(디렉터리) 생성
      * @param path - 업로드 경로
      * @return 업로드 경로
      */
-    private String makeDirectories(final String path) {
-        File dir = new File(path);
+    private String makeDirectories(final String path, final String addPath) {
+    	String fullPath = Paths.get(path, addPath).toString();
+    	File dir = new File(path);
         if (dir.exists() == false) {
             dir.mkdirs();
         }
-        return dir.getPath();
+        return fullPath;
     }
 
 

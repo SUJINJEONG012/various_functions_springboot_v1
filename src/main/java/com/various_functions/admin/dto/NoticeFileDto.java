@@ -13,7 +13,9 @@ public class NoticeFileDto {
 	private int size; //사이즈
 	
 	@Builder
-	public NoticeFileDto(String originalName, String saveName, int size) {
+	public NoticeFileDto(Long fileId, Long noticeId, String originalName, String saveName, int size) {
+		this.fileId = fileId;
+		this.noticeId= noticeId;
 		this.originalName = originalName;
 		this.saveName = saveName;
 		this.size = size;
