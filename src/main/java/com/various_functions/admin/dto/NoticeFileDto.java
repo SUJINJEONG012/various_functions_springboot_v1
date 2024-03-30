@@ -1,5 +1,7 @@
 package com.various_functions.admin.dto;
 
+import java.util.List;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -28,5 +30,7 @@ public class NoticeFileDto {
 	public void setNoticeId(Long noticeId) {
 		this.noticeId = noticeId;
 	}
+	
+	
 	
 }

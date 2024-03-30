@@ -1,6 +1,6 @@
 package com.various_functions.admin.controller;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.dto.NoticeFileDto;
 import com.various_functions.admin.service.NoticeFileService;
 import com.various_functions.admin.service.NoticeService;
+import com.various_functions.admin.vo.NoticeFileVo;
 import com.various_functions.admin.vo.NoticeVo;
 import com.various_functions.service.MemberService;
 import com.various_functions.utils.FileUtils;
@@ -49,10 +50,6 @@ public class NoticeController {
 	// 공지사항작성
 	@PostMapping("/admin/notice/save")
 	public String saveNotice(final NoticeDto noticeDto, Model model,HttpSession session) {
-		// 현재 시간을 가져와서 포맷팅하여 로그로 출력
-	    LocalDateTime currentTime = LocalDateTime.now();
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-	    String formattedTime = currentTime.format(formatter);
 	
 		
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
@@ -61,16 +58,12 @@ public class NoticeController {
 		}
 		Long noticeId = noticeService.noticeSave(noticeDto);
 
-		// 다중파일 업로드시
-		// List<NoticeFileDto> files = fileUtils.uploadFiles(noticeDto.getFilesffxx());
-		// noticeFileService.saveFile(noticeId, files); // 업로르도딘 파일을 db에 저장
-
+		// 단일 파일 업로드시에도 파일을 리스트에 담아서 전달
 		NoticeFileDto file = fileUtils.uploadFile(noticeDto.getFile());
-		noticeFileService.saveFile(noticeId, file);
-		log.info("글작성시 시간 체크 : " +formattedTime);
+		List<NoticeFileDto> fileList = new ArrayList<>();
+		fileList.add(file);
+		noticeFileService.saveFile(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
 		return "redirect:/admin/notice/list";
-		
-	
 		
 	}
 
@@ -103,7 +96,6 @@ public class NoticeController {
 		return NoticeView(noticeId, model, "/notice/view");
 	}
 
-	
 	@GetMapping("/admin/notice/view")
 	private String adminNoticeView(@RequestParam Long noticeId, Model model) {
 		return NoticeView(noticeId, model, "/admin/notice/view");
@@ -111,27 +103,18 @@ public class NoticeController {
 
 	// 게시글 상세 페이지
 	public String NoticeView(@RequestParam final Long noticeId, Model model, String viewName) {
+		
 		NoticeVo notice = noticeService.findById(noticeId);
-		List<NoticeFileDto> files = noticeFileService.findFilesByNoticeId(noticeId);
 		
-		// 이미지 파일을 서버에 저장하는 경로
-		String uploadDirectory = "file:////Users/jeongsujin/upload/240329/";
-		
-		// 파일을 서버에 저장한 후, 이미지 파일의 경로를 모델에 추가
-	    List<String> imagePaths = new ArrayList<>();
-	    for(NoticeFileDto file: files) {
-	        String saveName = file.getSaveName();
-	        // 실제 파일을 저장하는 경로
-	        String filePath = uploadDirectory + saveName;
-	        // 해당 파일 경로를 모델에 추가
-	        model.addAttribute("imagePath_" + saveName, filePath);
-	        // 이미지 파일의 경로를 리스트에 추가
-	        imagePaths.add(filePath);
-	    }
+		//여기에 파일저장도포함되어있어야함
+		List<NoticeFileVo> files = noticeFileService.findFilesByNoticeId(noticeId);
+		log.info("공지사항 저장되는 부분 데이터 확인 files : {}" , files);
+		// 파일이 저장된 경로
+        String uploadPath = fileUtils.getUploadPath(noticeId.toString());
 
-	    
+		model.addAttribute("uploadPath", uploadPath);
 		model.addAttribute("notice", notice);
-		model.addAttribute("imagePaths", imagePaths);
+		model.addAttribute("files", files);
 		return viewName;
 	}
 

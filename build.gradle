@@ -30,7 +30,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	// Spring Web MVC 및 multipartResolver 관련 의존성
 	implementation 'commons-fileupload:commons-fileupload:1.4'
-
+ 	//파일 반환 해주기 위한 라이브러리
+ 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' /* Thymeleaf Layout */

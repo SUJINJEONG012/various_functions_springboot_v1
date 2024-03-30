@@ -48,22 +48,30 @@
 					</tr>
 
 					<!-- 파일 정보가 있는 경우에만 표시 -->
-					<tr th:if="${not #lists.isEmpty(imagePaths)}">
+					<tr th:if="${not #lists.isEmpty(files)}">
 						<th scope="row">파일</th>
 						<td colspan="3">
-							<div th:each="imagePath : ${imagePaths}">
+							<div th:each="file : ${files}">
 								<!-- 이미지 파일을 클릭하면 새로운 탭에서 이미지를 열도록 설정 -->
-				
-									<img th:src="${imagePath}" th:alt="Image" width="300" height="200">
-								
+								<span
+									th:if="${file.originalName.endsWith('.jpg') or file.originalName.endsWith('.jpeg') or file.originalName.endsWith('.png') or file.originalName.endsWith('.gif')}">
+									<!-- <img
+									th:src="@{'/Users/jeongsujin/upload/' + ${today} + '/' + ${file.saveName}}"
+									th:alt="${file.originalName}" />  -->
+									<img
+									th:src="@{/admin/notice/{noticeId}/files/{filename:.+}/view}"
+									th:alt="${file.originalName}" />
+
+								</span>
 							</div>
 						</td>
 					</tr>
 					<!-- 파일 정보가 없는 경우 -->
-					<tr th:if="${#lists.isEmpty(imagePaths)}">
+					<tr th:if="${#lists.isEmpty(files)}">
 						<th scope="row">파일</th>
 						<td colspan="3">첨부된 파일이 없습니다.</td>
 					</tr>
+
 
 				</tbody>
 			</table>

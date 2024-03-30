@@ -21,8 +21,8 @@ public class FileUtils {
 	//private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
 	//private final String uploadPath = Paths.get("/","Users", "jeongsujin", "upload").toString();
 	
-	private final String uploadPath = Paths.get("src", "main", "resources", "static", "images").toString();
-
+	//private final String uploadPath = Paths.get("src", "main", "resources", "static", "images").toString();
+	private final String uploadPath = "/Users/jeongsujin/upload/";
 	
 	/**
      * 다중 파일 업로드
@@ -52,14 +52,13 @@ public class FileUtils {
      * @return DB에 저장할 파일 정보
      */
     public NoticeFileDto uploadFile(final MultipartFile multipartFile) {
-
         if (multipartFile.isEmpty()) {
             return null;
         }
 
         String saveName = generateSaveFilename(multipartFile.getOriginalFilename());
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
-        String uploadPath = getUploadPath(today) + File.separator + saveName;
+        String uploadPath = getUploadPath(today) + File.separator + saveName; // 변경된 부분
         File uploadFile = new File(uploadPath);
 
         try {
@@ -81,7 +80,7 @@ public class FileUtils {
      * @param filename 원본 파일명
      * @return 디스크에 저장할 파일명
      */
-    private String generateSaveFilename(final String filename) {
+    public String generateSaveFilename(final String filename) {
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         String extension = StringUtils.getFilenameExtension(filename);
         return uuid + "." + extension;
@@ -91,25 +90,32 @@ public class FileUtils {
      * 업로드 경로 반환
      * @return 업로드 경로
      */
-    private String getUploadPath(final String addPath) {
-    	return makeDirectories(uploadPath, addPath);
+    public String getUploadPath() {
+        return makeDirectories(uploadPath);
     }
 
+    /**
+     * 업로드 경로 반환
+     * @param addPath - 추가 경로
+     * @return 업로드 경로
+     */
+    public String getUploadPath(final String addPath) {
+        return makeDirectories(uploadPath + File.separator + addPath);
+    }
 
 
     /**
      * 업로드 폴더(디렉터리) 생성
      * @param path - 업로드 경로
      * @return 업로드 경로
+     * 디렉토리가 존재하는지 유무를반환하는 exists()메서드를 활용하여 if문 작성
      */
-    private String makeDirectories(final String path, final String addPath) {
-    	String fullPath = Paths.get(path, addPath).toString();
-    	File dir = new File(path);
+    private String makeDirectories(final String path) {
+        File dir = new File(path);
         if (dir.exists() == false) {
             dir.mkdirs();
         }
-        return fullPath;
+        return dir.getPath();
     }
-
 
 }

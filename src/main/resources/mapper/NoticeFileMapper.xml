@@ -15,12 +15,12 @@
 		created_date,
 		deleted_date
 	</sql>
-	
+
 	<!-- 파일정보 저장 -->
-	<insert id="noticeFilesaveAll" parameterType="list">
+	<insert id="saveAll" parameterType="list">
 		insert into notice_file (
-		<include refid="fileColumns"/>
-		)values 
+		<include refid="fileColumns" />
+		)values
 		<foreach item="file" collection="list" separator=",">
 			(
 			#{file.fileId},
@@ -34,29 +34,61 @@
 			)
 		</foreach>
 	</insert>
-	
+
 	<!-- 파일저장 -->
-	<insert id="noticeFileSave" parameterType="com.various_functions.admin.dto.NoticeFileDto">
-	insert into notice_file (
-		<include refid="fileColumns"/>
+	<insert id="noticeFileSave"
+		parameterType="com.various_functions.admin.dto.NoticeFileDto">
+		insert into notice_file (
+		<include refid="fileColumns" />
 		)values (
-			#{fileId},
-			#{noticeId},
-			#{originalName},
-			#{saveName},
-			#{size},
-			0,
-			now(),
-			null
+		#{fileId},
+		#{noticeId},
+		#{originalName},
+		#{saveName},
+		#{size},
+		0,
+		now(),
+		null
 		)
 	</insert>
-	
+
 	<!-- 공지사항 id를 기반으로 파일정보 조회 -->
-	<select id="findFilesByNoticeId" parameterType="Long" resultType="com.various_functions.admin.dto.NoticeFileDto">
-		select file_id, notice_id, original_name, save_name, size
+	<select id="findFilesByNoticeId" parameterType="Long"
+		resultType="com.various_functions.admin.vo.NoticeFileVo">
+		select
+		<include refid="fileColumns" />
 		from notice_file
 		where notice_id= #{noticeId}
 	</select>
-	
+
+	<!-- 파일리스트 조회 -->
+	<select id="findAllByIds" parameterType="list"
+		resultType="com.various_functions.admin.vo.NoticeFileVo">
+		select
+		<include refid="fileColumns" />
+		from notice_file
+		where delete_yn=0
+		and file_id in
+		<foreach item="noticeId" collection="list" open="("
+			separator="," close=")">
+		</foreach>
+		order by file_id
+	</select>
+
+	<!-- 파일삭제 -->
+	<delete id="deleteAllByIds" parameterType="list">
+		update notice_file
+		set
+		delete_yn =1, deleted_date= now()
+		where
+		file_id in
+		<foreach item="fileId" collection="list" open="("
+			separator="," close=")">
+			#{fileId}
+		</foreach>
+	</delete>
+
+
+
 
 </mapper>
