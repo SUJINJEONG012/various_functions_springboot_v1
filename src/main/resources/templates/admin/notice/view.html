@@ -53,9 +53,9 @@
 						<td colspan="3">
 							<div th:each="imagePath : ${imagePaths}">
 								<!-- 이미지 파일을 클릭하면 새로운 탭에서 이미지를 열도록 설정 -->
-								<a th:href="@{'/download/' + ${imagePath}}" target="_blank">
-									<img th:src="@{'/images/' + ${imagePath}}" th:alt="Image">
-								</a>
+				
+									<img th:src="${imagePath}" th:alt="Image" width="300" height="200">
+								
 							</div>
 						</td>
 					</tr>

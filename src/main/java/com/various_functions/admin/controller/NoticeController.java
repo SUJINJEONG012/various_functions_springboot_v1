@@ -114,12 +114,22 @@ public class NoticeController {
 		NoticeVo notice = noticeService.findById(noticeId);
 		List<NoticeFileDto> files = noticeFileService.findFilesByNoticeId(noticeId);
 		
-		// 이미지 파일의 로컬 경로를 생성하여 모델에 추가
-		List<String> imagePaths = new ArrayList<>();
-		for(NoticeFileDto file: files) {
-			String imagePath ="/images/" + file.getSaveName();
-			imagePaths.add(imagePath);
-		}
+		// 이미지 파일을 서버에 저장하는 경로
+		String uploadDirectory = "file:////Users/jeongsujin/upload/240329/";
+		
+		// 파일을 서버에 저장한 후, 이미지 파일의 경로를 모델에 추가
+	    List<String> imagePaths = new ArrayList<>();
+	    for(NoticeFileDto file: files) {
+	        String saveName = file.getSaveName();
+	        // 실제 파일을 저장하는 경로
+	        String filePath = uploadDirectory + saveName;
+	        // 해당 파일 경로를 모델에 추가
+	        model.addAttribute("imagePath_" + saveName, filePath);
+	        // 이미지 파일의 경로를 리스트에 추가
+	        imagePaths.add(filePath);
+	    }
+
+	    
 		model.addAttribute("notice", notice);
 		model.addAttribute("imagePaths", imagePaths);
 		return viewName;
