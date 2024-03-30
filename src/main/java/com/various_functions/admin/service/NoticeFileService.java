@@ -1,16 +1,21 @@
 package com.various_functions.admin.service;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.various_functions.admin.dto.NoticeFileDto;
 import com.various_functions.admin.mapper.NoticeFileMapper;
 import com.various_functions.admin.vo.NoticeFileVo;
+import com.various_functions.utils.FileUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class NoticeFileService {
 
 	private final NoticeFileMapper noticeFileMapper;
+	private final FileUtils fileUtils;
 
 	// 파일저장
 	@Transactional
@@ -52,6 +58,15 @@ public class NoticeFileService {
         }
         return noticeFileMapper.findAllByIds(ids);
     }
+    
+    public ResponseEntity<File> loadFile(String fileName) {
+        // 해당 파일을 로드하고, Resource로 변환하여 ResponseEntity에 담아 반환합니다.
+    	File file = new File("files/" + fileName);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
+                .body(file);
+    }
+    
 	
 	/*
 	 * 파일 삭제 
