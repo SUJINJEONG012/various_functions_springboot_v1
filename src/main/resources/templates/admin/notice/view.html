@@ -48,28 +48,28 @@
 					</tr>
 
 					<!-- 파일 정보가 있는 경우에만 표시 -->
-					<tr th:if="${not #lists.isEmpty(files)}">
+					<<!-- tr th:if="${not #lists.isEmpty(files)}">
 						<th scope="row">파일</th>
 						<td colspan="3">
 							<div th:each="file : ${files}">
-								<!-- 이미지 파일을 클릭하면 새로운 탭에서 이미지를 열도록 설정 -->
 								<span
 									th:if="${file.originalName.endsWith('.jpg') or file.originalName.endsWith('.jpeg') or file.originalName.endsWith('.png') or file.originalName.endsWith('.gif')}">
-									<!-- <img
-									th:src="@{'/Users/jeongsujin/upload/' + ${today} + '/' + ${file.saveName}}"
-									th:alt="${file.originalName}" />  -->
-									<img
-									th:src="@{/admin/notice/{noticeId}/files/{filename:.+}/view}"
-									th:alt="${file.originalName}" />
-
+									
+									<img th:src="@{uploadPath}" th:alt="Image" />
 								</span>
 							</div>
 						</td>
-					</tr>
+					</tr> -->
 					<!-- 파일 정보가 없는 경우 -->
-					<tr th:if="${#lists.isEmpty(files)}">
+					<!-- <tr th:if="${#lists.isEmpty(files)}">
 						<th scope="row">파일</th>
 						<td colspan="3">첨부된 파일이 없습니다.</td>
+					</tr> -->
+					
+					<tr>
+						<th scope="row">첨부파일</th>
+						<td id="files" colspan="3">
+						</td>		
 					</tr>
 
 
@@ -93,7 +93,38 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		/*<![CDATA[*/
-
+			window.onload = () => {
+				findAllFile();
+			}
+			
+			// 전체파일 조회
+			function findAllFile(){
+				//1. api 호출 
+				const noticeId = [[ ${notice.noticeId}]];
+				console.log(noticeId);
+				const response = getJson(`/admin/notice/${noticeId}/files`);
+				
+				//2. 로직종료
+				if(!response.length){
+					return false;
+				}
+				
+				//3. 파일 영역 추가
+				let fileHtml = '<div class="file_down"><div class="cont">';
+				response.forEach(row =>{
+					fileHtml += `
+					<a href="javascript:alert('준비중입니다.');" 
+					<span class="icons">
+					<i class="fas fa-folder-open"></i>
+					</span>
+					${row.originalName}
+					</a>`;
+				})
+				fileHtml += '</div></div>';
+				
+				//4. 파일 html 렌더링
+				document.getElementById('files').innerHTML = fileHtml;
+			}
 		/*]]>*/
 	</script>
 </th:block>

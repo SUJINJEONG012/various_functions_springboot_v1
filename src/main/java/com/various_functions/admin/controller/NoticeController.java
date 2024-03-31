@@ -1,15 +1,18 @@
 package com.various_functions.admin.controller;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -49,17 +52,18 @@ public class NoticeController {
 
 	// 공지사항작성
 	@PostMapping("/admin/notice/save")
-	public String saveNotice(final NoticeDto noticeDto, Model model,HttpSession session) {
+	public String saveNotice(final NoticeDto noticeDto, Model model, HttpSession session) {
 	
 		
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
 		if(member == null) {
 			return "redirect:/member/login";
 		}
+		// 게시글insert
 		Long noticeId = noticeService.noticeSave(noticeDto);
 
 		// 단일 파일 업로드시에도 파일을 리스트에 담아서 전달
-		NoticeFileDto file = fileUtils.uploadFile(noticeDto.getFile());
+		NoticeFileDto file = fileUtils.uploadFile(noticeDto.getFile()); //디스크에 파일업로드
 		List<NoticeFileDto> fileList = new ArrayList<>();
 		fileList.add(file);
 		noticeFileService.saveFile(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
@@ -111,11 +115,14 @@ public class NoticeController {
 		log.info("공지사항 저장되는 부분 데이터 확인 files : {}" , files);
 		// 파일이 저장된 경로
         String uploadPath = fileUtils.getUploadPath(noticeId.toString());
-
-		model.addAttribute("uploadPath", uploadPath);
+        model.addAttribute("uploadPath", uploadPath);
 		model.addAttribute("notice", notice);
 		model.addAttribute("files", files);
 		return viewName;
 	}
+	
+	
+
+   
 
 }

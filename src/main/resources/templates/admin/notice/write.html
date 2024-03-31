@@ -127,7 +127,7 @@
 			//form.noticeYn.value = form.isNotice.checked ? 'Y' : 'N';
 			form.noticeYn.value = form.isNotice.checked;
 
-			form.action = [[${notice == null} ]] ?'/admin/notice/save' : '/admin/notice/update';
+			form.action = [[${notice == null} ]] ? '/admin/notice/save' : '/admin/notice/update';
 			form.submit();
 		
 		}
