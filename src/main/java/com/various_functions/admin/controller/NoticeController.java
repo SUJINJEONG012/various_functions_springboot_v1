@@ -1,12 +1,17 @@
 package com.various_functions.admin.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -121,6 +126,28 @@ public class NoticeController {
 		return viewName;
 	}
 	
+	
+	// 파일 다운로드
+    @GetMapping("/admin/notice/download/{noticeId}/files/{filename:.+}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable Long noticeId, @PathVariable String filename) throws IOException {
+        String filePath = "/Users/jeongsujin/upload/" + noticeId + "/" + filename; // 파일 경로
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            InputStream inputStream = new FileInputStream(file);
+            ByteArrayResource resource = new ByteArrayResource(inputStream.readAllBytes());
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(resource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 	
 
    

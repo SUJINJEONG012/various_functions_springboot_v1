@@ -71,7 +71,8 @@
 						<td id="files" colspan="3">
 						</td>		
 					</tr>
-
+					
+					
 
 				</tbody>
 			</table>
@@ -101,7 +102,7 @@
 			function findAllFile(){
 				//1. api 호출 
 				const noticeId = [[ ${notice.noticeId}]];
-				console.log(noticeId);
+				
 				const response = getJson(`/admin/notice/${noticeId}/files`);
 				
 				//2. 로직종료
@@ -113,12 +114,9 @@
 				let fileHtml = '<div class="file_down"><div class="cont">';
 				response.forEach(row =>{
 					fileHtml += `
-					<a href="javascript:alert('준비중입니다.');" 
-					<span class="icons">
-					<i class="fas fa-folder-open"></i>
-					</span>
-					${row.originalName}
-					</a>`;
+						<a href="/admin/notice/${noticeId}/files/${row.fileId}/download"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.originalName}</a>
+
+					`
 				})
 				fileHtml += '</div></div>';
 				

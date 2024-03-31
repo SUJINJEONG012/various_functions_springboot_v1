@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,9 +17,11 @@ import com.various_functions.admin.vo.NoticeFileVo;
 import com.various_functions.utils.FileUtils;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class NoticeFileService {
 
 	private final NoticeFileMapper noticeFileMapper;
@@ -29,6 +30,7 @@ public class NoticeFileService {
 	// 파일저장
 	@Transactional
 	public void saveFile(final Long noticeId, final List<NoticeFileDto> files) {
+		log.info("saveFile : 파일저장하는 메서드 진입 !");
 		if (CollectionUtils.isEmpty(files)) {
 			return;
 		}
@@ -36,6 +38,7 @@ public class NoticeFileService {
 			file.setNoticeId(noticeId);
 		}
 		noticeFileMapper.saveAll(files);
+		log.info("mapper에 저장된 파일 : {} ", files);
 	}
 	
 
@@ -76,6 +79,16 @@ public class NoticeFileService {
             return;
         }
 	}
+	
+	/**
+     * 파일 상세정보 조회
+     * @param id - PK
+     * @return 파일 상세정보
+     */
+    public NoticeFileVo findFileById(final Long fileId) {
+        return noticeFileMapper.findById(fileId);
+    }
+	
 	
 
 }
