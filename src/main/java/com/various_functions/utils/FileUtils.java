@@ -28,16 +28,15 @@ import com.various_functions.admin.vo.NoticeFileVo;
 @Component
 public class FileUtils {
 
-	
-	// private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
+
+	private final String uploadPath = Paths.get("C:", "Users", "NCIN","upload-files").toString();
 	/*
-	 * uploadPath	물리적으로 파일을 저장할 위치
+	 * uploadPath 물리적으로 파일을 저장할 위치
 	 * 보통 OS별 디렉터리 경로를 구분할 때 File.separator를 이용하고는 하는데요. 
 	 * Paths.get( )을 이용하면 OS에 상관없이 디렉터리 경로를 구분할 수 있다.
 	 * */ 
-	private final String uploadPath = Paths.get("/Users", "jeongsujin", "upload").toString();
+	//private final String uploadPath = Paths.get("/Users", "jeongsujin", "upload").toString();
 
-	// private final String uploadPath = "/Users/jeongsujin/upload/";
 
 	/**
 	 * 다중 파일 업로드
