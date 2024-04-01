@@ -145,18 +145,49 @@ public class FileUtils {
      * @return 첨부파일(리소스)
      */
     public Resource readFileAsResource(final NoticeFileVo file) {
-        String uploadedDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
-        String filename = file.getSaveName();
-        Path filePath = Paths.get(uploadPath, uploadedDate, filename);
-        try {
-            Resource resource = new UrlResource(filePath.toUri());
-            if (resource.exists() == false || resource.isFile() == false) {
-                throw new RuntimeException("file not found : " + filePath.toString());
+    	String uploadedDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
+    	String filename = file.getSaveName();
+    	
+    	// 절대경로 생성
+    	Path filePath = Paths.get(uploadPath,uploadedDate, filename);
+    	
+    	try {
+    		// UrlResource 객체생성 파일에 접근할 uri생성
+    		Resource resource = new UrlResource(filePath.toUri());
+    		if(resource.exists() == false || resource.isFile() == false) {
+    			throw new RuntimeException("file not found : " + filePath.toString());
+    		}
+    		return resource;
+    		
+    	}catch(MalformedURLException e) {
+    		throw new RuntimeException("file not found :" + filePath.toString());
+    	}
+    	
+    }
+    
+    //다중파일업로드 반환
+    public List<Resource> readImagesAsResources(final NoticeFileVo file) {
+        List<Resource> resources = new ArrayList<>();
+
+        // 숙소 객체에서 이미지 경로 목록을 가져옴
+        List<String> imagePaths = file.getImagePaths();
+
+        // 각 이미지 경로를 순회하면서 이미지 파일을 리소스로 변환하여 리스트에 추가
+        for (String imagePath : imagePaths) {
+            Path filePath = Paths.get(imagePath);
+
+            try {
+                Resource resource = new UrlResource(filePath.toUri());
+                if (!resource.exists() || !resource.isFile()) {
+                    throw new RuntimeException("Image file not found: " + filePath.toString());
+                }
+                resources.add(resource);
+            } catch (MalformedURLException e) {
+                throw new RuntimeException("Image file not found: " + filePath.toString());
             }
-            return resource;
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("file not found : " + filePath.toString());
         }
+
+        return resources;
     }
     
 
