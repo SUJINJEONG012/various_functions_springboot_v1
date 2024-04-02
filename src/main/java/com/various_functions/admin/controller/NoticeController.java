@@ -119,7 +119,7 @@ public class NoticeController {
 		List<NoticeFileVo> files = noticeFileService.findFilesByNoticeId(noticeId);
 		log.info("공지사항 저장되는 부분 데이터 확인 files : {}" , files);
 		// 파일이 저장된 경로
-        String uploadPath = fileUtils.getUploadPath(noticeId.toString());
+        String uploadPath = fileUtils.getSingUploadPath(noticeId.toString());
         model.addAttribute("uploadPath", uploadPath);
 		model.addAttribute("notice", notice);
 		model.addAttribute("files", files);

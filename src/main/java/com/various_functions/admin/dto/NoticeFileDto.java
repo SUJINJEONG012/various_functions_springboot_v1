@@ -2,6 +2,8 @@ package com.various_functions.admin.dto;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -13,6 +15,8 @@ public class NoticeFileDto {
 	private String originalName; // 원본파일명
 	private String saveName; //저장 파일명
 	private int size; //사이즈
+	
+	private List<MultipartFile> files;
 	
 	@Builder
 	public NoticeFileDto(Long fileId, Long noticeId, String originalName, String saveName, int size) {
@@ -30,6 +34,8 @@ public class NoticeFileDto {
 	public void setNoticeId(Long noticeId) {
 		this.noticeId = noticeId;
 	}
+	
+
 	
 	
 	

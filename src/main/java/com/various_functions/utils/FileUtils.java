@@ -28,8 +28,11 @@ import com.various_functions.admin.vo.NoticeFileVo;
 @Component
 public class FileUtils {
 
-
-	private final String uploadPath = Paths.get("C:", "Users", "NCIN","upload-files").toString();
+	//단일파일 업로드
+	private final String singuploadPath = Paths.get("C:", "Users", "NCIN","single-upload-files").toString();
+	//다중파일 업로드
+	private final String multuploadPath = Paths.get("C:", "Users", "NCIN","mult-upload-files").toString();
+	
 	/*
 	 * uploadPath 물리적으로 파일을 저장할 위치
 	 * 보통 OS별 디렉터리 경로를 구분할 때 File.separator를 이용하고는 하는데요. 
@@ -72,7 +75,7 @@ public class FileUtils {
 		// 파일이름
 		String saveName = generateSaveFilename(multipartFile.getOriginalFilename());
 		String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
-		String uploadPath = getUploadPath(today) + File.separator + saveName; // 변경된 부분
+		String uploadPath = getSingUploadPath(today) + File.separator + saveName; // 변경된 부분
 		
 		// 파일위치
 		File uploadFile = new File(uploadPath);
@@ -110,8 +113,8 @@ public class FileUtils {
 	 * 
 	 * @return 업로드 경로
 	 */
-	public String getUploadPath() {
-		return makeDirectories(uploadPath);
+	public String getSingUploadPath() {
+		return makeDirectories(singuploadPath);
 	}
 
 	/**
@@ -120,8 +123,8 @@ public class FileUtils {
 	 * @param addPath - 추가 경로
 	 * @return 업로드 경로
 	 */
-	public String getUploadPath(final String addPath) {
-		return makeDirectories(uploadPath + File.separator + addPath);
+	public String getSingUploadPath(final String addPath) {
+		return makeDirectories(singuploadPath + File.separator + addPath);
 	}
 
 	/**
@@ -145,11 +148,12 @@ public class FileUtils {
      * @return 첨부파일(리소스)
      */
     public Resource readFileAsResource(final NoticeFileVo file) {
+    	
     	String uploadedDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
     	String filename = file.getSaveName();
     	
     	// 절대경로 생성
-    	Path filePath = Paths.get(uploadPath,uploadedDate, filename);
+    	Path filePath = Paths.get(singuploadPath,uploadedDate, filename);
     	
     	try {
     		// UrlResource 객체생성 파일에 접근할 uri생성
@@ -165,30 +169,29 @@ public class FileUtils {
     	
     }
     
-    //다중파일업로드 반환
-//    public List<Resource> readImagesAsResources(final NoticeFileVo file) {
-//        List<Resource> resources = new ArrayList<>();
-//
-//        // 숙소 객체에서 이미지 경로 목록을 가져옴
-//        List<String> imagePaths = file.getImagePaths();
-//
-//        // 각 이미지 경로를 순회하면서 이미지 파일을 리소스로 변환하여 리스트에 추가
-//        for (String imagePath : imagePaths) {
-//            Path filePath = Paths.get(imagePath);
-//
-//            try {
-//                Resource resource = new UrlResource(filePath.toUri());
-//                if (!resource.exists() || !resource.isFile()) {
-//                    throw new RuntimeException("Image file not found: " + filePath.toString());
-//                }
-//                resources.add(resource);
-//            } catch (MalformedURLException e) {
-//                throw new RuntimeException("Image file not found: " + filePath.toString());
-//            }
-//        }
-//
-//        return resources;
+    //다중파일업로드 반환 => 이건숙소로
+//    public List<Resource> readFilesAsResources(final NoticeFileDto filesDto){
+//    	
+//    	List<Resource> resources = new ArrayList<>();
+//    	List<MultipartFile> files = filesDto.getFiles();
+//    	
+//    	for(MultipartFile file:files) {
+//    		// 각 파일에 대한 로직 추가
+//    		// 파일을저장하고, 리소스로변환하여 리스트에 추가
+//    		try {
+//    			// 파일저장
+//    			String uplaodedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+//    			String filename = file.getOriginalFilename();
+//    			String uploadDirectory = "/path/to/upload/directory"; // 파일을 저장할 디렉토리 경로
+//    			Path filePath = Paths.get(uploadDirectory, uploadedDate, filename);
+//    			
+//    		}catch() {
+//    			
+//    		}
+//    	}
+//    	return resources;
+//    	
 //    }
-    
+
 
 }
