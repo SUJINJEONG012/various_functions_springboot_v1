@@ -23,7 +23,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
 		
-		
 		// 2. 회원정보 체크
 		if (member == null || member.getDeleteYn()) {
 			response.sendRedirect("/member/login");
@@ -38,8 +37,8 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		}
 		
 		// 3. 추가 조건체크 (예: 특정역할이나 권한이 있는지 확인)		
-		if (!member.isAdmin()) {
-		    if (member.getAdminCk() != 0) { // adminCk가 0이 아닌 경우
+		if (!member.isAdmin() || member.getAdminCk() != 1) {
+		    if (member.getAdminCk() != 1) { // adminCk가 1이 아닌 경우
 		        session.setAttribute("errorMessage", "접근에 제한되었습니다.");
 		        response.sendRedirect("/"); // 특정 사용자가 아닌 경우 메인 페이지로 리다이렉트
 		        return false;

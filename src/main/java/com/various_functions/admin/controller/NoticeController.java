@@ -59,21 +59,24 @@ public class NoticeController {
 	@PostMapping("/admin/notice/save")
 	public String saveNotice(final NoticeDto noticeDto, Model model, HttpSession session) {
 	
-		
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
 		if(member == null) {
 			return "redirect:/member/login";
 		}
+		
+	
 		// 게시글insert
 		Long noticeId = noticeService.noticeSave(noticeDto);
 
 		// 단일 파일 업로드시에도 파일을 리스트에 담아서 전달
+		if(noticeDto.getFile() != null && !noticeDto.getFile().isEmpty()) {
 		NoticeFileDto file = fileUtils.uploadFile(noticeDto.getFile()); //디스크에 파일업로드
 		List<NoticeFileDto> fileList = new ArrayList<>();
 		fileList.add(file);
 		noticeFileService.saveFile(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
-		return "redirect:/admin/notice/list";
 		
+		}
+		return "redirect:/admin/notice/list";
 	}
 
 
