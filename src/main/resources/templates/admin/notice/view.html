@@ -117,7 +117,7 @@
 				response.forEach(row =>{
 					if(row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null){ // 이미지 파일체크
 						 fileHtml += `
-						<img src="/admin/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}">
+						<img src="/admin/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 100%; height: auto;" >
 							`
 					}
 					//여기서 else{}추가해도됨.

@@ -63,7 +63,6 @@ public class NoticeController {
 		if(member == null) {
 			return "redirect:/member/login";
 		}
-		
 	
 		// 게시글insert
 		Long noticeId = noticeService.noticeSave(noticeDto);
@@ -123,8 +122,9 @@ public class NoticeController {
 		log.info("공지사항 저장되는 부분 데이터 확인 files : {}" , files);
 		// 파일이 저장된 경로
         String uploadPath = fileUtils.getSingUploadPath(noticeId.toString());
-        model.addAttribute("uploadPath", uploadPath);
+        //model.addAttribute("uploadPath", uploadPath);
 		model.addAttribute("notice", notice);
+		// 파일 나오는 곳
 		model.addAttribute("files", files);
 		return viewName;
 	}
