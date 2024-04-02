@@ -8,7 +8,7 @@
 
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services"></script>
-
+	
 	<section>
 	
 	<form id="saveFormAccommodations" method="post" enctype="multipart/form-data">
@@ -137,10 +137,8 @@
 			<a href="@{/accommodation/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
 		</p>	
 	</section>
-
-	<script src="/js/accommodation.js"></script>
-
-
+	<script th:src="@{/js/accommodation.js}"></script>
+	
 </th:block>
 
 </html>

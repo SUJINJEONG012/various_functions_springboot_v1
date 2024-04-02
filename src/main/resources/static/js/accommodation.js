@@ -75,14 +75,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	let acsaveBtn = document.getElementById("acsaveBtn");
 	
 	acsaveBtn.addEventListener("click", function(e) {
-	alert("버튼 클릭 ");
-	console.log("Dd");
+
 	// 숙소 이름이 비어 있지 않으면 폼 제출
   let formData = new FormData(document.getElementById("saveFormAccommodations"));
-  
-	alert("숙소저장 버튼 클릭!");
-	
-	// 기본 동작인 폼 제출을 중지
+  	// 기본 동작인 폼 제출을 중지
 	e.preventDefault();
 
 	// 숙소 이름이 비어 있는지 확인
