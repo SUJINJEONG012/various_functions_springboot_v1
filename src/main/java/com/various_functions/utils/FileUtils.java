@@ -29,13 +29,13 @@ import com.various_functions.admin.vo.NoticeFileVo;
 public class FileUtils {
 
 
-	//private final String uploadPath = Paths.get("C:", "Users", "NCIN","upload-files").toString();
+	private final String uploadPath = Paths.get("C:", "Users", "NCIN","upload-files").toString();
 	/*
 	 * uploadPath 물리적으로 파일을 저장할 위치
 	 * 보통 OS별 디렉터리 경로를 구분할 때 File.separator를 이용하고는 하는데요. 
 	 * Paths.get( )을 이용하면 OS에 상관없이 디렉터리 경로를 구분할 수 있다.
 	 * */ 
-	private final String uploadPath = Paths.get("/Users", "jeongsujin", "upload").toString();
+	//private final String uploadPath = Paths.get("/Users", "jeongsujin", "upload").toString();
 
 
 	/**
@@ -166,29 +166,29 @@ public class FileUtils {
     }
     
     //다중파일업로드 반환
-    public List<Resource> readImagesAsResources(final NoticeFileVo file) {
-        List<Resource> resources = new ArrayList<>();
-
-        // 숙소 객체에서 이미지 경로 목록을 가져옴
-        List<String> imagePaths = file.getImagePaths();
-
-        // 각 이미지 경로를 순회하면서 이미지 파일을 리소스로 변환하여 리스트에 추가
-        for (String imagePath : imagePaths) {
-            Path filePath = Paths.get(imagePath);
-
-            try {
-                Resource resource = new UrlResource(filePath.toUri());
-                if (!resource.exists() || !resource.isFile()) {
-                    throw new RuntimeException("Image file not found: " + filePath.toString());
-                }
-                resources.add(resource);
-            } catch (MalformedURLException e) {
-                throw new RuntimeException("Image file not found: " + filePath.toString());
-            }
-        }
-
-        return resources;
-    }
+//    public List<Resource> readImagesAsResources(final NoticeFileVo file) {
+//        List<Resource> resources = new ArrayList<>();
+//
+//        // 숙소 객체에서 이미지 경로 목록을 가져옴
+//        List<String> imagePaths = file.getImagePaths();
+//
+//        // 각 이미지 경로를 순회하면서 이미지 파일을 리소스로 변환하여 리스트에 추가
+//        for (String imagePath : imagePaths) {
+//            Path filePath = Paths.get(imagePath);
+//
+//            try {
+//                Resource resource = new UrlResource(filePath.toUri());
+//                if (!resource.exists() || !resource.isFile()) {
+//                    throw new RuntimeException("Image file not found: " + filePath.toString());
+//                }
+//                resources.add(resource);
+//            } catch (MalformedURLException e) {
+//                throw new RuntimeException("Image file not found: " + filePath.toString());
+//            }
+//        }
+//
+//        return resources;
+//    }
     
 
 }
