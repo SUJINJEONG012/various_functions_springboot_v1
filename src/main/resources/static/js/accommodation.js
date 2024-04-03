@@ -108,6 +108,9 @@ document.addEventListener("DOMContentLoaded", function() {
 			 console.log(response);
 			 alert("요청성공!");
 			 alert("응답데이터 : " + response);
+			 
+			 // ajax요청이 성공후 폼 데이터 초기화
+			 document.getElementById("saveFormAccommodations").reset();
 		 },
 		 error:function(xhr, status, error){
 			 console.error("요청 실패 : ", error);
