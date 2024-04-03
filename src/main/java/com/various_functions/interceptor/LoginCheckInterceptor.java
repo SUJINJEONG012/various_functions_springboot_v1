@@ -25,16 +25,17 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		
 		// 2. 회원정보 체크
 		if (member == null || member.getDeleteYn()) {
+			if(request.getRequestURI().startsWith("/inquiry")) {
+				if(member == null) {
+					response.sendRedirect("/member/login");
+					return false;
+				}
+			}
 			response.sendRedirect("/member/login");
 			return false;
 		}
 		
-		if(request.getRequestURI().startsWith("/inquiry")) {
-			if(member == null) {
-				response.sendRedirect("/member/login");
-				return false;
-			}
-		}
+		
 		
 		// 3. 추가 조건체크 (예: 특정역할이나 권한이 있는지 확인)		
 		if (!member.isAdmin() || member.getAdminCk() != 1) {

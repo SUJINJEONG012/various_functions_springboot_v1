@@ -23,7 +23,7 @@ public class NoticeDto {
 	private Boolean noticeYn;
 	
 	//파일추가 연관관계 
-	private List<MultipartFile> filesffxx = new ArrayList<>(); // 첨부파일 list
+	private List<MultipartFile> files = new ArrayList<>(); // 첨부파일 list
 	private MultipartFile file;
 	
 	

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="/layout/basic">
 <th:block layout:fragment="title">
 	<title>리스트 페이지</title>
@@ -19,13 +18,18 @@
 				<th scope="col">조회</th>
 			</tr>
 		</thead>
-		
+
 		<tbody>
 			<!-- 공지사항 데이터를 반복하면서 테이블에 출력 -->
 			<tr th:if="${not #lists.isEmpty(notices)}" th:each="notice : ${notices}">
 
-				<td th:text="${notice.noticeYn ? '공지글' : notice.noticeId}"></td>
-				
+				<td>
+					<span th:if="${notice.noticeYn}" class="icons">
+						<i class="fa fa-bell-o" aria-hidden="true"></i>
+					</span>
+					<span th:text="${notice.noticeYn ? '공지글' : notice.noticeId}"></span>
+				</td>
+
 				<td><a th:href="@{/notice/view(noticeId=${notice.noticeId})}" th:text="${notice.title}"></a></td>
 				<td th:text="${notice.writer}"></td>
 				<td th:text="${notice.createdDate}"></td>
@@ -35,7 +39,7 @@
 				<td colspan="2">게시물이 없습니다.</td>
 			</tr>
 		</tbody>
-		
+
 	</table>
 
 </th:block>
@@ -46,17 +50,17 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		/*<![CDATA[*/
-// 서버에서 notice_yn 값을 받아왔다고 가정합니다.
-var isNotice = true; // 또는 false
+		// 서버에서 notice_yn 값을 받아왔다고 가정합니다.
+		var isNotice = true; // 또는 false
 
 
-// 리스트에 출력하는 부분
-var noticeStatusElement = document.getElementById("noticeStatus");
-if (isNotice) {
-    noticeStatusElement.textContent = "공지글";
-} else {
-    noticeStatusElement.textContent = "번호"; // 여기에 실제 번호를 가져오는 로직을 추가해야 합니다.
-}
+		// 리스트에 출력하는 부분
+		var noticeStatusElement = document.getElementById("noticeStatus");
+		if (isNotice) {
+			noticeStatusElement.textContent = "공지글";
+		} else {
+			noticeStatusElement.textContent = "번호"; // 여기에 실제 번호를 가져오는 로직을 추가해야 합니다.
+		}
 		/*]]*/
 	</script>
 </th:block>

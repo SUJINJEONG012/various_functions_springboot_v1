@@ -16,7 +16,8 @@ public class NoticeFileDto {
 	private String saveName; //저장 파일명
 	private int size; //사이즈
 	
-	private List<MultipartFile> files;
+	// 파일리스트
+	//private List<MultipartFile> files;
 	
 	@Builder
 	public NoticeFileDto(Long fileId, Long noticeId, String originalName, String saveName, int size) {

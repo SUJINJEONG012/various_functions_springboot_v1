@@ -25,11 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 public class NoticeFileService {
 
 	private final NoticeFileMapper noticeFileMapper;
-	private final FileUtils fileUtils;
-
+	
 	// 파일저장
 	@Transactional
-	public void saveFile(final Long noticeId, final List<NoticeFileDto> files) {
+	public void saveFiles(final Long noticeId, final List<NoticeFileDto> files) {
 		log.info("saveFile : 파일저장하는 메서드 진입 !");
 		if (CollectionUtils.isEmpty(files)) {
 			return;

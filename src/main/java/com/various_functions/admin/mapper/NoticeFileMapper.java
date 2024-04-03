@@ -11,7 +11,7 @@ import com.various_functions.admin.vo.NoticeFileVo;
 public interface NoticeFileMapper {
 
 	// 파일정보 저장 - 다중파일
-	void saveAll(List<NoticeFileDto> noticeFiles);
+	void saveAll(List<NoticeFileDto> files);
 	
 	// 단일파일 저장
 	void noticeFileSave(NoticeFileDto noticeFile);
