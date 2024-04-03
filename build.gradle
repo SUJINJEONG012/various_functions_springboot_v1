@@ -45,6 +45,11 @@ dependencies {
 	
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	
+	
+	//엑셀 다운로드 받기위한 라이브러리 추가
+	 implementation 'org.apache.poi:poi:3.1.1' // 현재 최신 버전
+    
+	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.junit.platform:junit-platform-launcher:1.9.3'
