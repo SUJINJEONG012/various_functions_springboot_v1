@@ -32,8 +32,14 @@
 	*
     FROM accommodations 
    	ORDER BY accommodation_regdate DESC
-   
 </select>
+
+<!-- 메인 최근에 등록된 3개 게시물 출력 -->
+<select id="findRecentAccommodations" resultType="com.various_functions.admin.vo.AccommodationsVo">
+	select * from accommodations
+	order by accommodation_regdate desc limit 3
+</select>
+
 
 
 </mapper>

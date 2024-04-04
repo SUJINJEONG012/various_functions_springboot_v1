@@ -42,7 +42,7 @@ public class MainController {
 		model.addAttribute("recentnotices", recentnotices);
 		
 		// 2. 숙소리스트 가져오기
-		List<AccommodationsVo> accommodations = accommodationService.findAllAccommodations();
+		List<AccommodationsVo> accommodations = accommodationService.findRecentAccommodations();
 		model.addAttribute("accommodations",accommodations);
 		
 		return "/index";

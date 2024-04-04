@@ -31,22 +31,19 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 					return false;
 				}
 			}
+			
 			response.sendRedirect("/member/login");
-			return false;
+			return true;
 		}
-		
-		
-		
-		// 3. 추가 조건체크 (예: 특정역할이나 권한이 있는지 확인)		
-		if (!member.isAdmin() || member.getAdminCk() != 1) {
-		    if (member.getAdminCk() != 1) { // adminCk가 1이 아닌 경우
-		        session.setAttribute("errorMessage", "접근에 제한되었습니다.");
-		        response.sendRedirect("/"); // 특정 사용자가 아닌 경우 메인 페이지로 리다이렉트
+		// 3. 추가 조건체크 (예: 특정역할이나 권한이 있는지 확인)	
+		if(request.getRequestURI().startsWith("/admin")) {
+			if (!member.isAdmin()) {
+		        session.setAttribute("errorMessage", "관리자만 접근할 수 있는 페이지입니다.");
+		        response.sendRedirect("/");
 		        return false;
 		    }
 		}
-		
-		// 4. 관리자로 로그인한 경우
+		// 어드민페이지 이외의 모든 페이지에 대한 접근 허용
 		return true;
 	}
 

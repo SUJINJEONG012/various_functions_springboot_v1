@@ -10,6 +10,7 @@ import com.various_functions.admin.dto.AccommodationsDto;
 import com.various_functions.admin.mapper.AccommodationsMapper;
 import com.various_functions.admin.mapper.RoomInfoMapper;
 import com.various_functions.admin.vo.AccommodationsVo;
+import com.various_functions.admin.vo.NoticeVo;
 import com.various_functions.admin.vo.RoomInfoVo;
 
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,10 @@ public class AccommodationService {
 		}
 		
 		return accommodations;
+	}
+	
+	public List<AccommodationsVo> findRecentAccommodations(){
+		return accommodationsMapper.findRecentAccommodations();
 	}
 
 }

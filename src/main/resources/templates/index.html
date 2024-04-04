@@ -7,9 +7,9 @@
 	<th:block layout:fragment="content">
 
 		<div th:if="${errorMessage}">
-       <script th:inline="javascript">
+     	  <script th:inline="javascript">
             alert([[${errorMessage}]]);
-        </script>
+       	  </script>
     	</div>
     
    
@@ -18,21 +18,43 @@
 			<h4>숙소리스트 </h4>
 			<ul>
 				<li th:each="accommodation : ${accommodations}">
-				
-					<h2 th:text="${accommodation.accommodationName}"></h2>
-					<p th:text="${accommodation.accommodationCate}"></p>
-					<p th:text="${accommodation.accommodationGrade + '등급'}"></p>
-					<p th:text="${accommodation.accommodationDetail}"></p>
-					 <!-- 이미지 동적으로 설정
-					<img th:src="@{${accommodation.amainimg}}" />
-					 --> 
-
+					<h2></h2>	
 				</li>
 			</ul>
 		</div>
 		
+		<!-- 숙소 이미지 출력 -->
+		<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+		  
+			<div class="col" th:each="accommodation : ${accommodations}">
+		    <div class="card mb-4 rounded-3 shadow-sm">
+		      <div class="card-header py-3">
+		        <h4 th:text="${accommodation.accommodationName}"></h4>
+		      </div>
+		      <div class="card-body">
+		        <h1 class="card-title">$0
+					<small class="">/mo</small>
+				</h1>
+				<!-- 이미지 동적으로 설정
+				<img th:src="@{${accommodation.amainimg}}" />
+				-->				 
+
+				<ul class=" mt-3 mb-4">
+					<li th:text="${accommodation.accommodationCate}"></li>
+					<li th:text="${accommodation.accommodationGrade + '등급'}"></li>
+					<li th:text="${accommodation.accommodationDetail}"></li>
+		        </ul>
+				
+		        <button type="button" class="w-100 btn  btn-primary">자세히 보러가기</button>
+		      </div>
+		    </div>
+		  </div>
+		  
+		
+		</div>
 		
 		
+		<!-- 공지사항 -->
 		<table class="tb tb_col">
 		<thead>
 			<tr>
