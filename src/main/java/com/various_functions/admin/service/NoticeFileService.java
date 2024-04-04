@@ -43,6 +43,7 @@ public class NoticeFileService {
 
 	/*
 	 * 공지사항 id를 기반으로 파일정보 조회 공지사항 ID에 해당하는 파일 정보를 데이터베이스에서 가져와서 리스트로 반환
+	 * 게시글 번호(noticeId)를 기준으로 게시글에 등록된 모든 첨부파일을 조회
 	 */
 	public List<NoticeFileVo> findFilesByNoticeId(Long noticeId) {
 		return noticeFileMapper.findFilesByNoticeId(noticeId);
@@ -52,6 +53,8 @@ public class NoticeFileService {
      * 파일 리스트 조회
      * @param ids - PK 리스트
      * @return 파일 리스트
+     * 리스트 타입의 파일 번호(ids)를 기준으로 여러 개의 첨부파일을 조회합니다. 
+     * 이 메서드는 물리적 파일의 삭제 처리에 사용되며, 용도는 뒤에서 설명드리도록 하겠습니다.
      */
     public List<NoticeFileVo> findAllFileByIds(final List<Long> ids) {
         if (CollectionUtils.isEmpty(ids)) {
@@ -59,6 +62,8 @@ public class NoticeFileService {
         }
         return noticeFileMapper.findAllByIds(ids);
     }
+    
+    
     
     public ResponseEntity<File> loadFile(String fileName) {
         // 해당 파일을 로드하고, Resource로 변환하여 ResponseEntity에 담아 반환합니다.
