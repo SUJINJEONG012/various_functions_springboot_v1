@@ -1,145 +1,146 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="admin/layout/basic">
 
 
 
 <th:block layout:fragment="content">
 
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services"></script>
-	
+	<script
+		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services"></script>
+
 	<section>
-	
-	<form id="saveFormAccommodations" method="post" enctype="multipart/form-data">
-		
-		<!-- 객실기본정보 start -->
-		<div class="room_basic">
 
-			<h3 class="room_title">객실 기본 정보</h3>
+		<form id="saveFormAccommodations" method="post"
+			enctype="multipart/form-data">
 
-			<ul>
-				
-				<li class="join-field">
-					<span class="point_color">*</span> 카테고리
-					<select name="accommodationCate" class="input">
-						<option value="hotel">호텔</option>
-						<option value="motel">모텔</option>
-						<option value="guesthouse">게스트하우스</option>
-					</select>
-				</li>
+			<!-- 객실기본정보 start -->
+			<div class="room_basic">
 
-				<li class="join-field"><span class="point_color">*</span>숙박업소명
-					<input type="text" name="accommodationName" class="input" lang="en" placeholder="숙박업소명을 입력해주세요.">
-				</li>
+				<h3 class="room_title">객실 기본 정보</h3>
 
-				<li class="room_map">
-					<div class="add_input">
-						<label for="accommodationAdress"><span class="point_color">*</span>주소</label>
-						
-						<input type="button" value="주소 검색" onclick="execution_daum_address()">
-						
-						<input type="text" id="accommodationAdress" name="accommodationAdress" class="input" placeholder="주소를 입력해주세요."
-							readonly="readonly">
-					</div>
+				<ul>
 
-					<div id="map" style="width: 100%; height: 400px;"></div>
+					<li class="join-field"><span class="point_color">*</span> 카테고리
+						<select name="accommodationCate" class="input">
+							<option value="hotel">호텔</option>
+							<option value="motel">모텔</option>
+							<option value="guesthouse">게스트하우스</option>
+					</select></li>
 
-				</li>
+					<li class="join-field"><span class="point_color">*</span>숙박업소명
+						<input type="text" name="accommodationName" class="input"
+						lang="en" placeholder="숙박업소명을 입력해주세요."></li>
 
-				<li class="join-field"><label for="accommodationPhone"><span class="point_color">*</span>전화번호</label> <input
-						type="tel" name="accommodationPhone" id="accommodationPhone" class="input" maxlength="20" lang="en"
-						placeholder="'-' 없이 전화번호를 입력해주세요."></li>
-
-				<li class="join-field">
-					<label for="accommodationTotalroom"> <span class="point_color">*</span>총객실수
-					</label> <input type="text" id="accommodationTotalroom" name="accommodationTotalroom" class="input" lang="en"
-						placeholder="총 객실수를 입력해주세요."></li>
-
-				<li>
-					<span class="point_color">*</span>숙소성급
-					<input type="hidden" id="accommodationGrade" name="accommodationGrade" value="0" />
-
-					<div class="star-rating space-x-4 mx-auto">
-						<!-- 별 모양 라디오 버튼 -->
-						<div class="star-rating space-x-4 mx-auto">
-							<span class="star pr-4" data-value="5">★</span>
-							<span class="star pr-4" data-value="4">★</span>
-							<span class="star pr-4" data-value="3">★</span>
-							<span class="star pr-4" data-value="2">★</span>
-							<span class="star" data-value="1">★</span>
+					<li class="room_map">
+						<div class="add_input">
+							<label for="accommodationAdress"><span
+								class="point_color">*</span>주소</label> <input type="button"
+								value="주소 검색" onclick="execution_daum_address()"> <input
+								type="text" id="accommodationAdress" name="accommodationAdress"
+								class="input" placeholder="주소를 입력해주세요." readonly="readonly">
 						</div>
 
-					</div>
-				</li>
-				<li><span class="point_color">*</span>숙소 소개<input type="text" name="accommodationDetail" class="input"
+						<div id="map" style="width: 100%; height: 400px;"></div>
+
+					</li>
+
+					<li class="join-field"><label for="accommodationPhone"><span
+							class="point_color">*</span>전화번호</label> <input type="tel"
+						name="accommodationPhone" id="accommodationPhone" class="input"
+						maxlength="20" lang="en" placeholder="'-' 없이 전화번호를 입력해주세요."></li>
+
+					<li class="join-field"><label for="accommodationTotalroom">
+							<span class="point_color">*</span>총객실수
+					</label> <input type="text" id="accommodationTotalroom"
+						name="accommodationTotalroom" class="input" lang="en"
+						placeholder="총 객실수를 입력해주세요."></li>
+
+					<li><span class="point_color">*</span>숙소성급 <input
+						type="hidden" id="accommodationGrade" name="accommodationGrade"
+						value="0" />
+
+						<div class="star-rating space-x-4 mx-auto">
+							<!-- 별 모양 라디오 버튼 -->
+							<div class="star-rating space-x-4 mx-auto">
+								<span class="star pr-4" data-value="5">★</span> <span
+									class="star pr-4" data-value="4">★</span> <span
+									class="star pr-4" data-value="3">★</span> <span
+									class="star pr-4" data-value="2">★</span> <span class="star"
+									data-value="1">★</span>
+							</div>
+
+						</div></li>
+					<li><span class="point_color">*</span>숙소 소개<input type="text"
+						name="accommodationDetail" class="input"
 						placeholder="숙소 소개를 입력해주세요."></li>
-				
-				<!-- 객실 소개 -->
-				<h2>객실소개 부분 </h2>
-				<li class="join-field"><span class="point_color">*</span>객실타입 <input type="text" name="roomRoomtype"
-						class="input" lang="en" placeholder="">
-				</li>
 
-				
-				<li class="join-field"><span class="point_color">*</span>부가서비스
-					<input type="text" name="roomService" class="input" lang="en" placeholder="">
-				</li>
+					<!-- 객실 소개 -->
+					<h2>객실소개 부분</h2>
+					<li class="join-field"><span class="point_color">*</span>객실타입
+						<input type="text" name="roomRoomtype" class="input" lang="en"
+						placeholder=""></li>
 
-				<li class="join-field"><span class="point_color">*</span>객실크기 <input type="text" name="roomSize"
-						class="input" lang="en" placeholder="">
-				</li>
 
-				<li class="join-field"><span class="point_color">*</span>숙박가능인원
-					<input type="text" name="roomMinper" class="input" lang="en" placeholder="">
-				</li>
+					<li class="join-field"><span class="point_color">*</span>부가서비스
+						<input type="text" name="roomService" class="input" lang="en"
+						placeholder=""></li>
 
-				<li class="join-field"><span class="point_color">*</span>숙박최대인원
-					<input type="text" name="roomMaxper" class="input" lang="en" placeholder="">
-				</li>
+					<li class="join-field"><span class="point_color">*</span>객실크기
+						<input type="text" name="roomSize" class="input" lang="en"
+						placeholder=""></li>
 
-				<li class="join-field"><span class="point_color">*</span>성수기 요금
-					<input type="text" name="roomPeak" class="input" lang="en" placeholder="">
-				</li>
+					<li class="join-field"><span class="point_color">*</span>숙박가능인원
+						<input type="text" name="roomMinper" class="input" lang="en"
+						placeholder=""></li>
 
-				<li class="join-field"><span class="point_color">*</span>준성수기
-					요금 <input type="text" name="roomSemipeak" class="input" lang="en" placeholder=""></li>
+					<li class="join-field"><span class="point_color">*</span>숙박최대인원
+						<input type="text" name="roomMaxper" class="input" lang="en"
+						placeholder=""></li>
 
-				<li class="join-field"><span class="point_color">*</span>비수기 요금
-					<input type="text" name="roomOff" class="input" lang="en" placeholder="">
-				</li> 
-				
-				<!--<li class="filebox">대표이미지(썸네일)
-					<div class="btn-upload">파일 업로드하기</div> 
-					<input type="file" name="uploadPath" id="uploadPath" class="file input room-image-input " accept="image/*" multiple="multiple">
-					
-				</li>-->
-				
-				<!--<li class="join-field"><span class="point_color">*</span>이미지
-				 <input type="file" name="rimainimg"
-						class="input room-image-input" lang="en" placeholder="."></li>
+					<li class="join-field"><span class="point_color">*</span>성수기
+						요금 <input type="text" name="roomPeak" class="input" lang="en"
+						placeholder=""></li>
 
-				<li class="join-field"><span class="point_color">*</span>추가이미지1
-					<input type="file" name="riextraimg1" class="input room-image-input" lang="en" placeholder=".">
-				</li>
+					<li class="join-field"><span class="point_color">*</span>준성수기
+						요금 <input type="text" name="roomSemipeak" class="input" lang="en"
+						placeholder=""></li>
 
-				<li class="join-field"><span class="point_color">*</span>추가이미지2
-					<input type="file" name="riextraimg2" class="input room-image-input" lang="en" placeholder=".">
-				</li>-->
-				
-			</ul>
-		</div>
-		<!-- 객실기본정보 end -->
+					<li class="join-field"><span class="point_color">*</span>비수기
+						요금 <input type="text" name="roomOff" class="input" lang="en"
+						placeholder=""></li>
+
+					<li class="join-field"><span class="point_color">*</span> 파일<input
+						type="file" name="files" class="input" lang="en"
+						onchange="selectFile(this);" placeholder="">
+
+						<button type="button" onclick="removeFile(this);"
+							class="btns del_btn">
+							<span>삭제</span>
+						</button>
+						
+						<button type="button" onclick="addFile();" class="btns fn_add_btn">
+							<span>파일 추가</span>
+						</button></li>
+
+
+
+				</ul>
+			</div>
+			<!-- 객실기본정보 end -->
 		</form>
 
 		<!-- 숙소저장하기 -->
 		<p class="btn_set">
 			<button type="button" id="acsaveBtn" class="btns btn_st3 btn_mid">저장</button>
 			<a href="@{/accommodation/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
-		</p>	
+		</p>
 	</section>
 	<script th:src="@{/js/accommodation.js}"></script>
-	
+
 </th:block>
 
 </html>
