@@ -6,15 +6,15 @@ import lombok.Getter;
 @Getter
 public class AccommodationsFileDto {
 
-	private Long fileId;
+	private Long afId;
 	private Long accommodationId;
 	private String originalName;
 	private String saveName;
 	private int size;
 	
 	@Builder
-	public AccommodationsFileDto(Long fileId, Long accommodationId, String originalName, String saveName, int size) {
-		this.fileId = fileId;
+	public AccommodationsFileDto(Long afId, Long accommodationId, String originalName, String saveName, int size) {
+		this.afId = afId;
 		this.accommodationId = accommodationId;
 		this.originalName = originalName;
 		this.saveName = saveName;
