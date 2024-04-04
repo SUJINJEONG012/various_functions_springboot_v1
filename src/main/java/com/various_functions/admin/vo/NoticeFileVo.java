@@ -13,6 +13,6 @@ public class NoticeFileVo {
 	private String saveName;
 	private int size;
 	private Boolean deleteYn;
-	private LocalDateTime createdDate; //생성일시
-	private LocalDateTime modifiedDate; //최종 수정일시
+	private LocalDateTime createdDate; // 생성일시
+	private LocalDateTime deletedDate; // 삭제일시
 }

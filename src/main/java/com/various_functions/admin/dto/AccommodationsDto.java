@@ -29,7 +29,7 @@ public class AccommodationsDto {
 	//객실정보 연관관계 
 	private List<RoomInfoDto> roomInfoList;
 	
-	//파일추가 연관관계<
+	//파일추가 연관관계
 	private List<MultipartFile> files = new ArrayList<>();
 	private MultipartFile file;
 }

@@ -9,9 +9,12 @@ import com.various_functions.admin.dto.AccommodationsFileDto;
 @Mapper
 public interface AccommodationsFileMapper {
 	
-	// 회원정보 저장
+	// 파일저장
 	void accommodationFileSaveAll(List<AccommodationsFileDto> accommodationsFiles);
+	// 단일파일저장
 	void accommodationSave(AccommodationsFileDto accommodationsFileDto);
+	
+	// 이미지 데이터 변환
 	
 }
 
