@@ -3,10 +3,11 @@ package com.various_functions.admin.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.various_functions.admin.service.AccommodationFileService;
-import com.various_functions.admin.vo.AccommodationsVo;
+import com.various_functions.admin.vo.AccommodationsFileVo;
 import com.various_functions.utils.FileUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,12 @@ public class AccommodationFileController {
 	
 
 	// 파일리스트 조회
-	@GetMapping("/admin/accommodation/{accomodationId}/files")
-	public List<AccommodationsVo> findAllAdminFileByAccommodationId(){
+	@GetMapping("/admin/accommodation/{accommodationId}/files")
+	public List<AccommodationsFileVo> findAllAdminFileByAccommodationId(@PathVariable final Long accommodationId){
 		log.info("숙소등록파일 컨트롤러");
 		return accommodationFileService.findFilesByAccommodationId(accommodationId);
 	}
+	
+	
 	
 }

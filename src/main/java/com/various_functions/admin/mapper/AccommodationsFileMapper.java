@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.various_functions.admin.dto.AccommodationsFileDto;
+import com.various_functions.admin.vo.AccommodationsFileVo;
 import com.various_functions.admin.vo.AccommodationsVo;
 
 @Mapper
@@ -16,7 +17,7 @@ public interface AccommodationsFileMapper {
 	void accommodationSave(AccommodationsFileDto accommodationsFileDto);
 	
 	// 이미지 데이터 변환
-	List<AccommodationsVo> findFileByAccommodationId(Long AccommodationId);
+	List<AccommodationsFileVo> findFileByAccommodationId(Long AccommodationId);
 	
 	/*
 	 * 파일리스트 조회
