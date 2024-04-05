@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.various_functions.admin.dto.AccommodationsDto;
 import com.various_functions.admin.dto.RoomInfoDto;
@@ -28,6 +28,7 @@ public class AccommodationController {
 
 	private final AccommodationService accommodationService;
 	private final RoomInfoService roomInfoService;
+	private final FileUtils fileUtils;
 
 	@GetMapping("/admin/accommodation/write")
 	public String accommodationSave(Model model) {
@@ -52,9 +53,11 @@ public class AccommodationController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("숙소 정보 저장에 실패했습니다.");
 		}
 		
-		// 파일등록
-		//List<AccommodationsFileDto> files = 
-
+		// 파일 업로드
+//		List<MultipartFile> files =  accommodationsDto.getFiles();
+//		if(files != null && !files.isEmpty()) {
+//			
+//		}
 	}
 	
 	
