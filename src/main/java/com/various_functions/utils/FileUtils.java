@@ -1,6 +1,7 @@
 package com.various_functions.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
@@ -219,29 +220,18 @@ public class FileUtils {
     	
     }
     
-    //다중파일업로드 반환 => 이건숙소로
-//    public List<Resource> readFilesAsResources(final NoticeFileDto filesDto){
-//    	
-//    	List<Resource> resources = new ArrayList<>();
-//    	List<MultipartFile> files = filesDto.getFiles();
-//    	
-//    	for(MultipartFile file:files) {
-//    		// 각 파일에 대한 로직 추가
-//    		// 파일을저장하고, 리소스로변환하여 리스트에 추가
-//    		try {
-//    			// 파일저장
-//    			String uplaodedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-//    			String filename = file.getOriginalFilename();
-//    			String uploadDirectory = "/path/to/upload/directory"; // 파일을 저장할 디렉토리 경로
-//    			Path filePath = Paths.get(uploadDirectory, uploadedDate, filename);
-//    			
-//    		}catch() {
-//    			
-//    		}
-//    	}
-//    	return resources;
-//    	
-//    }
+
+  // 저장된 파일을 가져오는 메서드
+    public Resource loadFileAsResource(String fileName) throws MalformedURLException, FileNotFoundException {
+        Path filePath = Paths.get(singuploadPath).resolve(fileName).normalize();
+        Resource resource = new UrlResource(filePath.toUri());
+        
+        if (resource.exists()) {
+            return resource;
+        } else {
+            throw new FileNotFoundException("파일을 찾을 수 없습니다: " + fileName);
+        }
+    }
 
 
 }
