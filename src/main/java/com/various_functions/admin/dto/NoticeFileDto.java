@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class NoticeFileDto {
+public class NoticeFileDto{
 
 	private Long fileId; // 파일번호
 	private Long noticeId; // 게시글번호 

@@ -22,19 +22,19 @@ public class AccommodationFileController {
 	private final AccommodationFileService accommodationFileService;
 	private final FileUtils fileUtils;
 
-	// 파일리스트 조회
-	@GetMapping("/admin/accommodation/{accommodationId}/files")
-	public List<AccommodationsFileVo> findAllAdminFileByAccommodationId(@PathVariable final Long accommodationId) {
-		log.info("숙소등록파일 컨트롤러");
-		return accommodationFileService.findFilesByAccommodationId(accommodationId);
-	}
-
-	// 파일리스트 조회
-	@GetMapping("/accommodation/{accommodationId}/files")
-	public List<AccommodationsFileVo> findAllUserFileByAccommodationId(@PathVariable final Long accommodationId) {
-		log.info("숙소등록파일 컨트롤러");
-		return accommodationFileService.findFilesByAccommodationId(accommodationId);
-	}
+//	// 파일리스트 조회
+//	@GetMapping("/admin/accommodation/{accommodationId}/files")
+//	public List<AccommodationsFileVo> findAllAdminFileByAccommodationId(@PathVariable final Long accommodationId) {
+//		log.info("숙소등록파일 컨트롤러");
+//		return accommodationFileService.findFilesByAccommodationId(accommodationId);
+//	}
+//
+//	// 파일리스트 조회
+//	@GetMapping("/accommodation/{accommodationId}/files")
+//	public List<AccommodationsFileVo> findAllUserFileByAccommodationId(@PathVariable final Long accommodationId) {
+//		log.info("숙소등록파일 컨트롤러");
+//		return accommodationFileService.findFilesByAccommodationId(accommodationId);
+//	}
 	
 
 }

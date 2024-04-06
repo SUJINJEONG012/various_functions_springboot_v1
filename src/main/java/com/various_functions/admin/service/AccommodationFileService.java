@@ -1,5 +1,6 @@
 package com.various_functions.admin.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +11,8 @@ import org.springframework.util.CollectionUtils;
 import com.various_functions.admin.dto.AccommodationsFileDto;
 import com.various_functions.admin.mapper.AccommodationsFileMapper;
 import com.various_functions.admin.vo.AccommodationsFileVo;
+import com.various_functions.admin.vo.AccommodationsVo;
+import com.various_functions.admin.vo.NoticeFileVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,10 +38,17 @@ public class AccommodationFileService {
 		accommodationsFileMapper.accommodationFileSaveAll(files);
 	}
 	
-	// 파일저장
+	// 공지사항 id를 기반으로 파일정보 조회 id에 해당하는 파일 정보를 데이터베이스에서 가져오는 리스트로 변환
 	public List<AccommodationsFileVo> findFilesByAccommodationId(Long accommodationId) {	
 		return accommodationsFileMapper.findFileByAccommodationId(accommodationId);
 	}
 	
+	// 파일 리스트 조회
+	public List<AccommodationsFileVo> findAllFileByIds(final List<Long> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return Collections.emptyList();
+        }
+        return accommodationsFileMapper.findAllByIds(ids);
+    }
 	
 }

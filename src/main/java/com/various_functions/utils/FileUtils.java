@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.various_functions.admin.dto.AccommodationsFileDto;
 import com.various_functions.admin.dto.NoticeFileDto;
 import com.various_functions.admin.vo.NoticeFileVo;
 
@@ -48,7 +49,6 @@ public class FileUtils {
 	 * @return DB에 저장할 파일 정보 List
 	 */
 	public List<NoticeFileDto> uploadFiles(final List<MultipartFile> multipartFiles) {
-
 		// 여러 이미지를 담는 객체
 		List<NoticeFileDto> filesff = new ArrayList<>();
 
@@ -61,6 +61,23 @@ public class FileUtils {
 		}
 		return filesff;
 	}
+	
+	public List<AccommodationsFileDto> uploadFileAccommodations(final List<MultipartFile> multipartFiles) {
+		
+		// 여러 이미지를 담는 객체
+		List<AccommodationsFileDto> filesAccommodation = new ArrayList<>();
+
+		for (MultipartFile multipartFile : multipartFiles) {
+			if (multipartFile.isEmpty()) {
+				continue;
+			}
+
+			filesAccommodation.add(uploadFileAccommodation(multipartFile));
+		}
+		return filesAccommodation;
+	}
+
+		
 
 	/**
 	 * 단일 파일 업로드
@@ -92,6 +109,39 @@ public class FileUtils {
 			throw new RuntimeException(e);
 		}
 		return NoticeFileDto.builder().originalName(multipartFile.getOriginalFilename()).saveName(saveName)
+				.size((int) multipartFile.getSize()).build();
+	}
+	
+	/**
+	 * 단일 파일 업로드
+	 * 
+	 * @param multipartFile - 파일 객체
+	 * @return DB에 저장할 파일 정보
+	 */
+	public AccommodationsFileDto uploadFileAccommodation(final MultipartFile multipartFile) {
+		if (multipartFile.isEmpty()) {
+			return null;
+		}
+		// 파일이름
+		String saveName = generateSaveFilename(multipartFile.getOriginalFilename());
+		String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
+		String uploadPath = getSingUploadPath(today) + File.separator + saveName; // 변경된 부분
+		
+		// 파일위치
+		File uploadFile = new File(uploadPath);
+
+		/*
+		 * transferTo() 경우 IOException와 IllegalStateException을 일으킬 가능성이 있기 때문에 컴파일러에서
+		 * try catch문을 사용하라는 경구 문이 뜹니다. 따라서 파일을 저장하는 코드를 try catch문
+		 */
+		try {
+
+			multipartFile.transferTo(uploadFile);
+
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return AccommodationsFileDto.builder().originalName(multipartFile.getOriginalFilename()).saveName(saveName)
 				.size((int) multipartFile.getSize()).build();
 	}
 

@@ -24,7 +24,7 @@ public interface AccommodationsFileMapper {
 	 * @Param - accommodationId - 게시글 조회
 	 * return 파일리스트
 	 * */
-	List<AccommodationsVo> findByIds(List<Long>ids);
+	List<AccommodationsFileVo> findAllByIds(List<Long> ids);
 	
 	/* 파일 삭제 */
 	void deleteAllByIds(List<Long> ids);
