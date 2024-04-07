@@ -31,18 +31,18 @@ import com.various_functions.admin.vo.NoticeFileVo;
 @Component
 public class FileUtils {
 
-	//단일파일 업로드
-	//private final String singuploadPath = Paths.get("C:", "Users", "NCIN","single-upload-files").toString();
-	//다중파일 업로드
-	//private final String multuploadPath = Paths.get("C:", "Users", "NCIN","mult-upload-files").toString();
-	
-	/*
-	 * uploadPath 물리적으로 파일을 저장할 위치
-	 * 보통 OS별 디렉터리 경로를 구분할 때 File.separator를 이용하고는 하는데요. 
-	 * Paths.get( )을 이용하면 OS에 상관없이 디렉터리 경로를 구분할 수 있다.
-	 * */ 
-	private final String singuploadPath = Paths.get("/Users", "jeongsujin", "upload").toString();
+	// 단일파일 업로드
+	// private final String singuploadPath = Paths.get("C:", "Users",
+	// "NCIN","single-upload-files").toString();
+	// 다중파일 업로드
+	// private final String multuploadPath = Paths.get("C:", "Users",
+	// "NCIN","mult-upload-files").toString();
 
+	/*
+	 * uploadPath 물리적으로 파일을 저장할 위치 보통 OS별 디렉터리 경로를 구분할 때 File.separator를 이용하고는 하는데요.
+	 * Paths.get( )을 이용하면 OS에 상관없이 디렉터리 경로를 구분할 수 있다.
+	 */
+	private final String singuploadPath = Paths.get("/Users", "jeongsujin", "upload").toString();
 
 	/**
 	 * 다중 파일 업로드
@@ -63,9 +63,9 @@ public class FileUtils {
 		}
 		return filesff;
 	}
-	
+
 	public List<AccommodationsFileDto> uploadFileAccommodations(final List<MultipartFile> multipartFiles) {
-		
+
 		// 여러 이미지를 담는 객체
 		List<AccommodationsFileDto> filesAccommodation = new ArrayList<>();
 
@@ -78,8 +78,6 @@ public class FileUtils {
 		}
 		return filesAccommodation;
 	}
-
-		
 
 	/**
 	 * 단일 파일 업로드
@@ -95,7 +93,7 @@ public class FileUtils {
 		String saveName = generateSaveFilename(multipartFile.getOriginalFilename());
 		String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
 		String uploadPath = getSingUploadPath(today) + File.separator + saveName; // 변경된 부분
-		
+
 		// 파일위치
 		File uploadFile = new File(uploadPath);
 
@@ -113,7 +111,7 @@ public class FileUtils {
 		return NoticeFileDto.builder().originalName(multipartFile.getOriginalFilename()).saveName(saveName)
 				.size((int) multipartFile.getSize()).build();
 	}
-	
+
 	/**
 	 * 단일 파일 업로드
 	 * 
@@ -128,7 +126,7 @@ public class FileUtils {
 		String saveName = generateSaveFilename(multipartFile.getOriginalFilename());
 		String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
 		String uploadPath = getSingUploadPath(today) + File.separator + saveName; // 변경된 부분
-		
+
 		// 파일위치
 		File uploadFile = new File(uploadPath);
 
@@ -192,70 +190,67 @@ public class FileUtils {
 		}
 		return dir.getPath();
 	}
-	
-	
+
 	/**
-     * 첨부파일(리소스) 조회 (as Resource), 다운로드, 출력 
-     * @param file - 첨부파일 상세정보
-     * @return 첨부파일(리소스)
-     */
-    public Resource readFileAsResource(final NoticeFileVo file) {
-    	
-    	String uploadedDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
-    	String filename = file.getSaveName();
-    	
-    	// 절대경로 생성
-    	Path filePath = Paths.get(singuploadPath,uploadedDate, filename);
-    	
-    	try {
-    		// UrlResource 객체생성 파일에 접근할 uri생성
-    		Resource resource = new UrlResource(filePath.toUri());
-    		if(resource.exists() == false || resource.isFile() == false) {
-    			throw new RuntimeException("file not found : " + filePath.toString());
-    		}
-    		return resource;
-    		
-    	}catch(MalformedURLException e) {
-    		throw new RuntimeException("file not found :" + filePath.toString());
-    	}
-    	
-    }
-    
-public Resource readFileAsResource(final AccommodationsFileVo file) {
-    	
-    	String uploadedDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
-    	String filename = file.getSaveName();
-    	
-    	// 절대경로 생성
-    	Path filePath = Paths.get(singuploadPath,uploadedDate, filename);
-    	
-    	try {
-    		// UrlResource 객체생성 파일에 접근할 uri생성
-    		Resource resource = new UrlResource(filePath.toUri());
-    		if(resource.exists() == false || resource.isFile() == false) {
-    			throw new RuntimeException("file not found : " + filePath.toString());
-    		}
-    		return resource;
-    		
-    	}catch(MalformedURLException e) {
-    		throw new RuntimeException("file not found :" + filePath.toString());
-    	}
-    	
-    }
+	 * 첨부파일(리소스) 조회 (as Resource), 다운로드, 출력
+	 * 
+	 * @param file - 첨부파일 상세정보
+	 * @return 첨부파일(리소스)
+	 */
+	public Resource readFileAsResource(final NoticeFileVo file) {
 
-    
+		String uploadedDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
+		String filename = file.getSaveName();
 
-  // 저장된 파일을 가져오는 메서드
-    public Resource loadFileAsResource(String fileName) throws MalformedURLException, FileNotFoundException {
-        Path filePath = Paths.get(singuploadPath).resolve(fileName).normalize();
-        Resource resource = new UrlResource(filePath.toUri());
-        
-        if (resource.exists()) {
-            return resource;
-        } else {
-            throw new FileNotFoundException("파일을 찾을 수 없습니다: " + fileName);
-        }
-    }
+		// 절대경로 생성
+		Path filePath = Paths.get(singuploadPath, uploadedDate, filename);
 
+		try {
+			// UrlResource 객체생성 파일에 접근할 uri생성
+			Resource resource = new UrlResource(filePath.toUri());
+			if (resource.exists() == false || resource.isFile() == false) {
+				throw new RuntimeException("file not found : " + filePath.toString());
+			}
+			return resource;
+
+		} catch (MalformedURLException e) {
+			throw new RuntimeException("file not found :" + filePath.toString());
+		}
+
+	}
+
+	public Resource readFileAsResource(final AccommodationsFileVo file) {
+
+		String uploadedDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
+		String filename = file.getSaveName();
+
+		// 절대경로 생성
+		Path filePath = Paths.get(singuploadPath, uploadedDate, filename);
+
+		try {
+			// UrlResource 객체생성 파일에 접근할 uri생성
+			Resource resource = new UrlResource(filePath.toUri());
+			if (resource.exists() == false || resource.isFile() == false) {
+				throw new RuntimeException("file not found : " + filePath.toString());
+			}
+			return resource;
+
+		} catch (MalformedURLException e) {
+			throw new RuntimeException("file not found :" + filePath.toString());
+		}
+
+	}
+
+	// 저장된 파일을 가져오는 메서드
+	public Resource loadFileAsResource(String fileName) throws MalformedURLException, FileNotFoundException {
+		Path filePath = Paths.get(singuploadPath).resolve(fileName).normalize();
+		Resource resource = new UrlResource(filePath.toUri());
+
+		if (resource.exists()) {
+			return resource;
+		} else {
+			throw new FileNotFoundException("파일을 찾을 수 없습니다: " + fileName);
+		}
+	}
 
 }

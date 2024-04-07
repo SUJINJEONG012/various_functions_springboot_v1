@@ -35,6 +35,7 @@ public class AccommodationFileController {
 	}
 	
 	
+	
 	@GetMapping("/admin/accommodation/{accommodationId}/files/{afId}/view")
 	public ResponseEntity<Resource> AdminviewFile(@PathVariable final Long accommodationId, @PathVariable final Long afId){
 		

@@ -26,6 +26,7 @@ public class AccommodationService {
 	private final RoomInfoMapper roomInfoMapper;
 	private final RoomInfoService roomInfoService;
 	private final AccommodationFileService accommodationFileService;
+	
 	// 숙소저장
 	@Transactional
 	public Long insertAccommodationAndRoomInfo(AccommodationsDto accommodationsDto) {
