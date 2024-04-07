@@ -48,7 +48,10 @@
 						<td th:each="room : ${accommodation.rooms}" th:text="${#numbers.formatInteger(room.roomPeak,0,'COMMA') + '원'}"></td>
 						<td th:each="room : ${accommodation.rooms}"  th:text="${room.roomRoomtype} + '등급'"></td>
 						
-						<td th:each="accommodationsFiles : ${accommodation.accommodationsFiles}" th:text="${accommodationsFiles.saveName}"></td>
+						<td th:each="accommodationsFiles : ${accommodation.accommodationsFiles}" 
+						th:text="${accommodationsFiles.saveName}">
+						<img th:src="@{/uploads/${accommodation.imagePath}}" alt="숙소 이미지">
+						</td>
                 
                 
 					</tr>

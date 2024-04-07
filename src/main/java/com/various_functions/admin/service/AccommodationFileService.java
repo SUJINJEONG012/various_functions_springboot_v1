@@ -51,4 +51,11 @@ public class AccommodationFileService {
         return accommodationsFileMapper.findAllByIds(ids);
     }
 	
+	/*
+	 * 파일상세정보 조회
+	 * */
+	public AccommodationsFileVo findFileById(final Long afId) {
+		return accommodationsFileMapper.findById(afId);
+	}
+	
 }

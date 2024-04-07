@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.various_functions.admin.dto.AccommodationsFileDto;
 import com.various_functions.admin.dto.NoticeFileDto;
+import com.various_functions.admin.vo.AccommodationsFileVo;
 import com.various_functions.admin.vo.NoticeFileVo;
 
 /*
@@ -219,6 +220,29 @@ public class FileUtils {
     	}
     	
     }
+    
+public Resource readFileAsResource(final AccommodationsFileVo file) {
+    	
+    	String uploadedDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
+    	String filename = file.getSaveName();
+    	
+    	// 절대경로 생성
+    	Path filePath = Paths.get(singuploadPath,uploadedDate, filename);
+    	
+    	try {
+    		// UrlResource 객체생성 파일에 접근할 uri생성
+    		Resource resource = new UrlResource(filePath.toUri());
+    		if(resource.exists() == false || resource.isFile() == false) {
+    			throw new RuntimeException("file not found : " + filePath.toString());
+    		}
+    		return resource;
+    		
+    	}catch(MalformedURLException e) {
+    		throw new RuntimeException("file not found :" + filePath.toString());
+    	}
+    	
+    }
+
     
 
   // 저장된 파일을 가져오는 메서드

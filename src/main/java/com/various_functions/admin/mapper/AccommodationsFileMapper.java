@@ -30,7 +30,7 @@ public interface AccommodationsFileMapper {
 	void deleteAllByIds(List<Long> ids);
 	
 	/* 파일 상세 조회 */
-	AccommodationsVo findById(Long afId);
+	AccommodationsFileVo findById(Long afId);
 	
 }
 
