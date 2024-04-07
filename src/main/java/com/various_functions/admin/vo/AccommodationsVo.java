@@ -24,5 +24,7 @@ public class AccommodationsVo {
 	private LocalDateTime accommodationRegdate;
 	
 	private List<RoomInfoVo> rooms; // 객실 정보 리스트
+	private List<AccommodationsFileVo> accommodationsFiles; // 객실 정보 리스트
+
 
 }

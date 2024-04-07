@@ -50,11 +50,11 @@ insert into accommodations_file(
 </insert>
 
 <!-- 숙소파일id를 기반으로 파일정보 조회 -->
-<select id="findFilesByAccommodationId" parameterType="Long" resultType="com.various_functions.admin.vo.AccommodationsVo">
+<select id="findFileByAccommodationId" parameterType="Long" resultType="com.various_functions.admin.vo.AccommodationsFileVo">
 select
 <include refid="fileColumns"/>
 from accommodations_file
-where accommodation_id=#{accommodationId}
+where accommodation_id= #{accommodationId}
 
 </select>
 

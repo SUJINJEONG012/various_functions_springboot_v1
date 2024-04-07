@@ -17,7 +17,9 @@ import com.various_functions.admin.dto.RoomInfoDto;
 import com.various_functions.admin.service.AccommodationFileService;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.service.RoomInfoService;
+import com.various_functions.admin.vo.AccommodationsFileVo;
 import com.various_functions.admin.vo.AccommodationsVo;
+import com.various_functions.admin.vo.RoomInfoVo;
 import com.various_functions.utils.FileUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -80,8 +82,11 @@ public class AccommodationController {
 	// 숙소 조회 리스트
 	public String accommodationsList(Model model, String viewName) {
 		log.info("숙소 리스트 페이지 진입!!!");
+		//숙소정보가져오기
 		List<AccommodationsVo> accommodations = accommodationService.findAllAccommodations();
+		// 모델에 데이터 추가
 		model.addAttribute("accommodations", accommodations);
+		
 		return viewName;
 	}
 

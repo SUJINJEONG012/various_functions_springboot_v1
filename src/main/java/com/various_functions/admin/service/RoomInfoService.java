@@ -22,8 +22,7 @@ public class RoomInfoService {
 
 	@Transactional
     public void insertRoomInfo(final Long accommodationId, RoomInfoDto roomInfoDto) {
-        log.info("insertRoomInfo 메서드 진입 ");
-        
+        log.info("insertRoomInfo 메서드 진입 ");      
         roomInfoDto.setAccommodationId(accommodationId);        
         roomInfoMapper.insertRoomInfo(roomInfoDto);
     }
@@ -32,5 +31,5 @@ public class RoomInfoService {
 		log.info("findRoomsByAccommodationId 실행되는지확인!!!");
 		return roomInfoMapper.findRoomsByAccommodationId(accommodationId);
 	}
-	
+
 }

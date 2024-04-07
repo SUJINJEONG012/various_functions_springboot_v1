@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.various_functions.admin.dto.AccommodationsDto;
 import com.various_functions.admin.mapper.AccommodationsMapper;
 import com.various_functions.admin.mapper.RoomInfoMapper;
+import com.various_functions.admin.vo.AccommodationsFileVo;
 import com.various_functions.admin.vo.AccommodationsVo;
 import com.various_functions.admin.vo.NoticeVo;
 import com.various_functions.admin.vo.RoomInfoVo;
@@ -24,7 +25,7 @@ public class AccommodationService {
 	private final AccommodationsMapper accommodationsMapper;
 	private final RoomInfoMapper roomInfoMapper;
 	private final RoomInfoService roomInfoService;
-
+	private final AccommodationFileService accommodationFileService;
 	// 숙소저장
 	@Transactional
 	public Long insertAccommodationAndRoomInfo(AccommodationsDto accommodationsDto) {
@@ -48,6 +49,10 @@ public class AccommodationService {
 			List<RoomInfoVo> rooms = roomInfoService.findRoomsByAccommodationId(accommodation.getAccommodationId());
 			accommodation.setRooms(rooms);
 			log.info("rooms: {}", rooms);
+			
+			List<AccommodationsFileVo> accommodationsFiles = accommodationFileService.findAllAccommodations(accommodation.getAccommodationId());
+			 accommodation.setAccommodationsFiles(accommodationsFiles);
+			 log.info("accommodationsFiles: {}", accommodationsFiles);
 		}
 		
 		return accommodations;

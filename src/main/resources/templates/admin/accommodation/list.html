@@ -31,6 +31,8 @@
 						<th scope="col">성급</th>			
 						<th scope="col">객실가격</th>
 						<th scope="col">객실타입</th>
+						<th>이미지</th>
+						
 					</tr>
 				</thead>
 
@@ -46,6 +48,9 @@
 						<td th:each="room : ${accommodation.rooms}" th:text="${#numbers.formatInteger(room.roomPeak,0,'COMMA') + '원'}"></td>
 						<td th:each="room : ${accommodation.rooms}"  th:text="${room.roomRoomtype} + '등급'"></td>
 						
+						<td th:each="accommodationsFiles : ${accommodation.accommodationsFiles}" th:text="${accommodationsFiles.saveName}"></td>
+                
+                
 					</tr>
 				
 				</tbody>

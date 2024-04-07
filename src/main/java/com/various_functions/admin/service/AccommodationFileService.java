@@ -39,7 +39,7 @@ public class AccommodationFileService {
 	}
 	
 	// 공지사항 id를 기반으로 파일정보 조회 id에 해당하는 파일 정보를 데이터베이스에서 가져오는 리스트로 변환
-	public List<AccommodationsFileVo> findFilesByAccommodationId(Long accommodationId) {	
+	public List<AccommodationsFileVo> findAllAccommodations(Long accommodationId) {	
 		return accommodationsFileMapper.findFileByAccommodationId(accommodationId);
 	}
 	

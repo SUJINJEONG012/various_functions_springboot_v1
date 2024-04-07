@@ -28,14 +28,22 @@
 
 <!-- 숙소등록 리스트  -->
 <select id="findAllAccommodations" resultType="com.various_functions.admin.vo.AccommodationsVo">
-	SELECT
+	 SELECT
 	*
     FROM accommodations 
    	ORDER BY accommodation_regdate DESC
-</select>
+   	
+<!-- SELECT a.*, ri.*, af.*
+FROM accommodations a
+LEFT JOIN room_info ri ON a.accommodation_id = ri.accommodation_id
+LEFT JOIN accommodations_file af ON a.accommodation_id = af.accommodation_id
+ORDER BY a.accommodation_regdate DESC; -->
+</select> 
+
+
 
 <!-- 메인 최근에 등록된 3개 게시물 출력 -->
-<select id="findRecentAccommodations" resultType="com.various_functions.admin.vo.AccommodationsVo">
+ <select id="findRecentAccommodations" resultType="com.various_functions.admin.vo.AccommodationsVo">
 	select * from accommodations
 	order by accommodation_regdate desc limit 3
 </select>
