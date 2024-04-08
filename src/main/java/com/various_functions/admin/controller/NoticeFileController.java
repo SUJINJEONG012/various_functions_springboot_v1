@@ -67,8 +67,10 @@ public class NoticeFileController {
     //파일보기
     @GetMapping("/admin/notice/{noticeId}/files/{fileId}/view")
     public ResponseEntity<Resource> AdminviewFile(@PathVariable final Long noticeId, @PathVariable final Long fileId) {
-        NoticeFileVo file = noticeFileService.findFileById(fileId);
-        //fileUtils에서 가져오는걸 넣음
+        
+    	NoticeFileVo file = noticeFileService.findFileById(fileId);
+        
+    	//fileUtils에서 가져오는걸 넣음
         Resource resource = fileUtils.readFileAsResource(file);
         
         try {

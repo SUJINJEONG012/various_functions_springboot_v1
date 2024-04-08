@@ -55,9 +55,9 @@ select
 <include refid="fileColumns"/>
 from accommodations_file
 where accommodation_id= #{accommodationId}
-and af_id  = #{afId}
-
 </select>
+
+
 
 <!-- 파일리스트 -->
 <select id="findAllByIds" parameterType="list"

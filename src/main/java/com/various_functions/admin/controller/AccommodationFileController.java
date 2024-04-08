@@ -28,16 +28,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AccommodationFileController {
 
-	//private final String uploadPath = "/Users/jeongsujin/upload/"; // 파일이 저장된 경로
-	private final String uploadPath = "C:\\Users\\NCIN\\single-upload-files"; // 파일이 저장된 경로
+	private final String uploadPath = "/Users/jeongsujin/upload/"; // 파일이 저장된 경로
+	//private final String uploadPath = "C:\\Users\\NCIN\\single-upload-files"; // 파일이 저장된 경로
 	
 	private final AccommodationFileService accommodationFileService;
 	private final FileUtils fileUtils;
 
-	@GetMapping("/admin/accommodation{accommodationId}/files/{afId}")
-	public List<AccommodationsFileVo> findAllAdminFileByAccommodationId(@PathVariable final Long accommodationId,@PathVariable final Long afId){
-		log.info("숙소등록 파일 메서드 진입!!");
-		return accommodationFileService.findAllAccommodations(accommodationId,afId);
+	@GetMapping("/admin/accommodation{accommodationId}/files")
+	public List<AccommodationsFileVo> findAllAdminFileByAccommodationId(@PathVariable final Long accommodationId){
+		// 숙소와 파일 정보를 함께 조회하는 서비스 메서드 호출
+		log.info("숙소와 파일 정보를 함께 조회하는 서비스 메서드 호출!!");
+		return accommodationFileService.findAllAccommodations(accommodationId);
 	}
 	
 	
@@ -46,15 +47,11 @@ public class AccommodationFileController {
 		
 		log.info("ResponseEntity<Resource> AdminviewFile 메서드 진입!!!!");
 		//파일서비스에서 파일 정보가져오기
-		AccommodationsFileVo file = (AccommodationsFileVo) accommodationFileService.findFileById(afId);
+		AccommodationsFileVo file = accommodationFileService.findFileById(afId);
 		
-		if (file == null) {
-	        // 파일을 찾지 못한 경우에 대한 예외 처리
-	        throw new RuntimeException("File not found with ID: " + afId);
-	    }
-		log.info("파일서비스에서 파일 정보가져오기 : {}", file);
-		
-		// 파일 데이터를 읽어와서 Resource로 변환
+		/*
+		 * 파일 데이터를 읽어와서 Resource로 변환
+		 * */
 		Resource resource = fileUtils.readFileAsResource(file);
 		try {
 			String filename = URLEncoder.encode(file.getOriginalName(), "UTF-8");			

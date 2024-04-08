@@ -41,23 +41,25 @@ public class AccommodationService {
     // 게시글 리스트
 	public List<AccommodationsVo> findAllAccommodations() {
 		
-		log.info("서비스단 !!!!리스트 조회");
 		List<AccommodationsVo> accommodations = accommodationsMapper.findAllAccommodations();
-		log.info("서비스단 !!!!리스트 조회22");
 		
 		for(AccommodationsVo accommodation : accommodations) {
 			log.info("for문 진입!!!!");
+			
+			//숙소에 해당하는 객실정보 조회
 			List<RoomInfoVo> rooms = roomInfoService.findRoomsByAccommodationId(accommodation.getAccommodationId());
 			accommodation.setRooms(rooms);
 			log.info("rooms: {}", rooms);
 			
-			List<AccommodationsFileVo> accommodationsFiles = accommodationFileService.findAllAccommodations(accommodation.getAccommodationId(), accommodation.g);;
+			//숙소에 해당하는 이미지 정보 조회
+			List<AccommodationsFileVo> accommodationsFiles = accommodationFileService.findAllAccommodations(accommodation.getAccommodationId());
 			 accommodation.setAccommodationsFiles(accommodationsFiles);
-			 log.info("accommodationsFiles: {}", accommodationsFiles);
+			 log.info("accommodationsFiles: {}", accommodationsFiles); // 출력가능
 		}
 		
 		return accommodations;
 	}
+	
 	
 	public List<AccommodationsVo> findRecentAccommodations(){
 		return accommodationsMapper.findRecentAccommodations();

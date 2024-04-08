@@ -17,4 +17,5 @@ public interface AccommodationsMapper {
 	
 	//메인에 노출할 3개 출력
 	List<AccommodationsVo> findRecentAccommodations();
+
 }

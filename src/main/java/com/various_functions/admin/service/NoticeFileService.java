@@ -64,7 +64,7 @@ public class NoticeFileService {
     }
     
     
-    
+    // 파일로드
     public ResponseEntity<File> loadFile(String fileName) {
         // 해당 파일을 로드하고, Resource로 변환하여 ResponseEntity에 담아 반환합니다.
     	File file = new File("files/" + fileName);
