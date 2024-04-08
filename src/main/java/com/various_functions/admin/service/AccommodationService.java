@@ -51,7 +51,7 @@ public class AccommodationService {
 			accommodation.setRooms(rooms);
 			log.info("rooms: {}", rooms);
 			
-			List<AccommodationsFileVo> accommodationsFiles = accommodationFileService.findAllAccommodations(accommodation.getAccommodationId());
+			List<AccommodationsFileVo> accommodationsFiles = accommodationFileService.findAllAccommodations(accommodation.getAccommodationId(), accommodation.g);;
 			 accommodation.setAccommodationsFiles(accommodationsFiles);
 			 log.info("accommodationsFiles: {}", accommodationsFiles);
 		}

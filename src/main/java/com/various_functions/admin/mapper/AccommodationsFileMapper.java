@@ -17,7 +17,7 @@ public interface AccommodationsFileMapper {
 	void accommodationSave(AccommodationsFileDto accommodationsFileDto);
 	
 	// 이미지 데이터 변환
-	List<AccommodationsFileVo> findFileByAccommodationId(Long AccommodationId,Long afId);
+	List<AccommodationsFileVo> findFileByAccommodationId(Long AccommodationId);
 	
 
 	/*
