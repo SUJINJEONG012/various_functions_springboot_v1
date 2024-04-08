@@ -24,7 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NoticeFileController {
 	
-	private final String uploadPath = "/Users/jeongsujin/upload/"; // 파일이 저장된 경로
+	//private final String uploadPath = "/Users/jeongsujin/upload/"; // 파일이 저장된 경로
+	private final String uploadPath = "C:\\Users\\NCIN\\single-upload-files"; // 파일이 저장된 경로
 
     private final NoticeFileService noticeFileService;
 	private final FileUtils fileUtils;
@@ -48,6 +49,7 @@ public class NoticeFileController {
     public ResponseEntity<Resource> downloadFile(@PathVariable final Long noticeId, @PathVariable final Long fileId) {
         NoticeFileVo file = noticeFileService.findFileById(fileId);
        
+        //fileUtils에서 가져오는걸 넣음
         Resource resource = fileUtils.readFileAsResource(file);
         try {
             String filename = URLEncoder.encode(file.getOriginalName(), "UTF-8");
@@ -66,8 +68,9 @@ public class NoticeFileController {
     @GetMapping("/admin/notice/{noticeId}/files/{fileId}/view")
     public ResponseEntity<Resource> AdminviewFile(@PathVariable final Long noticeId, @PathVariable final Long fileId) {
         NoticeFileVo file = noticeFileService.findFileById(fileId);
-
+        //fileUtils에서 가져오는걸 넣음
         Resource resource = fileUtils.readFileAsResource(file);
+        
         try {
             String filename = URLEncoder.encode(file.getOriginalName(), "UTF-8");
             return ResponseEntity.ok()
@@ -83,7 +86,8 @@ public class NoticeFileController {
    //파일보기
     @GetMapping("/notice/{noticeId}/files/{fileId}/view")
     public ResponseEntity<Resource> UserviewFile(@PathVariable final Long noticeId, @PathVariable final Long fileId) {
-        NoticeFileVo file = noticeFileService.findFileById(fileId);
+        
+    	NoticeFileVo file = noticeFileService.findFileById(fileId);
 
         Resource resource = fileUtils.readFileAsResource(file);
         try {

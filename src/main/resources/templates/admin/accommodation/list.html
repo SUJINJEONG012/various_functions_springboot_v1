@@ -75,37 +75,7 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		/*<![CDATA[*/
-			window.onload = ()=>{
-				findAllFile();
-			}
-			function findAllFile(){
 			
-				const accommodationId = [[ ${accommodation.accommodationId}]];
-				const response = getJson(`/admin/accommodation/${accommodationId}/files`);
-				
-				if(!response.length){
-					return false;
-				}
-				
-				let fileHtml = '<div class="file_down"><div class="cont">';
-				response.forEach(row =>{
-					if(row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null){ // 이미지 파일체크
-						 fileHtml += `
-						<img src="/admin/accommodation/${accommodationId}/files/${row.afId}/list" alt="${row.originalName}" style="width: 100%; height: auto;" >
-							`
-					}
-					//여기서 else{}추가해도됨.
-					/* fileHtml += `
-						<a href="/admin/accommodation/${accommodationId}/files/${row.afId}/download">
-						<span class="icons">
-						<i class="fas fa-folder-open"></i></span>${row.originalName}
-						</a>
-
-					` */
-				});
-				fileHtml += '</div></div>';
-				document.getElementById('files').innerHTML = fileHtml;
-			}
 			
 
 		/*]]>*/
