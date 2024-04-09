@@ -28,8 +28,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AccommodationFileController {
 
-	//private final String uploadPath = "/Users/jeongsujin/upload/"; // 파일이 저장된 경로
-	private final String uploadPath = "C:\\Users\\NCIN\\single-upload-files"; // 파일이 저장된 경로
+	private final String uploadPath = "/Users/jeongsujin/upload/"; // 파일이 저장된 경로
+	//private final String uploadPath = "C:\\Users\\NCIN\\single-upload-files"; // 파일이 저장된 경로
 	
 	private final AccommodationFileService accommodationFileService;
 	private final FileUtils fileUtils;
@@ -46,8 +46,10 @@ public class AccommodationFileController {
 	public ResponseEntity<Resource> AdminviewFile(@PathVariable final Long accommodationId, @PathVariable final Long afId){
 		
 		log.info("ResponseEntity<Resource> AdminviewFile 메서드 진입!!!!");
+		
 		//파일서비스에서 파일 정보가져오기
 		AccommodationsFileVo file = accommodationFileService.findFileById(afId);
+		log.info("파일서비스에서 파일 정보가져오기 file : {}", file);
 		
 		/*
 		 * 파일 데이터를 읽어와서 Resource로 변환

@@ -22,7 +22,6 @@ public class AccommodationsFileVo {
 	private LocalDateTime createdDate; //생성일시
 	private LocalDateTime modifiedDate; //최종 수정일시
 	
-	//private AccommodationsVo accommodation;
-	private byte[] fileData; // 파일 데이터를 저장할 byte 배열 필드
+	
 
 }
