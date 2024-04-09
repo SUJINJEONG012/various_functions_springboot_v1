@@ -3,92 +3,73 @@
 
 <mapper namespace="com.various_functions.admin.mapper.AccommodationsFileMapper">
 
-<sql id="fileColumns">
-	af_id,
-	accommodation_id,
-	original_name,
-	save_name,
-	size,
-	delete_yn,
-	created_date,
-	deleted_date
-</sql>
+	<sql id="fileColumns">
+		af_id,
+		accommodation_id,
+		original_name,
+		save_name,
+		size,
+		delete_yn,
+		created_date,
+		deleted_date
+	</sql>
 
-<!-- 파일저장 다중파일 -->
-<insert id="accommodationFileSaveAll" parameterType="list">
-insert into accommodations_file(
-<include refid="fileColumns" />
-)values
-<foreach item="file" collection="list" separator=",">
-(
-#{file.afId},
-#{file.accommodationId},
-#{file.originalName},
-#{file.saveName},
-#{file.size},
-0,
-now(),
-null
-)
-</foreach>
-</insert>
+	<!-- 파일저장 다중파일 -->
+	<insert id="accommodationFileSaveAll" parameterType="list"> insert into
+		accommodations_file( <include refid="fileColumns" /> )values <foreach
+			item="file" collection="list" separator=",">
+			(
+			#{file.afId},
+			#{file.accommodationId},
+			#{file.originalName},
+			#{file.saveName},
+			#{file.size},
+			0,
+			now(),
+			null
+			)
+		</foreach>
+	</insert>
 
-<!-- 파일저장 단일파일 -->
-<insert id="accommodationFileSave" parameterType="com.various_functions.admin.dto.AccommodationsFileDto">
-insert into accommodations_file(
-<include refid="fileColumns" />
-) values(
-	#{afId},
-	#{accommodationId},
-	#{originalName},
-	#{saveName},
-	#{size},
-	0,
-	now(),
-	null
-)
-</insert>
+	<!-- 파일저장 단일파일 -->
+	<insert id="accommodationFileSave"
+		parameterType="com.various_functions.admin.dto.AccommodationsFileDto">
+		insert into accommodations_file( <include refid="fileColumns" /> )
+		values( #{afId}, #{accommodationId}, #{originalName}, #{saveName},
+		#{size}, 0, now(), null ) </insert>
 
-<!-- 숙소파일id를 기반으로 파일정보 조회 -->
-<select id="findFileByAccommodationId" parameterType="Long" resultType="com.various_functions.admin.vo.AccommodationsFileVo">
-select
-<include refid="fileColumns"/>
-from accommodations_file
-where accommodation_id= #{accommodationId}
-</select>
+	<!-- 숙소파일id를 기반으로 파일정보 조회 -->
+	<select id="findFileByAccommodationId" parameterType="Long"
+		resultType="com.various_functions.admin.vo.AccommodationsFileVo"> 
+		select <include refid="fileColumns" /> 
+		from accommodations_file
+		where
+		accommodation_id= #{accommodationId} 
+		</select>
 
 
+	<!-- 파일리스트 -->
+	<select id="findAllByIds" parameterType="list"
+		resultType="com.various_functions.admin.vo.AccommodationsFileVo"> select <include
+			refid="fileColumns" /> from accommodations_file where delete_yn=0
+		and af_id in <foreach item="accommodationId" collection="list" open="("
+			separator="," close=")">
+		</foreach> order by af_id </select>
 
-<!-- 파일리스트 -->
-<select id="findAllByIds" parameterType="list"
-resultType="com.various_functions.admin.vo.AccommodationsFileVo">
-select
-<include refid="fileColumns"/>
-from accommodations_file
-where delete_yn=0
-and af_id in 
-<foreach item="accommodationId" collection="list" open="(" separator="," close=")">
-</foreach>
-order by af_id
-</select>
+	<!-- 파일삭제 -->
+	<delete id="deleteAllByIds" parameterType="list"> update accommodations_file
+		set delete_yn =1, deleted_date=now() where af_id in <foreach item="afId"
+			collection="list" open="(" separator="," close=")">
+			${afId}
+		</foreach>
+	</delete>
 
-<!-- 파일삭제 -->
-<delete id="deleteAllByIds" parameterType="list">
-update accommodations_file
-set
-delete_yn =1, deleted_date=now()
-where af_id in 
-<foreach item="afId" collection="list" open="(" separator="," close=")">
-${afId}
-</foreach>
-</delete>
+	<!-- 파일상세정보 조회 -->
+	<select id="findById" parameterType="Long"
+		resultType="com.various_functions.admin.vo.AccommodationsFileVo"> select <include
+			refid="fileColumns" /> from accommodations_file where delete_yn = 0
+		and accommodation_id = #{accommodationId} </select>
 
-<!-- 파일상세정보 조회 -->
-<select id="findById" parameterType="Long" resultType="com.various_functions.admin.vo.AccommodationsFileVo">
- select 
- <include refid="fileColumns"/>
- from accommodations_file
- where delete_yn = 0 
- and accommodation_id = #{accommodationId}
-</select>
+
+
 </mapper>

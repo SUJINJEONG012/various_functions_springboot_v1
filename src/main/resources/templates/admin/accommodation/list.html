@@ -51,11 +51,7 @@
 						<td th:each="room : ${accommodation.rooms}"
 							th:text="${room.roomRoomtype} + '등급'"></td>
 
-						<!-- <td
-							th:each="accommodationsFiles : ${accommodation.accommodationsFiles}">
-							
-						</td> -->
-						
+							<img th:src="@{/accommodation/image/{accommodationId}(accommodationId=${accommodation.accommodationId})}" alt="Accommodation Image">
 						 <!-- 이미지 정보 출력 -->
 
 					</tr>

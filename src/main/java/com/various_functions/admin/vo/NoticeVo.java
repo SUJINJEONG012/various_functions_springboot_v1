@@ -25,5 +25,5 @@ public class NoticeVo {
 	private LocalDateTime createdDate; //생성일시
 	private LocalDateTime modifiedDate; //최종 수정일시
 	
-	
+	private List<NoticeFileVo> imageList;
 }

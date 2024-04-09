@@ -2,14 +2,16 @@ package com.various_functions.admin.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.various_functions.admin.dto.AccommodationsDto;
@@ -20,7 +22,6 @@ import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.service.RoomInfoService;
 import com.various_functions.admin.vo.AccommodationsFileVo;
 import com.various_functions.admin.vo.AccommodationsVo;
-import com.various_functions.admin.vo.RoomInfoVo;
 import com.various_functions.utils.FileUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -80,6 +81,25 @@ public class AccommodationController {
 	public String UserAccommodationsList( Model model) {
 		return accommodationsList(model, "accommodation/list");
 	}
+	
+	 @GetMapping("/accommodation/image/{accommodationId}")
+	 public ResponseEntity<byte[]> getImage(@PathVariable Long accommodationId){
+		 AccommodationsFileVo file = accommodationFileService.findFileByAccommodationId(accommodationId);
+		
+		if (file.isEmpty()) {
+	        // 이미지 파일이 없는 경우 에러 처리
+	        return ResponseEntity.notFound().build();
+	    }
+		
+		// 첫 번째 이미지 파일을 사용하도록 설정
+	    AccommodationsFileVo file = files.get(0);
+	    log.info("리스트에서 이미지를 가져오는 메서드 file: {}", file);
+		
+		// 이미지파일을 byte배열로 변환화여 ResponseEntity로 변환
+		 HttpHeaders headers = new HttpHeaders();
+		 headers.setContentType(MediaType.IMAGE_JPEG);
+		 return new ResponseEntity<>(file.getFileData(), headers, HttpStatus.OK);
+	 }
 
 	// 숙소 조회 리스트
 	public String accommodationsList( Model model, String viewName) {

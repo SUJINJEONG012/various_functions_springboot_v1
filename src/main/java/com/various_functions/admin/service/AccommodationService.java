@@ -51,10 +51,6 @@ public class AccommodationService {
 			accommodation.setRooms(rooms);
 			log.info("rooms: {}", rooms);
 			
-			//숙소에 해당하는 이미지 정보 조회
-			List<AccommodationsFileVo> accommodationsFiles = accommodationFileService.findAllAccommodations(accommodation.getAccommodationId());
-			 accommodation.setAccommodationsFiles(accommodationsFiles);
-			 log.info("accommodationsFiles: {}", accommodationsFiles); // 출력가능
 		}
 		
 		return accommodations;

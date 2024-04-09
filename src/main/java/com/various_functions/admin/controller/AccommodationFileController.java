@@ -28,17 +28,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AccommodationFileController {
 
-	private final String uploadPath = "/Users/jeongsujin/upload/"; // 파일이 저장된 경로
-	//private final String uploadPath = "C:\\Users\\NCIN\\single-upload-files"; // 파일이 저장된 경로
+	//private final String uploadPath = "/Users/jeongsujin/upload/"; // 파일이 저장된 경로
+	private final String uploadPath = "C:\\Users\\NCIN\\single-upload-files"; // 파일이 저장된 경로
 	
 	private final AccommodationFileService accommodationFileService;
 	private final FileUtils fileUtils;
 
-	@GetMapping("/admin/accommodation{accommodationId}/files")
+	@GetMapping("/admin/accommodation/{accommodationId}/files")
 	public List<AccommodationsFileVo> findAllAdminFileByAccommodationId(@PathVariable final Long accommodationId){
 		// 숙소와 파일 정보를 함께 조회하는 서비스 메서드 호출
 		log.info("숙소와 파일 정보를 함께 조회하는 서비스 메서드 호출!!");
-		return accommodationFileService.findAllAccommodations(accommodationId);
+		return accommodationFileService.findFileByAccommodationId(accommodationId);
 	}
 	
 	

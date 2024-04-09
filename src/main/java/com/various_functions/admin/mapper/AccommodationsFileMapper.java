@@ -18,7 +18,6 @@ public interface AccommodationsFileMapper {
 	
 	// 이미지 데이터 변환
 	List<AccommodationsFileVo> findFileByAccommodationId(Long AccommodationId);
-	
 
 	/*
 	 * 파일리스트 조회
@@ -32,6 +31,7 @@ public interface AccommodationsFileMapper {
 	
 	/* 파일 상세 조회 */
 	AccommodationsFileVo findById(Long afId);
+	
 	
 }
 

@@ -31,7 +31,7 @@ public class NoticeFileController {
 	private final FileUtils fileUtils;
 
 	//파일리스트 조회
-	@GetMapping("/admin/notic{noticeId}/files")
+	@GetMapping("/admin/notice/{noticeId}/files")
 	public List<NoticeFileVo> findAllAdminFileByNoticeId(@PathVariable final Long noticeId){
 	    log.info("파일컨트롤러 메서드 진입 !!!");
 	    return noticeFileService.findFilesByNoticeId(noticeId);
