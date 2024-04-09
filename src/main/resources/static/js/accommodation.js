@@ -123,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // 파일선택
 function selectFile(element){
+	
 	const file = element.files[0];
 	const filename = element.closest('.file_input').firstElementChild;
 	
@@ -146,18 +147,17 @@ function selectFile(element){
 
 // 파일추가
 function addFile(){
-	const fileDiv =document.createElement('div');
+	const fileDiv = document.createElement('div');
+	
 	fileDiv.innerHTML = `
-	<div class="file_input">
-		<input type="text" readonly />
-		<label>
-		첨부파일 
-		<input type="file" name="files" onchange="selectFile(this);" />
-		</label>
-	</div>
-	<button type="button" onclick="removeFile(this);" class="btns del_btn">
-	<span>삭제</span>
-	</button>
+
+	<li class="file_input">
+					
+					<span class="point_color">*</span> 파일
+					<input type="file" name="files" class="input" lang="en" onchange="selectFile(this);" placeholder="">
+
+	</li>
+	 <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
 	`;
 	document.querySelector('.file_list').appendChild(fileDiv);
 }

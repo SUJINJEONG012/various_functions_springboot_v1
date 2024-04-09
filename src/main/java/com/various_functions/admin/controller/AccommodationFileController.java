@@ -43,7 +43,7 @@ public class AccommodationFileController {
 	
 	
 	@GetMapping("/admin/accommodation/{accommodationId}/files/{afId}/list")
-	public ResponseEntity<Resource> AdminviewFile(@PathVariable final Long accommodationId, @PathVariable final Long afId){
+	public ResponseEntity<Resource> AdminListFile(@PathVariable final Long accommodationId, @PathVariable final Long afId){
 		
 		log.info("ResponseEntity<Resource> AdminviewFile 메서드 진입!!!!");
 		
