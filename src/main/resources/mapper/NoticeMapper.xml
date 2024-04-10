@@ -37,7 +37,7 @@
 	</insert>
 
 	<!-- 게시글 상세정보 조회 -->
-	<select id="findById" parameterType="long"
+	<select id="findById" parameterType="Long"
 		resultType="com.various_functions.admin.vo.NoticeVo">
 		select
 		<include refid="noticeColumns" />

@@ -48,6 +48,7 @@ public class NoticeFileService {
 	public List<NoticeFileVo> findFilesByNoticeId(Long noticeId) {
 		return noticeFileMapper.findFilesByNoticeId(noticeId);
 	}
+	
 
 	/**
      * 파일 리스트 조회

@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.various_functions.admin.mapper.AccommodationsMapper">
 
+<sql id="accommodationColumns">
+ accommodation_id,
+ accommodation_cate,
+ accommodation_name,
+ accommodation_adress,
+ accommodation_phone,
+ accommodation_totalroom,
+ accommodation_grade,
+ accommodation_detail,
+ accommodation_regdate
+
+</sql>
+
 <insert id="insertAccommodation" parameterType="com.various_functions.admin.dto.AccommodationsDto" 
     useGeneratedKeys="true" keyProperty="accommodationId">
     <!-- 숙소 정보를 삽입하고 생성된 키를 가져옴 -->      
@@ -28,14 +41,12 @@
 
 <!-- 숙소등록 리스트  -->
 <select id="findAllAccommodations" resultType="com.various_functions.admin.vo.AccommodationsVo">
-	 SELECT
+	SELECT
 	*
     FROM accommodations 
    	ORDER BY accommodation_regdate DESC
    	
 </select> 
-
-
 
 <!-- 메인 최근에 등록된 3개 게시물 출력 -->
  <select id="findRecentAccommodations" resultType="com.various_functions.admin.vo.AccommodationsVo">
@@ -43,6 +54,13 @@
 	order by accommodation_regdate desc limit 3
 </select>
 
+<!-- 숙소상세정보  -->
+<select id="findById" parameterType="Long" resultType="com.various_functions.admin.vo.AccommodationsVo">
+select 
+<include refid="accommodationColumns"/>
+from accommodations
+where accommodation_id = #{accommodationId}
+</select>
 
 
 </mapper>

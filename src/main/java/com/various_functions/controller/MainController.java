@@ -42,10 +42,11 @@ public class MainController {
 			model.addAttribute("errorMessage", errorMessage);
 			session.removeAttribute("errorMessage"); // 세션에서 메시지 제거
 		}
-		// 1. 게시글 가져오기
 		
+		// 1. 게시글 가져오기
 		List<NoticeVo> recentnotices = noticeService.findRecentNotices();
 		model.addAttribute("recentnotices", recentnotices);
+		
 		
 		// 2. 숙소리스트 가져오기
 		List<AccommodationsVo> accommodations = accommodationService.findRecentAccommodations();

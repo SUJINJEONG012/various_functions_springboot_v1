@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.various_functions.admin.dto.AccommodationsDto;
@@ -101,6 +102,34 @@ public class AccommodationController {
 		
 		return viewName;
 	}
+	
+	
+	@GetMapping("/admin/accommodation/view")
+	private String AdminAccommodationView(@RequestParam Long accommodationId, Model model) {
+		return AccommodationView(accommodationId, model, "/admin/accommodation/view");
+	}
+	
+	
+	@GetMapping("/accommodation/view")
+	private String userAccommodationView(@RequestParam Long accommodationId, Model model) {
+		return AccommodationView(accommodationId, model, "/accommodation/view");
+	}
+	
+	// 숙소 상세보기
+	public String AccommodationView(@RequestParam final Long accommodationId, Model model, String viewName) {
+		
+		AccommodationsVo accommodation = accommodationService.findById(accommodationId);
+		
+		// 파일정보가져오기
+		//List<AccommodationsFileVo> files = accommodationFileService.findFileById(accommodationId);
+		// log.info("숙소정보상세보기에 가져오는 데이터 확인 : {} ", files);
+		// 파일저장되는 경로
+		model.addAttribute("accommodation",accommodation);
+		//model.addAttribute("files",files);
+
+		return viewName;
+	}
+	
 	
 
 }

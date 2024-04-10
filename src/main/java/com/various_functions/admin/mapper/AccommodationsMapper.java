@@ -15,7 +15,9 @@ public interface AccommodationsMapper {
 	// 숙소 전체 리스트 조회
 	List<AccommodationsVo> findAllAccommodations();
 	
-	//메인에 노출할 3개 출력
+	// 메인에 노출할 3개 출력
 	List<AccommodationsVo> findRecentAccommodations();
 
+	// 숙소 상세정보 조회
+	AccommodationsVo findById(Long accommodationId);
 }
