@@ -172,3 +172,4 @@ function removeFile(element){
 	}
 	element.parentElement.remove();
 }
+

@@ -51,10 +51,15 @@
 						<td th:each="room : ${accommodation.rooms}"
 							th:text="${room.roomRoomtype} + '등급'"></td>
 
-						<td>
-							<!-- 이미지를 출력할 영역 --> 
-							<img id="imageDisplay" src="" alt="Image Display" style="width:100%">
-						</td>
+						
+					<td>
+					<!-- 파일 리스트 출력 -->
+                <ul>
+                    <li th:each="file : ${filesMap[accommodation.accommodationId]}">
+                        <img th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" alt="File Image" style="width:100%;">
+                    </li>
+                </ul>
+                </td>
 
 					</tr>
 
@@ -68,27 +73,6 @@
 
 </th:block>
 <th:block layout:fragment="script">
-	<script th:inline="javascript">
-		/*<![CDATA[*/
-
-		// 이미지 URL을 가져오는 함수
-		function getImageUrl() {
-			// 숙소 ID와 파일 ID를 지정하여 이미지를 가져올 URL 생성
-			var accommodationId = 1; // 숙소 ID
-			var fileId = 1; // 파일 ID
-			var imageUrl = "/admin/accommodation/" + accommodationId
-					+ "/files/" + fileId + "/list";
-
-			// 이미지를 표시할 img 태그에 URL 설정
-			document.getElementById("imageDisplay").src = imageUrl;
-		}
-
-		// 페이지 로드 시 이미지 URL 가져오기
-		window.onload = function() {
-			getImageUrl();
-		};
-
-		/*]]>*/
-	</script>
+	<
 </th:block>
 </html>

@@ -1,8 +1,8 @@
 package com.various_functions.admin.controller;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,6 +62,7 @@ public class AccommodationController {
 	            List<AccommodationsFileDto> fileList = fileUtils.uploadFileAccommodations(files);
 	            accommodationFileService.saveFiles(accommodationId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
 	        }
+	        
 
 	        return ResponseEntity.ok("숙소정보가 성공적으로 저장되었습니다.");
 	    } else {
@@ -87,11 +88,16 @@ public class AccommodationController {
 		//숙소정보가져오기
 		List<AccommodationsVo> accommodations = accommodationService.findAllAccommodations();
 		
-		
-
-        
+		// 각 숙소별 파일 리스트 가져오기
+	    Map<Long, List<AccommodationsFileVo>> filesMap = new HashMap<>();
+	    for (AccommodationsVo accommodation : accommodations) {
+	        List<AccommodationsFileVo> files = accommodationFileService.findFileByAccommodationId(accommodation.getAccommodationId());
+	        filesMap.put(accommodation.getAccommodationId(), files);
+	    }
+	    
 		// 모델에 데이터 추가
 		model.addAttribute("accommodations", accommodations);
+		model.addAttribute("filesMap", filesMap);
 		
 		return viewName;
 	}

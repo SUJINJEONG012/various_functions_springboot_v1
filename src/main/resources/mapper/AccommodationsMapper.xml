@@ -33,11 +33,6 @@
     FROM accommodations 
    	ORDER BY accommodation_regdate DESC
    	
-<!-- SELECT a.*, ri.*, af.*
-FROM accommodations a
-LEFT JOIN room_info ri ON a.accommodation_id = ri.accommodation_id
-LEFT JOIN accommodations_file af ON a.accommodation_id = af.accommodation_id
-ORDER BY a.accommodation_regdate DESC; -->
 </select> 
 
 

@@ -1,6 +1,8 @@
 package com.various_functions.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.various_functions.admin.service.AccommodationFileService;
 import com.various_functions.admin.service.AccommodationService;
 import com.various_functions.admin.service.NoticeService;
+import com.various_functions.admin.vo.AccommodationsFileVo;
 import com.various_functions.admin.vo.AccommodationsVo;
 import com.various_functions.admin.vo.NoticeVo;
 
@@ -25,7 +29,9 @@ public class MainController {
 	private NoticeService noticeService;
 	@Autowired
 	private AccommodationService accommodationService;
-	
+	@Autowired
+	private AccommodationFileService accommodationFileService;
+
 
 	@GetMapping("/")
 	public String main(HttpServletRequest request, Model model) {
@@ -43,8 +49,16 @@ public class MainController {
 		
 		// 2. 숙소리스트 가져오기
 		List<AccommodationsVo> accommodations = accommodationService.findRecentAccommodations();
-		model.addAttribute("accommodations",accommodations);
 		
+		// 각 숙소별 파일 리스트 가져오기
+	    Map<Long, List<AccommodationsFileVo>> filesMap = new HashMap<>();
+	    for (AccommodationsVo accommodation : accommodations) {
+	        List<AccommodationsFileVo> files = accommodationFileService.findFileByAccommodationId(accommodation.getAccommodationId());
+	        filesMap.put(accommodation.getAccommodationId(), files);
+	    }
+	    
+		model.addAttribute("accommodations",accommodations);
+		model.addAttribute("filesMap", filesMap);
 		return "/index";
 	}
 	

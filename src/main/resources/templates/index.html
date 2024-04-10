@@ -36,8 +36,9 @@
 					<small class="">/mo</small>
 				</h1>
 				
-				 <!-- <img th:src="@{${accommodations_file.saveName}}" /> -->
-							 
+				<div th:each="file : ${filesMap[accommodation.accommodationId]}">
+					<img th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" alt="File Image" style="width:100%;">
+				</div>
 
 				<ul class=" mt-3 mb-4">
 					<li th:text="${accommodation.accommodationCate}"></li>
@@ -50,7 +51,6 @@
 		    </div>
 		  </div>
 		  
-		
 		</div>
 		
 		
@@ -88,5 +88,6 @@
 	
 	
 </body>
+
 
 </html>
