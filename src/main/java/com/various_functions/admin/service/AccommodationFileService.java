@@ -60,8 +60,9 @@ public class AccommodationFileService {
 	/*
 	 * 파일상세정보 조회
 	 */
-	public AccommodationsFileVo findFileById(final Long afId) {
-		return accommodationsFileMapper.findById(afId);
+	public AccommodationsFileVo findFileById(final Long accommodationId) {
+		
+		return accommodationsFileMapper.findById(accommodationId);
 	}
 
 }

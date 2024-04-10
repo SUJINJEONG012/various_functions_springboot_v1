@@ -6,8 +6,93 @@
 	<title>글 상세페이지</title>
 </th:block>
 
-
 <th:block layout:fragment="content">
+<!--
+상단에 이미지 노출 
+숙소이름  노출 
+좌측에는 예약하기 금액 노출 박스로 
+숙소소개 관련 글 
 
+숙소위치는 지도로 노출
+리뷰는나중에 노출하기 위해서 일단 보류
+
+  -->
+  
+<div class="content">
+			<h4>숙소리스트 </h4>
+			<!-- 숙소 이미지 출력 -->
+
+<!-- 숙소 이미지 출력 -->
+		<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+		  
+			<div class="col">
+		    <div class="card mb-4 rounded-3 shadow-sm">
+		      <div class="card-header py-3">
+		        <h4 th:text="${accommodation.accommodationName}"></h4>
+		      </div>
+		      <div class="card-body">
+		        <h1 class="card-title">$0
+					<small class="">/mo</small>
+				</h1>
+				
+				<!-- 
+				이미지 주석처리하면에러안나오고 이미지부분에서 에러니옴-->
+				<div id="files">
+				</div> 
+
+				<ul class=" mt-3 mb-4">
+					<li th:text="${accommodation.accommodationCate}"></li>
+					<li th:text="${accommodation.accommodationGrade + '등급'}"></li>
+					<li th:text="${accommodation.accommodationDetail}"></li>
+		        </ul>
+		       
+		        
+		      </div>
+		    </div>
+		  </div>
+		  
+		</div>
+</div>
+		
+  
+  
+</th:block>
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+				window.onload = () => {
+				//deleteNotice();
+				findAllFile();
+			}
+			
+		// 파일조회	
+		function findAllFile(){
+			
+			const accommodationId = [[${accommodation.accommodationId}]];
+			const response = getJson(`/accommodation/${accommodationId}/files`);
+			
+			if(!response.length){
+				return false;
+			}
+			
+			let fileHtml = '<div class="file_down"><div class="cont">';
+			response.forEach(row => {
+				if(row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null){
+				fileHtml += `
+					<img src="/accommodation/${accommodationId}/files/${row.afId}/view" alt="${row.originalName}" style="width: 100%; height: auto;">
+				`
+			}
+				
+			
+			});
+			fileHtml += '</div></div>';
+			
+			document.getElementById('files').innerHTML = fileHtml;
+			
+		}	
+		
+			
+		/*]]>*/
+	</script>
 </th:block>
 </html>

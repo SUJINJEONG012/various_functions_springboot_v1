@@ -121,11 +121,11 @@ public class AccommodationController {
 		AccommodationsVo accommodation = accommodationService.findById(accommodationId);
 		
 		// 파일정보가져오기
-		//List<AccommodationsFileVo> files = accommodationFileService.findFileById(accommodationId);
-		// log.info("숙소정보상세보기에 가져오는 데이터 확인 : {} ", files);
+		List<AccommodationsFileVo> files = accommodationFileService.findFileByAccommodationId(accommodationId);
+		log.info("숙소정보상세보기에 가져오는 데이터 확인 : {} ", files);
 		// 파일저장되는 경로
 		model.addAttribute("accommodation",accommodation);
-		//model.addAttribute("files",files);
+		model.addAttribute("files",files);
 
 		return viewName;
 	}
