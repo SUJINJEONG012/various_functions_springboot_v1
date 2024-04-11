@@ -32,7 +32,7 @@ import com.various_functions.admin.vo.NoticeFileVo;
 public class FileUtils {
 
 	// 단일파일 업로드
-	//rivate final String singuploadPath = Paths.get("C:", "Users", "NCIN","single-upload-files").toString();
+	private final String singuploadPath = Paths.get("C:", "Users", "NCIN","single-upload-files").toString();
 	// 다중파일 업로드
 	// private final String multuploadPath = Paths.get("C:", "Users",
 	// "NCIN","mult-upload-files").toString();
@@ -41,7 +41,7 @@ public class FileUtils {
 	 * uploadPath 물리적으로 파일을 저장할 위치 보통 OS별 디렉터리 경로를 구분할 때 File.separator를 이용하고는 하는데요.
 	 * Paths.get( )을 이용하면 OS에 상관없이 디렉터리 경로를 구분할 수 있다.
 	 */
-	private final String singuploadPath = Paths.get("/Users", "jeongsujin", "upload").toString();
+	//private final String singuploadPath = Paths.get("/Users", "jeongsujin", "upload").toString();
 
 	/**
 	 * 다중 파일 업로드
