@@ -21,9 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.various_functions.admin.service.NoticeService;
-import com.various_functions.admin.vo.NoticeVo;
 import com.various_functions.dto.MemberDto;
+import com.various_functions.service.InquiryService;
 import com.various_functions.service.MemberService;
+import com.various_functions.vo.InquiryVo;
 import com.various_functions.vo.MemberVo;
 
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,7 @@ public class MemberController {
 	
 	private final MemberService memberService;
 	private final NoticeService noticeService;
+	private final InquiryService inquiryService;
 	
 	private final JavaMailSender mailSender;
 	
@@ -158,14 +160,15 @@ public class MemberController {
 	public String myPage(HttpSession session, Model model) {
 		// 세션에서 현재 사용자 정보가져오기 => getAttribute("loginMember") 세션에 저장되는 속성명은 개발자가 임의로 정할 수 있따.
 		MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+		
 		if(loginMember == null) {
 			// 세션이 없는 경우 로그인 페이지로 이동하거나 다른 처리를 수행
 			return "redirect://member/login";
 		}
 		
-		// 사용자가 작성한 글 조회 => 현재는 공지사항으로 되어있는걸 나중에 이걸 문의하는 게시판으로 이동
-		List<NoticeVo> userNotices = noticeService.findNoticeUserById(loginMember.getLoginId());
-		model.addAttribute("userNotices", userNotices);
+		// 사용자가 작성한 글 조회 =>
+		List<InquiryVo> memberInquiry = inquiryService.findInquiryMemberById(loginMember.getMemberId());
+		model.addAttribute("memberInquiry", memberInquiry);
 		return "/member/mypage";
 	}
 

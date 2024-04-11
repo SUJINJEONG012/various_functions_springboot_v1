@@ -34,6 +34,11 @@ public class InquiryService {
     public List<InquiryVo> findAllInquiryWithMemberNames() {
         return inquiryMapper.findAllInquiryWithMemberNames();
     }
+    
+    // 내가쓴글보기 
+    public List<InquiryVo> findInquiryMemberById(Long memberId){
+    	return inquiryMapper.findInquiryMemberById(memberId);
+    }
 	
 
 }

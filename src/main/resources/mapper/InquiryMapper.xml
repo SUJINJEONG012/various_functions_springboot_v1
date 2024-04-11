@@ -60,4 +60,9 @@ ORDER BY i.created_date DESC;
  </select>
  
  
+ <!-- 사용자가 작성한 문의글 조회 쿼리 -->
+ <select id="findInquiryMemberById" parameterType="Long" resultType="com.various_functions.vo.InquiryVo">
+ SELECT * FROM inquiry WHERE member_id = #{memberId}
+ </select>
+ 
 </mapper>

@@ -19,4 +19,7 @@ public interface InquiryMapper {
 	// 문의글 전체리스트와 작성자 회원이름 출력하기
 	List<InquiryVo> findAllInquiryWithMemberNames();
 	
+	// 내가쓴글 리스트 조회
+	List<InquiryVo> findInquiryMemberById(Long memberId);
+	
 }
