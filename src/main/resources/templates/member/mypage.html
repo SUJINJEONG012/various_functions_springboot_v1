@@ -27,11 +27,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="inquiry : ${memberInquiry}">
+        
+            <tr th:if="${not #lists.isEmpty(memberInquiry)}"  th:each="inquiry : ${memberInquiry}">
                 <td th:text="${inquiry.inquiryId}"></td>
                 <td th:text="${inquiry.title}"></td>
-                 <!-- 필요한 다른 컬럼들에 대한 출력 -->
+               <!-- <td th:text="${inquiry.createdDate}"></td> -->
+               
             </tr>
+            <tr th:if="${#lists.isEmpty(memberInquiry)}">
+				<td colspan="2">게시물이 없습니다.</td>
+			</tr>
         </tbody>
     </table>
     
