@@ -1,6 +1,7 @@
 package com.various_functions.controller;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -61,14 +62,17 @@ public class InquiryController {
 	
 		List<InquiryVo> inquirys = inquiryService.findAllInquiry();
 		
-		// 문의하기 리스트에 작성자이름 출력
-		 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		   
+		// DateTimeFormatter를 사용하여 원하는 형식으로 포맷
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    log.info("formatter : {}",formatter);
+	    
 		for(InquiryVo inquiry : inquirys) {
-			// createdDate를 포맷하여 formattedDate 필드에 저장
-	        String formattedDate = dateFormat.format(inquiry.getCreatedDate());
-	        inquiry.setFormattedDate(formattedDate);
-	        
+			
+			 LocalDateTime createdDate = inquiry.getCreatedDate();
+		        String formattedDate = createdDate.format(formatter);
+		        inquiry.setFormattedDate(formattedDate);
+	    
+	        // 문의하기 리스트에 작성자이름 출력
 			String memberName = memberService.getMemberNameById(inquiry.getMemberId());
 			inquiry.setMemberName(memberName);
 		}
