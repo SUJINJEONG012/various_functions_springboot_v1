@@ -20,6 +20,8 @@ public class InquiryVo {
 	private LocalDateTime createdDate;
 	private LocalDateTime modifiedDate;
 	
+	private String formattedDate; // 포맷된 날짜 문자열
+
 	private Long memberId;
 	private String memberName; // 문의글 시  작성자이름 표출하기 위해 조인하기위한 필드
 	
@@ -27,5 +29,9 @@ public class InquiryVo {
 	// memberName 필드에 대한 setter 메서드
     public void setMemberName(String memberName) {
         this.memberName = memberName;
+    }
+    // formattedDate를 설정하는 메서드
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
     }
 }
