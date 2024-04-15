@@ -62,15 +62,9 @@ public class InquiryController {
 	
 		List<InquiryVo> inquirys = inquiryService.findAllInquiry();
 		
-		// DateTimeFormatter를 사용하여 원하는 형식으로 포맷
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	    log.info("formatter : {}",formatter);
-	    
+		
 		for(InquiryVo inquiry : inquirys) {
 			
-			 LocalDateTime createdDate = inquiry.getCreatedDate();
-		        String formattedDate = createdDate.format(formatter);
-		        inquiry.setFormattedDate(formattedDate);
 	    
 	        // 문의하기 리스트에 작성자이름 출력
 			String memberName = memberService.getMemberNameById(inquiry.getMemberId());

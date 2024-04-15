@@ -13,7 +13,8 @@
  modified_date
 </sql>
 
-<insert id="inquirySave" parameterType="com.various_functions.dto.InquiryDto" useGeneratedKeys="true" keyProperty="inquiryId">
+<insert id="inquirySave" parameterType="com.various_functions.dto.InquiryDto" 
+useGeneratedKeys="true" keyProperty="inquiryId">
 insert into inquiry(
 <include refid="inquiryColumns"/>
 ) values(
