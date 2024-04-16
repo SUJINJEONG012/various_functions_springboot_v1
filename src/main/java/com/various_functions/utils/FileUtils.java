@@ -41,6 +41,7 @@ public class FileUtils {
 	 * Paths.get( )을 이용하면 OS에 상관없이 디렉터리 경로를 구분할 수 있다.
 	 */
 	private final String singuploadPath = Paths.get("/Users", "jeongsujin", "upload").toString();
+	private final String multuploadPath = Paths.get("/Users", "jeongsujin", "upload", "multupload").toString();
 
 	/**
 	 * 다중 파일 업로드
@@ -61,7 +62,13 @@ public class FileUtils {
 		}
 		return filesff;
 	}
-
+	
+	/**
+	 * 다중 파일 업로드
+	 * 
+	 * @param multipartFiles - 파일 객체 List
+	 * @return DB에 저장할 파일 정보 List
+	 */
 	public List<AccommodationsFileDto> uploadFileAccommodations(final List<MultipartFile> multipartFiles) {
 
 		// 여러 이미지를 담는 객체
@@ -76,6 +83,7 @@ public class FileUtils {
 		}
 		return filesAccommodation;
 	}
+	
 
 	/**
 	 * 단일 파일 업로드
@@ -164,6 +172,10 @@ public class FileUtils {
 	public String getSingUploadPath() {
 		return makeDirectories(singuploadPath);
 	}
+	
+	public String getMultUploadPaths() {
+		return makeDirectories(multuploadPath);
+	}
 
 	/**
 	 * 업로드 경로 반환
@@ -174,7 +186,12 @@ public class FileUtils {
 	public String getSingUploadPath(final String addPath) {
 		return makeDirectories(singuploadPath + File.separator + addPath);
 	}
+	
+	public String getMultUploadPath(final String addPath) {
+		return makeDirectories(multuploadPath + File.separator + addPath);
+	}
 
+	
 	/**
 	 * 업로드 폴더(디렉터리) 생성
 	 * 
@@ -195,6 +212,8 @@ public class FileUtils {
 	 * @param file - 첨부파일 상세정보
 	 * @return 첨부파일(리소스)
 	 */
+	
+	//공지사항 단일파일
 	public Resource readFileAsResource(final NoticeFileVo file) {
 
 		String uploadedDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
@@ -214,9 +233,32 @@ public class FileUtils {
 		} catch (MalformedURLException e) {
 			throw new RuntimeException("file not found :" + filePath.toString());
 		}
-
 	}
+	
+	// 공지사항 다중 파일
+	public Resource readFileAsResources(final NoticeFileVo files) {
 
+		String uploadedDate = files.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
+		String filename = files.getSaveName();
+
+		// 절대경로 생성
+		Path filePaths = Paths.get(multuploadPath, uploadedDate, filename);
+
+		try {
+			// UrlResource 객체생성 파일에 접근할 uri생성
+			Resource resource = new UrlResource(filePaths.toUri());
+			if (resource.exists() == false || resource.isFile() == false) {
+				throw new RuntimeException("file not found : " + filePaths.toString());
+			}
+			return resource;
+
+		} catch (MalformedURLException e) {
+			throw new RuntimeException("file not found :" + filePaths.toString());
+		}
+	}
+	
+	
+	// 숙소 단일파일
 	public Resource readFileAsResource(final AccommodationsFileVo file) {
 
 		String uploadedDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
@@ -239,9 +281,35 @@ public class FileUtils {
 
 	}
 
-	// 저장된 파일을 가져오는 메서드
+	// 숙소 다중파일
+	public Resource readFileAsResources(final AccommodationsFileVo files) {
+
+		String uploadedDate = files.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
+		String filenames = files.getSaveName();
+
+		// 절대경로 생성
+		Path filePaths = Paths.get(multuploadPath, uploadedDate, filenames);
+
+		try {
+			// UrlResource 객체생성 파일에 접근할 uri생성
+			Resource resource = new UrlResource(filePaths.toUri());
+			if (resource.exists() == false || resource.isFile() == false) {
+				throw new RuntimeException("file not found : " + filePaths.toString());
+			}
+			return resource;
+
+		} catch (MalformedURLException e) {
+			throw new RuntimeException("file not found :" + filePaths.toString());
+		}
+
+	}
+
+	
+	
+	// 단일 저장된 파일을 가져오는 메서드
 	public Resource loadFileAsResource(String fileName) throws MalformedURLException, FileNotFoundException {
 		Path filePath = Paths.get(singuploadPath).resolve(fileName).normalize();
+		
 		Resource resource = new UrlResource(filePath.toUri());
 
 		if (resource.exists()) {
@@ -250,6 +318,21 @@ public class FileUtils {
 			throw new FileNotFoundException("파일을 찾을 수 없습니다: " + fileName);
 		}
 	}
+	
+	
+	
+	// 다중 저장된 파일을 가져오는 메서드
+		public Resource loadFileAsResources(String fileNames) throws MalformedURLException, FileNotFoundException {
+			Path filePaths = Paths.get(multuploadPath).resolve(fileNames).normalize();
+			
+			Resource resource = new UrlResource(filePaths.toUri());
+
+			if (resource.exists()) {
+				return resource;
+			} else {
+				throw new FileNotFoundException("파일을 찾을 수 없습니다: " + fileNames);
+			}
+		}
 
 	
 }
