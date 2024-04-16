@@ -30,6 +30,7 @@ public class InquiryController {
 	private final InquiryService inquiryService;
 	private final MemberService memberService;
 
+	
 	@GetMapping("/inquiry/write")
 	public String Inquiry(final InquiryDto inquiryDto, Model model, HttpSession session) {
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
@@ -61,14 +62,19 @@ public class InquiryController {
 		log.info("문의글 페이지 진입!!!!");
 	
 		List<InquiryVo> inquirys = inquiryService.findAllInquiry();
-		
-		
+
+
 		for(InquiryVo inquiry : inquirys) {
 			
 	    
 	        // 문의하기 리스트에 작성자이름 출력
 			String memberName = memberService.getMemberNameById(inquiry.getMemberId());
 			inquiry.setMemberName(memberName);
+			
+			 // 날짜 포맷팅
+	        String formattedDate = inquiry.getFormattedCreatedDate();
+	        inquiry.setFormattedCreatedDate(formattedDate);
+	        
 		}
 		model.addAttribute("inquirys",inquirys);
 		return "/inquiry/list";
