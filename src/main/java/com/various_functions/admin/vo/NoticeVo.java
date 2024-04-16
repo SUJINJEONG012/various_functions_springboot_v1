@@ -3,8 +3,6 @@ package com.various_functions.admin.vo;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.various_functions.admin.vo.RoomInfoVo;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,4 +24,7 @@ public class NoticeVo {
 	private LocalDateTime modifiedDate; //최종 수정일시
 	
 	private List<NoticeFileVo> imageList;
+	
+	
+    
 }

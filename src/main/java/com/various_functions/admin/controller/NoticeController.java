@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -94,13 +95,16 @@ public class NoticeController {
 
 	// 유저,어드민 페이지 공통으로 사용하기 위한 메서드
 	private String noticeList(Model model, String viewName) {
+		
+	    
 		List<NoticeVo> notices = noticeService.findAllNotices();
+		
+	    
 		model.addAttribute("notices", notices);
 		return viewName;
 	}
 	
-	
-	
+
 
 	@GetMapping("/notice/view")
 	private String userNoticeView(@RequestParam Long noticeId, Model model, HttpSession session) {

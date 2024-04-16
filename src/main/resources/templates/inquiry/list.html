@@ -26,7 +26,7 @@
 				<td th:text="${inquiry.inquiryId}"></td>
 				<td><a th:href="@{/inquiry/view(inquiryId=${inquiry.inquiryId})}" th:text="${inquiry.title}"></a></td>
 				<td th:text="${inquiry.memberName}"></td>
-				<td th:text="${#temporals.format(inquiry.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+				<td th:text="${#temporals.format(inquiry.createdDate, 'yyyy-MM-dd')}"></td>
 				
 				 
 				<td th:text="${inquiry.viewCnt}"></td>
