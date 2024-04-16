@@ -20,10 +20,18 @@
 		      <div class="card-header py-3">
 		        <h4 th:text="${accommodation.accommodationName}"></h4>
 		      </div>
+		      
 		      <div class="card-body">
-		        <h1 class="card-title">$0
-					<small class="">/mo</small>
-				</h1>
+		        
+		       
+				
+				<h2 class="card-title" th:each="room : ${accommodation.rooms}"
+							th:text="${#numbers.formatInteger(room.roomPeak,0,'COMMA') +'원'}">
+						
+				</h2>
+				
+								<small class="" th:each="room : ${accommodation.rooms}"
+							th:text="${room.roomRoomtype} + ' 타입글 '">/mo</small>
 				
 				<div th:each="file : ${filesMap[accommodation.accommodationId]}">
 					<img th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" alt="File Image" style="width:100%;">
