@@ -33,20 +33,19 @@
 						<th scope="col">성별</th>
 						<th scope="col">생일</th>
 						<th scope="col">가입날짜</th>
-						<th scope="col">수정</th>
 						<th scope="col">삭제</th>
 					</tr>
 				</thead>
 
 				<tbody id="list">
 					<tr th:each="members: ${members}">
-						<td th:text="${members.memberId}"></td>
-						<td th:text="${members.loginId}"></td>
-						<td th:text="${members.memberName}"></td>
-						<th th:text="${members.gender}"></th>
-						<th th:text="${members.birthday}"></th>
-						<th th:text="${#temporals.format(members.createdDate, 'yyyy-MM-dd')}"></th>
-						<th><a th:href="@{mypage}">수정</a></th>
+						<td th:text="${members.memberId}" lang="en" ></td>
+						<td th:text="${members.loginId}" lang="en" ></td>
+						<td th:text="${members.memberName}" lang="en" ></td>
+						<th th:text="${members.gender}" lang="en" ></th>
+						<th th:text="${members.birthday}" lang="en" ></th>
+						<th th:text="${#temporals.format(members.createdDate, 'yyyy-MM-dd')}" lang="en" ></th>
+						
 						<th>삭제</th>
 					</tr>
 				</tbody>

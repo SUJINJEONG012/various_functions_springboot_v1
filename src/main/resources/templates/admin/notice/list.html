@@ -49,14 +49,14 @@
 					<span th:if="${notice.noticeYn}" class="icons">
 					     <i class="fa fa-bell-o" aria-hidden="true"></i>
 					</span>
-					<span th:text="${notice.noticeYn ? '공지글' : notice.noticeId}"></span>
+					<span th:text="${notice.noticeYn ? '공지글' : notice.noticeId}" lang="en" ></span>
 				</td>
 				
 				<td><a th:href="@{/admin/notice/view(noticeId=${notice.noticeId})}" th:text="${notice.title}"></a></td>
 				<td th:text="${notice.writer}"></td>
-				<td th:text="${#temporals.format(notice.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+				<td th:text="${#temporals.format(notice.createdDate, 'yyyy-MM-dd HH:mm:ss')}" lang="en" ></td>
 				
-				<td th:text="${notice.viewCnt}"></td>
+				<td th:text="${notice.viewCnt}" lang="en" ></td>
 			</tr>
 			<tr th:if="${#lists.isEmpty(notices)}">
 				<td colspan="2">게시물이 없습니다.</td>
