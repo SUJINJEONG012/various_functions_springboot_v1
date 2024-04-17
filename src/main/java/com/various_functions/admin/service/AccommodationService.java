@@ -58,7 +58,14 @@ public class AccommodationService {
 	
 	// 최근게시물 리스트
 	public List<AccommodationsVo> findRecentAccommodations(){
-		return accommodationsMapper.findRecentAccommodations();
+	
+		List<AccommodationsVo> accommodations = accommodationsMapper.findRecentAccommodations();
+		
+		for(AccommodationsVo accommodation : accommodations) {
+			List<RoomInfoVo> rooms = roomInfoService.findRoomsByAccommodationId(accommodation.getAccommodationId());
+			accommodation.setRooms(rooms);
+		}
+		return accommodations;
 	}
 	
 	// 숙소상세 정보 

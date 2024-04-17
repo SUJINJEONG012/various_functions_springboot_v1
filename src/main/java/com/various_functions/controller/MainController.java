@@ -49,16 +49,16 @@ public class MainController {
 		
 		
 		// 2. 숙소리스트 가져오기
-		List<AccommodationsVo> accommodations = accommodationService.findRecentAccommodations();
+		List<AccommodationsVo> accommodations1 = accommodationService.findRecentAccommodations();
 		
 		// 각 숙소별 파일 리스트 가져오기
 	    Map<Long, List<AccommodationsFileVo>> filesMap = new HashMap<>();
-	    for (AccommodationsVo accommodation : accommodations) {
+	    for (AccommodationsVo accommodation : accommodations1) {
 	        List<AccommodationsFileVo> files = accommodationFileService.findFileByAccommodationId(accommodation.getAccommodationId());
 	        filesMap.put(accommodation.getAccommodationId(), files);
 	    }
 	    
-		model.addAttribute("accommodations",accommodations);
+		model.addAttribute("accommodations",accommodations1);
 		model.addAttribute("filesMap", filesMap);
 		return "/index";
 	}
