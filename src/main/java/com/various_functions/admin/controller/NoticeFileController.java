@@ -24,8 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NoticeFileController {
 	
-	private final String uploadPath = "/Users/jeongsujin/upload/"; // 파일이 저장된 경로
-	//private final String uploadPath = "C:\\Users\\NCIN\\single-upload-files"; // 파일이 저장된 경로
+	//private final String uploadPath = "/Users/jeongsujin/upload/"; // 파일이 저장된 경로
+	private final String uploadPath = "C:\\Users\\NCIN\\single-upload-files"; // 파일이 저장된 경로
 
     private final NoticeFileService noticeFileService;
 	private final FileUtils fileUtils;
