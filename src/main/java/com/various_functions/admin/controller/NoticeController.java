@@ -134,6 +134,29 @@ public class NoticeController {
 		return viewName;
 	}
 	
+	//@RequestParam을 사용한 방법 => noticeId를 받아와서
+//	@GetMapping("/notice/update")
+//	public String showUpdateForm(@RequestParam("noticeId") Long noticeId, Model model) {
+//	    NoticeDto noticeDto = noticeService.getNoticeById(noticeId);
+//	    model.addAttribute("notice", noticeDto);
+//	    return "updateForm";
+//	}
+	
+	//@PathVariable을 사용한 방법 => noticeId를 받아와서
+	@GetMapping("/notice/update/{noticeId}")
+	public String showUpdateFormWithPathVariable(@PathVariable Long noticeId, Model model) {
+	    NoticeDto noticeDto = noticeService.getNoticeById(noticeId);
+	    model.addAttribute("notice", noticeDto);
+	    return "updateForm";
+	}
+	
+	// 게시글 수정 
+	@PostMapping("/admin/notice/update")
+	public String updateNotice(final NoticeDto noticeDto) {
+		noticeService.noticeUpdate(noticeDto);
+		return "redirect:/admin/notice/view" + noticeDto.getNoticeId();
+	}
+	
 	
 	// 파일 다운로드
     @GetMapping("/admin/notice/download/{noticeId}/files/{filename:.+}")
