@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="/admin/layout/basic">
+	layout:decorate="/layout/basic">
 <th:block layout:fragment="title">
 	<title>마이 페이지</title>
 </th:block>
@@ -16,13 +16,16 @@
 
 	        <div class="content">
             <section>
-                
+          
+        <h3>문의글 내가 쓴글 보기</h3>      
        <table class="tb tb_col">
         <thead>
             <tr>
                 <th>글 번호</th>
                 <th>제목</th>
+                <th>내용</th>
                 <th>가입일</th>
+                <th>작성자</th>
                 
             </tr>
         </thead>
@@ -31,7 +34,10 @@
             <tr th:if="${not #lists.isEmpty(memberInquiry)}"  th:each="inquiry : ${memberInquiry}">
                 <td th:text="${inquiry.inquiryId}"></td>
                 <td th:text="${inquiry.title}"></td>
-                <td th:text="${#temporals.format(inquiry.createdDate, 'yyyy-MM-dd')}"></td>     
+                <td th:text="${inquiry.content}"></td>
+              
+                <td th:text="${#temporals.format(inquiry.createdDate, 'yyyy-MM-dd')}"></td>
+                   <td th:text="${inquiry.memberId}"></td>
             </tr>
             <tr th:if="${#lists.isEmpty(memberInquiry)}">
 				<td colspan="2">게시물이 없습니다.</td>
