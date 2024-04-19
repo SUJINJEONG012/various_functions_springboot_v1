@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.various_functions.admin.dto.NoticeFileDto;
 import com.various_functions.admin.service.NoticeFileService;
 import com.various_functions.admin.vo.NoticeFileVo;
 import com.various_functions.utils.FileUtils;
@@ -30,7 +31,9 @@ public class NoticeFileController {
     private final NoticeFileService noticeFileService;
 	private final FileUtils fileUtils;
 
-	//파일리스트 조회
+	/*파일리스트 조회 => 공지사항에 첨부된 파일목록을 가져오는 RESTful API로 구현  
+	 * 이 API를 호출하여 프론드엔드에서 파일 목록을 가져올 수 있다. 
+	 */
 	@GetMapping("/admin/notice/{noticeId}/files")
 	public List<NoticeFileVo> findAllAdminFileByNoticeId(@PathVariable final Long noticeId){
 	    log.info("파일컨트롤러 메서드 진입 !!!");
@@ -122,9 +125,5 @@ public class NoticeFileController {
             throw new RuntimeException("filename encoding failed : " + file.getOriginalName());
         }
     }
-    
-    
-    
-    
-	
+
 }

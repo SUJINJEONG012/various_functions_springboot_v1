@@ -93,48 +93,54 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		/*<![CDATA[*/
-			window.onload = () => {
-				findAllFile();
-			}
-			
-			// 전체파일 조회
 			function findAllFile(){
-				//1. api 호출 
-				const noticeId = [[ ${notice.noticeId}]];
-				
-				const response = getJson(`/admin/notice/${noticeId}/files`);
-				
-				//2. 로직종료
-				if(!response.length){
-					return false;
+			
+			// Thymeleaf를 사용하는 것으로 보이므로, noticeId 값 가져오기
+			const noticeId = [[ ${notice.noticeId} ]]; 
+			
+			$.ajax({
+				type:'GET',
+				url:`/admin/notice/${noticeId}/files`,
+				success:function (response){
+					//서버로부터 받은 파일목록 (response)을 처리하는 로직을 작성
+					console.log(response); // 파읾고록을 콘솔에 출력해서 확인
+					renderFiles(response); // 파읾목록을 ui에 렌더링하는 함수 호출
+				},
+				error: function(xhr, status, error){
+					console.log('Error fetching files:' ,error);
 				}
-				
-				//3. 파일 영역 추가
-				let fileHtml = '<div class="file_down"><div class="cont">';
-				response.forEach(row =>{
-					if(row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null){ // 이미지 파일체크
-						 fileHtml += `
-						<img src="/admin/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 100%; height: auto;" >
-							`
-					}
-					//여기서 else{}추가해도됨.
-					fileHtml += `
-						<a href="/admin/notice/${noticeId}/files/${row.fileId}/download">
-						<span class="icons">
-						<i class="fas fa-folder-open"></i></span>${row.originalName}
-						</a>
-
-					`
-					
-				});
-				fileHtml += '</div></div>';
-				
-				
-				//4. 파일 html 렌더링
-				document.getElementById('files').innerHTML = fileHtml;
-			}
+			});
 			
+		}
+		
+		
+		// 파일 목록을 ui에 렌더링하는 함수
+		function renderFiles(files){
+			let fileHtml = '<div class="file_down"><div class="cont">';
+			files.forEach(file=>{
+				if(file.originalName.match(/\.(jpge|jpg|gif|png)$/) != null){ // 이미지 파일 체크
+					fileHtml += `<img src="/admin/notice/${file.noticeId}/files/${file.fileId}/view" alt="${file.originalName}" style="width: 100%; height: auto;">`;		
+				}else{
+					fileHtml += `<a href="/admin/notice/${file.noticeId}/files/${file.fileId}/download">
+                        <span class="icons">
+                        <i class="fas fa-folder-open"></i>
+                    </span>
+                    ${file.originalName}
+                </a>`;
+				}
+			});
+			fileHtml += '</div></div>';
 			
+			// 파일 렌더링
+			document.getElementById('files').innerHTML = fileHtml;
+		}
+		
+		// 페이지 로드 시 파일 목록 조회 
+		window.onload = function(){
+			findAllFile();
+		};
+		
+		
 		/*]]>*/
 	</script>
 </th:block>
