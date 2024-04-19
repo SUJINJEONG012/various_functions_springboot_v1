@@ -134,15 +134,15 @@ public class NoticeController {
 		return viewName;
 	}
 	
-	//@RequestParam을 사용한 방법 => noticeId를 받아와서
-//	@GetMapping("/notice/update")
+	//@@PathVariable을 사용한 방법 => noticeId를 받아와서
+//	@GetMapping("/notice/update/{noticeId}")
 //	public String showUpdateForm(@RequestParam("noticeId") Long noticeId, Model model) {	  
 //	    return "updateForm";
 //	}
 	
 	//@PathVariable을 사용한 방법 => noticeId를 받아와서
-	@GetMapping("/admin/notice/update/{noticeId}")
-	public String showUpdateFormWithPathVariable(@PathVariable Long noticeId, Model model) {
+	@GetMapping("/admin/notice/update")
+	public String showUpdateFormWithPathVariable(@RequestParam Long noticeId, Model model) {
 	   NoticeVo noticeVo= noticeService.findById(noticeId);
 	    model.addAttribute("notice", noticeVo);
 	    return "/admin/notice/update";

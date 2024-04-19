@@ -34,7 +34,7 @@
 					</tr>
 					<tr>
 						<th scope="row">제목</th>
-						<td>[[${notice.title}]]</td>
+						<td><input type="text" th:value="${notice.title}" name="title" /></td>
 						<th scope="row">조회</th>
 						<td colspan="3" lang="en">[[${notice.viewCnt}]]</td>
 					</tr>
@@ -44,7 +44,7 @@
 					</tr>
 					<tr>
 						<th scope="row">내용</th>
-						<td colspan="3">[[${notice.content}]]</td>
+						<td colspan="3"><textarea th:text="${notice.content}" name="content"></textarea></td>
 					</tr>
 
 					<!-- 파일 정보가 있는 경우에만 표시 -->
