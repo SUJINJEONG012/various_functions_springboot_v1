@@ -32,10 +32,13 @@ public class NoticeService {
 	
 	// 게시글 수정
 	@Transactional
-	public Long noticeUpdate(final NoticeDto noticeDto) {
+	public Long updateNotice(final NoticeDto noticeDto) {
 		noticeMapper.update(noticeDto);
 		return noticeDto.getNoticeId();
 	}
+	
+	
+	
 	
 	// 게시글 삭제
 	public Long delete(final Long noticeId) {
@@ -58,7 +61,8 @@ public class NoticeService {
 	public List<NoticeVo> findRecentNotices(){
 		return noticeMapper.findRecentNotices();
 	}
-	
+
+
 	
 	
 }
