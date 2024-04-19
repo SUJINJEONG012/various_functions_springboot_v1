@@ -97,81 +97,90 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-	window.onload = function() {
-	    findAllFile(); // 페이지 로드 시 파일 목록을 조회하는 함수 호출
+		
+		//로드하고 바로 실행
+		window.onload= function(){
+		findAllFile(); 
 	};
-
-	function findAllFile() {
-	    const noticeId = [[ ${notice.noticeId} ]];
-	    
-	    // AJAX 요청
-	    $.ajax({
-	        type: 'GET',
-	        url: `/admin/notice/${noticeId}/files`,
-	        success: function(response) {
-	            renderFiles(response, noticeId); // 파일 목록을 렌더링하는 함수 호출
-	        },
-	        error: function(xhr, status, error) {
-	            console.log('Error fetching files:', error);
-	        }
-	    });
+	
+	// 공지사항이미지파일 불러오기 엔드포인트 설정
+	function findAllFile(){
+		const noticeId = [[ ${notice.noticeId} ]];
+		
+		//ajax 요청 
+		$.ajax({
+			type:'GET',
+			url: `/admin/notice/${noticeId}/files`,
+			success : function(response){
+				renderFiles(response, noticeId);
+			},
+			error: function(xhr, status, error){
+				console.log('Error fetching files : ', error);
+			}
+		});
+		
 	}
-
-	function renderFiles(files, noticeId) {
-	    let fileHtml = '';
-	    
-	    files.forEach(file => {
-	        let fileItem = '';
-	        if (file.originalName.match(/\.(jpge|jpg|gif|png)$/i) !== null) { // 이미지 파일 체크
-	            fileItem = `
-	                <div class="file_item">
-	                    <img src="/admin/notice/${noticeId}/files/${file.fileId}/view" alt="${file.originalName}" style="width: 100%; height: auto;">
-	                    <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
-	                </div>`;
-	        } else {
-	            fileItem = `
-	                <div class="file_item">
-	                    <a href="/admin/notice/${file.noticeId}/files/${file.fileId}/download">
-	                        <span class="icons">
-	                            <i class="fas fa-folder-open"></i>
-	                        </span>
-	                        ${file.originalName}
-	                    </a>
-	                    <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
-	                </div>`;
-	        }
-	        fileHtml += fileItem;
-	    });
-	    document.querySelector('.file_list').innerHTML = fileHtml;
+	
+	//파일을 자바스크립트로 태그생성후 이미지 불러오기!
+	function renderFiles(files, noticeId){
+		let fileHtml = '';
+		
+		files.forEach(file => {
+			let fileItem = '';
+			if(file.originalName.match(/\.(jpge|jpg|gif|png)$/i) != null){
+				fileItem = `
+				<div class="file_item">
+					<img src="/admin/notice/${noticeId}/files/${file.fileId}/view" alt="${file.originalName}" style="width:100%; height:auto;" />
+					<button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+				</div>	
+				`
+			}else{
+				fileItem = `
+					<div class="file_item">
+						<a href="/admin/notice/${file.noticeId}/files/${file.fileId}/download">
+							<span class="icons">
+								<i class="fas fa-folder-open"></i>
+							</span>
+							${file.originalName}
+						</a>
+						<button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+					</div>`;
+			}
+			fileHtml += fileItem;
+		});
+		document.querySelector('.file_list').innerHTML = fileHtml;
 	}
-
-	function addFile() {
-	    const fileInput = document.createElement('input');
-	    fileInput.type = 'file';
-	    fileInput.name = 'files';
-	    fileInput.onchange = function() {
-	        selectFile(this);
-	    };
-	    
-	    const fileDiv = document.createElement('div');
-	    fileDiv.className = 'file_item';
-	    fileDiv.appendChild(fileInput);
-
-	    const removeBtn = document.createElement('button');
-	    removeBtn.type = 'button';
-	    removeBtn.className = 'btns del_btn';
-	    removeBtn.innerHTML = '<span>삭제</span>';
-	    removeBtn.onclick = function() {
-	        removeFile(this);
-	    };
-
-	    fileDiv.appendChild(removeBtn);
-	    document.querySelector('.file_list').appendChild(fileDiv);
+	
+	// 파일추가 
+	function addFile(){
+		const fileInput = document.createElement('input');
+		fileInput.type='file';
+		fileInput.name='files';
+		fileInput.onchange = function(){
+			selectFile(this);
+		};
+		
+		const fileDiv = document.createElement('div');
+		fileDiv.className= 'file_item';
+		fileDiv.appendChild(fileInput);
+		
+		const removeBtn = document.createElement('button');
+		removeBtn.type='button';
+		removeBtn.className = 'btns del_btn';
+		removeBtn.innerHTML = '<span>새로운 파일누르고 나오는 삭제</span>';
+		removeBtn.onclick = function(){
+			removeFile(this);
+		};
+		
+		fileDiv.appendChild(removeBtn);
+		document.querySelector('.file_list').appendChild(fileDiv);
 	}
-
-	function removeFile(btn) {
-	    btn.parentNode.remove();
+	
+	// 삭제하기
+	function removeFile(btn){
+		btn.parentNode.remove();
 	}
+	
 	/*]]>*/
 	</script>
 </th:block>
