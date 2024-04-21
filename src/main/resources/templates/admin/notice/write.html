@@ -32,12 +32,12 @@
 				<div class="flex" >
 					<ul style="display: flex; align-content: space-between;">
 				
-						<li>구분 <p class="check input"> <input type="checkbox"
+						<li><h4>구분</h4> <p class="check input"> <input type="checkbox"
 								id="isNotice" name="isNotice" class="chk"
 								onchange="updateNoticeStatus()" />
 								<label for="isNotice"> 공지글 설정</label></p>
 						</li>
-						<li>등록일 <input type="text" id="createdDate" lang="en"
+						<li><h4>등록일</h4> <input type="text" id="createdDate" lang="en"
 							name="createdDate" class="input"
 							th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"
 							readonly>
@@ -49,18 +49,25 @@
 						<ul>
 
 
-						<li>제목 <span class="es">필수 입력</span> <input type="text"
+						<li>
+						<h4 class="es">제목 </h4><span class="es"></span> <input type="text"
 							id="title" name="title" class="input" maxlength="50"
 							placeholder="제목을 입력해 주세요." />
 						</li>
 
 
-						<li>작성자 <input type="text" id="writer" class="input"
+						<li>
+						<h4>작성자</h4> 
+						<input type="text" id="writer" class="input"
 							name="writer" th:value="${session.loginMember.memberName}"
-							readonly /></li>
+							readonly />
+							
+						</li>
 
-						<li>내용 <textarea id="content" name="content" cols="50"
-								rows="10" placeholder="내용을 입력해 주세요."></textarea>
+						<li class="bordernone">
+						<h4>내용</h4> 
+						<textarea id="content" name="content" cols="50"
+						rows="10" placeholder="내용을 입력해 주세요."></textarea>
 						</li>
 						
 						<li>

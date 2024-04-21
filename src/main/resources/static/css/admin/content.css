@@ -47,10 +47,15 @@ section:first-child, #tabmenu + section {margin-top:0;}
 .board input[type="text"] { width: 100%;}
 .board .tit{font-size:16px;}
 .board ul li {border-bottom: 1px solid #000; margin-bottom: 40px;}
+.board ul li h4{padding-bottom:10px;}
+.board ul li h4.es{position: relative; }
+.board ul li h4.es::after{content:"*";color: #d74242; border-radius: 50px; position: absolute; top: 3px; left: 30px; }
 .board .input{ background: transparent; border: none; }
+
+.board .bordernone {border:none;}
+
 .flex ul li {width:50%;}
 .flex ul li input {margin-bottom: 0;}
-
 
 /* 테이블 스타일 ------------------------------- */
 .tb {width:100%; border:1px solid #dedede; margin-top:20px;}
@@ -96,7 +101,7 @@ section:first-child, #tabmenu + section {margin-top:0;}
 .recomchk label i {font-size:18px;}
 
 /* 필수입력표시 */
-.es {display:inline-block; text-indent:-99999px; background-position:-65px 0; width:6px; height:7px; margin-left:3px; vertical-align:middle; position:relative; top:-2px;}
+.es {}
 /* 필수입력항목 텍스트 */
 .wr_cm_txt {text-align:right;}
 .wr_cm_txt span {display:inline-block; position:relative; padding-left:10px; font-size:12px; color:#888; margin-bottom:10px;}
@@ -285,7 +290,7 @@ input[type="text"], input[type="password"], input[type="button"], input[type="im
 border: none;
 border-bottom: 1px solid #000;}
 select {padding-right:0;}
-textarea {padding:10px; font-size:15px; border: 1px solid #000;}
+textarea {padding:10px; font-size:15px; border: 1px solid #000; margin: 10px auto 0;}
 input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled], select[disabled], textarea[disabled], .disabled {background:#f4f4f4; border-color:#ddd;} /* 입력불가 */
 .email_in input, .email_in select {width:auto;}
 .addr_in input {margin:1px 0;}
