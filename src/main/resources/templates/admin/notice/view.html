@@ -110,24 +110,24 @@
 				}
 				
 				//3. 파일 영역 추가
-				let fileHtml = '<div class="file_down"><div class="cont">';
+				let fileHtml = '<div class="file_down"><div class="cont"><ul>';
+				
 				response.forEach(row =>{
+					fileHtml += '<li>';
 					if(row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null){ // 이미지 파일체크
 						 fileHtml += `
 						<img src="/admin/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 100%; height: auto;" >
-							`
-					}
-					//여기서 else{}추가해도됨.
-					fileHtml += `
 						<a href="/admin/notice/${noticeId}/files/${row.fileId}/download">
 						<span class="icons">
 						<i class="fas fa-folder-open"></i></span>${row.originalName}
 						</a>
-
-					`
+						`
+					}
+					
+				
 					
 				});
-				fileHtml += '</div></div>';
+				fileHtml += '</ul></div></div>';
 				
 				
 				//4. 파일 html 렌더링

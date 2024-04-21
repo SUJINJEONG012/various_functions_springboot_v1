@@ -27,92 +27,34 @@
 				<!-- 서버로 전달할 공지글 여부 -->
 				<input type="hidden" id="noticeYn" name="noticeYn" />
 
-				<div class="board">
-				
-				<div class="flex" >
-					<ul style="display: flex; align-content: space-between;">
-				
-						<li>구분 <p class="check input"> <input type="checkbox"
-								id="isNotice" name="isNotice" class="chk"
-								onchange="updateNoticeStatus()" />
-								<label for="isNotice"> 공지글 설정</label></p>
-						</li>
-						<li>등록일 <input type="text" id="createdDate" lang="en"
-							name="createdDate" class="input"
-							th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"
-							readonly>
-						</li>
-						
-						</ul>
-						</div>
-						
-						<ul>
 
-
-						<li>제목 <span class="es">필수 입력</span> <input type="text"
-							id="title" name="title" class="input" maxlength="50"
-							placeholder="제목을 입력해 주세요." />
-						</li>
-
-
-						<li>작성자 <input type="text" id="writer" class="input"
-							name="writer" th:value="${session.loginMember.memberName}"
-							readonly /></li>
-
-						<li>내용 <textarea id="content" name="content" cols="50"
-								rows="10" placeholder="내용을 입력해 주세요."></textarea>
-						</li>
-						
-						<li>
-							<h4 class="">첨부파일</h4>
-								<div class="file_list">
-									<div>
-										<div class="file_input">
-											<input type="text" readonly /> 
-											<label> 첨부파일 
-											<input
-												type="file" name="files" onchange="selectFile(this);" />
-											</label>
-										</div>
-										<button type="button" onclick="removeFile(this);"
-											class="btns del_btn">
-											<span>삭제</span>
-										</button>
-										<button type="button" onclick="addFile();"
-											class="btns fn_add_btn">
-											<span>추가</span>
-										</button>
-									</div>
-								</div>
-						
-						</li>
-
-					</ul>
-				</div>
 				
 
-				<!-- <table class="tb tb_row">
+				<table class="tb tb_row">
 					<colgroup>
-						<col style="width: 15%" />
+						<!-- <col style="width: 15%" />
 						<col style="width: 35%" />
-						<col style="width: 15%" />
+						<col style="width: 15%" /> -->
 					</colgroup>
 
 					<tbody>
 
 						<tr>
-							<th scope="row">공지글</th>
+							<th scope="row">구분</th>
 							<td><span class="check"> <input type="checkbox"
 									id="isNotice" name="isNotice" class="chk"
 									onchange="updateNoticeStatus()" /> <i></i><label
-									for="isNotice"> 설정</label></span> </span></td>
+									for="isNotice">공지글 설정</label></span> </span></td>
 
-							<th scope="등록일">등록일</th>
+							
+						</tr>
+						
+						<tr>
+						<th scope="등록일">등록일</th>
 							<td colspan="3"><input type="text" id="createdDate"
 								lang="en" name="createdDate"
 								th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"
 								readonly></td>
-
 						</tr>
 
 						<tr>
@@ -124,8 +66,8 @@
 						<tr>
 							<th>이름 <span class="es">필수 입력</span></th>
 							<td colspan="3">
-								<input type="text" id="writer" name="writer"
-								maxlength="10" placeholder="이름을 입력해 주세요." /> <input
+								<!-- <input type="text" id="writer" name="writer"
+								maxlength="10" placeholder="이름을 입력해 주세요." /> --> <input
 								type="text" id="writer" name="writer"
 								th:value="${session.loginMember.memberName}" readonly />
 							</td>
@@ -162,11 +104,11 @@
 
 					</tbody>
 				</table>
-			</form> -->
+			</form>
 			<p class="btn_set">
 				<button type="button" id="saveBtn" onclick="saveNotice();"
-					class="btns btn_st5 btn_big">등록하기</button>
-				<a th:href="@{/admin/notice/list}" class="btns btn_bdr5 btn_big">돌아가기</a>
+					class="btns btn_st3 btn_mid">저장</button>
+				<a th:href="@{/admin/notice/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
 			</p>
 		</section>
 	</div>
