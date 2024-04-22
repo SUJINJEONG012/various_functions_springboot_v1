@@ -1,5 +1,15 @@
 @charset "utf-8";
-
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
 /* skip */
 #skipnav {overflow:hidden; position:absolute; width:100%; z-index:1000;}
 #skipnav a {display:block; overflow:hidden; height:1px; width:1px; margin:0 -1px -1px 0; font-size:0; line-height:0; text-align:center;}
