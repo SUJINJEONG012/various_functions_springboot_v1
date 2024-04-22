@@ -6,7 +6,7 @@
 #container::after {content:''; background:#434b53; width:210px; height:100%; position:absolute; top:0; left:0;}
 #container .lcontent {float:left; width:210px; position:relative; z-index:1;}
 #container .rcontent {margin-left:210px; padding:25px 30px 25px 40px;}
-#container .rcontent .content {background:#fff; border-radius:12px; box-shadow:0 0 20px rgba(80,80,80,0.1); padding:40px 40px 70px 40px; min-height:600px; overflow:hidden;}
+#container .rcontent .content {background:#fff; border-radius:12px; box-shadow:0 0 20px rgba(80,80,80,0.1); padding:70px; min-height:600px; overflow:hidden;}
 
 .menu_toggle {background:linear-gradient(to left, #434b53, #32393f); border-top-right-radius:4px; border-bottom-right-radius:4px; width:20px; height:50px; position:absolute; top:80px; left:209px; cursor:pointer; box-sizing:border-box;}
 .menu_toggle > span {background-position:-145px 0; width:4px; height:7px; position:absolute; top:50%; left:50%; margin-top:-3px; margin-left:-2px;}
@@ -47,13 +47,15 @@ section:first-child, #tabmenu + section {margin-top:0;}
 .board input[type="text"] { width: 100%;}
 .board .tit{font-size:16px;}
 .board ul li {border-bottom: 1px solid #000; margin-bottom: 40px;}
+.board ul li.textarea {border-bottom: none;}
+
 .board ul li h4{padding-bottom:10px;}
 .board ul li h4.es{position: relative; }
 .board ul li h4.es::after{content:"*";color: #d74242; border-radius: 50px; position: absolute; top: 3px; left: 30px; }
 .board .input{ background: transparent; border: none; }
-
+.board p.input { padding-top: 13px; font-size: 12px; color: #000;}
 .board .bordernone {border:none;}
-
+.board .check input[type="checkbox"]{height:auto;}
 .flex ul li {width:50%;}
 .flex ul li input {margin-bottom: 0;}
 
@@ -66,7 +68,7 @@ section:first-child, #tabmenu + section {margin-top:0;}
 
 .tb_col th {border-bottom:1px solid #a2a2a2;}
 .tb_col td {text-align:center;}
-.tb_col thead th {background:#6f8294; border-color:rgba(255,255,255,0.2); color:#fff;}
+.tb_col thead th {background:#444b53; border-color:rgba(255,255,255,0.2); color:#fff;}
 .tb_col tbody tr:nth-child(even) {background:#f6f7f8;}
 .tb_col tbody tr td .img{ width: 100%;}
 .tb_col .no_data_msg {padding:50px 0;}
@@ -87,7 +89,7 @@ section:first-child, #tabmenu + section {margin-top:0;}
 .file_down > strong {display:block; border-bottom:1px solid #e0e0e0; color:#333; font-size:13px; font-weight:400; padding:7px 10px;}
 .file_down .cont {background:#f9f9f9; padding:4px 0;}
 .file_down .cont ul{display:flex;}
-.file_down .cont ul li {width:100%; height:auto;padding: 10px;}
+.file_down .cont ul li {width:100%; height:auto;padding: 10px;border-bottom: 0;}
 .file_down .cont ul li img { border-radius: 10px;}
 .file_down .cont > a {display:block; padding:4px 10px; padding-left:40px; min-height:23px; font-size:13px; position:relative;}
 .file_down .cont > a > span {display:inline-block; background:#aaa; width:23px; height:23px; border-radius:100%; position:absolute; top:3px; left:10px; text-align:center;}
@@ -285,12 +287,12 @@ h4 + .search_box {margin-top:10px;}
 
 /* input 정의 */
 input[type="text"], input[type="password"], input[type="button"], input[type="image"], input[type="submit"], input[type="search"], input[type="email"], input[type="url"], input[type="number"], input[type="tel"],  input[type="checkbox"], input[type="date"], select 
-{/*width:100%; */height:45px;padding:0 10px; margin-bottom:2px;
+{/*width:100%; */height:45px; margin-bottom:2px;
 
 border: none;
 border-bottom: 1px solid #000;}
 select {padding-right:0;}
-textarea {padding:10px; font-size:15px; border: 1px solid #000; margin: 10px auto 0;}
+textarea { min-height: 250px; padding:10px; font-size:12px; border: 1px solid #000; margin: 10px auto 0;}
 input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled], select[disabled], textarea[disabled], .disabled {background:#f4f4f4; border-color:#ddd;} /* 입력불가 */
 .email_in input, .email_in select {width:auto;}
 .addr_in input {margin:1px 0;}
@@ -317,7 +319,7 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 .radios input[type=radio]:checked ~ label {}
 /* 첨부파일 스타일 */
 .file_input {margin:2px 0; overflow:hidden; position:relative; padding-right:100px; width:80%; box-sizing:border-box;}
-.file_input label {vertical-align:middle;border: 1px solid #070707; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; border-radius: 3px; display:inline-block; overflow:hidden; width:85px; height:30px; line-height:27px; background:#070707; color:#fff; text-align:center; box-sizing:border-box; font-size: 13px;font-weight: 300;}
+.file_input label {vertical-align:middle;border: 1px solid #070707; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; border-radius: 3px; display:inline-block; overflow:hidden; width:85px; height:36px; line-height:30px; background:#070707; color:#fff; text-align:center; box-sizing:border-box; font-size: 13px;font-weight: 300;}
 
 .file_input label input {position:absolute; width:0; height:0; overflow:hidden; padding:0; border:0;}
 .file_input input[type=text] {color:#737070; background:#fff; border:none;}

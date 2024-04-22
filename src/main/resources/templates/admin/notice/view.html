@@ -16,85 +16,63 @@
 
 	<div class="content">
 		<section>
-		
-		<div class="board">
-		<div class="flex">
-		<ul style="display: flex; align-content: space-between;">
-				
+
+			<div class="board">
+				<div class="flex">
+					<ul style="display: flex; align-content: space-between;">
+
 						<li><h4>구분</h4>
-						<p class="check input">
-						 <p th:text="${notice.noticeYn == false ? '일반' : '공지' }"></p></p>
-						</li>
-						
+							<p class="check input">
+
+								<input type="checkbox" id="myCheckbox" class="custom-checkbox">
+								<label th:text="${notice.noticeYn == false ? '일반' : '공지' }"></label>
+							</p></li>
+
 						<li>
-						
-						<h4>작성자</h4> 
-						<input type="text" id="writer" class="input"
+
+							<h4>작성자</h4> <input type="text" id="writer" class="input"
 							name="writer" th:value="${session.loginMember.memberName}"
 							readonly />
-							
+
 						</li>
-					
-						<li><h4>등록일</h4> <input type="text" id="createdDate" lang="en"
-							name="createdDate" class="input"
+
+						<li><h4>등록일</h4> <input type="text" id="createdDate"
+							lang="en" name="createdDate" class="input"
 							th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"
-							readonly>
-						</li>
-					
-						
-						</ul>
-						
-						<ul>
-						<li><h4 class="">제목 </h4>
-						[[${notice.title}]]
-						</li>
-						
+							readonly></li>
 						<li>
-						<h4 class="">조회</h4>
-						[[${notice.viewCnt}]]</li>
-						
-					
-						</ul>
+							<h4 class="">조회</h4>
+							<p lang="en" class="input">[[${notice.viewCnt}]]</p>
+						</li>
+
+					</ul>
 				</div>
-				
-				
-				
-		
-		</div>
-		
-			<table class="tb tb_row">
-				<colgroup>
-					<col style="width: 10%;" />
-					<col style="width: 23%;" />
-					<col style="width: 10%;" />
-					<col style="width: 23%;" />
-				</colgroup>
 
-				<tbody>
-					<tr>
-						<th scope="row">글 유형</th>
-						<td th:text="${notice.noticeYn == false ? '일반' : '공지' }"></td>
-						<th scope="row">등록일</th>
-						<td
-							th:text="${#temporals.format(notice.createdDate, 'yyyy-MM-dd HH:mm')}" lang="en"></td>
-					</tr>
-					<tr>
-						<th scope="row">제목</th>
-						<td>[[${notice.title}]]</td>
-						<th scope="row">조회</th>
-						<td colspan="3" lang="en">[[${notice.viewCnt}]]</td>
-					</tr>
-					<tr>
-						<th scope="row">이름</th>
-						<td colspan="3">[[${notice.writer}]]</td>
-					</tr>
-					<tr>
-						<th scope="row">내용</th>
-						<td colspan="3">[[${notice.content}]]</td>
-					</tr>
 
-					<!-- 파일 정보가 있는 경우에만 표시 -->
-					<!-- tr th:if="${not #lists.isEmpty(files)}">
+
+				<ul>
+
+					<li><h4 class="">제목</h4> [[${notice.title}]]</li>
+
+					<li class="textarea">
+						<h4 class="">내용</h4>
+						<textarea readonly> [[${notice.content}]]</textarea>
+					</li>
+
+
+					<li>
+						<h4 class="">첨부파일</h4>
+						<div id="files"></div>
+					</li>
+
+
+				</ul>
+
+
+			</div>
+
+			<!-- 파일 정보가 있는 경우에만 표시 -->
+			<!-- tr th:if="${not #lists.isEmpty(files)}">
 						<th scope="row">파일</th>
 						<td colspan="3">
 							<div th:each="file : ${files}">
@@ -106,27 +84,17 @@
 							</div>
 						</td>
 					</tr> -->
-					<!-- 파일 정보가 없는 경우 -->
-					<!-- <tr th:if="${#lists.isEmpty(files)}">
+			<!-- 파일 정보가 없는 경우 -->
+			<!-- <tr th:if="${#lists.isEmpty(files)}">
 						<th scope="row">파일</th>
 						<td colspan="3">첨부된 파일이 없습니다.</td>
 					</tr> -->
-					
-					<tr>
-						<th scope="row">첨부파일</th>
-						<td id="files" colspan="3"></td>							
-					</tr>
-					
-					
-
-				</tbody>
-			</table>
 
 			<p class="btn_set">
 				<a th:href="@{/admin/notice/update(noticeId=${notice.noticeId})}"
-					class="btns btn_bdr4 btn_mid">수정</a>
-				<button type="button" class="btns btn_bdr1 btn_mid">삭제</button>
-				<a th:href="@{/notice/list}" class="btns btn_bdr3 btn_mid">목록</a>
+					class="btns btn_st5 btn_big">수정</a>
+				<button type="button" class="btns btn_bdr5 btn_big">삭제</button>
+				<a th:href="@{/notice/list}" class="btns btn_bdr5 btn_mid">목록</a>
 			</p>
 		</section>
 	</div>
@@ -152,7 +120,9 @@
 				
 				//2. 로직종료
 				if(!response.length){
-					return false;
+					// 파일이 없는 경우 메시지를 표시하고 함수 종료
+			        document.getElementById('files').textContent = '첨부 파일이 없습니다.';
+			        return;
 				}
 				
 				//3. 파일 영역 추가
@@ -180,7 +150,9 @@
 				document.getElementById('files').innerHTML = fileHtml;
 			}
 			
-			
+			window.addEventListener('DOMContentLoaded', function() {
+	            document.getElementById('myCheckbox').checked = true; // 체크박스를 체크된 상태로 설정
+	        });
 		/*]]>*/
 	</script>
 </th:block>

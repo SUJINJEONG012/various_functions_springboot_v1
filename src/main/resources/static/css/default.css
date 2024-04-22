@@ -111,7 +111,7 @@ iframe {border:0;}
 input[type=text], input[type="password"], input[type="button"], input[type="image"], input[type="submit"], input[type="search"], input[type="email"], input[type="url"], input[type="number"], input[type="tel"], /* select, */ textarea {-webkit-appearance:none; -moz-appearance:none; appearance:none; -webkit-border-radius:0; -moz-box-size:border-box; box-sizing:border-box;}
 button::-moz-focus-inner, input::-moz-focus-inner {border:0; padding:0;} /* button 태그 속성 reset하기 */
 /* 기본스타일 정의 */
-input[type=text], input[type="password"], input[type="search"], input[type="email"], input[type="url"], input[type="number"], input[type="tel"], input[type="date"], select, textarea {background:#fff; border:solid 1px #ddd; padding:5px; border-radius:0px; outline:none;}
+input[type=text], input[type="password"], input[type="search"], input[type="email"], input[type="url"], input[type="number"], input[type="tel"], input[type="date"], select, textarea {background:#fff; border:solid 1px #ddd; border-radius:0px; outline:none;}
 input[type="button"] {cursor:pointer; overflow:visible; white-space:nowrap; border-radius:0px;}
 textarea {width:100%; height:auto; resize:none;}
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {-webkit-appearance:none; margin:0;}

@@ -28,82 +28,75 @@
 				<input type="hidden" id="noticeYn" name="noticeYn" />
 
 				<div class="board">
-				
-				<div class="flex" >
-					<ul style="display: flex; align-content: space-between;">
-				
-						<li><h4>구분</h4> <p class="check input"> <input type="checkbox"
-								id="isNotice" name="isNotice" class="chk"
-								onchange="updateNoticeStatus()" />
-								<label for="isNotice"> 공지글 설정</label></p>
-						</li>
-						<li>
-						
-						<h4>작성자</h4> 
-						<input type="text" id="writer" class="input"
-							name="writer" th:value="${session.loginMember.memberName}"
-							readonly />
-							
-						</li>
-						
-						<li><h4>등록일</h4> <input type="text" id="createdDate" lang="en"
-							name="createdDate" class="input"
-							th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"
-							readonly>
-						</li>
-					
-						
+
+					<div class="flex">
+						<ul style="display: flex; align-content: space-between;">
+
+							<li><h4>구분</h4>
+								<p class="check input">
+									<input type="checkbox" id="isNotice" name="isNotice"
+										class="chk" onchange="updateNoticeStatus()" /> <label
+										for="isNotice"> 공지글 설정</label>
+								</p></li>
+							<li>
+
+								<h4>작성자</h4> <input type="text" id="writer" class="input"
+								name="writer" th:value="${session.loginMember.memberName}"
+								readonly />
+
+							</li>
+
+							<li><h4>등록일</h4> 
+							<input type="text" id="createdDate"
+								lang="en" name="createdDate" class="input"
+								th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"
+								readonly></li>
 						</ul>
-						</div>
-						
-						<ul>
+
+					</div>
+
+
+					<ul>
 
 
 						<li>
-						<h4 class="es">제목 </h4><span class="es"></span> <input type="text"
-							id="title" name="title" class="input" maxlength="50"
+							<h4 class="es">제목</h4>
+							<span class="es"></span> <input type="text" id="title"
+							name="title" class="input" maxlength="50"
 							placeholder="제목을 입력해 주세요." />
 						</li>
 
-
-						
-
 						<li class="bordernone">
-						<h4>내용</h4> 
-						<textarea id="content" name="content" cols="50"
-						rows="10" placeholder="내용을 입력해 주세요."></textarea>
+							<h4>내용</h4> <textarea id="content" name="content" cols="50"
+								rows="10" placeholder="내용을 입력해 주세요."></textarea>
 						</li>
-						
+
 						<li>
 							<h4 class="">첨부파일</h4>
-								<div class="file_list">
-									<div>
-										<div class="file_input">
-											<input type="text" readonly /> 
-											<label> 첨부파일 
-											<input
-												type="file" name="files" onchange="selectFile(this);" />
-											</label>
-										</div>
-										<button type="button" onclick="removeFile(this);"
-											class="btns del_btn">
-											<i class="material-symbols-outlined">cancel</i>
-											<span>삭제</span>
-										</button>
-										<button type="button" onclick="addFile();"
-											class="btns fn_add_btn">
-											<i class="material-symbols-outlined">add_circle</i>
-											<span>추가</span>
-										
-										</button>
+							<div class="file_list">
+								<div>
+									<div class="file_input">
+										<input type="text" readonly /> <label> 첨부파일 <input
+											type="file" name="files" onchange="selectFile(this);" />
+										</label>
 									</div>
+									<button type="button" onclick="removeFile(this);"
+										class="btns del_btn">
+										<i class="material-symbols-outlined">cancel</i> <span>삭제</span>
+									</button>
+									<button type="button" onclick="addFile();"
+										class="btns fn_add_btn">
+										<i class="material-symbols-outlined">add_circle</i> <span>추가</span>
+
+									</button>
 								</div>
-						
+							</div>
+
 						</li>
 
 					</ul>
 				</div>
-				
+
 
 				<!-- <table class="tb tb_row">
 					<colgroup>

@@ -2,7 +2,7 @@
 /* CSS Document */
 
 /* 버튼 기본 스타일 ------------------------------- */
-.btns {display:inline-block; box-sizing: border-box;padding:0 10px; height:30px; line-height:30px; text-align:center; vertical-align:middle; border-radius:3px; border:1px solid transparent; /* white-space:nowrap; */ font-weight:500; font-family:'Noto Sans KR', Dotum, Arial, tahoma, Helvetica, sans-serif;}
+.btns {display:inline-block; box-sizing: border-box;padding:0 10px; height:36px; line-height:30px; text-align:center; vertical-align:middle; border-radius:3px; border:1px solid transparent; /* white-space:nowrap; */ font-weight:500; font-size: 12px; font-family:'Noto Sans KR', Dotum, Arial, tahoma, Helvetica, sans-serif;}
 a.btns:hover, a.btns:focus, button.btns:hover, button.btns:focus, input.btns:hover, input.btns:focus {opacity:0.9;}
 a.btns, button {cursor:pointer;}
 button span {position:relative;}
@@ -26,8 +26,9 @@ button span {position:relative;}
 .btn_bdr5 {background:#fff; border:1px solid #1e1e1e; color:#1e1e1e;} /* 네이비 */
 
 /* 사이즈 구분 */
-.btn_big {width:120px; height:45px;line-height: 45px;}
-.btn_mid {height:33px; line-height:31px;}
+.btn_big {width:120px; height:45px;line-height:45px;}
+.btn_mid {width:80px; height:45px; line-height:45px;}
+.btn_small {height:45px; line-height:31px;}
 .btn_xs {padding:0 7px; height:20px; line-height:20px; font-size:11px;}
 
 .bt_icon {position:relative; padding-left:17px; display:inline-block;}
