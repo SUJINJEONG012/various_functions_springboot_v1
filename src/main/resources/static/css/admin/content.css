@@ -316,7 +316,7 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 .radios input[type=radio]:checked ~ .check::before {background:#555;}
 .radios input[type=radio]:checked ~ label {}
 /* 첨부파일 스타일 */
-.file_input {margin:2px 0; overflow:hidden; position:relative; padding-right:100px; width:88%; box-sizing:border-box;}
+.file_input {margin:2px 0; overflow:hidden; position:relative; padding-right:100px; width:80%; box-sizing:border-box;}
 .file_input label {vertical-align:middle;border: 1px solid #070707; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; border-radius: 3px; display:inline-block; overflow:hidden; width:85px; height:30px; line-height:27px; background:#070707; color:#fff; text-align:center; box-sizing:border-box; font-size: 13px;font-weight: 300;}
 
 .file_input label input {position:absolute; width:0; height:0; overflow:hidden; padding:0; border:0;}
@@ -327,6 +327,9 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 .file_list > div > button {background:transparent; border:1px solid #070707; vertical-align:top;}
 .file_list > div > button > span {position:relative; /*padding-left:18px;*/}
 .file_list > div > button > span::before {width:14px; height:14px; position:absolute; top:3px; left:0;}
+.file_list > div > button > i {font-size:18px; vertical-align: middle;}
+
+
 .file_list > div > button.del_btn {right:95px;}
 .file_list > div > button.del_btn span::before {background-position:0 -27px;}
 .file_list > div > button.fn_add_btn span::before {background-position:-17px -27px;}

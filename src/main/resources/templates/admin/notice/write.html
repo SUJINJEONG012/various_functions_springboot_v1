@@ -37,11 +37,21 @@
 								onchange="updateNoticeStatus()" />
 								<label for="isNotice"> 공지글 설정</label></p>
 						</li>
+						<li>
+						
+						<h4>작성자</h4> 
+						<input type="text" id="writer" class="input"
+							name="writer" th:value="${session.loginMember.memberName}"
+							readonly />
+							
+						</li>
+						
 						<li><h4>등록일</h4> <input type="text" id="createdDate" lang="en"
 							name="createdDate" class="input"
 							th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"
 							readonly>
 						</li>
+					
 						
 						</ul>
 						</div>
@@ -56,13 +66,7 @@
 						</li>
 
 
-						<li>
-						<h4>작성자</h4> 
-						<input type="text" id="writer" class="input"
-							name="writer" th:value="${session.loginMember.memberName}"
-							readonly />
-							
-						</li>
+						
 
 						<li class="bordernone">
 						<h4>내용</h4> 
@@ -83,6 +87,7 @@
 										</div>
 										<button type="button" onclick="removeFile(this);"
 											class="btns del_btn">
+											<i class="material-symbols-outlined">cancel</i>
 											<span>삭제</span>
 										</button>
 										<button type="button" onclick="addFile();"
@@ -170,8 +175,8 @@
 						</tr>
 
 					</tbody>
-				</table>
-			</form> -->
+				</table> -->
+			</form>
 			<p class="btn_set">
 				<button type="button" id="saveBtn" onclick="saveNotice();"
 					class="btns btn_st5 btn_big">등록하기</button>
@@ -246,7 +251,7 @@
 		                    <input type="file" name="files" onchange="selectFile(this);" />
 		                </label>
 		            </div>
-		            <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+		            <button type="button" onclick="removeFile(this);" class="btns del_btn"><i class="material-symbols-outlined">cancel</i><span>삭제</span></button>
 		        `;
 		        document.querySelector('.file_list').appendChild(fileDiv);
 		    }

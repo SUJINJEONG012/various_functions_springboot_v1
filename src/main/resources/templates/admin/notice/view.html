@@ -16,6 +16,52 @@
 
 	<div class="content">
 		<section>
+		
+		<div class="board">
+		<div class="flex">
+		<ul style="display: flex; align-content: space-between;">
+				
+						<li><h4>구분</h4>
+						<p class="check input">
+						 <p th:text="${notice.noticeYn == false ? '일반' : '공지' }"></p></p>
+						</li>
+						
+						<li>
+						
+						<h4>작성자</h4> 
+						<input type="text" id="writer" class="input"
+							name="writer" th:value="${session.loginMember.memberName}"
+							readonly />
+							
+						</li>
+					
+						<li><h4>등록일</h4> <input type="text" id="createdDate" lang="en"
+							name="createdDate" class="input"
+							th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"
+							readonly>
+						</li>
+					
+						
+						</ul>
+						
+						<ul>
+						<li><h4 class="">제목 </h4>
+						[[${notice.title}]]
+						</li>
+						
+						<li>
+						<h4 class="">조회</h4>
+						[[${notice.viewCnt}]]</li>
+						
+					
+						</ul>
+				</div>
+				
+				
+				
+		
+		</div>
+		
 			<table class="tb tb_row">
 				<colgroup>
 					<col style="width: 10%;" />
