@@ -17,4 +17,19 @@ public class PagedSearchDto {
 	private String keyword; // 검색키워드
 	private String searchType; // 검색유형
 	
+	/*
+	 * 객체가 생성되는 시점에 현재페이지는 번호 1
+	 * 페이지당 출력할 데이터 개수와 하단에 출력할 페이지 개수 10으로 초기화
+	 * */
+	public PagedSearchDto() {
+		this.page = 1;
+		this.recordSize = 10;
+		this.pageSize = 10;
+	}
+	
+	//MySQL DB에서 LIMIT 구문의 시작 부분에 사용되는 메서드
+	public int getOffset() {
+		return (page-1) * recordSize;
+	}
+	
 }
