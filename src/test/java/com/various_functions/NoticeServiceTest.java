@@ -24,15 +24,17 @@ public class NoticeServiceTest {
 //        System.out.println("생성된 게시글 ID : " + id);
 //	}
 	
-//	@Test
-//	public void saveByForEach() {
-//		for(int i = 1; i <= 500; i++) {
-//			NoticeDto params = new NoticeDto();
-//			params.setTitle(i+"번 게시글 제목");
-//			params.setContent(i+"번 게시글 내용");
-//			params.setWriter("테스터 " + i);
-//			params.setNoticeYn(false);
-//			postService.savePost(params);
-//		}
-//	}
+	
+	
+	@Test
+	public void saveByForEach() {
+		for(int i = 1; i <= 1000; i++) {
+			NoticeDto params = new NoticeDto();
+			params.setTitle(i+"번 페이징처리를 하기위한 게시글 제목");
+			params.setContent(i+"번 페이징처리를 하기위한 게시글 게시글 내용");
+			params.setWriter("테스터 " + i);
+			params.setNoticeYn(false);
+			noticeServicce.noticeSave(params);
+		}
+	}
 }
