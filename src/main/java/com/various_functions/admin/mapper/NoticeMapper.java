@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.vo.NoticeVo;
+import com.various_functions.dto.PagedSearchDto;
 
 
 @Mapper
@@ -29,18 +30,18 @@ public interface NoticeMapper {
 	 * @return 게시글 리스트
 	 * 
 	 * 여러개의 게시글을 리스트에 담아 리턴해주는 역할 
-	 * 2024.3.5 searchDto 매개변수로 담아서 검색 부분추가
+	 * 2024.4.23 searchDto 매개변수로 담아서 검색 부분추가
 	 * SearchDto searchDto
 	 * */
-	List<NoticeVo> findAllNotices();
+	List<NoticeVo> findAllNotices(PagedSearchDto pagedSearchDto);
+	
 	
 	List<NoticeVo> findNoticeUserById();
 	
 	/* 최근 게시물 5개 */
 	List<NoticeVo> findRecentNotices();
 	
-	// 게시글 수 
-	//int count(SearchDto searchDto);
+	// 게시글 수 카운팅
+	int count(PagedSearchDto pagedSearchDto);
 	
-
 }

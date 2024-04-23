@@ -77,7 +77,9 @@
 	 1일 경우에는 먼저 나오도록 정렬하고, 그 다음에는 created_date 컬럼을 내림차순으로 정렬합니다. 즉, 먼저 공지사항이 있는 글이 나오고, 
 	 그 다음에는 작성일자가 최신인 순서대로 정렬
 	 -->
-	<select id="findAllNotices" resultType="com.various_functions.admin.vo.NoticeVo">
+	<select id="findAllNotices"
+	parameterType="com.various_functions.dto.PagedSearchDto"
+	resultType="com.various_functions.admin.vo.NoticeVo">
 		select 
 		<include refid="noticeColumns" />
 		from 
@@ -87,7 +89,7 @@
 		order by 
 		case when notice_yn = 1 then 0 else 1 end,
 		created_date desc
-		<!--  limit #{offset}, #{recordSize};-->
+		limit #{offset}, #{recordSize};
 	</select>
 	
 	<!-- 해당 아이디 게시글 조회 => 마이페이지  -->	

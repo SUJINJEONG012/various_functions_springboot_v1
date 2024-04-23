@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +28,7 @@ import com.various_functions.admin.service.NoticeFileService;
 import com.various_functions.admin.service.NoticeService;
 import com.various_functions.admin.vo.NoticeFileVo;
 import com.various_functions.admin.vo.NoticeVo;
+import com.various_functions.dto.PagedSearchDto;
 import com.various_functions.service.MemberService;
 import com.various_functions.utils.FileUtils;
 import com.various_functions.vo.MemberVo;
@@ -84,27 +84,21 @@ public class NoticeController {
 	// 관리자 페이지 리스트페이지
 	@GetMapping("/admin/notice/list")
 	public String adminNoticeList(Model model) {
-		return noticeList(model, "/admin/notice/list");
+		return noticeList(new PagedSearchDto(), model, "/admin/notice/list");
 	}
 
 	// 유저 게시글 리스트 페이지
 	@GetMapping("/notice/list")
 	public String userNoticeList(Model model) {
-		return noticeList(model, "notice/list");
+		return noticeList(new PagedSearchDto(), model, "notice/list");
 	}
 
 	// 유저,어드민 페이지 공통으로 사용하기 위한 메서드
-	private String noticeList(Model model, String viewName) {
-		
-	    
-		List<NoticeVo> notices = noticeService.findAllNotices();
-		
-	    
+	private String noticeList(@ModelAttribute("pagedSearchDto") final PagedSearchDto pagedSearchDto, Model model, String viewName) {
+		List<NoticeVo> notices = noticeService.findAllNotices(pagedSearchDto);
 		model.addAttribute("notices", notices);
 		return viewName;
 	}
-	
-
 
 	@GetMapping("/notice/view")
 	private String userNoticeView(@RequestParam Long noticeId, Model model, HttpSession session) {

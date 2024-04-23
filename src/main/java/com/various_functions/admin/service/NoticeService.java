@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.mapper.NoticeMapper;
 import com.various_functions.admin.vo.NoticeVo;
+import com.various_functions.dto.PagedSearchDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -47,8 +48,8 @@ public class NoticeService {
 	}
 	
 	// 게시글 전체 리스트 조회 => user, admin 공통으로 들고오기 위한 코드
-	public List<NoticeVo> findAllNotices(){
-		return noticeMapper.findAllNotices();
+	public List<NoticeVo> findAllNotices(final PagedSearchDto pagedSearchDto){
+		return noticeMapper.findAllNotices(pagedSearchDto);
 	}
 
 	// 내가 쓴글 리스트 조회하기 -> 마이페이지에서 사용 할 메서드
