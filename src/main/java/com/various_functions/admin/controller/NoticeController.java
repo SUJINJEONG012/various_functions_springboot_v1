@@ -161,6 +161,7 @@ public class NoticeController {
 		noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
 		noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
 		
+		
 		return ResponseEntity.ok().build(); // 성공 응답
 	}
 

@@ -34,6 +34,11 @@ public interface NoticeFileMapper {
 	
 	void deleteAllByIds(List<Long> ids);
 	
+	/*
+	 * 파일 수정
+	 * */
+	
+	
 	// 파일상세 조회
 	NoticeFileVo findById(Long fileId);
 	
