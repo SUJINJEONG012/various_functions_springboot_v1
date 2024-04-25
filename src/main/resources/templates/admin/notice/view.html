@@ -91,7 +91,7 @@
 					</tr> -->
 
 			<p class="btn_set">
-				<a th:href="@{/admin/notice/update(noticeId=${notice.noticeId})}"
+				<a th:href="@{/admin/notice/update/{noticeId}(noticeId=${notice.noticeId})}"
 					class="btns btn_st5 btn_big">수정</a>
 				<button type="button" class="btns btn_bdr5 btn_big">삭제</button>
 				<a th:href="@{/notice/list}" class="btns btn_bdr5 btn_mid">목록</a>

@@ -89,7 +89,10 @@ section:first-child, #tabmenu + section {margin-top:0;}
 .file_down > strong {display:block; border-bottom:1px solid #e0e0e0; color:#333; font-size:13px; font-weight:400; padding:7px 10px;}
 .file_down .cont {background:#f9f9f9; padding:4px 0;}
 .file_down .cont ul{display:flex;}
-.file_down .cont ul li {width:100%; height:auto;padding: 10px;border-bottom: 0;}
+.file_down .cont ul li {width:100%; height:auto;padding: 10px;border-bottom: 0;    border-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    width: 45%;}
 .file_down .cont ul li img { border-radius: 10px;}
 .file_down .cont > a {display:block; padding:4px 10px; padding-left:40px; min-height:23px; font-size:13px; position:relative;}
 .file_down .cont > a > span {display:inline-block; background:#aaa; width:23px; height:23px; border-radius:100%; position:absolute; top:3px; left:10px; text-align:center;}

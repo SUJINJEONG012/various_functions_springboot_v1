@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -128,26 +130,35 @@ public class NoticeController {
 		return viewName;
 	}
 	
-	//@@PathVariable을 사용한 방법 => noticeId를 받아와서
-//	@GetMapping("/notice/update/{noticeId}")
-//	public String showUpdateForm(@RequestParam("noticeId") Long noticeId, Model model) {	  
-//	    return "updateForm";
-//	}
+
 	
 	//@PathVariable을 사용한 방법 => noticeId를 받아와서
-	@GetMapping("/admin/notice/update")
-	public String showUpdateFormWithPathVariable(@RequestParam Long noticeId, Model model) {
-	   NoticeVo noticeVo= noticeService.findById(noticeId);
-	    model.addAttribute("notice", noticeVo);
+//	@GetMapping("/admin/notice/update")
+//	public String showUpdateFormWithPathVariable(@RequestParam Long noticeId, Model model) {
+//	   NoticeVo noticeVo= noticeService.findById(noticeId);
+//	    model.addAttribute("notice", noticeVo);
+//	    return "/admin/notice/update";
+//	}
+	
+	//@@PathVariable을 사용한 방법 => noticeId를 받아와서
+	@GetMapping("/admin/notice/update/{noticeId}")
+	public String showUpdateForm(@PathVariable Long noticeId, Model model) {
+		NoticeVo noticeVo = noticeService.findById(noticeId);
+		model.addAttribute("notice", noticeVo);
 	    return "/admin/notice/update";
 	}
 	
 	// 게시글 수정 
-	@PostMapping("/admin/notice/update")
-	public String updateNotice(final NoticeDto noticeDto) {
-		noticeService.updateNotice(noticeDto);
-		return "redirect:/admin/notice/view" + noticeDto.getNoticeId();
+	@PutMapping("/admin/notice/update/{noticeId}")
+	public ResponseEntity<?> updateNotice(@PathVariable Long noticeId, @RequestBody NoticeDto noticeDto){
+		// 요청된 noticeId와 noticeDto를 사용하여 게시물을 수정하는 로직을 수행
+		
+		noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
+		noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
+		
+		return ResponseEntity.ok().build(); // 성공 응답
 	}
+
 	
 	
 	// 파일 다운로드

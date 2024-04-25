@@ -38,9 +38,6 @@ public class NoticeService {
 		return noticeDto.getNoticeId();
 	}
 	
-	
-	
-	
 	// 게시글 삭제
 	public Long delete(final Long noticeId) {
 		noticeMapper.deleteById(noticeId);

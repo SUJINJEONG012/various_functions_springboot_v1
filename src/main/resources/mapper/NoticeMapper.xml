@@ -48,11 +48,10 @@
 	<!-- 게시글 수정 -->
 	<update id="update"
 		parameterType="com.various_functions.admin.dto.NoticeDto">
-		update tb_notice
+		update notice
 		set
 		modified_date = now(),
-		title =
-		#{title},
+		title = #{title},
 		content = #{content},
 		writer = #{writer},
 		notice_yn = #{noticeYn}
@@ -62,7 +61,7 @@
 
 	<!-- 게시글 삭제 -->
 	<delete id="deleteById" parameterType="long">
-		update tb_notice
+		update notice
 		set
 		delete_yn = 1
 		where notice_id = #{noticeId}
