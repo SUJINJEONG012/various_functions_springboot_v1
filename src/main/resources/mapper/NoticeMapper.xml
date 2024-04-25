@@ -52,9 +52,7 @@
 		set
 		modified_date = now(),
 		title = #{title},
-		content = #{content},
-		writer = #{writer},
-		notice_yn = #{noticeYn}
+		content = #{content}
 		where notice_id = #{noticeId}
 
 	</update>

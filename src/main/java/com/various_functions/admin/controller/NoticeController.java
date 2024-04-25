@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -47,6 +49,9 @@ public class NoticeController {
 	private final NoticeFileService noticeFileService;
 	private final FileUtils fileUtils;
 	private final MemberService memberService;
+	
+	@Autowired
+	private HttpServletRequest request;
 
 	// 게시글 작성 페이지
 	@GetMapping("/admin/notice/write")
@@ -151,8 +156,8 @@ public class NoticeController {
 	// 게시글 수정 
 	@PutMapping("/admin/notice/update/{noticeId}")
 	public ResponseEntity<?> updateNotice(@PathVariable Long noticeId, @RequestBody NoticeDto noticeDto){
-		// 요청된 noticeId와 noticeDto를 사용하여 게시물을 수정하는 로직을 수행
-		
+		log.info("게시글 수정 메서드 진입!!!");
+		// 게시물 수정 서비스 호출
 		noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
 		noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
 		
