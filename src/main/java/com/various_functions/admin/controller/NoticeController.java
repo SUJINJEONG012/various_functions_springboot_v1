@@ -153,7 +153,7 @@ public class NoticeController {
 	    return "/admin/notice/update";
 	}
 	
-	// 게시글 수정 
+	// 공지사항 수정 
 	@PutMapping("/admin/notice/update/{noticeId}")
 	public ResponseEntity<?> updateNotice(@PathVariable Long noticeId, @RequestBody NoticeDto noticeDto){
 		log.info("게시글 수정 메서드 진입!!!");
@@ -161,12 +161,25 @@ public class NoticeController {
 		noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
 		noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
 		
+		// 파일 정보 조회
+		NoticeFileVo fileVo = noticeFileService.findFileById(noticeId);
+		if(fileVo == null) {
+			return ResponseEntity.badRequest().body("파일을 찾을 수 없습니다.");
+		}
+		
+		// 파일정보 업데이트
+		NoticeFileDto fileDto = new NoticeFileDto();
+		fileDto.setFileId(fileVo.getFileId());
+		fileDto.setNoticeId(fileVo.getNoticeId());
+		fileDto.setOriginalName(fileVo.getFileId());
+	 // 파일 수정 서비스 호출
+		noticeFileService.updateFile(fileVo);
+		log.info("noticeFileService.updateFile(fileVo)", fileVo);
+		
 		
 		return ResponseEntity.ok().build(); // 성공 응답
 	}
 
-	
-	
 	// 파일 다운로드
     @GetMapping("/admin/notice/download/{noticeId}/files/{filename:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long noticeId, @PathVariable String filename) throws IOException {

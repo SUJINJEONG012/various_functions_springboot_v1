@@ -74,6 +74,14 @@
 		</foreach>
 		order by file_id
 	</select>
+	
+	<!-- 파일수정 -->
+	<update id="updateFile" parameterType="com.various_functions.admin.vo.NoticeFileVo">
+		update notice_file
+		set <include refid="fileColumns" />
+		where file_id= #{file_id}
+	</update>
+	
 
 	<!-- 파일삭제 -->
 	<delete id="deleteAllByIds" parameterType="list">

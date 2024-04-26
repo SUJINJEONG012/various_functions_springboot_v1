@@ -1,13 +1,13 @@
 package com.various_functions.admin.dto;
 
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
+@NoArgsConstructor // 기본생성자 추가
 public class NoticeFileDto{
 
 	private Long fileId; // 파일번호
@@ -35,9 +35,6 @@ public class NoticeFileDto{
 	public void setNoticeId(Long noticeId) {
 		this.noticeId = noticeId;
 	}
-	
 
-	
-	
 	
 }

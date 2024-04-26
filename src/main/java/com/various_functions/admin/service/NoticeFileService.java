@@ -75,6 +75,13 @@ public class NoticeFileService {
                 .body(file);
     }
     
+    /*
+     * 파일 수정
+     * */
+     public void updateFile(NoticeFileVo file) {
+    	 noticeFileMapper.updateFile(file);
+     }
+    
 	
 	/*
 	 * 파일 삭제 
