@@ -39,6 +39,7 @@ public interface NoticeFileMapper {
 	 * */
 	
 	
+	
 	// 파일상세 조회
 	NoticeFileVo findById(Long fileId);
 	
