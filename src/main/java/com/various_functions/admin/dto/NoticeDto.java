@@ -26,5 +26,4 @@ public class NoticeDto {
 	private List<MultipartFile> files = new ArrayList<>(); // 첨부파일 list
 	private MultipartFile file;
 	
-	
 }

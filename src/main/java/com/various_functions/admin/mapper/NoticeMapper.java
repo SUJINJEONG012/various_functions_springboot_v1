@@ -18,7 +18,6 @@ public interface NoticeMapper {
 	// 게시글 상세정보 조회 (특정 게시글 pk값으로 조회)
 	NoticeVo findById(Long noticeId);
 	
-	
 	// 게시글 수정
 	void update(NoticeDto noticeDto);
 

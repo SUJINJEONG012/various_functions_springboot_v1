@@ -135,15 +135,6 @@ public class NoticeController {
 		return viewName;
 	}
 	
-
-	
-	//@PathVariable을 사용한 방법 => noticeId를 받아와서
-//	@GetMapping("/admin/notice/update")
-//	public String showUpdateFormWithPathVariable(@RequestParam Long noticeId, Model model) {
-//	   NoticeVo noticeVo= noticeService.findById(noticeId);
-//	    model.addAttribute("notice", noticeVo);
-//	    return "/admin/notice/update";
-//	}
 	
 	//@@PathVariable을 사용한 방법 => noticeId를 받아와서
 	@GetMapping("/admin/notice/update/{noticeId}")
@@ -155,28 +146,32 @@ public class NoticeController {
 	
 	// 공지사항 수정 
 	@PutMapping("/admin/notice/update/{noticeId}")
-	public ResponseEntity<?> updateNotice(@PathVariable Long noticeId, @RequestBody NoticeDto noticeDto){
+	public ResponseEntity<?> updateNotice(@PathVariable Long noticeId, @RequestBody NoticeDto noticeDto, @RequestParam("files") MultipartFile[] files){
+		
 		log.info("게시글 수정 메서드 진입!!!");
+		
 		// 게시물 수정 서비스 호출
 		noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
 		noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
 		
-		// 파일 정보 조회
-		NoticeFileVo fileVo = noticeFileService.findFileById(noticeId);
-		if(fileVo == null) {
-			return ResponseEntity.badRequest().body("파일을 찾을 수 없습니다.");
+		// 파일 업로드 처리
+		if(files != null && files.length > 0) {
+			for(MultipartFile file : files) {
+				if(!file.isEmpty()) {
+					
+				String uploadPath = fileUtils.getSingUploadPath(noticeId.toString());
+				String filename = file.getOriginalFilename();
+				
+				if(uploadPath != null) {
+					//파일정보를 생성하고 해당 메서드를 호출하여 업데이트
+					NoticeFileDto fileDto = new NoticeFileDto();
+					fileDto.setNoticeId(noticeId); // 파일과 연관된 id설정
+					 fileDto.setUploadPath(uploadPath); // 업로드 경로 설정 등 필요한 정보 추가
+					noticeFileService.updateFile(noticeId, fileDto);
+				}
+				}
+			}
 		}
-		
-		// 파일정보 업데이트
-		NoticeFileDto fileDto = new NoticeFileDto();
-		fileDto.setFileId(fileVo.getFileId());
-		fileDto.setNoticeId(fileVo.getNoticeId());
-		fileDto.setOriginalName(fileVo.getFileId());
-	 // 파일 수정 서비스 호출
-		noticeFileService.updateFile(fileVo);
-		log.info("noticeFileService.updateFile(fileVo)", fileVo);
-		
-		
 		return ResponseEntity.ok().build(); // 성공 응답
 	}
 
