@@ -79,10 +79,9 @@ public class NoticeFileService {
     /*
      * 파일 업데이트
      * */
-     public void updateFile(Long noticeId, NoticeFileDto noticeFileDto ) {
+     public void updateFile(Long fileId, NoticeFileDto noticeFileDto ) {
     	
-    	 //파일 정보를 업데이트하는 로직을 여기에 구현
-    	 noticeFileMapper.updateFile(noticeId, noticeFileDto);
+    	
      }
     
 	

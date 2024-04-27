@@ -154,27 +154,12 @@ public class NoticeController {
 		noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
 		noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
 		
-		// 파일 업로드 처리
-		if(files != null && files.length > 0) {
-			for(MultipartFile file : files) {
-				if(!file.isEmpty()) {
-					
-				String uploadPath = fileUtils.getSingUploadPath(noticeId.toString());
-				String filename = file.getOriginalFilename();
-				
-				if(uploadPath != null) {
-					//파일정보를 생성하고 해당 메서드를 호출하여 업데이트
-					NoticeFileDto fileDto = new NoticeFileDto();
-					fileDto.setNoticeId(noticeId); // 파일과 연관된 id설정
-					 fileDto.setUploadPath(uploadPath); // 업로드 경로 설정 등 필요한 정보 추가
-					noticeFileService.updateFile(noticeId, fileDto);
-				}
-				}
-			}
-		}
+			
 		return ResponseEntity.ok().build(); // 성공 응답
 	}
 
+	
+	
 	// 파일 다운로드
     @GetMapping("/admin/notice/download/{noticeId}/files/{filename:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long noticeId, @PathVariable String filename) throws IOException {
