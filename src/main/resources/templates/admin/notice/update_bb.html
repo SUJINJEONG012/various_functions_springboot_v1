@@ -15,13 +15,10 @@
 	</div>
 
 	<div class="content">
-
-	<section>
-	<form id="upateNoticeForm" method="post" aria-autocomplete="off"
+	<form id="saveNoticeForm" method="post" aria-autocomplete="off"
 				enctype="multipart/form-data">
-			
-			<input type="hidden" id="noticeId" th:value="${notice.noticeId}" />
-
+</form>
+		<section>
 			<table class="tb tb_row">
 				<colgroup>
 					<col style="width: 10%;" />
@@ -53,44 +50,41 @@
 						<td colspan="3"><textarea th:text="${notice.content}" name="content"></textarea></td>
 					</tr>
 
-					
+					<!-- 파일 정보가 있는 경우에만 표시 -->
+					<!-- tr th:if="${not #lists.isEmpty(files)}">
+						<th scope="row">파일</th>
+						<td colspan="3">
+							<div th:each="file : ${files}">
+								<span
+									th:if="${file.originalName.endsWith('.jpg') or file.originalName.endsWith('.jpeg') or file.originalName.endsWith('.png') or file.originalName.endsWith('.gif')}">
+									
+									<img th:src="@{uploadPath}" th:alt="Image" />
+								</span>
+							</div>
+						</td>
+					</tr> -->
+					<!-- 파일 정보가 없는 경우 -->
+					<!-- <tr th:if="${#lists.isEmpty(files)}">
+						<th scope="row">파일</th>
+						<td colspan="3">첨부된 파일이 없습니다.</td>
+					</tr> -->
 					
 					<tr>
-
 						<th scope="row">첨부파일</th>
 						<td id="files" colspan="3">
 							<div class="file_list"></div>
 							    <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
-						 <!-- 이건 등록할 때 
-						 <div class="file_list">
-								<div>
-									<div class="file_input">
-										<input type="text" readonly /> <label> 첨부파일 <input
-											type="file" name="files" onchange="selectFile(this);" />
-										</label>
-									</div>
-									<button type="button" onclick="removeFile(this);"
-										class="btns del_btn">
-										<i class="material-symbols-outlined">cancel</i> <span>삭제</span>
-									</button>
-									<button type="button" onclick="addFile();"
-										class="btns fn_add_btn">
-										<i class="material-symbols-outlined">add_circle</i> <span>추가</span>
-
-									</button>
-								</div>
-							</div> -->
 						 </td>	
 					
 					</tr>
 					
-					
 
 				</tbody>
 			</table>
-			</form>
 
 			<p class="btn_set">
+				<!-- <a th:href="@{/admin/notice/update(noticeId=${notice.noticeId})}"
+					class="btns btn_bdr4 btn_mid">수정</a> -->
 				<button type="button" onclick="updateNotice()" class="btns btn_bdr4 btn_mid">수정</button>
 				<button type="button" class="btns btn_bdr1 btn_mid">삭제</button>
 				<a th:href="@{/admin/notice/list}" class="btns btn_bdr3 btn_mid">목록</a>
@@ -129,6 +123,7 @@
 		});
 		
 	}
+	
 	
 	//파일을 자바스크립트로 태그생성후 이미지 불러오기!
 	function renderFiles(files, noticeId){
@@ -191,45 +186,41 @@
 	}
 	
 	
- 
-//수정 버튼 클릭 시 실행되는 함수
- function updateNotice() {
+	// 수정 버튼 클릭 시 실행되는 함수
+	function updateNotice() {
+		alert("dd");
+	    const noticeId = [[ ${notice.noticeId} ]];  // Thymeleaf를 사용하여 noticeId 값을 가져옴
+	    const title = document.querySelector('input[name="title"]').value;
+	    const content = document.querySelector('textarea[name="content"]').value;
+	   
+	    const data = {
+	        noticeId: noticeId,
+	        title: title,
+	        content: content
+	    };
+
+	    // AJAX 요청
+	    $.ajax({
+	        type: 'PUT',
+	        url: `/admin/notice/update/${noticeId}`,  // 수정 엔드포인트에 PUT 요청을 보냄
+	        contentType: 'application/json',
+	        data: JSON.stringify(data),
+	        
+	        success: function(response) {
+	            // 성공적으로 수정되었을 때의 처리
+	           alert('게시물이 성공적으로 수정되었습니다.');
+	            // 필요한 추가 작업 수행
+	           let redirectUrl = '/admin/notice/list';
+	            window.location.href=redirectUrl;
+	        },
+	        error: function(xhr, status, error) {
+	            // 수정 실패 시의 처리
+	            alert('게시물 수정 중 오류가 발생했습니다.');
+	            console.log(error);
+	        }
+	    });
+	}
 	
-     // FormData 객체 생성
-     const formData = new FormData();
-
-     // 파일 업로드 필드에서 파일을 가져와서 FormData에 추가
-     const fileInput = document.querySelector('input[name="files"]');
-     formData.append('file', fileInput.files[0]); // 'file'은 서버에서 파일을 받는 파라미터 이름
-
-     
-     // 다른 필드의 데이터를 FormData에 추가
-     const title = document.querySelector('input[name="title"]').value;
-     const content = document.querySelector('textarea[name="content"]').value;
-     formData.append('title', title);
-     formData.append('content', content);
-
-     // AJAX를 사용하여 FormData를 서버로 전송하는 코드 작성
-     $.ajax({
-         type: 'PUT',
-         url: `/admin/notice/update/${noticeId}`,  // 수정 엔드포인트에 PUT 요청을 보냄
-         data: formData,  // FormData 전달
-         processData: false,  // FormData를 처리하지 않도록 설정
-         contentType: false,  // 컨텐츠 타입을 false로 설정하여 jQuery가 설정하지 않도록 함
-         success: function(response) {
-             // 성공적으로 수정되었을 때의 처리
-             alert('게시물이 성공적으로 수정되었습니다.');
-             // 필요한 추가 작업 수행
-             let redirectUrl = '/admin/notice/list';
-             window.location.href = redirectUrl;
-         },
-         error: function(xhr, status, error) {
-             // 수정 실패 시의 처리
-             alert('게시물 수정 중 오류가 발생했습니다.');
-             console.log(error);
-         }
-     });
- }
 	
 	
 	/*]]>*/
