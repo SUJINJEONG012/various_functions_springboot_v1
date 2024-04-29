@@ -62,16 +62,17 @@
 
 				<ul>
 
-					<li><h4 class="">제목</h4> [[${notice.title}]]</li>
+					<li><h4 class="">제목</h4><input type="text" th:value="${notice.title}" name="title" /></li>
 
 					<li class="textarea">
 						<h4 class="">내용</h4>
-						<textarea readonly> [[${notice.content}]]</textarea>
+						<textarea> [[${notice.content}]]</textarea>
 					</li>
 
 
 					<li>
 						<h4 class="">첨부파일</h4>
+					
 						<div id="files"></div>
 						<div class="file_list"></div>
 						 <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
@@ -107,7 +108,7 @@
 	};
 	
 	// 공지사항이미지파일 불러오기 엔드포인트 설정
-	function findAllFile(){
+	/* function findAllFile(){
 		const noticeId = [[ ${notice.noticeId} ]];
 		
 		//ajax 요청 
@@ -122,10 +123,10 @@
 			}
 		});
 		
-	}
+	} */
 	
 	//파일을 자바스크립트로 태그생성후 이미지 불러오기!
-	function renderFiles(files, noticeId){
+	/* function renderFiles(files, noticeId){
 		let fileHtml = '';
 		
 		files.forEach(file => {
@@ -152,11 +153,11 @@
 			fileHtml += fileItem;
 		});
 		document.querySelector('.file_list').innerHTML = fileHtml;
-	}
+	} */
 	
 	
 	// 파일추가 
-	function addFile(){
+	/* function addFile(){
 		const fileInput = document.createElement('input');
 		fileInput.type='file';
 		fileInput.name='files';
@@ -178,12 +179,12 @@
 		
 		fileDiv.appendChild(removeBtn);
 		document.querySelector('.file_list').appendChild(fileDiv);
-	}
+	} */
 	
 	// 삭제하기
-	function removeFile(btn){
+	/* function removeFile(btn){
 		btn.parentNode.remove();
-	}
+	} */
 	
 	
  
@@ -194,12 +195,13 @@
      const formData = new FormData();
 
      // 파일 업로드 필드에서 파일을 가져와서 FormData에 추가
-     const fileInput = document.querySelector('input[name="files"]');
-     formData.append('file', fileInput.files[0]); // 'file'은 서버에서 파일을 받는 파라미터 이름
+     /* const fileInput = document.querySelector('input[name="files"]');
+     formData.append('file', fileInput.files[0]); // 'file'은 서버에서 파일을 받는 파라미터 이름 */
 
      
      // 다른 필드의 데이터를 FormData에 추가
      const title = document.querySelector('input[name="title"]').value;
+     console.log("title : "+ title);
      const content = document.querySelector('textarea[name="content"]').value;
      formData.append('title', title);
      formData.append('content', content);
