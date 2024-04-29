@@ -326,7 +326,7 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 
 .file_input label input {position:absolute; width:0; height:0; overflow:hidden; padding:0; border:0;}
 .file_input input[type=text] {color:#737070; background:#fff; border:none;}
-.file_list {max-width:none;}
+.file_list {max-width:none;display: flex;}
 .file_list > div {position:relative;}
 .file_list > div > input[type=text] {max-width:300px; vertical-align:top;}
 .file_list > div > button {background:transparent; border:1px solid #070707; vertical-align:top;}

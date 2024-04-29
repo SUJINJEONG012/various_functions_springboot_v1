@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="/admin/layout/basic">
 <th:block layout:fragment="title">
-	<title>글 상세페이지</title>
+	<title>글 수정 페이지</title>
 </th:block>
 
 <th:block layout:fragment="content">
@@ -22,72 +22,65 @@
 			
 			<input type="hidden" id="noticeId" th:value="${notice.noticeId}" />
 
-			<table class="tb tb_row">
-				<colgroup>
-					<col style="width: 10%;" />
-					<col style="width: 23%;" />
-					<col style="width: 10%;" />
-					<col style="width: 23%;" />
-				</colgroup>
 
-				<tbody>
-					<tr>
-						<th scope="row">글 유형</th>
-						<td th:text="${notice.noticeYn == false ? '일반' : '공지' }"></td>
-						<th scope="row">등록일</th>
-						<td
-							th:text="${#temporals.format(notice.createdDate, 'yyyy-MM-dd HH:mm')}" lang="en"></td>
-					</tr>
-					<tr>
-						<th scope="row">제목</th>
-						<td><input type="text" th:value="${notice.title}" name="title" /></td>
-						<th scope="row">조회</th>
-						<td colspan="3" lang="en">[[${notice.viewCnt}]]</td>
-					</tr>
-					<tr>
-						<th scope="row">이름</th>
-						<td colspan="3">[[${notice.writer}]]</td>
-					</tr>
-					<tr>
-						<th scope="row">내용</th>
-						<td colspan="3"><textarea th:text="${notice.content}" name="content"></textarea></td>
-					</tr>
+<div class="board">
+				<div class="flex">
+					<ul style="display: flex; align-content: space-between;">
 
-					
-					
-					<tr>
+						<li><h4>구분</h4>
+							<p class="check input">
 
-						<th scope="row">첨부파일</th>
-						<td id="files" colspan="3">
-							<div class="file_list"></div>
-							    <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
-						 <!-- 이건 등록할 때 
-						 <div class="file_list">
-								<div>
-									<div class="file_input">
-										<input type="text" readonly /> <label> 첨부파일 <input
-											type="file" name="files" onchange="selectFile(this);" />
-										</label>
-									</div>
-									<button type="button" onclick="removeFile(this);"
-										class="btns del_btn">
-										<i class="material-symbols-outlined">cancel</i> <span>삭제</span>
-									</button>
-									<button type="button" onclick="addFile();"
-										class="btns fn_add_btn">
-										<i class="material-symbols-outlined">add_circle</i> <span>추가</span>
+								<input type="checkbox" id="myCheckbox" class="custom-checkbox">
+								<label th:text="${notice.noticeYn == false ? '일반' : '공지' }"></label>
+							</p></li>
 
-									</button>
-								</div>
-							</div> -->
-						 </td>	
-					
-					</tr>
-					
-					
+						<li>
 
-				</tbody>
-			</table>
+							<h4>작성자</h4> <input type="text" id="writer" class="input"
+							name="writer" th:value="${session.loginMember.memberName}"
+							readonly />
+
+						</li>
+
+						<li><h4>등록일</h4> 
+						<input type="text" id="createdDate"
+							lang="en" name="createdDate" class="input"
+							th:value="${#temporals.format(notice.createdDate, 'yyyy-MM-dd HH:mm')}"
+							readonly>
+							
+						</li>
+						
+						<li>
+							<h4 class="">조회</h4>
+							<p lang="en" class="input">[[${notice.viewCnt}]]</p>
+						</li>
+
+					</ul>
+				</div>
+
+
+
+				<ul>
+
+					<li><h4 class="">제목</h4> [[${notice.title}]]</li>
+
+					<li class="textarea">
+						<h4 class="">내용</h4>
+						<textarea readonly> [[${notice.content}]]</textarea>
+					</li>
+
+
+					<li>
+						<h4 class="">첨부파일</h4>
+						<div id="files"></div>
+						<div class="file_list"></div>
+						 <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
+					</li>
+				</ul>
+
+
+			</div>
+			
 			</form>
 
 			<p class="btn_set">
@@ -110,6 +103,7 @@
 		//로드하고 바로 실행
 		window.onload= function(){
 		findAllFile(); 
+		renderFiles();
 	};
 	
 	// 공지사항이미지파일 불러오기 엔드포인트 설정
@@ -159,6 +153,7 @@
 		});
 		document.querySelector('.file_list').innerHTML = fileHtml;
 	}
+	
 	
 	// 파일추가 
 	function addFile(){
