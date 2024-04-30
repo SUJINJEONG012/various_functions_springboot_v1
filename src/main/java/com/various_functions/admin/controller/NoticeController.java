@@ -50,9 +50,7 @@ public class NoticeController {
 	private final FileUtils fileUtils;
 	private final MemberService memberService;
 	
-	@Autowired
-	private HttpServletRequest request;
-
+	
 	// 게시글 작성 페이지
 	@GetMapping("/admin/notice/write")
 	public String openNoticeWrite(@RequestParam(value = "id", required = false) final Long id, Model model) {
@@ -86,7 +84,40 @@ public class NoticeController {
 		
 		return "redirect:/admin/notice/list";
 	}
+	
+	//@@PathVariable을 사용한 방법 => noticeId를 받아와서
+		@GetMapping("/admin/notice/update/{noticeId}")
+		public String showUpdateForm(@PathVariable Long noticeId, Model model) {
+			NoticeVo noticeVo = noticeService.findById(noticeId);
+			model.addAttribute("notice", noticeVo);
+		    return "/admin/notice/update";
+		}
+		
+		// 공지사항 수정 
+		@PutMapping("/admin/notice/update/{noticeId}")
+		public ResponseEntity<?> updateNotice(
+				@PathVariable Long noticeId, 
+				@RequestBody NoticeDto noticeDto, 
+				@RequestParam("files") MultipartFile[] files){
+			
+			log.info("게시글 수정 메서드 진입!!!");
+			
+			
+			//파일업로드 처리
+			if(files != null && files.length > 0) {
+				for(MultipartFile file : files) {
+					//파일로직추가
+				}
+			}
+			
+			// 게시물 수정 서비스 호출
+			noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
+			noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
+				
+			return ResponseEntity.ok().build(); // 성공 응답
+		}
 
+		
 
 	// 관리자 페이지 리스트페이지
 	@GetMapping("/admin/notice/list")
@@ -136,28 +167,7 @@ public class NoticeController {
 	}
 	
 	
-	//@@PathVariable을 사용한 방법 => noticeId를 받아와서
-	@GetMapping("/admin/notice/update/{noticeId}")
-	public String showUpdateForm(@PathVariable Long noticeId, Model model) {
-		NoticeVo noticeVo = noticeService.findById(noticeId);
-		model.addAttribute("notice", noticeVo);
-	    return "/admin/notice/update";
-	}
 	
-	// 공지사항 수정 
-	@PutMapping("/admin/notice/update/{noticeId}")
-	public ResponseEntity<?> updateNotice(@PathVariable Long noticeId, @RequestBody NoticeDto noticeDto, @RequestParam("files") MultipartFile[] files){
-		
-		log.info("게시글 수정 메서드 진입!!!");
-		
-		// 게시물 수정 서비스 호출
-		noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
-		noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
-		
-			
-		return ResponseEntity.ok().build(); // 성공 응답
-	}
-
 	
 	
 	// 파일 다운로드

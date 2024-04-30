@@ -16,76 +16,77 @@
 
 	<div class="content">
 
-	<section>
-	<form id="upateNoticeForm" method="post" aria-autocomplete="off"
+		<section>
+			<form id="upateNoticeForm" method="post" aria-autocomplete="off"
 				enctype="multipart/form-data">
-			
-			<input type="hidden" id="noticeId" th:value="${notice.noticeId}" />
+
+				<input type="hidden" id="noticeId" th:value="${notice.noticeId}" />
 
 
-<div class="board">
-				<div class="flex">
-					<ul style="display: flex; align-content: space-between;">
+				<div class="board">
+					<div class="flex">
+						<ul style="display: flex; align-content: space-between;">
 
-						<li><h4>구분</h4>
-							<p class="check input">
+							<li><h4>구분</h4>
+								<p class="check input">
 
-								<input type="checkbox" id="myCheckbox" class="custom-checkbox">
-								<label th:text="${notice.noticeYn == false ? '일반' : '공지' }"></label>
-							</p></li>
+									<input type="checkbox" id="myCheckbox" class="custom-checkbox">
+									<label th:text="${notice.noticeYn == false ? '일반' : '공지' }"></label>
+								</p></li>
+
+							<li>
+
+								<h4>작성자</h4> <input type="text" id="writer" class="input"
+								name="writer" th:value="${session.loginMember.memberName}"
+								readonly />
+
+							</li>
+
+							<li><h4>등록일</h4> <input type="text" id="createdDate"
+								lang="en" name="createdDate" class="input"
+								th:value="${#temporals.format(notice.createdDate, 'yyyy-MM-dd HH:mm')}"
+								readonly></li>
+
+							<li>
+								<h4 class="">조회</h4>
+								<p lang="en" class="input">[[${notice.viewCnt}]]</p>
+							</li>
+
+						</ul>
+					</div>
+
+
+
+					<ul>
+
+						<li><h4 class="">제목</h4>
+							<input type="text" th:value="${notice.title}" name="title" /></li>
+
+						<li class="textarea">
+							<h4 class="">내용</h4> 
+							<textarea name="content"> [[${notice.content}]]</textarea>
+						</li>
+
 
 						<li>
+							<h4 class="">첨부파일</h4>
 
-							<h4>작성자</h4> <input type="text" id="writer" class="input"
-							name="writer" th:value="${session.loginMember.memberName}"
-							readonly />
-
+							<div id="files"></div>
+							<div class="file_list"></div>
+							<button type="button" onclick="addFile();" class="btns fn_add_btn">
+								<span>파일 추가</span>
+							</button>
 						</li>
-
-						<li><h4>등록일</h4> 
-						<input type="text" id="createdDate"
-							lang="en" name="createdDate" class="input"
-							th:value="${#temporals.format(notice.createdDate, 'yyyy-MM-dd HH:mm')}"
-							readonly>
-							
-						</li>
-						
-						<li>
-							<h4 class="">조회</h4>
-							<p lang="en" class="input">[[${notice.viewCnt}]]</p>
-						</li>
-
 					</ul>
+
+
 				</div>
 
-
-
-				<ul>
-
-					<li><h4 class="">제목</h4><input type="text" th:value="${notice.title}" name="title" /></li>
-
-					<li class="textarea">
-						<h4 class="">내용</h4>
-						<textarea> [[${notice.content}]]</textarea>
-					</li>
-
-
-					<li>
-						<h4 class="">첨부파일</h4>
-					
-						<div id="files"></div>
-						<div class="file_list"></div>
-						 <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
-					</li>
-				</ul>
-
-
-			</div>
-			
 			</form>
 
 			<p class="btn_set">
-				<button type="button" onclick="updateNotice()" class="btns btn_bdr4 btn_mid">수정</button>
+				<button type="button" onclick="updateNotice()"
+					class="btns btn_bdr4 btn_mid">수정</button>
 				<button type="button" class="btns btn_bdr1 btn_mid">삭제</button>
 				<a th:href="@{/admin/notice/list}" class="btns btn_bdr3 btn_mid">목록</a>
 			</p>
@@ -99,137 +100,198 @@
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-	/*<![CDATA[*/
-		
+		/*<![CDATA[*/
+
 		//로드하고 바로 실행
-		window.onload= function(){
-		findAllFile(); 
-		renderFiles();
-	};
-	
-	// 공지사항이미지파일 불러오기 엔드포인트 설정
-	/* function findAllFile(){
-		const noticeId = [[ ${notice.noticeId} ]];
-		
-		//ajax 요청 
-		$.ajax({
-			type:'GET',
-			url: `/admin/notice/${noticeId}/files`,
-			success : function(response){
-				renderFiles(response, noticeId);
-			},
-			error: function(xhr, status, error){
-				console.log('Error fetching files : ', error);
-			}
-		});
-		
-	} */
-	
-	//파일을 자바스크립트로 태그생성후 이미지 불러오기!
-	/* function renderFiles(files, noticeId){
-		let fileHtml = '';
-		
-		files.forEach(file => {
-			let fileItem = '';
-			if(file.originalName.match(/\.(jpge|jpg|gif|png)$/i) != null){
-				fileItem = `
-				<div class="file_item">
-					<div><img src="/admin/notice/${noticeId}/files/${file.fileId}/view" alt="${file.originalName}" style="width:100%; height:auto;" /></div>
-					<button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
-				</div>	
-				`
-			} else{
-				fileItem = `
+		window.onload = function() {
+			findAllFile();
+			renderFiles();
+		};
+
+		// 공지사항이미지파일 불러오기 엔드포인트 설정
+		function findAllFile(){
+			const noticeId = [[ ${notice.noticeId} ]];
+			
+			//ajax 요청 
+			$.ajax({
+				type:'GET',
+				url: `/admin/notice/${noticeId}/files`,
+				success : function(response){
+					renderFiles(response, noticeId);
+				},
+				error: function(xhr, status, error){
+					console.log('Error fetching files : ', error);
+				}
+			});
+			
+		} 
+
+		//파일을 자바스크립트로 태그생성후 이미지 불러오기!
+		function renderFiles(files, noticeId){
+			let fileHtml = '';
+			
+			files.forEach(file => {
+				let fileItem = '';
+				if(file.originalName.match(/\.(jpge|jpg|gif|png)$/i) != null){
+					fileItem = `
 					<div class="file_item">
-						<a href="/admin/notice/${file.noticeId}/files/${file.fileId}/download">
-							<span class="icons">
-								<i class="fas fa-folder-open"></i>
-							</span>
-							${file.originalName}
-						</a>
+						<div><img src="/admin/notice/${noticeId}/files/${file.fileId}/view" alt="${file.originalName}" style="width:100%; height:auto;" /></div>
 						<button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
-					</div>`;
+					</div>	
+					`
+				} else{
+					fileItem = `
+						<div class="file_item">
+							<a href="/admin/notice/${file.noticeId}/files/${file.fileId}/download">
+								<span class="icons">
+									<i class="fas fa-folder-open"></i>
+								</span>
+								${file.originalName}
+							</a>
+							<button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+						</div>`;
+				}
+				fileHtml += fileItem;
+			});
+			document.querySelector('.file_list').innerHTML = fileHtml;
+		}
+
+		// 파일추가 
+		function addFile(){
+			const fileInput = document.createElement('input');
+			fileInput.type='file';
+			fileInput.name='files';
+			
+			fileInput.onchange = function () {
+			        updateNotice(this); // 파일이 선택된 경우 updateNotice() 호출
+			    };
+			   
+			
+			const fileDiv = document.createElement('div');
+			fileDiv.className= 'file_item';
+			fileDiv.appendChild(fileInput);
+			
+			const removeBtn = document.createElement('button');
+			removeBtn.type='button';
+			removeBtn.className = 'btns del_btn';
+			removeBtn.innerHTML = '<span>새로운 파일누르고 나오는 삭제</span>';
+			removeBtn.onclick = function(){
+				removeFile(this);
+			};
+			
+			fileDiv.appendChild(removeBtn);
+			document.querySelector('.file_list').appendChild(fileDiv);
+		} 
+
+		// 삭제하기
+		function removeFile(btn){
+			const fileItem = btn.parentNode;
+		    fileItem.remove();
+		} 
+		
+		// 예시로 noticeId 값을 설정하는 방법
+		const noticeId = document.getElementById('noticeId').value; // HTML에서 noticeId 값을 가져옴
+		alert(noticeId);
+
+		//수정 버튼 클릭 시 실행되는 함수
+		function updateNotice(input) {
+			
+			
+			if (input.files.length > 0) {
+		        // 파일이 선택되었을 때 파일을 처리하는 로직을 여기에 작성
+		        console.log("파일이 선택되었습니다.");
+		    } else {
+		        console.error("No file selected.");
+		    }
+			
+			
+			// 파일 삭제 기능
+		    const removedFiles = [];
+		    const fileItems = document.querySelectorAll('.file_item');
+		    fileItems.forEach(item => {
+		        const fileId = item.dataset.fileId;
+		        removedFiles.push(fileId);
+		        item.remove(); // 화면에서 삭제
+		    });
+
+			// FormData 객체 생성
+			const formData = new FormData();
+
+			// 파일 업로드 필드에서 파일을 가져와서 FormData에 추가
+		    const fileInput = document.querySelector('input[name="files"]');
+		    if (fileInput && fileInput.files.length > 0) {
+		        formData.append('file', fileInput.files[0]); // 'file'은 서버에서 파일을 받는 파라미터 이름 
+		    } else {
+		        console.error("No file selected.");
+		        return; // 파일을 선택하지 않았을 경우 함수 종료
+		    }
+
+		    
+			// 다른 필드의 데이터를 FormData에 추가
+			const titleInput = document.querySelector('input[name="title"]');
+			const title = titleInput ? titleInput.value.trim() : '' ;
+			console.log("title : " + title);
+			
+			if(!title){
+				alert("제목을 입력해주세요.");
+				return;
 			}
-			fileHtml += fileItem;
-		});
-		document.querySelector('.file_list').innerHTML = fileHtml;
-	} */
-	
-	
-	// 파일추가 
-	/* function addFile(){
-		const fileInput = document.createElement('input');
-		fileInput.type='file';
-		fileInput.name='files';
-		fileInput.onchange = function(){
-			selectFile(this);
-		};
-		
-		const fileDiv = document.createElement('div');
-		fileDiv.className= 'file_item';
-		fileDiv.appendChild(fileInput);
-		
-		const removeBtn = document.createElement('button');
-		removeBtn.type='button';
-		removeBtn.className = 'btns del_btn';
-		removeBtn.innerHTML = '<span>새로운 파일누르고 나오는 삭제</span>';
-		removeBtn.onclick = function(){
-			removeFile(this);
-		};
-		
-		fileDiv.appendChild(removeBtn);
-		document.querySelector('.file_list').appendChild(fileDiv);
-	} */
-	
-	// 삭제하기
-	/* function removeFile(btn){
-		btn.parentNode.remove();
-	} */
-	
-	
- 
-//수정 버튼 클릭 시 실행되는 함수
- function updateNotice() {
-	
-     // FormData 객체 생성
-     const formData = new FormData();
+			
+			const contentTextarea = document.querySelector('textarea[name="content"]');
+			const content= contentTextarea ? contentTextarea.value.trim() : '';
+			if(!content){
+				alert("내용을 입력해주세요.");
+				return;
+			}
+			
+			formData.append('title', title);
+			formData.append('content', content);
 
-     // 파일 업로드 필드에서 파일을 가져와서 FormData에 추가
-     /* const fileInput = document.querySelector('input[name="files"]');
-     formData.append('file', fileInput.files[0]); // 'file'은 서버에서 파일을 받는 파라미터 이름 */
+			// AJAX를 사용하여 FormData를 서버로 전송하는 코드 작성
+			 $.ajax({
+				type : 'PUT',
+				url : `/admin/notice/update/${noticeId}`, // 수정 엔드포인트에 PUT 요청을 보냄
+				data : formData, // FormData 전달
+				processData : false, // FormData를 처리하지 않도록 설정
+				contentType : false, // 컨텐츠 타입을 false로 설정하여 jQuery가 설정하지 않도록 함
+				success : function(response) {
+					// 성공적으로 수정되었을 때의 처리
+					alert('게시물이 성공적으로 수정되었습니다.');
+					// 필요한 추가 작업 수행
+					let redirectUrl = '/admin/notice/list';
+					window.location.href = redirectUrl;
+				},
+				error : function(xhr, status, error) {
+					// 수정 실패 시의 처리
+					alert('게시물 수정 중 오류가 발생했습니다.');
+					console.log(error);
+				}
+			});
+			
+			/* // 요청 데이터를 JSON 형식으로 구성
+		    const requestData = JSON.stringify({
+		        title: title,
+		        content: content
+		    });
+			
+			$.ajax({
+		        type: 'PUT',
+		        url: `/admin/notice/update/${noticeId}`,
+		        contentType: 'application/json', // 요청 본문의 데이터 형식을 JSON으로 설정
+		        data: requestData, // JSON 형식으로 데이터 전송
+		        success: function(response) {
+		            alert('게시물이 성공적으로 수정되었습니다.');
+		            let redirectUrl = '/admin/notice/list';
+		            window.location.href = redirectUrl;
+		        },
+		        error: function(xhr, status, error) {
+		            alert('게시물 수정 중 오류가 발생했습니다.');
+		            console.log(error);
+		        }
+		    }); */
+		}
 
-     
-     // 다른 필드의 데이터를 FormData에 추가
-     const title = document.querySelector('input[name="title"]').value;
-     console.log("title : "+ title);
-     const content = document.querySelector('textarea[name="content"]').value;
-     formData.append('title', title);
-     formData.append('content', content);
-
-     // AJAX를 사용하여 FormData를 서버로 전송하는 코드 작성
-     $.ajax({
-         type: 'PUT',
-         url: `/admin/notice/update/${noticeId}`,  // 수정 엔드포인트에 PUT 요청을 보냄
-         data: formData,  // FormData 전달
-         processData: false,  // FormData를 처리하지 않도록 설정
-         contentType: false,  // 컨텐츠 타입을 false로 설정하여 jQuery가 설정하지 않도록 함
-         success: function(response) {
-             // 성공적으로 수정되었을 때의 처리
-             alert('게시물이 성공적으로 수정되었습니다.');
-             // 필요한 추가 작업 수행
-             let redirectUrl = '/admin/notice/list';
-             window.location.href = redirectUrl;
-         },
-         error: function(xhr, status, error) {
-             // 수정 실패 시의 처리
-             alert('게시물 수정 중 오류가 발생했습니다.');
-             console.log(error);
-         }
-     });
- }
-	
-	
-	/*]]>*/
+		/*]]>*/
 	</script>
 </th:block>
 
