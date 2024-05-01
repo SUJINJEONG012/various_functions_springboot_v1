@@ -105,19 +105,22 @@
 		//로드하고 바로 실행
 		window.onload = function() {
 			findAllFile();
-			renderFiles();
+			
 		};
 
 		// 공지사항이미지파일 불러오기 엔드포인트 설정
 		function findAllFile(){
 			const noticeId = [[ ${notice.noticeId} ]];
-			
+			console.log("파일 불러기오기 엔드포인트 noticeId :",noticeId);
 			//ajax 요청 
 			$.ajax({
 				type:'GET',
 				url: `/admin/notice/${noticeId}/files`,
+				
 				success : function(response){
+					console.log('Received files :', response); //서버에서 받은 데이터를 콘솔로 출력!
 					renderFiles(response, noticeId);
+					console.log('renderFiles 호출했을 때 파라미터 값 확인 : ', renderFiles(response, noticeId));
 				},
 				error: function(xhr, status, error){
 					console.log('Error fetching files : ', error);
@@ -126,45 +129,47 @@
 			
 		} 
 
-		//파일을 자바스크립트로 태그생성후 이미지 불러오기!
-		function renderFiles(files, noticeId){
-			let fileHtml = '';
+		// 파일을 자바스크립트로 태그 생성 후 이미지 불러오기
+		function renderFiles(files, noticeId) {
 			
-			files.forEach(file => {
-				let fileItem = '';
-				if(file.originalName.match(/\.(jpge|jpg|gif|png)$/i) != null){
-					fileItem = `
-					<div class="file_item">
-						<div><img src="/admin/notice/${noticeId}/files/${file.fileId}/view" alt="${file.originalName}" style="width:100%; height:auto;" /></div>
-						<button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
-					</div>	
-					`
-				} else{
-					fileItem = `
-						<div class="file_item">
-							<a href="/admin/notice/${file.noticeId}/files/${file.fileId}/download">
-								<span class="icons">
-									<i class="fas fa-folder-open"></i>
-								</span>
-								${file.originalName}
-							</a>
-							<button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
-						</div>`;
-				}
-				fileHtml += fileItem;
-			});
-			document.querySelector('.file_list').innerHTML = fileHtml;
-		}
+			console.log('renderFiles Recdived files :', files);
+			console.log('renderFiles Notice Id : ', noticeId);
+			
+		    if (files && files.length > 0) {
+		        let fileHtml = '';
 
+		        files.forEach( file => {
+		            let fileItem = '';
+		            if (file.originalName.match(/\.(jpge|jpg|gif|png)$/i) != null) {
+		                fileItem = `
+		                    <div class="file_item">
+		                	
+		                        <div><img src="/admin/notice/${noticeId}/files/${file.fileId}/view" alt="${file.originalName}" style="width:100%; height:auto;" /></div>
+		                        <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+		                    </div>`;
+		            } 
+		            fileHtml += fileItem;
+		        });
+		        document.querySelector('.file_list').innerHTML = fileHtml;
+		   		 console.log("이미지 잘ㄴ ㅏㄴ옴 ");
+		    } else {
+		        console.log('No files to render.aa');
+		    }
+		}
+		
 		// 파일추가 
 		function addFile(){
 			const fileInput = document.createElement('input');
 			fileInput.type='file';
-			fileInput.name='files';
+			fileInput.name='files[]';
+			
 			
 			fileInput.onchange = function () {
-			        updateNotice(this); // 파일이 선택된 경우 updateNotice() 호출
-			    };
+				// 파일이 선택된 경우 updateNotice() 호출
+				if(fileInput.files && fileInput.files.length > 0){
+					updateNotice(fileInput);
+				}
+			};
 			   
 			
 			const fileDiv = document.createElement('div');
@@ -181,6 +186,8 @@
 			
 			fileDiv.appendChild(removeBtn);
 			document.querySelector('.file_list').appendChild(fileDiv);
+			
+			
 		} 
 
 		// 삭제하기
@@ -189,84 +196,65 @@
 		    fileItem.remove();
 		} 
 		
-		// 예시로 noticeId 값을 설정하는 방법
-		const noticeId = document.getElementById('noticeId').value; // HTML에서 noticeId 값을 가져옴
-		alert(noticeId);
 
 		//수정 버튼 클릭 시 실행되는 함수
-		function updateNotice(input) {
-			
-			
-			if (input.files.length > 0) {
-		        // 파일이 선택되었을 때 파일을 처리하는 로직을 여기에 작성
-		        console.log("파일이 선택되었습니다.");
-		    } else {
-		        console.error("No file selected.");
-		    }
-			
-			
-			// 파일 삭제 기능
-		    const removedFiles = [];
-		    const fileItems = document.querySelectorAll('.file_item');
-		    fileItems.forEach(item => {
-		        const fileId = item.dataset.fileId;
-		        removedFiles.push(fileId);
-		        item.remove(); // 화면에서 삭제
-		    });
+		function updateNotice() {
+			alert("수정버튼 클릭시클릭이벤트 ");
+			console.log('Update button clicked');
+			const fileInput = document.querySelector('input[name="files[]"]');//이름을 files[]로 수정
+			console.log("fileInput : " ,fileInput);
+			// 파일이 선택되었을 때의 처리
+			// 파일이 선택되었을 때의 처리
 
-			// FormData 객체 생성
-			const formData = new FormData();
 
-			// 파일 업로드 필드에서 파일을 가져와서 FormData에 추가
-		    const fileInput = document.querySelector('input[name="files"]');
-		    if (fileInput && fileInput.files.length > 0) {
-		        formData.append('file', fileInput.files[0]); // 'file'은 서버에서 파일을 받는 파라미터 이름 
-		    } else {
-		        console.error("No file selected.");
-		        return; // 파일을 선택하지 않았을 경우 함수 종료
-		    }
-
-		    
-			// 다른 필드의 데이터를 FormData에 추가
-			const titleInput = document.querySelector('input[name="title"]');
-			const title = titleInput ? titleInput.value.trim() : '' ;
-			console.log("title : " + title);
+			if(fileInput && fileInput.files && fileInput.files.length > 0){
+				//선택된 파일이 있을 때 파일을 처리하는 로직
+				console.log("파일이 선택되었습니다.");
+				const formData = new FormData();
+				formData.append('file', fileInput.files[0]); //file은 서버에서 파일을 받는 파라미터 이름
+				
+				//다른 필드의 데이터를 FormData에 추가
+				const titleInput  = document.querySelector('input[name="title"]');
+				const title = titleInput ?titleInput.value.trim() : '' ;
+				console.log('title :' + title);
+				
+				if(!title){
+					alert("제목을 입력해주세요");
+					return;
+				}
+				
+				const contentTextarea = document.querySelector('textarea[name="content"]');
+			    const content= contentTextarea ? contentTextarea.value.trim() : '';
+			    if(!content){
+			        alert("내용을 입력해주세요.");
+			        return;
+			    }
+			    
+			    formData.append('title', title);
+			    formData.append('content', content);
+				
 			
-			if(!title){
-				alert("제목을 입력해주세요.");
-				return;
-			}
-			
-			const contentTextarea = document.querySelector('textarea[name="content"]');
-			const content= contentTextarea ? contentTextarea.value.trim() : '';
-			if(!content){
-				alert("내용을 입력해주세요.");
-				return;
-			}
-			
-			formData.append('title', title);
-			formData.append('content', content);
 
 			// AJAX를 사용하여 FormData를 서버로 전송하는 코드 작성
-			 $.ajax({
-				type : 'PUT',
-				url : `/admin/notice/update/${noticeId}`, // 수정 엔드포인트에 PUT 요청을 보냄
-				data : formData, // FormData 전달
-				processData : false, // FormData를 처리하지 않도록 설정
-				contentType : false, // 컨텐츠 타입을 false로 설정하여 jQuery가 설정하지 않도록 함
-				success : function(response) {
-					// 성공적으로 수정되었을 때의 처리
-					alert('게시물이 성공적으로 수정되었습니다.');
-					// 필요한 추가 작업 수행
-					let redirectUrl = '/admin/notice/list';
-					window.location.href = redirectUrl;
-				},
-				error : function(xhr, status, error) {
-					// 수정 실패 시의 처리
-					alert('게시물 수정 중 오류가 발생했습니다.');
-					console.log(error);
-				}
-			});
+			  $.ajax({
+            type: 'PUT',
+            url: `/admin/notice/update/${noticeId}`, // 수정 엔드포인트에 PUT 요청을 보냄
+            data: formData, // FormData 전달
+            processData: false, // FormData를 처리하지 않도록 설정
+            contentType: false, // 컨텐츠 타입을 false로 설정하여 jQuery가 설정하지 않도록 함
+            success: function (response) {
+                // 성공적으로 수정되었을 때의 처리
+                alert('게시물이 성공적으로 수정되었습니다.');
+                // 필요한 추가 작업 수행
+                let redirectUrl = '/admin/notice/list';
+                window.location.href = redirectUrl;
+            },
+            error: function (xhr, status, error) {
+                // 수정 실패 시의 처리
+                alert('게시물 수정 중 오류가 발생했습니다.');
+                console.log(error);
+            }
+        });
 			
 			/* // 요청 데이터를 JSON 형식으로 구성
 		    const requestData = JSON.stringify({
@@ -289,7 +277,13 @@
 		            console.log(error);
 		        }
 		    }); */
-		}
+			} else{
+				
+				//파일이 선택되지 않았을때 처리
+				console.log('no file selected');
+			
+			}
+		}	
 
 		/*]]>*/
 	</script>
