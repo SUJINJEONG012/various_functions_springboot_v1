@@ -71,12 +71,15 @@
 						<li>
 							<h4 class="">첨부파일</h4>
 
-							<div id="files"></div>
+							<!-- <div id="files"></div> -->
 							<div class="file_list"></div>
 							<button type="button" onclick="addFile();" class="btns fn_add_btn">
 								<span>파일 추가</span>
 							</button>
+							
 						</li>
+						
+						
 					</ul>
 
 
@@ -143,7 +146,6 @@
 		            if (file.originalName.match(/\.(jpge|jpg|gif|png)$/i) != null) {
 		                fileItem = `
 		                    <div class="file_item">
-		                	
 		                        <div><img src="/admin/notice/${noticeId}/files/${file.fileId}/view" alt="${file.originalName}" style="width:100%; height:auto;" /></div>
 		                        <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
 		                    </div>`;
@@ -161,15 +163,16 @@
 		function addFile(){
 			const fileInput = document.createElement('input');
 			fileInput.type='file';
-			fileInput.name='files[]';
+			fileInput.name='file';
 			
 			
 			fileInput.onchange = function () {
 				// 파일이 선택된 경우 updateNotice() 호출
 				if(fileInput.files && fileInput.files.length > 0){
 					updateNotice(fileInput);
+					
 				}
-			};
+			}; 
 			   
 			
 			const fileDiv = document.createElement('div');
@@ -185,8 +188,7 @@
 			};
 			
 			fileDiv.appendChild(removeBtn);
-			document.querySelector('.file_list').appendChild(fileDiv);
-			
+			document.querySelector('.file_list').appendChild(fileDiv);		
 			
 		} 
 
@@ -199,62 +201,72 @@
 
 		//수정 버튼 클릭 시 실행되는 함수
 		function updateNotice() {
+			
 			alert("수정버튼 클릭시클릭이벤트 ");
 			console.log('Update button clicked');
-			const fileInput = document.querySelector('input[name="files[]"]');//이름을 files[]로 수정
-			console.log("fileInput : " ,fileInput);
-			// 파일이 선택되었을 때의 처리
-			// 파일이 선택되었을 때의 처리
+			
+			// FormData 생성
+			const formData = new FormData();
 
+			
+			// 파일입력 요소 가져오기
+			const fileInput = document.querySelector('input[name="file"]');
+			console.log("fileInput : ", fileInput);
 
-			if(fileInput && fileInput.files && fileInput.files.length > 0){
-				//선택된 파일이 있을 때 파일을 처리하는 로직
-				console.log("파일이 선택되었습니다.");
-				const formData = new FormData();
-				formData.append('file', fileInput.files[0]); //file은 서버에서 파일을 받는 파라미터 이름
-				
-				//다른 필드의 데이터를 FormData에 추가
-				const titleInput  = document.querySelector('input[name="title"]');
-				const title = titleInput ?titleInput.value.trim() : '' ;
-				console.log('title :' + title);
-				
-				if(!title){
-					alert("제목을 입력해주세요");
-					return;
-				}
-				
-				const contentTextarea = document.querySelector('textarea[name="content"]');
-			    const content= contentTextarea ? contentTextarea.value.trim() : '';
-			    if(!content){
+			// 파일이 선택되었을 때의 처리
+			if (fileInput && fileInput.files && fileInput.files.length > 0) {
+			    // 선택된 파일이 있을 때 파일을 처리하는 로직
+			    console.log("파일이 선택되었습니다.");
+			    // FormData 생성
+			    const formData = new FormData();
+			    // FormData에 파일 추가
+			    formData.append('file', fileInput.files[0]); // 'files[]'로 수정
+
+			    // 다른 필드의 데이터를 FormData에 추가
+			    const titleInput = document.querySelector('input[name="title"]');
+			    const title = titleInput ? titleInput.value.trim() : '';
+			    console.log('title :', title);
+
+			    if (!title) {
+			        alert("제목을 입력해주세요");
+			        return;
+			    }
+
+			    const contentTextarea = document.querySelector('textarea[name="content"]');
+			    const content = contentTextarea ? contentTextarea.value.trim() : '';
+			    console.log('content :', content);
+			    if (!content) {
 			        alert("내용을 입력해주세요.");
 			        return;
 			    }
-			    
+
 			    formData.append('title', title);
 			    formData.append('content', content);
-				
-			
 
-			// AJAX를 사용하여 FormData를 서버로 전송하는 코드 작성
-			  $.ajax({
-            type: 'PUT',
-            url: `/admin/notice/update/${noticeId}`, // 수정 엔드포인트에 PUT 요청을 보냄
-            data: formData, // FormData 전달
-            processData: false, // FormData를 처리하지 않도록 설정
-            contentType: false, // 컨텐츠 타입을 false로 설정하여 jQuery가 설정하지 않도록 함
-            success: function (response) {
-                // 성공적으로 수정되었을 때의 처리
-                alert('게시물이 성공적으로 수정되었습니다.');
-                // 필요한 추가 작업 수행
-                let redirectUrl = '/admin/notice/list';
-                window.location.href = redirectUrl;
-            },
-            error: function (xhr, status, error) {
-                // 수정 실패 시의 처리
-                alert('게시물 수정 중 오류가 발생했습니다.');
-                console.log(error);
-            }
-        });
+			    console.log("formData : ", formData);
+			    // AJAX를 사용하여 FormData를 서버로 전송하는 코드 작성
+			    $.ajax({
+			        type: 'PUT',
+			        url: `/admin/notice/update/${noticeId}`,
+			        data: formData,
+			        processData: false,
+			        contentType: false,
+			        success: function(response) {
+			            alert('게시물이 성공적으로 수정되었습니다.');
+			            let redirectUrl = '/admin/notice/list';
+			            window.location.href = redirectUrl;
+			        },
+			        error: function(xhr, status, error) {
+			            alert('게시물 수정 중 오류가 발생했습니다.');
+			            console.log(error);
+			        }
+			    });
+			} else {
+			    // 파일이 선택되지 않았을 때 처리
+			    console.log('파일을 선택해주세요.');
+			    alert('파일을 선택해주세요.');
+			    return;
+			}
 			
 			/* // 요청 데이터를 JSON 형식으로 구성
 		    const requestData = JSON.stringify({
@@ -277,13 +289,7 @@
 		            console.log(error);
 		        }
 		    }); */
-			} else{
-				
-				//파일이 선택되지 않았을때 처리
-				console.log('no file selected');
-			
-			}
-		}	
+		}
 
 		/*]]>*/
 	</script>
