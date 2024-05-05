@@ -102,14 +102,6 @@ public class NoticeController {
 			
 			log.info("게시글 수정 메서드 진입!!!");
 			
-			
-			//파일업로드 처리
-			if(files != null && files.length > 0) {
-				for(MultipartFile file : files) {
-					//파일로직추가
-				}
-			}
-			
 			// 게시물 수정 서비스 호출
 			noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
 			noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
