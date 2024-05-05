@@ -59,27 +59,25 @@
 
 					<ul>
 
-						<li><h4 class="">제목</h4>
-							<input type="text" th:value="${notice.title}" name="title" /></li>
+						<li><h4 class="">제목</h4> <input type="text"
+							th:value="${notice.title}" name="title" /></li>
 
 						<li class="textarea">
-							<h4 class="">내용</h4> 
-							<textarea name="content"> [[${notice.content}]]</textarea>
+							<h4 class="">내용</h4> <textarea name="content"> [[${notice.content}]]</textarea>
 						</li>
 
 
 						<li>
-							<h4 class="">첨부파일</h4>
-
-							<!-- <div id="files"></div> -->
+							<h4 class="">첨부파일</h4> <!-- <div id="files"></div> -->
 							<div class="file_list"></div>
-							<button type="button" onclick="addFile();" class="btns fn_add_btn">
+							<button type="button" onclick="addFile();"
+								class="btns fn_add_btn">
 								<span>파일 추가</span>
 							</button>
-							
+
 						</li>
-						
-						
+
+
 					</ul>
 
 
@@ -213,14 +211,6 @@
 			const fileInput = document.querySelector('input[name="file"]');
 			console.log("fileInput : ", fileInput);
 
-			// 파일이 선택되었을 때의 처리
-			if (fileInput && fileInput.files && fileInput.files.length > 0) {
-			    // 선택된 파일이 있을 때 파일을 처리하는 로직
-			    console.log("파일이 선택되었습니다.");
-			    // FormData 생성
-			    const formData = new FormData();
-			    // FormData에 파일 추가
-			    formData.append('file', fileInput.files[0]); // 'files[]'로 수정
 
 			    // 다른 필드의 데이터를 FormData에 추가
 			    const titleInput = document.querySelector('input[name="title"]');
@@ -261,12 +251,7 @@
 			            console.log(error);
 			        }
 			    });
-			} else {
-			    // 파일이 선택되지 않았을 때 처리
-			    console.log('파일을 선택해주세요.');
-			    alert('파일을 선택해주세요.');
-			    return;
-			}
+			
 			
 			/* // 요청 데이터를 JSON 형식으로 구성
 		    const requestData = JSON.stringify({
