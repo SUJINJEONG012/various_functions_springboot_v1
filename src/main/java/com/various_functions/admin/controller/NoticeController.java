@@ -88,6 +88,7 @@ public class NoticeController {
 	//@@PathVariable을 사용한 방법 => noticeId를 받아와서
 		@GetMapping("/admin/notice/update/{noticeId}")
 		public String showUpdateForm(@PathVariable Long noticeId, Model model) {
+			log.info("수정 게시글 페이지진입!1");
 			NoticeVo noticeVo = noticeService.findById(noticeId);
 			model.addAttribute("notice", noticeVo);
 		    return "/admin/notice/update";
