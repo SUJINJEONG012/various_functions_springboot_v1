@@ -120,33 +120,54 @@
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-	
-		document.addEventListener("DOMContentLoaded", function() {
-			let saveBtn = document.getElementById("updateNotice");
-			saveBtn.addEventListener("click", function(e) {
 
-				$.ajax({
-					url : "/admin/notice/update/${noticeId}",
-					type : "PUT",
-					data : formData,
-					processData : false,
-					contentType : false,
-					success : function(response) {
-						console.log(response);
-						alert("요청성공!");
-						alert("응답데이터 : " + response);
+	document.addEventListener("DOMContentLoaded", function() {
+	    let saveBtn = document.getElementById("updateNotice");
+	    saveBtn.addEventListener("click", function(e) {
+	    
+	    	let titleInput = document.querySelector('input=[name="title"]');
+	    	let contentInput = document.querySelector('textarea=[name="content"]');
+	    	console.log("titleInput : ",titleInput);
+	    	
+	    	if(titleInput && titleInput.value !== '' && contentInput && contentInput.value !== '') {
+	    		// titleInput과 contentInput이 모두 존재하고 값이 있는 경우
+	    	    // 이곳에서 formData에 추가하고 서버로 전송하는 코드를 작성합니다.
+	    		let titleValue = titleInput.value;
+	    		let contentValue = contentInput.value;
+	    		console.log(titleValue);
+	    		
+	    		//formData 객체생성
+	    		let formData = new FormData();
+	    		formData.append('title', titleValue);
+	    		formData.append('content', contentValue);
+	    		
+	    	
+	            // Ajax 요청 보내기
+	            $.ajax({
+	                url: "/admin/notice/update/${noticeId}",
+	                type: "PUT",
+	                data: formData,
+	                processData: false,
+	                contentType: false,
+	                success: function(response) {
+	                    console.log(response);
+	                    alert("요청성공!");
+	                    alert("응답데이터 : " + response);
 
-						// ajax요청이 성공후 폼 데이터 초기화
-						document.getElementById("upateNoticeForm")
-								.reset();
-					},
-					error : function(xhr, status, error) {
-						console.error("요청 실패 : ", error);
-					}
-				})
-			});
-		});
-		
+	                    // ajax요청이 성공후 폼 데이터 초기화
+	                    document.getElementById("updateNoticeForm").reset();
+	                },
+	                error: function(xhr, status, error) {
+	                    console.error("요청 실패 : ", error);
+	                }
+	            });
+	        }else{
+	        	console.error('title 또는 content 요소를 찾을 수 없습니다.');
+	        	return;
+	        }	      
+	    });
+	});
+	    
 		// 파일추가
 		function addFile(){
 			const fileDiv = document.createElement('div');
