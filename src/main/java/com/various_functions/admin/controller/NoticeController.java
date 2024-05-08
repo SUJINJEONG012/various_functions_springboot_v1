@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
 
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.dto.NoticeFileDto;
@@ -50,7 +50,7 @@ public class NoticeController {
 	private final FileUtils fileUtils;
 	private final MemberService memberService;
 	
-	
+
 	// 게시글 작성 페이지
 	@GetMapping("/admin/notice/write")
 	public String openNoticeWrite(@RequestParam(value = "id", required = false) final Long id, Model model) {
@@ -98,7 +98,7 @@ public class NoticeController {
 		@PutMapping("/admin/notice/update/{noticeId}")
 		public ResponseEntity<?> updateNotice(
 				@PathVariable Long noticeId, 
-				@RequestBody NoticeDto noticeDto, 
+				@ModelAttribute NoticeDto noticeDto, 
 				@RequestParam("files") MultipartFile[] files){
 			
 			log.info("게시글 수정 메서드 진입!!!");

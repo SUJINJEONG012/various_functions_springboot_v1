@@ -45,7 +45,8 @@ public class AccommodationController {
 	}
 
 	@PostMapping("/admin/accommodation/save")
-	public ResponseEntity<String> saveAccommodationAndRoomInfo(@ModelAttribute AccommodationsDto accommodationsDto,
+	public ResponseEntity<String> saveAccommodationAndRoomInfo(
+			@ModelAttribute AccommodationsDto accommodationsDto,
 	        @ModelAttribute RoomInfoDto roomInfoDto) {
 
 	    Long accommodationId = accommodationService.insertAccommodationAndRoomInfo(accommodationsDto);

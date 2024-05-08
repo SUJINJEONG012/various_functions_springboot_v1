@@ -122,6 +122,7 @@
 	<script th:inline="javascript">
 
 	document.addEventListener("DOMContentLoaded", function() {
+		
 	    let saveBtn = document.getElementById("updateNotice");
 	    saveBtn.addEventListener("click", function(e) {
 	    
@@ -142,10 +143,11 @@
 	    		formData.append('title', titleValue);
 	    		formData.append('content', contentValue);
 	    		
-	    	
+	    		const noticeId = document.getElementById('noticeId').value;
+		    	
 	            // Ajax 요청 보내기
 	            $.ajax({
-	                url: "/admin/notice/update/${noticeId}",
+	                url: "/admin/notice/update/" + noticeId,
 	                type: "PUT",
 	                data: formData,
 	                processData: false,
