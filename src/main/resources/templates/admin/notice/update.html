@@ -125,8 +125,9 @@
 	    let saveBtn = document.getElementById("updateNotice");
 	    saveBtn.addEventListener("click", function(e) {
 	    
-	    	let titleInput = document.querySelector('input=[name="title"]');
-	    	let contentInput = document.querySelector('textarea=[name="content"]');
+	    	let titleInput = document.querySelector('input[name="title"]');
+		
+			let contentInput = document.querySelector('textarea[name="content"]');
 	    	console.log("titleInput : ",titleInput);
 	    	
 	    	if(titleInput && titleInput.value !== '' && contentInput && contentInput.value !== '') {
