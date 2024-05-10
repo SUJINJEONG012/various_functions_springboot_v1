@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	acsaveBtn.addEventListener("click", function(e) {
 
 	// 숙소 이름이 비어 있지 않으면 폼 제출
-  let formData = new FormData(document.getElementById("saveFormAccommodations"));
+  	let formData = new FormData(document.getElementById("saveFormAccommodations"));
   	// 기본 동작인 폼 제출을 중지
 	e.preventDefault();
 

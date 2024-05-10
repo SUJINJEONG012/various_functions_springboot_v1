@@ -124,6 +124,7 @@
 	document.addEventListener("DOMContentLoaded", function() {
 		
 	    let saveBtn = document.getElementById("updateNotice");
+	    
 	    saveBtn.addEventListener("click", function(e) {
 	    
 	    	let titleInput = document.querySelector('input[name="title"]');
@@ -144,10 +145,10 @@
 	    		formData.append('content', contentValue);
 	    		
 	    		const noticeId = document.getElementById('noticeId').value;
-		    	
+		    	console.log("noticeId : " + noticeId);
 	            // Ajax 요청 보내기
 	            $.ajax({
-	                url: "/admin/notice/update/" + noticeId,
+	                url: "/admin/notice/update/"+noticeId,
 	                type: "PUT",
 	                data: formData,
 	                processData: false,
@@ -190,6 +191,17 @@
 			`;
 			document.querySelector('.file_list').appendChild(fileDiv);
 		}
+		
+		// 파일 선택 시 호출되는 함수
+		function selectFile(input) {
+		    const file = input.files[0]; // 첫 번째 파일만 선택
+		    if (file) {
+		        let formData = new FormData();
+		        formData.append('file', file); // 'file'은 서버에서 파일을 받을 때 사용할 파라미터 이름
+		        // 이어서 다른 필요한 데이터도 formData에 추가할 수 있음
+		    }
+		}
+		
 
 		// 파일 삭제
 		function removeFile(element){

@@ -94,18 +94,19 @@ public class NoticeController {
 		    return "/admin/notice/update";
 		}
 		
-		// 공지사항 수정 
+		// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
 		@PutMapping("/admin/notice/update/{noticeId}")
 		public ResponseEntity<?> updateNotice(
 				@PathVariable Long noticeId, 
-				@ModelAttribute NoticeDto noticeDto, 
-				@RequestParam("files") MultipartFile[] files){
+				@ModelAttribute NoticeDto noticeDto
+				){
 			
 			log.info("게시글 수정 메서드 진입!!!");
 			
 			// 게시물 수정 서비스 호출
 			noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
 			noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
+			
 				
 			return ResponseEntity.ok().build(); // 성공 응답
 		}
