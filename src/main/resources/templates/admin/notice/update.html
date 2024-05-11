@@ -74,32 +74,15 @@
 								class="btns fn_add_btn">
 								<span>파일 추가</span>
 							</button> -->
-
+							
+						
 						<div class="file_list">
-							<div>
-								<div class="file_input">
-									<input type="text" readonly /> <span class="point_color">*</span>
-									파일 <label> 첨부파일 <input type="file" name="files"
-										onchange="selectFile(this);" />
-									</label>
-								</div>
-
-								<button type="button" onclick="removeFile(this);"
-									class="btns del_btn">
-									<span>삭제</span>
-								</button>
-								<button type="button" onclick="addFile();"
-									class="btns fn_add_btn">
-									<span>파일 추가</span>
-								</button>
-							</div>
+						<div id="files"></div>
+							
 						</div>
 						</li>
 
-
 					</ul>
-
-
 				</div>
 
 			</form>
@@ -147,19 +130,20 @@
 	    		const noticeId = document.getElementById('noticeId').value;
 		    	console.log("noticeId : " + noticeId);
 	            // Ajax 요청 보내기
-	            $.ajax({
-	                url: "/admin/notice/update/"+noticeId,
+	            /* $.ajax({
+	                url: "/admin/notice/update/" + noticeId,
 	                type: "PUT",
 	                data: formData,
-	                processData: false,
+	              	processData: false,
 	                contentType: false,
+	               
 	                success: function(response) {
-	                    console.log(response);
+	                    console.log("요청성공 : " +response);
 	                    alert("요청성공!");
-	                    alert("응답데이터 : " + response);
+	                    alert("서버로부터와 응답데이터 : " + response);
 
 	                    // ajax요청이 성공후 폼 데이터 초기화
-	                    document.getElementById("updateNoticeForm").reset();
+	                    //document.getElementById("updateNoticeForm").reset();
 	                },
 	                error: function(xhr, status, error) {
 						console.error("요청 실패 상태 코드:", xhr.status);
@@ -167,7 +151,30 @@
 						    console.error("요청 실패 메시지:", xhr.responseText);
 						    console.error("에러:", error);
 	                }
-	            });
+	            }); */
+	            
+		    	$.ajax({
+		    	    url: "/admin/notice/update/" + noticeId,
+		    	    type: "PUT",
+		    	    data: formData,
+		    	    processData: false,
+		    	    contentType: false,
+		    	    success: function(response) {
+		    	        console.log(response);
+		    	        alert("요청성공!");
+		    	        alert("서버로부터와 응답데이터 : " + response);
+
+		    	        // ajax요청이 성공후 폼 데이터 초기화
+		    	        document.getElementById("updateNoticeForm").reset();
+		    	    },
+		    	    error: function(xhr, status, error) {
+		    	        console.error("요청 실패 상태 코드:", xhr.status);
+		    	        console.error("요청 실패 상태 텍스트:", xhr.statusText);
+		    	        console.error("요청 실패 메시지:", xhr.responseText);
+		    	        console.error("에러:", error);
+		    	    }
+		    	});
+	            
 	        }else{
 	        	console.error('title 또는 content 요소를 찾을 수 없습니다.');
 	        	return;
