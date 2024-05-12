@@ -206,8 +206,7 @@
     
     // 수정 저장 로직
     
-	document.addEventListener("DOMContentLoaded", function() {
-		
+	document.addEventListener("DOMContentLoaded", function() {		
 	    let saveBtn = document.getElementById("updateNotice");
 	    
 	    saveBtn.addEventListener("click", function(e) {
@@ -218,9 +217,7 @@
 			
 	    	console.log("titleInput : ",titleInput);
 	    	console.log("fileInput" + fileInput);
-	    	
-	    	
-	    	
+	    
 	    	if(titleInput && titleInput.value !== '' && contentInput && contentInput.value !== '') {
 	    		// titleInput과 contentInput이 모두 존재하고 값이 있는 경우
 	    	    // 이곳에서 formData에 추가하고 서버로 전송하는 코드를 작성합니다.
@@ -243,11 +240,11 @@
 	    		}
 	    		const noticeId = document.getElementById('noticeId').value;
 		    	console.log("noticeId : " + noticeId);
-		    	console.log("formData : " + formData);
-	            // Ajax 요청 보내기
+		    	console.log("FormData size:", formData.size);
 	            
-	            
-		    	$.ajax({
+		    	
+		    	// Ajax 요청 보내기
+	            $.ajax({
 		    	    url: "/admin/notice/update/" + noticeId,
 		    	    type: "PUT",
 		    	    data: formData,

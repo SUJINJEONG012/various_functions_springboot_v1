@@ -76,10 +76,10 @@ public class NoticeController {
 		Long noticeId = noticeService.noticeSave(noticeDto);
 
 		// 단일 파일 업로드시에도 파일을 리스트에 담아서 전달
-		List<MultipartFile> files = noticeDto.getFiles();
+		List<MultipartFile> noticeFiles = noticeDto.getFiles();
 		
-		if(files!= null && !files.isEmpty()) {
-		List<NoticeFileDto> fileList = fileUtils.uploadFiles(files);
+		if(noticeFiles!= null && !noticeFiles.isEmpty()) {
+		List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
 		noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
 		}
 		

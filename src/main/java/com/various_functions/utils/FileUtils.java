@@ -51,16 +51,16 @@ public class FileUtils {
 	 */
 	public List<NoticeFileDto> uploadFiles(final List<MultipartFile> multipartFiles) {
 		// 여러 이미지를 담는 객체
-		List<NoticeFileDto> filesff = new ArrayList<>();
+		List<NoticeFileDto> noticeFiles = new ArrayList<>();
 
 		for (MultipartFile multipartFile : multipartFiles) {
 			if (multipartFile.isEmpty()) {
 				continue;
 			}
 
-			filesff.add(uploadFile(multipartFile));
+			noticeFiles.add(uploadFile(multipartFile));
 		}
-		return filesff;
+		return noticeFiles;
 	}
 	
 	/**
