@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartResolver;
 
+import com.various_functions.admin.dto.AccommodationsFileDto;
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.dto.NoticeFileDto;
 import com.various_functions.admin.service.NoticeFileService;
@@ -85,32 +86,7 @@ public class NoticeController {
 		return "redirect:/admin/notice/list";
 	}
 	
-	//@@PathVariable을 사용한 방법 => noticeId를 받아와서
-		@GetMapping("/admin/notice/update/{noticeId}")
-		public String showUpdateForm(@PathVariable Long noticeId, Model model) {
-			log.info("수정 게시글 페이지진입!1");
-			NoticeVo noticeVo = noticeService.findById(noticeId);
-			model.addAttribute("notice", noticeVo);
-		    return "/admin/notice/update";
-		}
-		
-		// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
-		@PutMapping("/admin/notice/update/{noticeId}")
-		public ResponseEntity<?> updateNotice(
-				@PathVariable Long noticeId, 
-				@ModelAttribute NoticeDto noticeDto
-				){
-			
-			log.info("게시글 수정 메서드 진입!!!");
-			
-			// 게시물 수정 서비스 호출
-			noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
-			noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
-			
-				
-			return ResponseEntity.ok(noticeDto); // 수정된 데이터를 json으로 변환
-		}
-		
+	
 
 	// 관리자 페이지 리스트페이지
 	@GetMapping("/admin/notice/list")
@@ -159,7 +135,53 @@ public class NoticeController {
 		return viewName;
 	}
 	
-	
+	//@@PathVariable을 사용한 방법 => noticeId를 받아와서
+			@GetMapping("/admin/notice/update/{noticeId}")
+			public String showUpdateForm(@PathVariable Long noticeId, Model model) {
+				
+				log.info("수정 게시글 페이지진입!1");
+				
+				NoticeVo noticeVo = noticeService.findById(noticeId);
+				
+				model.addAttribute("notice", noticeVo);
+			    return "/admin/notice/update";
+			}
+			
+			// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
+			@PutMapping("/admin/notice/update/{noticeId}")
+			public ResponseEntity<?> updateNotice(
+					@PathVariable Long noticeId, 
+					@ModelAttribute NoticeDto noticeDto					
+					){
+				log.info("게시글 수정 메서드 진입!!!");
+				
+				
+				NoticeVo notice = noticeService.findById(noticeId);
+				
+				
+				List<MultipartFile> files = noticeDto.getFiles();
+				
+				log.info("공지사항 저장되는 부분 데이터 확인 files : {}" , files);
+				
+				// 파일이 저장된 경로
+		        String uploadPath = fileUtils.getSingUploadPath(noticeId.toString());
+		        
+		        if (files != null && !files.isEmpty()) {
+		        	log.info("if문 !!! ");
+		            List<NoticeFileDto> fileList = fileUtils.uploadFiles(files);
+		            log.info("fileList : ", fileList);
+		            noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
+		            
+		        }
+		        
+		        // 게시물 수정 서비스 호출
+				noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
+				noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
+				
+					
+				return ResponseEntity.ok(noticeDto); // 수정된 데이터를 json으로 변환
+			}
+			
 	
 	
 	

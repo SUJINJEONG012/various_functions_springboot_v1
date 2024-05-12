@@ -68,20 +68,28 @@
 
 
 						<li>
-							<!-- <h4 class="">첨부파일</h4> <div id="files"></div>
-							<div class="file_list"></div>
-							<button type="button" onclick="addFile();"
-								class="btns fn_add_btn">
-								<span>파일 추가</span>
-							</button> -->
-							
+							 <h4 class="">첨부파일</h4>
+							  <div id="files"></div>
+				
+						<div class="file_list">
+								<div>
+									<div class="file_input">
+										<input type="text" readonly /> <label> 첨부파일 <input
+											type="file" name="files" onchange="selectFile(this);" />
+										</label>
+									</div>
+									<button type="button" onclick="removeFile(this);"
+										class="btns del_btn">
+										<i class="material-symbols-outlined">cancel</i> <span>삭제</span>
+									</button>
+									<button type="button" onclick="addFile();"
+										class="btns fn_add_btn">
+										<i class="material-symbols-outlined">add_circle</i> <span>추가</span>
+									</button>
+								</div>
+							</div>
 						
-						<!-- <div class="file_list">
-						<div id="files"></div>
-							
-						</div> -->
 						</li>
-
 					</ul>
 				</div>
 
@@ -104,6 +112,100 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 
+	window.onload = () => {
+		findAllFile();
+	}
+	
+	// 전체파일 조회
+	function findAllFile(){
+		//1. api 호출 
+		const noticeId = [[ ${notice.noticeId}]];
+		
+		const response = getJson(`/admin/notice/${noticeId}/files`);
+		
+		//2. 로직종료
+		if(!response.length){
+			// 파일이 없는 경우 메시지를 표시하고 함수 종료
+	        document.getElementById('files').textContent = '첨부 파일이 없습니다.';
+	        return;
+		}
+		
+		//3. 파일 영역 추가
+		let fileHtml = '<div class="file_down"><div class="cont"><ul>';
+		
+		response.forEach(row =>{
+			fileHtml += '<li>';
+			if(row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null){ // 이미지 파일체크
+				 fileHtml += `
+				<img src="/admin/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 100%; height: auto;" >
+				<a href="/admin/notice/${noticeId}/files/${row.fileId}/download">
+				<span class="icons">
+				<i class="fas fa-folder-open"></i></span>${row.originalName}
+				</a>
+				`
+			}
+		});
+		fileHtml += '</ul></div></div>';
+		
+		
+		//4. 파일 html 렌더링
+		document.getElementById('files').innerHTML = fileHtml;
+	}
+
+	
+	 // 파일 추가
+    function addFile() {
+        const fileDiv = document.createElement('div');
+        fileDiv.innerHTML =`
+            <div class="file_input">
+                <input type="text" readonly />
+                <label> 첨부파일
+                    <input type="file" name="files" onchange="selectFile(this);" />
+                </label>
+            </div>
+            <button type="button" onclick="removeFile(this);" class="btns del_btn"><i class="material-symbols-outlined">cancel</i><span>삭제</span></button>
+        `;
+        document.querySelector('.file_list').appendChild(fileDiv);
+    }
+	 
+    // 파일 삭제
+    function removeFile(element) {
+        const fileAddBtn = element.nextElementSibling;
+        if (fileAddBtn) {
+            const inputs = element.previousElementSibling.querySelectorAll('input');
+            inputs.forEach(input => input.value = '')
+            return false;
+        }
+        element.parentElement.remove();
+    }
+    
+    // 파일 선택
+    function selectFile(element) {
+
+        const file = element.files[0];
+        const filename = element.closest('.file_input').firstElementChild;
+
+        // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
+        if ( !file ) {
+            filename.value = '';
+            return false;
+        }
+
+        // 2. 파일 크기가 10MB를 초과하는 경우
+        const fileSize = Math.floor(file.size / 1024 / 1024);
+        if (fileSize > 10) {
+            alert('10MB 이하의 파일로 업로드해 주세요.');
+            filename.value = '';
+            element.value = '';
+            return false;
+        }
+
+        // 3. 파일명 지정
+        filename.value = file.name;
+    }
+    
+    // 수정 저장 로직
+    
 	document.addEventListener("DOMContentLoaded", function() {
 		
 	    let saveBtn = document.getElementById("updateNotice");
@@ -111,9 +213,13 @@
 	    saveBtn.addEventListener("click", function(e) {
 	    
 	    	let titleInput = document.querySelector('input[name="title"]');
-		
 			let contentInput = document.querySelector('textarea[name="content"]');
+			let fileInput = document.querySelector('input[type="file"]');
+			
 	    	console.log("titleInput : ",titleInput);
+	    	console.log("fileInput" + fileInput);
+	    	
+	    	
 	    	
 	    	if(titleInput && titleInput.value !== '' && contentInput && contentInput.value !== '') {
 	    		// titleInput과 contentInput이 모두 존재하고 값이 있는 경우
@@ -127,8 +233,17 @@
 	    		formData.append('title', titleValue);
 	    		formData.append('content', contentValue);
 	    		
+	    		//파일이 추가되었는지 확인
+	    		if(fileInput && fileInput.files.length > 0){
+	    			//파일이 추가된 경우에만 formData에 추가 
+	    			formData.append('files', fileInput.files[0]);
+	    		}else{
+	    			console.log("파일이 선택되지 않았습니다. ");
+	    			return;
+	    		}
 	    		const noticeId = document.getElementById('noticeId').value;
 		    	console.log("noticeId : " + noticeId);
+		    	console.log("formData : " + formData);
 	            // Ajax 요청 보내기
 	            
 	            
@@ -149,7 +264,8 @@
 		    	        }
 		    	        // ajax요청이 성공후 폼 데이터 초기화
 		    	        document.getElementById("upateNoticeForm").reset();
-		    	        
+		    	        let redirectUrl = "/admin/notice/list";
+		    	        window.location.href= redirectUrl;
 		    	          
 		    	    },
 		    	    error: function(xhr, status, error) {
@@ -167,45 +283,9 @@
 	    });
 	});
 	    
-		// 파일추가
-		function addFile(){
-			const fileDiv = document.createElement('div');
-			
-			fileDiv.innerHTML = `
-
-			<li class="file_input">
-							
-							<span class="point_color">*</span> 파일
-							<input type="file" name="files" class="input" lang="en" onchange="selectFile(this);" placeholder="">
-
-			</li>
-			 <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
-			`;
-			document.querySelector('.file_list').appendChild(fileDiv);
-		}
-		
-		// 파일 선택 시 호출되는 함수
-		function selectFile(input) {
-		    const file = input.files[0]; // 첫 번째 파일만 선택
-		    if (file) {
-		        let formData = new FormData();
-		        formData.append('file', file); // 'file'은 서버에서 파일을 받을 때 사용할 파라미터 이름
-		        // 이어서 다른 필요한 데이터도 formData에 추가할 수 있음
-		    }
-		}
-		
-
-		// 파일 삭제
-		function removeFile(element){
-			const fileAddBtn = element.nextElementSibling;
-			if(fileAddBtn){
-				const inputs = element.previousElementSibling.querySelectorAll('input');
-				inputs.forEach(input => input.value = '')
-				return false;
-			}
-			element.parentElement.remove();
-		}
-
+	
+	
+	
 		
 		
 	</script>

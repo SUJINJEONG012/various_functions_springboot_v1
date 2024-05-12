@@ -64,7 +64,6 @@ public class AccommodationController {
 	            List<AccommodationsFileDto> fileList = fileUtils.uploadFileAccommodations(files);
 	            accommodationFileService.saveFiles(accommodationId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
 	        }
-	        
 
 	        return ResponseEntity.ok("숙소정보가 성공적으로 저장되었습니다.");
 	    } else {

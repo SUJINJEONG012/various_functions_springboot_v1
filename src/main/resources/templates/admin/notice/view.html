@@ -61,6 +61,7 @@
 
 
 					<li>
+					
 						<h4 class="">첨부파일</h4>
 						<div id="files"></div>
 					</li>
@@ -71,24 +72,7 @@
 
 			</div>
 
-			<!-- 파일 정보가 있는 경우에만 표시 -->
-			<!-- tr th:if="${not #lists.isEmpty(files)}">
-						<th scope="row">파일</th>
-						<td colspan="3">
-							<div th:each="file : ${files}">
-								<span
-									th:if="${file.originalName.endsWith('.jpg') or file.originalName.endsWith('.jpeg') or file.originalName.endsWith('.png') or file.originalName.endsWith('.gif')}">
-									
-									<img th:src="@{uploadPath}" th:alt="Image" />
-								</span>
-							</div>
-						</td>
-					</tr> -->
-			<!-- 파일 정보가 없는 경우 -->
-			<!-- <tr th:if="${#lists.isEmpty(files)}">
-						<th scope="row">파일</th>
-						<td colspan="3">첨부된 파일이 없습니다.</td>
-					</tr> -->
+		
 
 			<p class="btn_set">
 				<a th:href="@{/admin/notice/update/{noticeId}(noticeId=${notice.noticeId})}"
