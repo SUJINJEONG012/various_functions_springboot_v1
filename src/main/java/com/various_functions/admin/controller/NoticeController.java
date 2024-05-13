@@ -149,37 +149,32 @@ public class NoticeController {
 			
 			// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
 			@PutMapping("/admin/notice/update/{noticeId}")
-			public ResponseEntity<?> updateNotice(
+			public ResponseEntity<String> updateNotice(
 					@PathVariable Long noticeId, 
 					@ModelAttribute NoticeDto noticeDto					
 					){
 				log.info("게시글 수정 메서드 진입!!!");
 				
+				//NoticeVo notice = noticeService.findById(noticeId);
+				List<MultipartFile> noticeFiles = noticeDto.getFiles();
 				
-				NoticeVo notice = noticeService.findById(noticeId);
+				
+				log.info("공지사항 저장되는 부분 데이터 확인 files : {}" , noticeFiles);
 				
 				
-				List<MultipartFile> files = noticeDto.getFiles();
-				
-				log.info("공지사항 저장되는 부분 데이터 확인 files : {}" , files);
-				
-				// 파일이 저장된 경로
-		        String uploadPath = fileUtils.getSingUploadPath(noticeId.toString());
-		        
-		        if (files != null && !files.isEmpty()) {
+		        //if (noticeFiles != null && !noticeFiles.isEmpty()) {
 		        	log.info("if문 !!! ");
-		            List<NoticeFileDto> fileList = fileUtils.uploadFiles(files);
+		            List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
 		            log.info("fileList : ", fileList);
 		            noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
-		            
-		        }
+		          
+		        //}
 		        
 		        // 게시물 수정 서비스 호출
 				noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
 				noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
 				
-					
-				return ResponseEntity.ok(noticeDto); // 수정된 데이터를 json으로 변환
+				return ResponseEntity.ok("성공"); // 수정된 데이터를 json으로 변환
 			}
 			
 	
