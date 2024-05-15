@@ -50,7 +50,6 @@ public class NoticeController {
 	private final NoticeFileService noticeFileService;
 	private final FileUtils fileUtils;
 	private final MemberService memberService;
-	
 
 	// 게시글 작성 페이지
 	@GetMapping("/admin/notice/write")
@@ -66,27 +65,25 @@ public class NoticeController {
 	// 공지사항작성
 	@PostMapping("/admin/notice/save")
 	public String saveNotice(final NoticeDto noticeDto, Model model, HttpSession session) {
-	
+
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
-		if(member == null) {
+		if (member == null) {
 			return "redirect:/member/login";
 		}
-	
+
 		// 게시글insert
 		Long noticeId = noticeService.noticeSave(noticeDto);
 
 		// 단일 파일 업로드시에도 파일을 리스트에 담아서 전달
 		List<MultipartFile> noticeFiles = noticeDto.getFiles();
-		
-		if(noticeFiles!= null && !noticeFiles.isEmpty()) {
-		List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
-		noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
+		log.info("noticeFiles : " ,noticeFiles);
+		if (noticeFiles != null && !noticeFiles.isEmpty()) {
+			List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
+			noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
 		}
-		
+
 		return "redirect:/admin/notice/list";
 	}
-	
-	
 
 	// 관리자 페이지 리스트페이지
 	@GetMapping("/admin/notice/list")
@@ -101,7 +98,8 @@ public class NoticeController {
 	}
 
 	// 유저,어드민 페이지 공통으로 사용하기 위한 메서드
-	private String noticeList(@ModelAttribute("pagedSearchDto") final PagedSearchDto pagedSearchDto, Model model, String viewName) {
+	private String noticeList(@ModelAttribute("pagedSearchDto") final PagedSearchDto pagedSearchDto, Model model,
+			String viewName) {
 		List<NoticeVo> notices = noticeService.findAllNotices(pagedSearchDto);
 		model.addAttribute("notices", notices);
 		return viewName;
@@ -120,89 +118,72 @@ public class NoticeController {
 
 	// 게시글 상세 페이지
 	public String NoticeView(@RequestParam final Long noticeId, Model model, String viewName) {
-		
+
 		NoticeVo notice = noticeService.findById(noticeId);
-		
-		//여기에 파일저장도포함되어있어야함
+
+		// 여기에 파일저장도 포함되어있어야함
 		List<NoticeFileVo> files = noticeFileService.findFilesByNoticeId(noticeId);
-		log.info("공지사항 저장되는 부분 데이터 확인 files : {}" , files);
+		log.info("공지사항 저장되는 부분 데이터 확인 files : {}", files);
 		// 파일이 저장된 경로
-        String uploadPath = fileUtils.getSingUploadPath(noticeId.toString());
-        //model.addAttribute("uploadPath", uploadPath);
+		String uploadPath = fileUtils.getSingUploadPath(noticeId.toString());
+		// model.addAttribute("uploadPath", uploadPath);
 		model.addAttribute("notice", notice);
 		// 파일 나오는 곳
 		model.addAttribute("files", files);
 		return viewName;
 	}
+
+	// @@PathVariable을 사용한 방법 => noticeId를 받아와서
+	@GetMapping("/admin/notice/update/{noticeId}")
+	public String showUpdateForm(@PathVariable Long noticeId, Model model) {
+
+		log.info("수정 게시글 페이지진입!1");
+
+		NoticeVo noticeVo = noticeService.findById(noticeId);
+
+		model.addAttribute("notice", noticeVo);
+		return "/admin/notice/update";
+	}
+
+	// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
+	@PutMapping("/admin/notice/update/{noticeId}")
+	public ResponseEntity<String> updateNotice(@PathVariable Long noticeId, @ModelAttribute NoticeDto noticeDto) {
+		log.info("게시글 수정 메서드 진입!!!");
+		
+		// 게시물 수정 서비스 호출
+		noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
+		noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
 	
-	//@@PathVariable을 사용한 방법 => noticeId를 받아와서
-			@GetMapping("/admin/notice/update/{noticeId}")
-			public String showUpdateForm(@PathVariable Long noticeId, Model model) {
+		// NoticeVo notice = noticeService.findById(noticeId);
+		List<MultipartFile> noticeFiles = noticeDto.getFiles();
 				
-				log.info("수정 게시글 페이지진입!1");
-				
-				NoticeVo noticeVo = noticeService.findById(noticeId);
-				
-				model.addAttribute("notice", noticeVo);
-			    return "/admin/notice/update";
-			}
-			
-			// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
-			@PutMapping("/admin/notice/update/{noticeId}")
-			public ResponseEntity<String> updateNotice(
-					@PathVariable Long noticeId, 
-					@ModelAttribute NoticeDto noticeDto					
-					){
-				log.info("게시글 수정 메서드 진입!!!");
-				
-				//NoticeVo notice = noticeService.findById(noticeId);
-				List<MultipartFile> noticeFiles = noticeDto.getFiles();
-				
-				
-				log.info("공지사항 저장되는 부분 데이터 확인 files : {}" , noticeFiles);
-				
-				
-		        //if (noticeFiles != null && !noticeFiles.isEmpty()) {
-		        	log.info("if문 !!! ");
-		            List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
-		            log.info("fileList : ", fileList);
-		            noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
-		          
-		        //}
-		        
-		        // 게시물 수정 서비스 호출
-				noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
-				noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
-				
-				return ResponseEntity.ok("성공"); // 수정된 데이터를 json으로 변환
-			}
-			
-	
-	
-	
+		if (noticeFiles != null && !noticeFiles.isEmpty()) {
+		List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
+		noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
+		}
+		
+
+		return ResponseEntity.ok("성공"); // 수정된 데이터를 json으로 변환
+	}
+
 	// 파일 다운로드
-    @GetMapping("/admin/notice/download/{noticeId}/files/{filename:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable Long noticeId, @PathVariable String filename) throws IOException {
-        String filePath = "/Users/jeongsujin/upload/" + noticeId + "/" + filename; // 파일 경로
-        File file = new File(filePath);
+	@GetMapping("/admin/notice/download/{noticeId}/files/{filename:.+}")
+	public ResponseEntity<Resource> downloadFile(@PathVariable Long noticeId, @PathVariable String filename)
+			throws IOException {
+		String filePath = "/Users/jeongsujin/upload/" + noticeId + "/" + filename; // 파일 경로
+		File file = new File(filePath);
 
-        if (file.exists()) {
-            InputStream inputStream = new FileInputStream(file);
-            ByteArrayResource resource = new ByteArrayResource(inputStream.readAllBytes());
+		if (file.exists()) {
+			InputStream inputStream = new FileInputStream(file);
+			ByteArrayResource resource = new ByteArrayResource(inputStream.readAllBytes());
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
+			HttpHeaders headers = new HttpHeaders();
+			headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
 
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .body(resource);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-	
-
-   
+			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
 }

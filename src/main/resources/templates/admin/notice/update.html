@@ -220,14 +220,18 @@
 	    	let titleInput = document.querySelector('input[name="title"]');
 			let contentInput = document.querySelector('textarea[name="content"]');
 			let fileInput = document.querySelector('input[name="files"]');
-			let file = fileInput.files; // 파일을 가져오는 부분
+			
+			/* let file = fileInput.files; // 파일을 가져오는 부분
 			console.log("file :" + file);
-			if (file) {
+			
+			if (file && file.length > 0) {
 			    let fileName = file.name; // 파일의 이름
 			    console.log("선택된 파일 이름:", fileName);
 			} else {
 			    console.log("파일이 선택되지 않았습니다.");
-			}
+			    alert("파일을 선택해주세요.");
+			    return;
+			} */
 			
 	   		let titleValue = titleInput.value;
 	    	let contentValue = contentInput.value;
@@ -261,7 +265,7 @@
 		    	success: function(response) {
 		    	console.log(response);
 		    	alert("요청성공!");
-		    	        
+		    	 saveBtn.disabled = false;        
 		    	if(response){
 		    		alert("서버로부터와 응답데이터 : " + response);
 		    	}else{
@@ -274,7 +278,8 @@
 		    	          
 		    	},
 		    	error: function(xhr, status, error) {
-		    	console.error("요청 실패 상태 코드:", xhr.status);
+		    		saveBtn.disabled = false;
+		    		console.error("요청 실패 상태 코드:", xhr.status);
 		    	console.error("요청 실패 상태 텍스트:", xhr.statusText);
 		    	console.error("요청 실패 메시지:", xhr.responseText);
 		    	console.error("에러:", error);
