@@ -138,6 +138,7 @@
 		
 		response.forEach(row =>{
 			fileHtml += '<li>';
+			console.log("row: ", row);
 			if(row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null){ // 이미지 파일체크
 				 fileHtml += `
 				<img src="/admin/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 100%; height: auto;" >
