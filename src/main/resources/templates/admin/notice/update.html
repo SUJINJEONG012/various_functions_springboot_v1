@@ -221,7 +221,7 @@
 			let contentInput = document.querySelector('textarea[name="content"]');
 			let fileInput = document.querySelector('input[name="files"]');
 			
-			/* let file = fileInput.files; // 파일을 가져오는 부분
+			let file = fileInput.files; // 파일을 가져오는 부분
 			console.log("file :" + file);
 			
 			if (file && file.length > 0) {
@@ -231,7 +231,7 @@
 			    console.log("파일이 선택되지 않았습니다.");
 			    alert("파일을 선택해주세요.");
 			    return;
-			} */
+			} 
 			
 	   		let titleValue = titleInput.value;
 	    	let contentValue = contentInput.value;
@@ -241,20 +241,7 @@
 	    	formData.append('files', fileInput.files[0]);
 	    
 	    	const noticeId = document.getElementById('noticeId').value;
-		   
-	    	// 파일이 추가되었는지 확인
-	    	if (fileInput && fileInput.files.length > 0) {
-	    	    // 파일이 추가된 경우에만 formData에 추가 
-	    	    formData.append('files', fileInput.files[0]); // 'files'라는 키로 파일 추가
-	    	    console.log('FormData after file added:', formData); // 파일이 추가된 FormData를 콘솔에 출력
-	    	} else {
-	    	    console.log("파일이 선택되지 않았습니다. ");
-	    	    // 파일이 추가되지 않았을 때 처리
-	    	    alert("파일을 선택해주세요.");
-	    	    return;
-	    	}
-	    	
-		    	
+		   	
 		    // Ajax 요청 보내기
 	        $.ajax({
 		   		url: "/admin/notice/update/" + noticeId,

@@ -84,6 +84,42 @@ public class NoticeController {
 
 		return "redirect:/admin/notice/list";
 	}
+	
+		// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
+		@PutMapping("/admin/notice/update/{noticeId}")
+		public ResponseEntity<String> updateNotice(
+				@PathVariable Long noticeId, 
+				@ModelAttribute NoticeDto noticeDto) {
+			log.info("게시글 수정 메서드 진입!!!");
+			
+
+			// NoticeVo notice = noticeService.findById(noticeId);
+			List<MultipartFile> noticeFiles = noticeDto.getFiles();
+					
+			if (noticeFiles != null && !noticeFiles.isEmpty()) {
+			List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
+			noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
+			}
+			
+			// 게시물 수정 서비스 호출
+			noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
+			noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
+
+			return ResponseEntity.ok("성공"); // 수정된 데이터를 json으로 변환
+		}
+
+		// @@PathVariable을 사용한 방법 => noticeId를 받아와서
+				@GetMapping("/admin/notice/update/{noticeId}")
+				public String showUpdateForm(@PathVariable Long noticeId, Model model) {
+
+					log.info("수정 게시글 페이지진입!1");
+
+					NoticeVo noticeVo = noticeService.findById(noticeId);
+
+					model.addAttribute("notice", noticeVo);
+					return "/admin/notice/update";
+				}
+
 
 	// 관리자 페이지 리스트페이지
 	@GetMapping("/admin/notice/list")
@@ -133,39 +169,7 @@ public class NoticeController {
 		return viewName;
 	}
 
-	// @@PathVariable을 사용한 방법 => noticeId를 받아와서
-	@GetMapping("/admin/notice/update/{noticeId}")
-	public String showUpdateForm(@PathVariable Long noticeId, Model model) {
-
-		log.info("수정 게시글 페이지진입!1");
-
-		NoticeVo noticeVo = noticeService.findById(noticeId);
-
-		model.addAttribute("notice", noticeVo);
-		return "/admin/notice/update";
-	}
-
-	// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
-	@PutMapping("/admin/notice/update/{noticeId}")
-	public ResponseEntity<String> updateNotice(@PathVariable Long noticeId, @ModelAttribute NoticeDto noticeDto) {
-		log.info("게시글 수정 메서드 진입!!!");
-		
-		// 게시물 수정 서비스 호출
-		noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
-		noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
 	
-		// NoticeVo notice = noticeService.findById(noticeId);
-		List<MultipartFile> noticeFiles = noticeDto.getFiles();
-				
-		if (noticeFiles != null && !noticeFiles.isEmpty()) {
-		List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
-		noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
-		}
-		
-
-		return ResponseEntity.ok("성공"); // 수정된 데이터를 json으로 변환
-	}
-
 	// 파일 다운로드
 	@GetMapping("/admin/notice/download/{noticeId}/files/{filename:.+}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable Long noticeId, @PathVariable String filename)
