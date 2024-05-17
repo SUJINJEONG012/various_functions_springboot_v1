@@ -26,7 +26,7 @@ public interface NoticeFileMapper {
 	 * retrun 파일 리스트 
 	 * */
 	
-	List<NoticeFileVo> findAllByIds(List<Long> ids);
+	List<NoticeFileVo> findAllByIds(List<Long> fileIds);
 	
 	/*
 	 * 파일 수정
@@ -38,6 +38,9 @@ public interface NoticeFileMapper {
 	 * */
 	
 	void deleteAllByIds(List<Long> ids);
+	
+	// 파일 삭제 메서드 정의
+    void deleteById(Long fileId);
 
 	
 	// 파일상세 조회

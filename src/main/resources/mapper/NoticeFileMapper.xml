@@ -95,6 +95,11 @@
 			#{fileId}
 		</foreach>
 	</delete>
+	
+	<!-- 파일 삭제 메서드 정의 -->
+<delete id="deleteById" parameterType="java.lang.Long">
+    DELETE FROM notice_file WHERE file_id = #{file_id}
+</delete>
 
 
 	<!-- 파일 상세정보 조회 -->

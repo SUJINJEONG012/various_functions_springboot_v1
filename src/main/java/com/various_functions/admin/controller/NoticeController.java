@@ -1,18 +1,10 @@
 package com.various_functions.admin.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartResolver;
 
-import com.various_functions.admin.dto.AccommodationsFileDto;
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.dto.NoticeFileDto;
 import com.various_functions.admin.service.NoticeFileService;
@@ -89,12 +78,18 @@ public class NoticeController {
 		@PutMapping("/admin/notice/update/{noticeId}")
 		public ResponseEntity<String> updateNotice(
 				@PathVariable Long noticeId, 
-				@ModelAttribute NoticeDto noticeDto) {
+				@ModelAttribute NoticeDto noticeDto,
+				@RequestParam(value = "filesToDelete", required = false) List<Long> filesToDelete) {
 			log.info("게시글 수정 메서드 진입!!!");
 			
-
-			// NoticeVo notice = noticeService.findById(noticeId);
-			List<MultipartFile> noticeFiles = noticeDto.getFiles();
+			
+			// 파일 삭제
+			if (filesToDelete != null && !filesToDelete.isEmpty()) {
+			    noticeFileService.deleteFiles(new ArrayList<>(filesToDelete)); // 파일 서비스에서 삭제 메서드를 호출하여 여러 개의 파일 삭제
+			}
+		    
+		    //파일업로드 
+		    List<MultipartFile> noticeFiles = noticeDto.getFiles();
 					
 			if (noticeFiles != null && !noticeFiles.isEmpty()) {
 			List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
@@ -151,6 +146,7 @@ public class NoticeController {
 	private String adminNoticeView(@RequestParam Long noticeId, Model model) {
 		return NoticeView(noticeId, model, "/admin/notice/view");
 	}
+	
 
 	// 게시글 상세 페이지
 	public String NoticeView(@RequestParam final Long noticeId, Model model, String viewName) {
@@ -168,26 +164,13 @@ public class NoticeController {
 		model.addAttribute("files", files);
 		return viewName;
 	}
-
 	
-	// 파일 다운로드
-	@GetMapping("/admin/notice/download/{noticeId}/files/{filename:.+}")
-	public ResponseEntity<Resource> downloadFile(@PathVariable Long noticeId, @PathVariable String filename)
-			throws IOException {
-		String filePath = "/Users/jeongsujin/upload/" + noticeId + "/" + filename; // 파일 경로
-		File file = new File(filePath);
-
-		if (file.exists()) {
-			InputStream inputStream = new FileInputStream(file);
-			ByteArrayResource resource = new ByteArrayResource(inputStream.readAllBytes());
-
-			HttpHeaders headers = new HttpHeaders();
-			headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
-
-			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+	// 게시글 삭제
+	@PostMapping("/admin/notice/delete")
+	public String deleteNotice(@RequestParam final Long noticeId) {
+		noticeService.delete(noticeId);
+		return "redirect:/admin/notice/list";
 	}
+
 
 }

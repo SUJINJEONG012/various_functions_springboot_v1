@@ -176,39 +176,8 @@
         document.querySelector('.file_list').appendChild(fileDiv);
     } */
 	 
-    // 파일 삭제
-    /* function removeFile(element) {
-        const fileAddBtn = element.nextElementSibling;
-        if (fileAddBtn) {
-            const inputs = element.previousElementSibling.querySelectorAll('input');
-            inputs.forEach(input => input.value = '')
-            return false;
-        }
-        element.parentElement.remove();
-    } */
-    
-    
- // 파일 삭제 함수
-    function deleteFile(fileId) {
-      // 파일 삭제 로직을 작성하세요. 예를 들어, 서버로 AJAX 요청을 보내서 파일을 삭제하는 등의 처리를 수행합니다.
-      console.log('Deleting file with ID:', fileId);
-      // AJAX 요청 예시:
-      // fetch(`/admin/delete/file/${fileId}`, {
-      //   method: 'DELETE'
-      // })
-      // .then(response => {
-      //   if (response.ok) {
-      //     console.log('File deleted successfully');
-      //     // 파일 삭제 후 UI 갱신 또는 다른 작업 수행
-      //   } else {
-      //     console.error('Failed to delete file');
-      //   }
-      // })
-      // .catch(error => {
-      //   console.error('Error deleting file:', error);
-      // });
-    }
-    
+   
+
     
     // 파일 선택
     function selectFile(element) {
@@ -235,11 +204,48 @@
         filename.value = file.name;
     }
     
+ // 파일 삭제 함수
+    function deleteFile(fileId) {
+        // 파일을 삭제하는 요청을 서버에 보냅니다.
+        $.ajax({
+            url: `/admin/notice/files/${fileId}/delete`,
+            type: "DELETE",
+            success: function(response) {
+                console.log("파일 삭제 성공:", response);
+            },
+            error: function(xhr, status, error) {
+                console.error("파일 삭제 실패:", error);
+            }
+        });
+    }
+
+ 
+ 
     // 수정 저장 로직
-	document.addEventListener("DOMContentLoaded", function() {		
-	    let saveBtn = document.getElementById("updateNotice");
+	document.addEventListener("DOMContentLoaded", function() {
+		
+		// 파일 삭제 버튼 클릭 시
+	    document.querySelectorAll('.delete-file').forEach(button => {
+	        button.addEventListener('click', function() {
+	            const fileId = this.dataset.fileid;
+	            // 삭제할 파일 ID를 filesToDelete Set에 추가
+	            filesToDelete.add(fileId);
+	            // UI에서 파일 제거
+	            const fileItem = this.closest('.file-item');
+	            fileItem.remove();
+	            // 파일을 삭제하는 함수 호출
+	            deleteFile(fileId);
+	        });
+	    });
+
+		let saveBtn = document.getElementById("updateNotice");
+
+	   
 	    
+	    //수정버튼 클릭시 
 	    saveBtn.addEventListener("click", function(e) {
+	
+	    	e.preventDefault(); // 폼의 기본 동작을 막습니다.
 	    	
 	    	//formData 객체생성
     		let formData = new FormData();
@@ -258,7 +264,7 @@
 			    console.log("파일이 선택되지 않았습니다.");
 			    alert("파일을 선택해주세요.");
 			    return;
-			} 
+			}  
 			
 	   		let titleValue = titleInput.value;
 	    	let contentValue = contentInput.value;
@@ -267,6 +273,11 @@
 	    	formData.append('content', contentValue);
 	    	formData.append('files', fileInput.files[0]);
 	    
+	    	// 추가: 삭제할 파일 ID를 FormData에 추가
+            filesToDelete.forEach(fileId => {
+                formData.append('filesToDelete', fileId);
+            });
+	    	
 	    	const noticeId = document.getElementById('noticeId').value;
 		   	
 		    // Ajax 요청 보내기
@@ -298,15 +309,11 @@
 		    	console.error("요청 실패 메시지:", xhr.responseText);
 		    	console.error("에러:", error);
 		    	}
-		    	});
-	            
-	        //파일삭제 	
-		    if (e.target.classList.contains('delete-file')) {
-	            const fileId = event.target.dataset.fileid;
-	            deleteFile(fileId);
-	          }
-	        
+		    	});    
 	    });
+	    
+	  
+	    
 	});
 	    
 	
