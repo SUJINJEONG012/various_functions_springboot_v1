@@ -158,105 +158,73 @@
 		fileHtml += '</ul></div></div>';
 		
 		//4. 파일 html 렌더링
-		document.getElementById('files').innerHTML = fileHtml;
-		
-		//파일삭제 버튼 클릭 이벤트 추가
-		document.querySelectorAll('.delete-file').forEach(button =>{
-			button.addEventListener('click', function(){
-				const fileId= this.dataset.fileId;
-				deleteFile(fileId);
-				this.closest('.file-item').remove();
-			});
-		});
+		document.getElementById('files').innerHTML = fileHtml;		
 	}
 	
+	
+	//파일삭제 버튼 클릭 이벤트 추가
+	document.querySelectorAll('.delete-file').forEach(button =>{
+		button.addEventListener('click', function(){
+			const fileId= this.dataset.fileId;
+			deleteFile(fileId);
+			this.closest('.file-item').remove();
+		});
+	});
 	
 	
 	// 파일 삭제 함수
     function deleteFile(fileId) {
-        $.ajax({
-            url: `/admin/notice/files/${fileId}/delete`,
-            type: "DELETE",
-            success: function (response) {
-                console.log("파일 삭제 성공:", response);
-            },
-            error: function (xhr, status, error) {
-                console.error("파일 삭제 실패:", error);
-            }
-        });
+       
     }
 	
 
 	
     // 파일 선택
    function selectFile(element) {
-    const files = element.files;
-    const filename = element.closest('.file_input').firstElementChild;
+    	const files = element.files;
+    	const filename = element.closest('.file_input').firstElementChild;
 
-    // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
-    if (!files.length) {
-        filename.value = '';
+    	// 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
+    	if (!files.length) {
+        	filename.value = '';
         return false;
-    }
+    	}
 
-    // 2. 파일 크기가 10MB를 초과하는 경우
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const fileSize = Math.floor(file.size / 1024 / 1024);
-        if (fileSize > 10) {
-            alert('10MB 이하의 파일로 업로드해 주세요.');
-            filename.value = '';
-            element.value = '';
+    	// 2. 파일 크기가 10MB를 초과하는 경우
+    	for (let i = 0; i < files.length; i++) {
+        	const file = files[i];
+        	const fileSize = Math.floor(file.size / 1024 / 1024);
+        	
+        	if (fileSize > 10) {
+            	alert('10MB 이하의 파일로 업로드해 주세요.');
+            	filename.value = '';
+            	element.value = '';
             return false;
         }
     }
 
-    // 3. 선택한 파일들을 FormData에 추가
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        formData.append('files', file);
-        filename.value += file.name + ' '; // 선택한 파일명 표시
-    }
-}
+    	// 3. 선택한 파일들을 FormData에 추가
+   		for (let i = 0; i < files.length; i++) {
+        	const file = files[i];
+        	formData.append('files', file);
+        	filename.value += file.name + ' '; // 선택한 파일명 표시
+    	}
+	}
     
- 	// 파일 삭제 함수
-    function deleteFile(fileId) {
-        // 파일을 삭제하는 요청을 서버에 보냅니다.
-        $.ajax({
-            url: `/admin/notice/files/${fileId}/delete`,
-            type: "DELETE",
-            success: function(response) {
-                console.log("파일 삭제 성공:", response);
-            },
-            error: function(xhr, status, error) {
-                console.error("파일 삭제 실패:", error);
-            }
-        });
-    }
-
- 
+	// 파일 삭제 함수
+   	function deleteSelectedFiles() {
+   		imageDel = document.querySelector(".delete-file");
+   		imageDel.remove();
+   	    
+	// 이미지가 숨겨진 상태를 저장합니다.
+   	    saveImageVisibility(false);
+   	    console.log("파일 삭제 동작 수행");
+   }
+   
  
     // 수정 저장 로직
 	document.addEventListener("DOMContentLoaded", function() {
-		
-		// 파일 삭제 버튼 클릭 시
-	    document.querySelectorAll('.delete-file').forEach(button => {
-	        button.addEventListener('click', function() {
-	            const fileId = this.dataset.fileid;
-	            // 삭제할 파일 ID를 filesToDelete Set에 추가
-	            filesToDelete.add(fileId);
-	            // UI에서 파일 제거
-	            const fileItem = this.closest('.file-item');
-	            fileItem.remove();
-	            // 파일을 삭제하는 함수 호출
-	            deleteFile(fileId);
-	        });
-	    });
-
-		let saveBtn = document.getElementById("updateNotice");
-
-	   
-	    
+		let saveBtn = document.getElementById("updateNotice");	    
 	    //수정버튼 클릭시 
 	    saveBtn.addEventListener("click", function(e) {
 	
@@ -272,55 +240,50 @@
 			let file = fileInput.files; // 파일을 가져오는 부분
 			console.log("file :" + file);
 			
-			
-			
 	   		let titleValue = titleInput.value;
 	    	let contentValue = contentInput.value;
 	    	
 	    	formData.append('title', titleValue);
 	    	formData.append('content', contentValue);
 	    	
-	    	if (file) {
-                formData.append('files', file);
-            }
-	    
-	    	// 추가: 삭제할 파일 ID를 FormData에 추가
-            filesToDelete.forEach(fileId => {
-                formData.append('filesToDelete', fileId);
-            });
+	    	// 파일 추가 함수 호출
+	    	selectFile(fileInput);
+	    	// 파일 삭제 함수 호출
+	        deleteSelectedFiles();
 	    	
+	     	// Ajax 요청 보내기
 	    	const noticeId = document.getElementById('noticeId').value;
-		   	
-		    // Ajax 요청 보내기
-	        $.ajax({
+		   	$.ajax({
 		   		url: "/admin/notice/update/" + noticeId,
 		    	type: "PUT",
 		    	data: formData,
 		    	processData: false,
 		    	contentType: false,
 		    	success: function(response) {
-		    	console.log(response);
-		    	alert("요청성공!");
-		    	 saveBtn.disabled = false;        
-		    	if(response){
-		    		alert("서버로부터와 응답데이터 : " + response);
-		    	}else{
-		    		alert("서버로부터와 응답데이터 비어있습니다.");
-		    	}
+		    		console.log(response);
+		    		alert("요청성공!");
+		    	 	saveBtn.disabled = false;        
+		    		
+		    	 	if (response){
+		    			alert("서버로부터와 응답데이터 : " + response);
+		    		} else {
+		    			alert("서버로부터와 응답데이터 비어있습니다.");
+		    		}
 		    	
-		    	// ajax요청이 성공후 폼 데이터 초기화
-		    	document.getElementById("upateNoticeForm").reset();
-		    	let redirectUrl = "/admin/notice/list";
-		    	window.location.href= redirectUrl;
+		    		// Ajax요청이 성공후 폼 데이터 초기화
+		    		document.getElementById("upateNoticeForm").reset();
+		    		let redirectUrl = "/admin/notice/list";
+		    		window.location.href= redirectUrl;
+		    	
 		    	},
 		    	error: function(xhr, status, error) {
 		    		saveBtn.disabled = false;
 		    		console.error("요청 실패 상태 코드:", xhr.status);
-		    	console.error("요청 실패 상태 텍스트:", xhr.statusText);
-		    	console.error("요청 실패 메시지:", xhr.responseText);
-		    	console.error("에러:", error);
+		    		console.error("요청 실패 상태 텍스트:", xhr.statusText);
+		    		console.error("요청 실패 메시지:", xhr.responseText);
+		    		console.error("에러:", error);
 		    	}
-		    	});    
+		    });    
 	    });    
 	});
 	
