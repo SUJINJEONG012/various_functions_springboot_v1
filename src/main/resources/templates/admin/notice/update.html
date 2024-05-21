@@ -77,7 +77,7 @@
 								<div>
 									<div class="file_input">
 										<input type="text" readonly /> 
-										<label> 첨부파일 <input type="file" name="files" onchange="selectFile(this);" />
+										<label> 첨부파일추가 <input type="file" name="files" onchange="selectFile(this);" />
 										</label>
 									</div>
 									
@@ -107,7 +107,6 @@
 		</section>
 	</div>
 
-
 </th:block>
 
 
@@ -118,6 +117,8 @@
 	window.onload = () => {
 		findAllFile();
 	}
+	
+	let filesToDelete = new Set();
 	
 	// 전체파일 조회
 	function findAllFile(){
@@ -133,7 +134,7 @@
 	        return;
 		}
 		
-		//3. 파일 영역 추가
+		//3. 파일 영역 추가 = 보여주는 부분
 		let fileHtml = '<div class="file_down"><div class="cont"><ul>';
 		
 		response.forEach(row =>{
@@ -156,42 +157,51 @@
 		});
 		fileHtml += '</ul></div></div>';
 		
-		
 		//4. 파일 html 렌더링
 		document.getElementById('files').innerHTML = fileHtml;
+		
+		//파일삭제 버튼 클릭 이벤트 추가
+		document.querySelectorAll('.delete-file').forEach(button =>{
+			button.addEventListener('click', function(){
+				const fileId= this.dataset.fileId;
+				deleteFile(fileId);
+				this.closest('.file-item').remove();
+			});
+		});
 	}
+	
+	
+	
+	// 파일 삭제 함수
+    function deleteFile(fileId) {
+        $.ajax({
+            url: `/admin/notice/files/${fileId}/delete`,
+            type: "DELETE",
+            success: function (response) {
+                console.log("파일 삭제 성공:", response);
+            },
+            error: function (xhr, status, error) {
+                console.error("파일 삭제 실패:", error);
+            }
+        });
+    }
+	
 
-	 // 파일 추가
-    /* function addFile() {
-        const fileDiv = document.createElement('div');
-        fileDiv.innerHTML =`
-            <div class="file_input">
-                <input type="text" readonly />
-                <label> 첨부파일
-                    <input type="file" name="files" onchange="selectFile(this);" />
-                </label>
-            </div>
-            <button type="button" onclick="removeFile(this);" class="btns del_btn"><i class="material-symbols-outlined">cancel</i><span>삭제</span></button>
-        `;
-        document.querySelector('.file_list').appendChild(fileDiv);
-    } */
-	 
-   
-
-    
+	
     // 파일 선택
-    function selectFile(element) {
+   function selectFile(element) {
+    const files = element.files;
+    const filename = element.closest('.file_input').firstElementChild;
 
-        const file = element.files[0];
-        const filename = element.closest('.file_input').firstElementChild;
+    // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
+    if (!files.length) {
+        filename.value = '';
+        return false;
+    }
 
-        // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
-        if ( !file ) {
-            filename.value = '';
-            return false;
-        }
-
-        // 2. 파일 크기가 10MB를 초과하는 경우
+    // 2. 파일 크기가 10MB를 초과하는 경우
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
         const fileSize = Math.floor(file.size / 1024 / 1024);
         if (fileSize > 10) {
             alert('10MB 이하의 파일로 업로드해 주세요.');
@@ -199,12 +209,17 @@
             element.value = '';
             return false;
         }
-
-        // 3. 파일명 지정
-        filename.value = file.name;
     }
+
+    // 3. 선택한 파일들을 FormData에 추가
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        formData.append('files', file);
+        filename.value += file.name + ' '; // 선택한 파일명 표시
+    }
+}
     
- // 파일 삭제 함수
+ 	// 파일 삭제 함수
     function deleteFile(fileId) {
         // 파일을 삭제하는 요청을 서버에 보냅니다.
         $.ajax({
@@ -257,21 +272,17 @@
 			let file = fileInput.files; // 파일을 가져오는 부분
 			console.log("file :" + file);
 			
-			if (file && file.length > 0) {
-			    let fileName = file.name; // 파일의 이름
-			    console.log("선택된 파일 이름:", fileName);
-			} else {
-			    console.log("파일이 선택되지 않았습니다.");
-			    alert("파일을 선택해주세요.");
-			    return;
-			}  
+			
 			
 	   		let titleValue = titleInput.value;
 	    	let contentValue = contentInput.value;
 	    	
 	    	formData.append('title', titleValue);
 	    	formData.append('content', contentValue);
-	    	formData.append('files', fileInput.files[0]);
+	    	
+	    	if (file) {
+                formData.append('files', file);
+            }
 	    
 	    	// 추가: 삭제할 파일 ID를 FormData에 추가
             filesToDelete.forEach(fileId => {
@@ -296,11 +307,11 @@
 		    	}else{
 		    		alert("서버로부터와 응답데이터 비어있습니다.");
 		    	}
+		    	
 		    	// ajax요청이 성공후 폼 데이터 초기화
 		    	document.getElementById("upateNoticeForm").reset();
 		    	let redirectUrl = "/admin/notice/list";
 		    	window.location.href= redirectUrl;
-		    	          
 		    	},
 		    	error: function(xhr, status, error) {
 		    		saveBtn.disabled = false;
@@ -310,17 +321,9 @@
 		    	console.error("에러:", error);
 		    	}
 		    	});    
-	    });
-	    
-	  
-	    
+	    });    
 	});
-	    
 	
-	
-	
-		
-		
 	</script>
 </th:block>
 

@@ -97,7 +97,7 @@
 	</delete>
 	
 	<!-- 파일 삭제 메서드 정의 -->
-<delete id="deleteById" parameterType="java.lang.Long">
+<delete id="deleteById" parameterType="com.various_functions.admin.vo.NoticeFileVo">
     DELETE FROM notice_file WHERE file_id = #{file_id}
 </delete>
 

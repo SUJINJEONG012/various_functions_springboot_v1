@@ -103,6 +103,7 @@ public class NoticeController {
 			return ResponseEntity.ok("성공"); // 수정된 데이터를 json으로 변환
 		}
 
+		
 		// @@PathVariable을 사용한 방법 => noticeId를 받아와서
 				@GetMapping("/admin/notice/update/{noticeId}")
 				public String showUpdateForm(@PathVariable Long noticeId, Model model) {
