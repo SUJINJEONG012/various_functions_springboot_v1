@@ -81,9 +81,14 @@ public class NoticeController {
 	                               @RequestParam(value = "filesToDelete", required = false) List<Long> filesToDelete,
 	                               RedirectAttributes redirectAttributes) {
 	        Map<String, Object> response = new HashMap<>();
+	        log.info("수정되는 메서드 진입!");
+	        
+	        boolean isUpdateSuccessful = false;
+	        
 	        try {
 	            // 파일 삭제
 	            if (filesToDelete != null && !filesToDelete.isEmpty()) {
+	            	log.info("파일삭제하는 if문 진입 ?");
 	                noticeFileService.deleteFiles(filesToDelete);
 	            }
 
@@ -107,7 +112,13 @@ public class NoticeController {
 	            response.put("message", e.getMessage());
 	            redirectAttributes.addFlashAttribute("message", "수정 중 오류가 발생했습니다.");
 	        }
-	        return "redirect:/admin/notice/list";
+	        if (isUpdateSuccessful) {
+	            return "redirect:/admin/notice/list";
+	        } else {
+	            // 수정이 실패했을 경우에 대한 처리를 여기에 추가할 수 있습니다.
+	            // 예를 들어 수정 페이지로 다시 이동하도록 할 수 있습니다.
+	            return "redirect:/admin/notice/edit/" + noticeId;
+	        }
 	    }
 
 		

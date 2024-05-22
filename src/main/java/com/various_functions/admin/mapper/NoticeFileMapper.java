@@ -37,7 +37,7 @@ public interface NoticeFileMapper {
 	 * 파일삭제 
 	 * */
 	
-	void deleteAllByIds(List<Long> ids);
+	void deleteAllByIds(List<Long> fileIds);
 	
 	// 파일 삭제 메서드 정의
     void deleteById(Long fileId);

@@ -91,7 +91,7 @@ public class NoticeFileService {
 	
 	//
 	public void deleteFiles(List<Long> filesToDelete) {
-		noticeFileService.deleteFiles(filesToDelete);
+		noticeFileMapper.deleteAllByIds(filesToDelete);
 		
 	}
 	

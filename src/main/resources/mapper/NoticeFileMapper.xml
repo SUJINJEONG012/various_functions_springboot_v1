@@ -85,15 +85,10 @@
 
 	<!-- 파일삭제 -->
 	<delete id="deleteAllByIds" parameterType="list">
-		update notice_file
-		set
-		delete_yn =1, deleted_date= now()
-		where
-		file_id in
-		<foreach item="fileId" collection="list" open="("
-			separator="," close=")">
-			#{fileId}
-		</foreach>
+		DELETE FROM notice_file WHERE file_id IN
+        <foreach collection="list" item="fileId" open="(" separator="," close=")">
+            #{fileId}
+        </foreach>
 	</delete>
 	
 	<!-- 파일 삭제 메서드 정의 -->
