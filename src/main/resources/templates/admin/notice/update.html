@@ -158,26 +158,19 @@
 		fileHtml += '</ul></div></div>';
 		
 		//4. 파일 html 렌더링
-		document.getElementById('files').innerHTML = fileHtml;		
-	}
-	
-	
-	//파일삭제 버튼 클릭 이벤트 추가
-	document.querySelectorAll('.delete-file').forEach(button =>{
-		button.addEventListener('click', function(){
-			const fileId= this.dataset.fileId;
-			deleteFile(fileId);
-			this.closest('.file-item').remove();
+		document.getElementById('files').innerHTML = fileHtml;	
+		
+		//파일삭제 버튼 클릭 이벤트 추가
+		document.querySelectorAll('.delete-file').forEach(button =>{
+			button.addEventListener('click', function(){
+				const fileId= this.dataset.fileId;
+				deleteFile(fileId);
+				this.closest('.file-item').remove();
+			});
 		});
-	});
+		
+	} // 전체파일 조회 end 
 	
-	
-	// 파일 삭제 함수
-    function deleteFile(fileId) {
-       
-    }
-	
-
 	
     // 파일 선택
    function selectFile(element) {
@@ -187,7 +180,7 @@
     	// 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
     	if (!files.length) {
         	filename.value = '';
-        return false;
+        	return false;
     	}
 
     	// 2. 파일 크기가 10MB를 초과하는 경우
@@ -199,7 +192,7 @@
             	alert('10MB 이하의 파일로 업로드해 주세요.');
             	filename.value = '';
             	element.value = '';
-            return false;
+            	return false;
         }
     }
 
@@ -209,62 +202,32 @@
         	formData.append('files', file);
         	filename.value += file.name + ' '; // 선택한 파일명 표시
     	}
-	}
-    
-	// 파일 삭제 함수
-   	function deleteSelectedFiles() {
-   		imageDel = document.querySelector(".delete-file");
-   		imageDel.remove();
-   	    
-	// 이미지가 숨겨진 상태를 저장합니다.
-   	    saveImageVisibility(false);
-   	    console.log("파일 삭제 동작 수행");
-   }
-   
- 
-    // 수정 저장 로직
-	document.addEventListener("DOMContentLoaded", function() {
-		let saveBtn = document.getElementById("updateNotice");	    
-	    //수정버튼 클릭시 
-	    saveBtn.addEventListener("click", function(e) {
+	} // 파일 선택 end
 	
+	//이미지 삭제버튼에 클릭 이벤트 추가
+
+    // 수정 저장 로직
+	document.getElementById("updateNotice").addEventListener("click", function(e) {
 	    	e.preventDefault(); // 폼의 기본 동작을 막습니다.
 	    	
 	    	//formData 객체생성
-    		let formData = new FormData();
-	    
-	    	let titleInput = document.querySelector('input[name="title"]');
-			let contentInput = document.querySelector('textarea[name="content"]');
-			let fileInput = document.querySelector('input[name="files"]');
-			
-			let file = fileInput.files; // 파일을 가져오는 부분
-			console.log("file :" + file);
-			
-	   		let titleValue = titleInput.value;
-	    	let contentValue = contentInput.value;
-	    	
-	    	formData.append('title', titleValue);
-	    	formData.append('content', contentValue);
-	    	
-	    	// 파일 추가 함수 호출
-	    	selectFile(fileInput);
-	    	// 파일 삭제 함수 호출
-	        deleteSelectedFiles();
+    		let formData = new FormData(document.getElementById('updateNoticeForm'));
+    		const noticeId = document.getElementById('noticeId').value;
+    		
+    		// 파일 삭제 함수 호출
+	        filesToDelete.forEach(fileId => {
+				formData.append('filesToDelete', fileId);
+			});
 	    	
 	     	// Ajax 요청 보내기
-	    	const noticeId = document.getElementById('noticeId').value;
-		   	$.ajax({
-		   		url: "/admin/notice/update/" + noticeId,
-		    	type: "PUT",
+	    		$.ajax({
+		   		url: "/admin/notice/update/${noticeId}",
+		    	type: "POST",
 		    	data: formData,
 		    	processData: false,
 		    	contentType: false,
 		    	success: function(response) {
-		    		console.log(response);
-		    		alert("요청성공!");
-		    	 	saveBtn.disabled = false;        
-		    		
-		    	 	if (response){
+		    		if (response){
 		    			alert("서버로부터와 응답데이터 : " + response);
 		    		} else {
 		    			alert("서버로부터와 응답데이터 비어있습니다.");
@@ -284,8 +247,9 @@
 		    		console.error("에러:", error);
 		    	}
 		    });    
-	    });    
-	});
+	    });  // 수정 저장 로직 end
+
+	
 	
 	</script>
 </th:block>

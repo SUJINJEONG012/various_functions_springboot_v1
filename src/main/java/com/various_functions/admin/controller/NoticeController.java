@@ -1,20 +1,20 @@
 package com.various_functions.admin.controller;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.dto.NoticeFileDto;
@@ -75,33 +75,40 @@ public class NoticeController {
 	}
 	
 		// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
-		@PutMapping("/admin/notice/update/{noticeId}")
-		public ResponseEntity<String> updateNotice(
-				@PathVariable Long noticeId, 
-				@ModelAttribute NoticeDto noticeDto,
-				@RequestParam(value = "filesToDelete", required = false) List<Long> filesToDelete) {
-			log.info("게시글 수정 메서드 진입!!!");
-			
-			
-			// 파일 삭제
-			if (filesToDelete != null && !filesToDelete.isEmpty()) {
-			    noticeFileService.deleteFiles(new ArrayList<>(filesToDelete)); // 파일 서비스에서 삭제 메서드를 호출하여 여러 개의 파일 삭제
-			}
-		    
-		    //파일업로드 
-		    List<MultipartFile> noticeFiles = noticeDto.getFiles();
-					
-			if (noticeFiles != null && !noticeFiles.isEmpty()) {
-			List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
-			noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
-			}
-			
-			// 게시물 수정 서비스 호출
-			noticeDto.setNoticeId(noticeId); // noticeDto에 id 설정
-			noticeService.updateNotice(noticeDto); // 게시물 수정 서비스 호출
+		@PostMapping("/admin/notice/update/{noticeId}")
+		public String updateNotice(@PathVariable Long noticeId,
+	                               @ModelAttribute NoticeDto noticeDto,
+	                               @RequestParam(value = "filesToDelete", required = false) List<Long> filesToDelete,
+	                               RedirectAttributes redirectAttributes) {
+	        Map<String, Object> response = new HashMap<>();
+	        try {
+	            // 파일 삭제
+	            if (filesToDelete != null && !filesToDelete.isEmpty()) {
+	                noticeFileService.deleteFiles(filesToDelete);
+	            }
 
-			return ResponseEntity.ok("성공"); // 수정된 데이터를 json으로 변환
-		}
+	            // 파일 업로드
+	            List<MultipartFile> noticeFiles = noticeDto.getFiles();
+	    		log.info("noticeFiles : " ,noticeFiles);
+	    		if (noticeFiles != null && !noticeFiles.isEmpty()) {
+	    			List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
+	    			noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
+	    		}
+	    		
+
+	            // 게시물 수정
+	            noticeDto.setNoticeId(noticeId);
+	            noticeService.updateNotice(noticeDto);
+
+	            response.put("success", true);
+	            redirectAttributes.addFlashAttribute("message", "수정이 완료되었습니다.");
+	        } catch (Exception e) {
+	            response.put("success", false);
+	            response.put("message", e.getMessage());
+	            redirectAttributes.addFlashAttribute("message", "수정 중 오류가 발생했습니다.");
+	        }
+	        return "redirect:/admin/notice/list";
+	    }
 
 		
 		// @@PathVariable을 사용한 방법 => noticeId를 받아와서

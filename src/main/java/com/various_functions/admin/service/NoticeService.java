@@ -60,6 +60,8 @@ public class NoticeService {
 		return noticeMapper.findRecentNotices();
 	}
 
+	
+
 
 	
 	

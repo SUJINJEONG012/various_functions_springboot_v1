@@ -88,15 +88,13 @@ public class NoticeFileService {
 	 * 파일 삭제 
 	 * 
 	 * */
-	public void deleteFiles(final List<Long> fileIds) {
-		if (CollectionUtils.isEmpty(fileIds)) {
-            return;
-        }
+	
+	//
+	public void deleteFiles(List<Long> filesToDelete) {
+		noticeFileService.deleteFiles(filesToDelete);
 		
-		for(Long fileId : fileIds) {
-			noticeFileMapper.deleteById(fileId);
-		}
 	}
+	
 	
 	/**
      * 파일 상세정보 조회
