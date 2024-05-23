@@ -65,7 +65,7 @@ public class NoticeController {
 
 		// 단일 파일 업로드시에도 파일을 리스트에 담아서 전달
 		List<MultipartFile> noticeFiles = noticeDto.getFiles();
-		log.info("noticeFiles : " ,noticeFiles);
+		log.info("noticeFiles : ", noticeFiles);
 		if (noticeFiles != null && !noticeFiles.isEmpty()) {
 			List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
 			noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
@@ -73,67 +73,56 @@ public class NoticeController {
 
 		return "redirect:/admin/notice/list";
 	}
-	
-		// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
-		@PostMapping("/admin/notice/update/{noticeId}")
-		public String updateNotice(@PathVariable Long noticeId,
-	                               @ModelAttribute NoticeDto noticeDto,
-	                               @RequestParam(value = "filesToDelete", required = false) List<Long> filesToDelete,
-	                               RedirectAttributes redirectAttributes) {
-	        Map<String, Object> response = new HashMap<>();
-	        log.info("수정되는 메서드 진입!");
-	        
-	        boolean isUpdateSuccessful = false;
-	        
-	        try {
-	            // 파일 삭제
-	            if (filesToDelete != null && !filesToDelete.isEmpty()) {
-	            	log.info("파일삭제하는 if문 진입 ?");
-	                noticeFileService.deleteFiles(filesToDelete);
-	            }
 
-	            // 파일 업로드
-	            List<MultipartFile> noticeFiles = noticeDto.getFiles();
-	    		log.info("noticeFiles : " ,noticeFiles);
-	    		if (noticeFiles != null && !noticeFiles.isEmpty()) {
-	    			List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
-	    			noticeFileService.saveFiles(noticeId, fileList); // saveFile 메서드를 사용하여 단일 파일을 저장
-	    		}
-	    		
-
-	            // 게시물 수정
-	            noticeDto.setNoticeId(noticeId);
-	            noticeService.updateNotice(noticeDto);
-
-	            response.put("success", true);
-	            redirectAttributes.addFlashAttribute("message", "수정이 완료되었습니다.");
-	        } catch (Exception e) {
-	            response.put("success", false);
-	            response.put("message", e.getMessage());
-	            redirectAttributes.addFlashAttribute("message", "수정 중 오류가 발생했습니다.");
-	        }
-	        if (isUpdateSuccessful) {
-	            return "redirect:/admin/notice/list";
-	        } else {
-	            // 수정이 실패했을 경우에 대한 처리를 여기에 추가할 수 있습니다.
-	            // 예를 들어 수정 페이지로 다시 이동하도록 할 수 있습니다.
-	            return "redirect:/admin/notice/edit/" + noticeId;
-	        }
-	    }
-
+	// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
+	@PostMapping("/admin/notice/update/{noticeId}")
+	public String updateNotice(@PathVariable Long noticeId, @ModelAttribute NoticeDto noticeDto,
+			@RequestParam(value = "filesToDelete", required = false) List<Long> filesToDelete,
+			RedirectAttributes redirectAttributes) {
+		log.info("공지사항 수정 진입 메서드");
 		
-		// @@PathVariable을 사용한 방법 => noticeId를 받아와서
-				@GetMapping("/admin/notice/update/{noticeId}")
-				public String showUpdateForm(@PathVariable Long noticeId, Model model) {
+		try {
+			// 파일 삭제
+			if (filesToDelete != null && !filesToDelete.isEmpty()) {
+				
+				log.info("파일삭제하는 if문 진입! : ",filesToDelete);
+				noticeFileService.deleteFiles(filesToDelete);
+			}
 
-					log.info("수정 게시글 페이지진입!1");
+			// 파일 업로드
+			List<MultipartFile> noticeFiles = noticeDto.getFiles();
+			if (noticeFiles != null && !noticeFiles.isEmpty()) {
+				List<NoticeFileDto> fileList = fileUtils.uploadFiles(noticeFiles);
+				noticeFileService.saveFiles(noticeId, fileList);
+			}
 
-					NoticeVo noticeVo = noticeService.findById(noticeId);
+			// 게시물 수정
+			noticeDto.setNoticeId(noticeId);
+			noticeService.updateNotice(noticeDto);
 
-					model.addAttribute("notice", noticeVo);
-					return "/admin/notice/update";
-				}
+			// 성공 응답을 생성하고 리다이렉트합니다.
+			redirectAttributes.addFlashAttribute("success", true);
+			redirectAttributes.addFlashAttribute("message", "수정이 완료되었습니다.");
+		} catch (Exception e) {
+			// 실패 응답을 생성하고 리다이렉트합니다.
+			redirectAttributes.addFlashAttribute("success", false);
+			redirectAttributes.addFlashAttribute("message", "수정 중 오류가 발생했습니다: " + e.getMessage());
+		}
 
+		return "redirect:/admin/notice/list";
+	}
+
+	// @@PathVariable을 사용한 방법 => noticeId를 받아와서
+	@GetMapping("/admin/notice/update/{noticeId}")
+	public String showUpdateForm(@PathVariable Long noticeId, Model model) {
+
+		log.info("수정 게시글 페이지진입!1");
+
+		NoticeVo noticeVo = noticeService.findById(noticeId);
+
+		model.addAttribute("notice", noticeVo);
+		return "/admin/notice/update";
+	}
 
 	// 관리자 페이지 리스트페이지
 	@GetMapping("/admin/notice/list")
@@ -165,7 +154,6 @@ public class NoticeController {
 	private String adminNoticeView(@RequestParam Long noticeId, Model model) {
 		return NoticeView(noticeId, model, "/admin/notice/view");
 	}
-	
 
 	// 게시글 상세 페이지
 	public String NoticeView(@RequestParam final Long noticeId, Model model, String viewName) {
@@ -183,13 +171,12 @@ public class NoticeController {
 		model.addAttribute("files", files);
 		return viewName;
 	}
-	
+
 	// 게시글 삭제
 	@PostMapping("/admin/notice/delete")
 	public String deleteNotice(@RequestParam final Long noticeId) {
 		noticeService.delete(noticeId);
 		return "redirect:/admin/notice/list";
 	}
-
 
 }

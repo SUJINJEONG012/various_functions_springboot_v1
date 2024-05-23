@@ -17,7 +17,7 @@
 	<div class="content">
 
 		<section>
-			<form id="upateNoticeForm" method="post" aria-autocomplete="off"
+			<form id="updateNoticeForm" method="post" aria-autocomplete="off"
 				enctype="multipart/form-data">
 
 				<input type="hidden" id="noticeId" th:value="${notice.noticeId}" />
@@ -68,19 +68,17 @@
 
 
 						<li>
-							<h4 class="">첨부파일</h4>
-							
-							<!-- 파일리스트 출력되는거 -->
+							<h4 class="">첨부파일</h4> <!-- 파일리스트 출력되는거 -->
 							<div id="files"></div>
 
 							<div class="file_list">
 								<div>
 									<div class="file_input">
-										<input type="text" readonly /> 
-										<label> 첨부파일추가 <input type="file" name="files" onchange="selectFile(this);" />
+										<input type="text" readonly /> <label> 첨부파일추가 <input
+											type="file" name="files" onchange="selectFile(this);" />
 										</label>
 									</div>
-									
+
 									<!-- <button type="button" onclick="removeFile(this);"
 										class="btns del_btn">
 										<i class="material-symbols-outlined">cancel</i> <span>삭제</span>
@@ -96,16 +94,16 @@
 					</ul>
 				</div>
 
-<p class="btn_set">
-				<button type="button" id="updateNotice"
-					class="btns btn_bdr4 btn_mid">수정</button>
-				<button type="button" class="btns btn_bdr1 btn_mid">삭제</button>
-				<a th:href="@{/admin/notice/list}" class="btns btn_bdr3 btn_mid">목록</a>
-			</p>
-			
+				<p class="btn_set">
+					<button type="button" id="updateNotice"
+						class="btns btn_bdr4 btn_mid">수정</button>
+					<button type="button" class="btns btn_bdr1 btn_mid">삭제</button>
+					<a th:href="@{/admin/notice/list}" class="btns btn_bdr3 btn_mid">목록</a>
+				</p>
+
 			</form>
 
-			
+
 		</section>
 	</div>
 
@@ -114,283 +112,101 @@
 
 
 <th:block layout:fragment="script">
-	<!-- <script th:inline="javascript">
-
-	window.onload = () => {
-		findAllFile();
-	}
-
-	// 전체파일 조회
-	function findAllFile(){
-		//1. api 호출 
-		const noticeId = [[ ${notice.noticeId}]];
-		
-		const response = getJson(`/admin/notice/${noticeId}/files`);
-		
-		//2. 로직종료
-		if(!response.length){
-			// 파일이 없는 경우 메시지를 표시하고 함수 종료
-	        document.getElementById('files').textContent = '첨부 파일이 없습니다.';
-	        return;
-		}
-		
-		//3. 파일 영역 추가 = 보여주는 부분
-		let fileHtml = '<div class="file_down"><div class="cont"><ul>';
-		
-		response.forEach(row =>{
-			fileHtml += '<li>';
-			console.log("row: ", row);
-			if(row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null){ // 이미지 파일체크
-				 fileHtml += `
-					 <div class="file-item">
-				        <img src="/admin/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 100%; height: auto;">
-				        <a href="/admin/notice/${noticeId}/files/${row.fileId}/download">
-				          <span class="icons">
-				            <i class="fas fa-folder-open"></i>
-				          </span>
-				          ${row.originalName}
-				        </a>
-				        <button class="delete-file" data-fileid="${row.fileId}">X</button>
-				      </div>
-				`
-			}
-		});
-		fileHtml += '</ul></div></div>';
-		
-		//4. 파일 html 렌더링
-		document.getElementById('files').innerHTML = fileHtml;	
-		
-		
-		// 이미지 삭제 버튼에 클릭 이벤트 추가
-		document.querySelectorAll('.delete-file').forEach(button =>{
-		    button.addEventListener('click', function(){
-		        const fileId= this.dataset.fileId;
-		        // 삭제 기능 실행
-		        deleteFile(fileId);
-		        // 삭제된 파일의 ID를 배열에 추가
-		        deleteFiles.push(fileId);
-		        // 이미지 요소 제거
-		        this.closest('.file-item').remove();
-		    });
-		});
-	} // 전체파일 조회 end 
 	
-	
-    // 파일 선택
-   function selectFile(element) {
-    	const files = element.files;
-    	const filename = element.closest('.file_input').firstElementChild;
+	<script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            // 삭제된 파일 목록을 담을 배열
+            let deleteFiles = [];
 
-    	// 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
-    	if (!files.length) {
-        	filename.value = '';
-        	return false;
-    	}
-
-    	// 2. 파일 크기가 10MB를 초과하는 경우
-    	for (let i = 0; i < files.length; i++) {
-        	const file = files[i];
-        	const fileSize = Math.floor(file.size / 1024 / 1024);
-        	
-        	if (fileSize > 10) {
-            	alert('10MB 이하의 파일로 업로드해 주세요.');
-            	filename.value = '';
-            	element.value = '';
-            	return false;
-        }
-    }
-
-    	// 3. 선택한 파일들을 FormData에 추가
-   		for (let i = 0; i < files.length; i++) {
-        	const file = files[i];
-        	formData.append('files', file);
-        	filename.value += file.name + ' '; // 선택한 파일명 표시
-    	}
-	} // 파일 선택 end
-	
-	
-
-    // 수정 저장 로직
-	document.getElementById("updateNotice").addEventListener("click", function(e) {
-	    	e.preventDefault(); // 폼의 기본 동작을 막습니다.
-	    	
-	    	//formData 객체생성
-    		let formData = new FormData(document.getElementById('updateNoticeForm'));
-    		
-    		// 삭제된 파일 목록 추가
-    	    for (let fileId of deleteFiles) {
-    	        formData.append('filesToDelete', fileId);
-    	    }
-    		
-	    	
-	     	// Ajax 요청 보내기
-	    	const noticeId = document.getElementById('noticeId').value;
-    		
-	     	$.ajax({
-		   		url: "/admin/notice/update/${noticeId}",
-		    	type: "POST",
-		    	data: formData,
-		    	processData: false,
-		    	contentType: false,
-		    	success: function(response) {
-		    		if (response){
-		    			alert("서버로부터와 응답데이터 : " + response);
-		    		} else {
-		    			alert("서버로부터와 응답데이터 비어있습니다.");
-		    		}
-		    	
-		    		// Ajax요청이 성공후 폼 데이터 초기화
-		    		document.getElementById("upateNoticeForm").reset();
-		    		let redirectUrl = "/admin/notice/list";
-		    		window.location.href= redirectUrl;
-		    	
-		    	},
-		    	error: function(xhr, status, error) {
-		    		saveBtn.disabled = false;
-		    		console.error("요청 실패 상태 코드:", xhr.status);
-		    		console.error("요청 실패 상태 텍스트:", xhr.statusText);
-		    		console.error("요청 실패 메시지:", xhr.responseText);
-		    		console.error("에러:", error);
-		    	}
-		    });    
-	    });  // 수정 저장 로직 end
-
-	
-	
-	</script> -->
-	
-	 <script th:inline="javascript">
-        // 삭제된 파일 목록을 담을 배열
-        let deleteFiles = [];
-
-        window.onload = () => {
-            findAllFile();
-        }
-
-        // 전체파일 조회
-        function findAllFile() {
-            //1. api 호출 
-            const noticeId = [[ ${notice.noticeId}]];
-            const response = getJson(`/admin/notice/${noticeId}/files`);
-
-            //2. 로직종료
-            if (!response.length) {
-                // 파일이 없는 경우 메시지를 표시하고 함수 종료
-                document.getElementById('files').textContent = '첨부 파일이 없습니다.';
-                return;
+            window.onload = () => {
+                findAllFile();
             }
 
-            //3. 파일 영역 추가 = 보여주는 부분
-            let fileHtml = '<div class="file_down"><div class="cont"><ul>';
+            // 전체파일 조회
+            function findAllFile() {
+                const noticeId = [[ ${notice.noticeId}]];
+                const response = getJson(`/admin/notice/${noticeId}/files`);
 
-            response.forEach(row => {
-                fileHtml += '<li>';
-                console.log("row: ", row);
-                if (row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null) { // 이미지 파일체크
-                    fileHtml += `
-                        <div class="file-item">
-                            <img src="/admin/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 100%; height: auto;">
-                            <a href="/admin/notice/${noticeId}/files/${row.fileId}/download">
-                                <span class="icons">
-                                    <i class="fas fa-folder-open"></i>
-                                </span>
-                                ${row.originalName}
-                            </a>
-                            <button class="delete-file" data-fileid="${row.fileId}">X</button>
-                        </div>
-                    `;
+                if (!response.length) {
+                    document.getElementById('files').textContent = '첨부 파일이 없습니다.';
+                    return;
                 }
-            });
-            fileHtml += '</ul></div></div>';
 
-            //4. 파일 html 렌더링
-            document.getElementById('files').innerHTML = fileHtml;
-
-            // 이미지 삭제 버튼에 클릭 이벤트 추가
-            document.querySelectorAll('.delete-file').forEach(button => {
-                button.addEventListener('click', function () {
-                    const fileId = this.dataset.fileId;
-                    // 삭제된 파일의 ID를 배열에 추가
-                    deleteFiles.push(fileId);
-                    // 이미지 요소 제거
-                    this.closest('.file-item').remove();
-                });
-            });
-        } // 전체파일 조회 end 
-
-        // 수정 저장 로직
-        document.getElementById("updateNotice").addEventListener("click", function (e) {
-            e.preventDefault(); // 폼의 기본 동작을 막습니다.
-            // 삭제된 파일 목록 추가
-            let formData = new FormData(document.getElementById('updateNoticeForm'));
-            console.log("formData : ", formData);
-            for (let fileId of deleteFiles) {
-                formData.append('filesToDelete', fileId);
-            }
-
-            // Ajax 요청 보내기
-            const noticeId = document.getElementById('noticeId').value;
-            $.ajax({
-                url: "/admin/notice/update/${noticeId}",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    if (response) {
-                        alert("서버로부터와 응답데이터 : " + response);
-                    } else {
-                        alert("서버로부터와 응답데이터 비어있습니다.");
+                let fileHtml = '<div class="file_down"><div class="cont"><ul>';
+                response.forEach(row => {
+                    fileHtml += '<li>';
+                    if (row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+                        fileHtml += `
+                            <div class="file-item">
+                                <img src="/admin/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 100%; height: auto;">
+                                <a href="/admin/notice/${noticeId}/files/${row.fileId}/download">
+                                    <span class="icons">
+                                        <i class="fas fa-folder-open"></i>
+                                    </span>
+                                    ${row.originalName}
+                                </a>
+                                <button class="delete-file" data-fileid="${row.fileId}">X</button>
+                            </div>
+                        `;
                     }
+                });
+                fileHtml += '</ul></div></div>';
+                document.getElementById('files').innerHTML = fileHtml;
 
-                    // Ajax요청이 성공후 폼 데이터 초기화
-                    document.getElementById("updateNoticeForm").reset();
-                    let redirectUrl = "/admin/notice/list";
-                    window.location.href = redirectUrl;
+                document.querySelectorAll('.delete-file').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const fileId = this.dataset.fileId;
+                        deleteFiles.push(fileId);
+                        this.closest('.file-item').remove();
+                    });
+                });
+            }
 
-                },
-                error: function (xhr, status, error) {
-                    saveBtn.disabled = false;
-                    console.error("요청 실패 상태 코드:", xhr.status);
-                    console.error("요청 실패 상태 텍스트:", xhr.statusText);
-                    console.error("요청 실패 메시지:", xhr.responseText);
-                    console.error("에러:", error);
+            document.getElementById("updateNotice").addEventListener("click", function (e) {
+                e.preventDefault();
+                let formElement = document.getElementById('updateNoticeForm');
+                console.log("formElement : ", formElement);
+                console.log("현재 fileId:", fileId);
+                // 배열있는지 확인
+                if(deleteFiles.length == 0){
+                	console.log("ㅂ배열 비어있!");
+                }else{
+                	console.log("배열 요소 있음");
+                }
+                if (formElement instanceof HTMLFormElement) {
+                    let formData = new FormData(formElement);
+                    deleteFiles.forEach(fileId => {
+                    	console.log("현재 fileId:", fileId);
+                    	
+                    	
+                    	console.log("deleteFiles:", deleteFiles);
+                        formData.append('filesToDelete', fileId);
+                    });
+
+                    const noticeId = document.getElementById('noticeId').value;
+                    $.ajax({
+                        url: `/admin/notice/update/${noticeId}`,
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            console.log("서버 응답 데이터: ", response); // 응답 데이터를 콘솔에 출력합니다.
+                            if (response.success) {
+                                alert("서버로부터 응답 메시지: " + response.message);
+                                document.getElementById("updateNoticeForm").reset();
+                                window.location.href = "/admin/notice/list";
+                            } else {
+                                alert("서버 응답 메시지: " + response.message);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("요청 실패 상태 코드:", xhr.status);
+                        }
+                    });
                 }
             });
-        });  // 수정 저장 로직 end
-
-        // 파일 선택
-        function selectFile(element) {
-            const files = element.files;
-            const filename = element.closest('.file_input').firstElementChild;
-
-            // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
-            if (!files.length) {
-                filename.value = '';
-                return false;
-            }
-
-            // 2. 파일 크기가 10MB를 초과하는 경우
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const fileSize = Math.floor(file.size / 1024 / 1024);
-
-                if (fileSize > 10) {
-                    alert('10MB 이하의 파일로 업로드해 주세요.');
-                    filename.value = '';
-                    element.value = '';
-                    return false;
-                }
-            }
-
-            // 3. 선택한 파일들을 FormData에 추가
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                formData.append('files', file);
-                filename.value += file.name + ' '; // 선택한 파일명 표시
-            }
-        } // 파일 선택 end
-
+        });
     </script>
 </th:block>
 
