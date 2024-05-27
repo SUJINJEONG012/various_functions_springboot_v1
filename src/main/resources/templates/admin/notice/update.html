@@ -149,28 +149,28 @@
                             </div>
                         `;
                     }
+                    fileHtml += '</li>';
                 });
                 fileHtml += '</ul></div></div>';
                 document.getElementById('files').innerHTML = fileHtml;
 
-                
                 document.querySelectorAll('.delete-file').forEach(button => {
                     button.addEventListener('click', function () {
-                        const fileId = this.dataset.fileId;
+                        const fileId = this.getAttribute('data-fileid');
+                        console.log("파일ID: ", fileId);
                         deleteFiles.push(fileId);
-                        this.closest('.file-item').remove();
+                        this.closest('.file-item').remove();        
                     });
                 });
             }
 
             document.getElementById("updateNotice").addEventListener("click", function (e) {
                 e.preventDefault();
-                
                 let formElement = document.getElementById('updateNoticeForm');
                 console.log("formElement : ", formElement);
-                console.log("현재 fileId:", fileId);
                 
-                if (formElement instanceof HTMLFormElement) {
+             	// formElement가 제대로 정의되었는지 확인
+                if (formElement) {
                     let formData = new FormData(formElement);
                     deleteFiles.forEach(fileId => {
                     	console.log("현재 fileId:", fileId);
@@ -178,12 +178,15 @@
                     });
 
                     const noticeId = document.getElementById('noticeId').value;
+                    console.log("FormData before AJAX:", formData);
+                    
                     $.ajax({
                         url: `/admin/notice/update/${noticeId}`,
                         type: "POST",
                         data: formData,
                         processData: false,
                         contentType: false,
+                        dataType: 'json',  // 응답 데이터를 JSON으로 처리
                         success: function (response) {
                             console.log("서버 응답 데이터: ", response); // 응답 데이터를 콘솔에 출력합니다.
                             if (response.success) {
@@ -196,8 +199,11 @@
                         },
                         error: function (xhr, status, error) {
                             console.error("요청 실패 상태 코드:", xhr.status);
+                            console.error("에러 메시지: ", error);
                         }
                     });
+                }else{
+                	console.log("Form element not found.");
                 }
             });
         });

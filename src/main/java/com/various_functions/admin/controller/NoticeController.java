@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,10 +78,11 @@ public class NoticeController {
 
 	// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
 	@PostMapping("/admin/notice/update/{noticeId}")
-	public String updateNotice(@PathVariable Long noticeId, @ModelAttribute NoticeDto noticeDto,
+	public ResponseEntity<Map<String, Object>> updateNotice(@PathVariable Long noticeId, @ModelAttribute NoticeDto noticeDto,
 			@RequestParam(value = "filesToDelete", required = false) List<Long> filesToDelete,
 			RedirectAttributes redirectAttributes) {
 		log.info("공지사항 수정 진입 메서드");
+		Map<String, Object> response = new HashMap<>();
 		
 		try {
 			// 파일 삭제
@@ -99,16 +102,17 @@ public class NoticeController {
 			noticeDto.setNoticeId(noticeId);
 			noticeService.updateNotice(noticeDto);
 
-			// 성공 응답을 생성하고 리다이렉트합니다.
-			redirectAttributes.addFlashAttribute("success", true);
-			redirectAttributes.addFlashAttribute("message", "수정이 완료되었습니다.");
-		} catch (Exception e) {
-			// 실패 응답을 생성하고 리다이렉트합니다.
-			redirectAttributes.addFlashAttribute("success", false);
-			redirectAttributes.addFlashAttribute("message", "수정 중 오류가 발생했습니다: " + e.getMessage());
-		}
+			// 성공 응답
+	        response.put("success", true);
+	        response.put("message", "수정이 완료되었습니다.");
+	        return ResponseEntity.ok(response);
 		
-		return "redirect:/admin/notice/list";
+		} catch (Exception e) {
+	        // 실패 응답
+	        response.put("success", false);
+	        response.put("message", "수정 중 오류가 발생했습니다: " + e.getMessage());
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+	    }
 	}
 
 	// @@PathVariable을 사용한 방법 => noticeId를 받아와서
