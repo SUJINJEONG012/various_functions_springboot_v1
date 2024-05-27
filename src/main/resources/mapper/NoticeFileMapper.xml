@@ -74,39 +74,44 @@
 		</foreach>
 		order by file_id
 	</select>
-	
+
 	<!-- 파일수정 -->
-	<update id="updateFile" parameterType="com.various_functions.admin.vo.NoticeFileVo">
+	<update id="updateFile"
+		parameterType="com.various_functions.admin.vo.NoticeFileVo">
 		update notice_file
-		set <include refid="fileColumns" />
+		set
+		<include refid="fileColumns" />
 		where file_id= #{file_id}
 	</update>
-	
+
 
 	<!-- 파일삭제 -->
 	<delete id="deleteAllByIds" parameterType="list">
 		DELETE FROM notice_file WHERE file_id IN
-        <foreach collection="list" item="fileId" open="(" separator="," close=")">
-            #{fileId}
-        </foreach>
+		<foreach collection="list" item="fileId" open="("
+			separator="," close=")">
+			#{fileId}
+		</foreach>
 	</delete>
-	
+
 	<!-- 파일 삭제 메서드 정의 -->
-<delete id="deleteById" parameterType="com.various_functions.admin.vo.NoticeFileVo">
-    DELETE FROM notice_file WHERE file_id = #{file_id}
-</delete>
+	<delete id="deleteById"
+		parameterType="long">
+		DELETE FROM notice_file WHERE file_id = #{file_id}
+	</delete>
 
 
 	<!-- 파일 상세정보 조회 -->
-    <select id="findById" parameterType="Long" resultType="com.various_functions.admin.vo.NoticeFileVo">
-        SELECT
-            <include refid="fileColumns" />
-        FROM
-            notice_file
-        WHERE
-            delete_yn = 0
-            AND file_id = #{fileId}
-    </select>
+	<select id="findById" parameterType="Long"
+		resultType="com.various_functions.admin.vo.NoticeFileVo">
+		SELECT
+		<include refid="fileColumns" />
+		FROM
+		notice_file
+		WHERE
+		delete_yn = 0
+		AND file_id = #{fileId}
+	</select>
 
 
 

@@ -153,6 +153,7 @@
                 fileHtml += '</ul></div></div>';
                 document.getElementById('files').innerHTML = fileHtml;
 
+                
                 document.querySelectorAll('.delete-file').forEach(button => {
                     button.addEventListener('click', function () {
                         const fileId = this.dataset.fileId;
@@ -164,23 +165,16 @@
 
             document.getElementById("updateNotice").addEventListener("click", function (e) {
                 e.preventDefault();
+                
                 let formElement = document.getElementById('updateNoticeForm');
                 console.log("formElement : ", formElement);
                 console.log("현재 fileId:", fileId);
-                // 배열있는지 확인
-                if(deleteFiles.length == 0){
-                	console.log("ㅂ배열 비어있!");
-                }else{
-                	console.log("배열 요소 있음");
-                }
+                
                 if (formElement instanceof HTMLFormElement) {
                     let formData = new FormData(formElement);
                     deleteFiles.forEach(fileId => {
                     	console.log("현재 fileId:", fileId);
-                    	
-                    	
-                    	console.log("deleteFiles:", deleteFiles);
-                        formData.append('filesToDelete', fileId);
+                    	formData.append('filesToDelete', fileId);
                     });
 
                     const noticeId = document.getElementById('noticeId').value;

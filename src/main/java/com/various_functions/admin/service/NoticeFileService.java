@@ -74,26 +74,18 @@ public class NoticeFileService {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
                 .body(file);
     }
-    
-    /*
-     * 파일 업데이트
-     * */
-     public void updateFile(Long fileId, NoticeFileDto noticeFileDto ) {
-    	
-    	
-     }
-    
-	
-	/*
-	 * 파일 삭제 
+ 
+	/* 파일삭제
+	 * 리스트에 있는 각 파일 ID를 순회하며 개별적으로 삭제 작업을 수행
 	 * 
-	 * */
-	
-	//
-	public void deleteFiles(List<Long> filesToDelete) {
-		noticeFileMapper.deleteAllByIds(filesToDelete);
-		
-	}
+	 */
+    public void deleteFiles(List<Long> fileIds) {
+        if (fileIds != null && !fileIds.isEmpty()) {
+            for (Long fileId : fileIds) {
+                noticeFileMapper.deleteById(fileId);
+            }
+        }
+    }
 	
 	
 	/**

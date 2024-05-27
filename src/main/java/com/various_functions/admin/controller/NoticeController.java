@@ -83,11 +83,10 @@ public class NoticeController {
 		
 		try {
 			// 파일 삭제
-			if (filesToDelete != null && !filesToDelete.isEmpty()) {
-				
-				log.info("파일삭제하는 if문 진입! : ",filesToDelete);
-				noticeFileService.deleteFiles(filesToDelete);
-			}
+	        if (filesToDelete != null && !filesToDelete.isEmpty()) {
+	            log.info("파일삭제하는 if문 진입! : " + filesToDelete);
+	            noticeFileService.deleteFiles(filesToDelete);
+	        }
 
 			// 파일 업로드
 			List<MultipartFile> noticeFiles = noticeDto.getFiles();
@@ -108,7 +107,7 @@ public class NoticeController {
 			redirectAttributes.addFlashAttribute("success", false);
 			redirectAttributes.addFlashAttribute("message", "수정 중 오류가 발생했습니다: " + e.getMessage());
 		}
-
+		
 		return "redirect:/admin/notice/list";
 	}
 
