@@ -31,6 +31,13 @@ public class NoticeService {
 		return noticeMapper.findById(noticeId);
 	}
 	
+	//게시글 조회수 추가 
+	@Transactional
+	public void noticeViewCount(Long noticeId) {
+		noticeMapper.noticeViewCount(noticeId);
+	}
+
+		
 	// 게시글 수정
 	@Transactional
 	public Long updateNotice(final NoticeDto noticeDto) {
@@ -61,7 +68,7 @@ public class NoticeService {
 	}
 
 	
-
+	
 
 	
 	

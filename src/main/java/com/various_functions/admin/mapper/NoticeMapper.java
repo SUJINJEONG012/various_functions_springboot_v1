@@ -43,4 +43,7 @@ public interface NoticeMapper {
 	// 게시글 수 카운팅
 	int count(PagedSearchDto pagedSearchDto);
 	
+	// 게시글 조회수 
+	void noticeViewCount(Long noticeId);
+	
 }

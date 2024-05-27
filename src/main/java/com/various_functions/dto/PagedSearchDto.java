@@ -27,7 +27,9 @@ public class PagedSearchDto {
 		this.pageSize = 10;
 	}
 	
-	//MySQL DB에서 LIMIT 구문의 시작 부분에 사용되는 메서드
+	/* MySQL DB에서 LIMIT 구문의 시작 부분에 사용되는 메서드
+	 * 현재페이지 계산하는 구문
+	 */
 	public int getOffset() {
 		return (page-1) * recordSize;
 	}

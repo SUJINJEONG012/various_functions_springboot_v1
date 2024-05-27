@@ -168,13 +168,19 @@ public class NoticeController {
 		log.info("공지사항 저장되는 부분 데이터 확인 files : {}", files);
 		// 파일이 저장된 경로
 		String uploadPath = fileUtils.getSingUploadPath(noticeId.toString());
+		
+		 // 조회수 증가
+        noticeService.noticeViewCount(noticeId);
+        
 		// model.addAttribute("uploadPath", uploadPath);
 		model.addAttribute("notice", notice);
 		// 파일 나오는 곳
 		model.addAttribute("files", files);
 		return viewName;
 	}
-
+	
+	
+	
 	// 게시글 삭제
 	@PostMapping("/admin/notice/delete")
 	public String deleteNotice(@RequestParam final Long noticeId) {
