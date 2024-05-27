@@ -106,8 +106,12 @@
 	</select>
 	
 	
-	<!-- 게시글 수 카운팅 -->
-	
+	<!-- 게시글 수 조회수 -->
+	<update id="noticeViewCount" parameterType="long">
+	 update notice
+	 set view_cont = view_cnt +1
+	 where notice_id = #{noticeId}
+	</update>
 	
 
 </mapper>
