@@ -75,14 +75,17 @@
 	 그 다음에는 작성일자가 최신인 순서대로 정렬
 	 -->
 	<select id="findAllNotices"
-	parameterType="com.various_functions.dto.PagedSearchDto"
+	parameterType="com.various_functions.common.dto.PagedSearchDto"
 	resultType="com.various_functions.admin.vo.NoticeVo">
 		select 
 		<include refid="noticeColumns" />
 		from 
 			notice
 		where 
-			delete_yn = 0 
+			delete_yn = 0
+		<if test="keyword != null and keyword != ''">
+			AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+		</if>
 		order by 
 		case when notice_yn = 1 
 			then 0 else 1 end,
@@ -115,10 +118,13 @@
 	</update>
 	
 	<!--게시글 수 카운 -->
-	<select id="count" parameterType="com.various_functions.dto.PagedSearchDto" resultType="int">
+	<select id="count" parameterType="com.various_functions.common.dto.PagedSearchDto" resultType="int">
 		select count(*)
 		from notice
 		where delete_yn = 0
+		<if test="keyword != null and keyword != ''">
+			AND (title LIKE CONCAT('%', #{keyword},'%') OR content LIKE CONCAT('%',#{keyword},'%'))
+		</if>
 	</select>
 
 </mapper>

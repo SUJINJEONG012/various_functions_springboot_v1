@@ -53,6 +53,7 @@ public class NoticeService {
 	
 	// 게시글 전체 리스트 조회 => user, admin 공통으로 들고오기 위한 코드
 	public List<NoticeVo> findAllNotices(final PagedSearchDto pagedSearchDto){
+		
 		return noticeMapper.findAllNotices(pagedSearchDto);
 	}
 
@@ -68,7 +69,9 @@ public class NoticeService {
 	}
 
 	
-	
+	public int count(PagedSearchDto pagedSearchDto) {
+		return noticeMapper.count(pagedSearchDto);
+	} 
 
 	
 	
