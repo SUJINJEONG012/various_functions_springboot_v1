@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.mapper.NoticeMapper;
-import com.various_functions.admin.vo.NoticeVo;
+import com.various_functions.common.dto.PagedSearchDto;
 
 @SpringBootTest
 public class NoticeMapperTest {
@@ -26,7 +26,7 @@ public class NoticeMapperTest {
 //		
 //		noticeMapper.noticeSave(params);
 //			
-//		List<NoticeVo> notices = noticeMapper.findAllMembers();
+//		List<PagedSearchDto> notices = noticeMapper.findAllNotices(PagedSearchDto pagedSearchDto);
 //		System.out.println("전체 게시글 개수는 : " + notices.size() + "개 입니다.");
 //	}
 

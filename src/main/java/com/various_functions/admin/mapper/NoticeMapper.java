@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.vo.NoticeVo;
-import com.various_functions.dto.PagedSearchDto;
+import com.various_functions.common.dto.PagedSearchDto;
 
 
 @Mapper
@@ -45,5 +45,8 @@ public interface NoticeMapper {
 	
 	// 게시글 조회수 
 	void noticeViewCount(Long noticeId);
+	
+	
+	
 	
 }

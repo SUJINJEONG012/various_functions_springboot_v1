@@ -1,4 +1,4 @@
-package com.various_functions.dto;
+package com.various_functions.common.dto;
 
 import lombok.Getter;
 import lombok.Setter;

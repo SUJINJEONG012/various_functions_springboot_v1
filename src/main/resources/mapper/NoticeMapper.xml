@@ -84,7 +84,8 @@
 		where 
 			delete_yn = 0 
 		order by 
-		case when notice_yn = 1 then 0 else 1 end,
+		case when notice_yn = 1 
+			then 0 else 1 end,
 		created_date desc
 		limit #{offset}, #{recordSize};
 	</select>
@@ -113,5 +114,11 @@
 	 where notice_id = #{noticeId}
 	</update>
 	
+	<!--게시글 수 카운 -->
+	<select id="count" parameterType="com.various_functions.dto.PagedSearchDto" resultType="int">
+		select count(*)
+		from notice
+		where delete_yn = 0
+	</select>
 
 </mapper>

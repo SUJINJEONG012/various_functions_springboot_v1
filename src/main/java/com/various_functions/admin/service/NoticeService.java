@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.mapper.NoticeMapper;
 import com.various_functions.admin.vo.NoticeVo;
-import com.various_functions.dto.PagedSearchDto;
+import com.various_functions.common.dto.PagedSearchDto;
 
 import lombok.RequiredArgsConstructor;
 

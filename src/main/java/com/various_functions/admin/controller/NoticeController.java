@@ -24,7 +24,7 @@ import com.various_functions.admin.service.NoticeFileService;
 import com.various_functions.admin.service.NoticeService;
 import com.various_functions.admin.vo.NoticeFileVo;
 import com.various_functions.admin.vo.NoticeVo;
-import com.various_functions.dto.PagedSearchDto;
+import com.various_functions.common.dto.PagedSearchDto;
 import com.various_functions.service.MemberService;
 import com.various_functions.utils.FileUtils;
 import com.various_functions.vo.MemberVo;
