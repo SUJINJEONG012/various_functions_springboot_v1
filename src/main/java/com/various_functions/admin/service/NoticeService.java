@@ -10,6 +10,7 @@ import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.mapper.NoticeMapper;
 import com.various_functions.admin.vo.NoticeVo;
 import com.various_functions.common.dto.PagedSearchDto;
+import com.various_functions.common.paging.Pagination;
 
 import lombok.RequiredArgsConstructor;
 
@@ -53,7 +54,6 @@ public class NoticeService {
 	
 	// 게시글 전체 리스트 조회 => user, admin 공통으로 들고오기 위한 코드
 	public List<NoticeVo> findAllNotices(final PagedSearchDto pagedSearchDto){
-		
 		return noticeMapper.findAllNotices(pagedSearchDto);
 	}
 
@@ -72,6 +72,16 @@ public class NoticeService {
 	public int count(PagedSearchDto pagedSearchDto) {
 		return noticeMapper.count(pagedSearchDto);
 	} 
+	
+	// 페이징처리
+	public Pagination getPagination(PagedSearchDto pagedSearchDto) {
+		// 전체 데이터 개수 조회
+		int totalRecordCount = noticeMapper.count(pagedSearchDto);
+		// Pagination 객체 생성
+		Pagination pagination = new Pagination(totalRecordCount, pagedSearchDto);
+		
+		return pagination;
+	}
 
 	
 	
