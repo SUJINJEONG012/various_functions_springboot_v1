@@ -84,7 +84,17 @@
 		where 
 			delete_yn = 0
 		<if test="keyword != null and keyword != ''">
-			AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+			<choose>
+				<when test="searchType = 'title'">
+				AND (title LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+				<when test="searchType = 'content'">
+				AND content LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+				<otherwise>
+				AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+				</otherwise>
+			</choose>
 		</if>
 		order by 
 		case when notice_yn = 1 

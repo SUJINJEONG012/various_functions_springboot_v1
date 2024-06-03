@@ -143,7 +143,10 @@ public class NoticeController {
 	private String noticeList(@ModelAttribute("pagedSearchDto") final PagedSearchDto pagedSearchDto, Model model,
 			String viewName) {
 		List<NoticeVo> notices = noticeService.findAllNotices(pagedSearchDto);
+		int totalRecords = noticeService.count(pagedSearchDto);
+		
 		model.addAttribute("notices", notices);
+		model.addAttribute("totalRecords",totalRecords);
 		return viewName;
 	}
 
