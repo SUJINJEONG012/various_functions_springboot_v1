@@ -32,16 +32,17 @@
             </select>
             <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해주세요." title="키워드를 입력" />
             <!-- 검색버튼을 클릭했을 때 인자로 1을 전달하는것. 현재페이지는 1로 유지  -->
-            <button type="button" class="bt_search" onclick="search();">
+            <button type="button" class="bt_search" onclick="search(1);">
                 <i class="fas fa-search"></i><span class="skip_info">검색</span>
             </button>
         </div>
     </form>
+    <div id="results"></div>
+    <div id="pagination"></div>
+    
+    
 			</div>
 			<!-- 검색키워드 end  -->
-			
-					<!-- 검색 결과를 출력할 위치 -->
-<div id="searchResults"></div>
 
 
 			<p>엑셀다운로드</p>
@@ -107,19 +108,25 @@
 	/*<![CDATA[*/
  	function search() {
         // 검색어와 검색 유형 가져오기
-        var keyword = document.getElementById('keyword').value;
-        var searchType = document.getElementById('searchType').value;
+        const keyword = document.getElementById('keyword').value;
+        const searchType = document.getElementById('searchType').value;
         
         // AJAX를 이용하여 서버로 검색 요청 전송
         $.ajax({
             type: 'GET',
-            url: '/admin/notice/list',
+            url: '/search',
             data: {
-                keyword: keyword
+                keyword: keyword,
+                searchType:searchType,
+                page:page
             },
-            success: function(data) {
+            success: function(response) {
                 // 검색 결과를 출력할 위치에 검색 결과 삽입
-                $('#searchResults').html(response);
+                $('#results').html(response);
+                $('#pagination').html(response.paginationHtml);
+            },
+            error: function(){
+            	alert("검색 중 오류가 발생했습니다.");
             }
         });
     }

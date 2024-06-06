@@ -130,21 +130,8 @@ public class NoticeController {
 
 	// 관리자 페이지 리스트페이지
 	@GetMapping("/admin/notice/list")
-	public String adminNoticeList(@RequestParam(required = false) String keyword,Model model) {
-		if(keyword != null && !keyword.isEmpty()) {
-			// 검색어가 입력된 경우, 검색을 수행하고 결과를 출력
-			PagedSearchDto pagedSearchDto = new PagedSearchDto();
-			pagedSearchDto.setKeyword(keyword);
-			//여기에서 검색 쿼리를 수행하고 결과를 가져온 후 모델에 추가 
-			List<NoticeVo> notices = noticeService.findAllNotices(pagedSearchDto);
-			model.addAttribute("notices", notices);
-		}else {
-			//검색어가 입력되지 않은경우, 전체리스트를 가져와서출력
-			PagedSearchDto pagedSearchDto = new PagedSearchDto();
-			List<NoticeVo> notices = noticeService.findAllNotices(pagedSearchDto);
-			model.addAttribute("notices", notices);
-		}
-		return "/admin/notice/list";
+	public String adminNoticeList(@ModelAttribute("pagedSearchDto") PagedSearchDto pagedSearchDto,Model model) {
+		return noticeList(pagedSearchDto, model, "/admin/notice/list");
 	}
 
 	// 유저 게시글 리스트 페이지
@@ -156,7 +143,7 @@ public class NoticeController {
 	// 유저,어드민 페이지 공통으로 사용하기 위한 메서드
 	private String noticeList(PagedSearchDto pagedSearchDto,Model model, String viewName) {
 		
-		List<NoticeVo> notices = noticeService.findAllNotices(pagedSearchDto);
+		  List<NoticeVo> notices = noticeService.findAllNotices(pagedSearchDto);
 		  Pagination pagination = noticeService.getPagination(pagedSearchDto);
 
 		  model.addAttribute("notices", notices);
