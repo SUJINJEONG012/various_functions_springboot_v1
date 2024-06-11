@@ -144,10 +144,9 @@ public class NoticeController {
 	private String noticeList(PagedSearchDto pagedSearchDto,Model model, String viewName) {
 		
 		  List<NoticeVo> notices = noticeService.findAllNotices(pagedSearchDto);
-		  Pagination pagination = noticeService.getPagination(pagedSearchDto);
-
+		  //Pagination pagination = noticeService.getPagination(pagedSearchDto);
 		  model.addAttribute("notices", notices);
-		  model.addAttribute("pagination", pagination);
+		  //model.addAttribute("pagination", pagination);
 		  model.addAttribute("searchDto", pagedSearchDto);
 		return viewName;
 	}
