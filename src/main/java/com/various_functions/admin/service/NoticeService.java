@@ -52,7 +52,15 @@ public class NoticeService {
 		return noticeId;
 	}
 	
-	// 게시글 전체 리스트 조회 => user, admin 공통으로 들고오기 위한 코드
+	/* 검색조건에 맞는 전체공지사항 수를 반환하는 메서드 */
+	public int getTotalRecordCount(PagedSearchDto pagedSearchDto) {
+		return noticeMapper.count(pagedSearchDto);
+	}
+	
+	/* 게시글 전체 리스트 조회 => user, admin 공통으로 들고오기 위한 코드
+	 * 페이징과 검색 조건에 맞는 공지사항 리스트를 반환하는 메서드
+	 * 
+	 */
 	public List<NoticeVo> findAllNotices(final PagedSearchDto pagedSearchDto){
 		return noticeMapper.findAllNotices(pagedSearchDto);
 	}

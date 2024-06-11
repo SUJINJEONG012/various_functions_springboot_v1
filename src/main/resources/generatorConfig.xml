@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- MyBatis Generator가 생성할 클래스의 패키지 설정 -->
+    <context id="MyBatisGenerator" targetRuntime="MyBatis3">
+       
+         <!-- JDBC 연결 정보 -->
+        <jdbcConnection driverClass="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"
+                        connectionURL="jdbc:log4jdbc:mysql://localhost:3306/board?serverTimezone=Asia/Seoul&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"
+                        userId="root"
+                        password="1234">
+        </jdbcConnection>
+
+        <!-- 생성할 클래스의 타입 지정 -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 생성할 모델 클래스와 매퍼 파일의 위치 지정 -->
+        <javaModelGenerator targetPackage="com.various_functions.admin"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 생성할 DAO 인터페이스의 위치 지정 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.example.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 생성할 테이블과 매핑할 매퍼 지정 -->
+        <table tableName="example_table"
+               domainObjectName="Example"
+               mapperName="ExampleMapper"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+
+    </context>
+</generatorConfiguration>
