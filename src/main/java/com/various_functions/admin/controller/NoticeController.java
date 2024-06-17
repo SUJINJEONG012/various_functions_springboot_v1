@@ -146,6 +146,9 @@ public class NoticeController {
 		  model.addAttribute("notices", notices);
 		  model.addAttribute("searchDto", pagedSearchDto);
 		  model.addAttribute("totalRecordCount", totalRecordCount);
+		  model.addAttribute("currentPageGroupStart", pagedSearchDto.getCurrentPageGroupStart());
+	      model.addAttribute("currentPageGroupEnd", pagedSearchDto.getCurrentPageGroupEnd(totalRecordCount));
+	       
 		return viewName;
 	}
 

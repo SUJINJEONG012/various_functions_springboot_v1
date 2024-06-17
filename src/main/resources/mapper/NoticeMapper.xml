@@ -94,7 +94,7 @@
     <select id="findAllNotices" parameterType="com.various_functions.common.dto.PagedSearchDto" resultType="com.various_functions.admin.vo.NoticeVo">
         SELECT *
         FROM notice
-        WHERE 1=1
+        where delete_yn = 0
         <if test="keyword != null and keyword.trim() != ''">
             AND title LIKE CONCAT('%', #{keyword}, '%')
         </if>
@@ -146,7 +146,7 @@
     <select id="count" parameterType="com.various_functions.common.dto.PagedSearchDto" resultType="int">
         SELECT COUNT(*)
         FROM notice
-        WHERE 1=1
+       where delete_yn = 0
         <if test="keyword != null and keyword.trim() != ''">
             AND title LIKE CONCAT('%', #{keyword}, '%')
         </if>

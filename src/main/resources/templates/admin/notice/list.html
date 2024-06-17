@@ -137,30 +137,71 @@
 
 </html> -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Notice List</title>
-</head>
-<body>
+ <!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="admin/layout/basic">
+<th:block layout:fragment="title">
+	<title>리스트 페이지</title>
+</th:block>
+
+<th:block layout:fragment="content">
+
     <h1>Notice List</h1>
     
      <!-- 검색 폼 -->
-    <form action="#" th:action="@{/notice/list}" method="get">
+    <form action="#" th:action="@{/admin/notice/list}" method="get">
         <input type="text" name="keyword" th:value="${searchDto.keyword}" placeholder="검색어 입력">
         <button type="submit">검색</button>
     </form>
     
+    <p>엑셀다운로드</p>
+			<form action="/excel/download" method="get">
+				<button type="submit">Excel</button>
+			</form>
+    
     <!-- 공지사항 리스트 표시 -->
-    <ul>
-        <th:block th:each="notice : ${notices}">
-            <li th:text="${notice.title}"></li>
-        </th:block>
-    </ul>
+    
+    <table class="tb tb_col">
+				<thead>
+					<tr>
+						<th scope="col">번호</th>
+						<th scope="col">제목</th>
+						<th scope="col">작성자</th>
+						<th scope="col">등록일</th>
+						<th scope="col">조회</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					
+					<tr th:if="${not #lists.isEmpty(notices)}"
+						th:each="notice : ${notices}">
+
+						<td><span th:if="${notice.noticeYn}" class="icons"> <i
+								class="fa fa-bell-o" aria-hidden="true"></i>
+						</span> <span th:text="${notice.noticeYn ? '공지글' : notice.noticeId}"
+							lang="en"></span></td>
+
+						<td><a
+							th:href="@{/admin/notice/view(noticeId=${notice.noticeId})}"
+							th:text="${notice.title}"></a></td>
+						<td th:text="${notice.writer}"></td>
+						<td
+							th:text="${#temporals.format(notice.createdDate, 'yyyy-MM-dd HH:mm:ss')}"
+							lang="en"></td>
+
+						<td th:text="${notice.viewCnt}" lang="en"></td>
+					</tr>
+					<tr th:if="${#lists.isEmpty(notices)}">
+						<td colspan="5">게시물이 없습니다.</td>
+					</tr>
+				</tbody>
+			</table>
+			
 
     <!-- 페이징 네비게이션 -->
-    <div>
+    <!-- <div>
         <ul>
             <li th:if="${pagedSearchDto.page > 1}">
                 <a th:href="@{/notice/list(page=${pagedSearchDto.page - 1}, keyword=${pagedSearchDto.keyword}, recordSize=${pagedSearchDto.recordSize})}">이전</a>
@@ -172,6 +213,32 @@
                 <a th:href="@{/notice/list(page=${pagedSearchDto.page + 1}, keyword=${pagedSearchDto.keyword}, recordSize=${pagedSearchDto.recordSize})}">다음</a>
             </li>
         </ul>
-    </div>
-</body>
+    </div> -->
+    
+    <!-- 페이지목록 -->
+    <!-- <ul>
+    <li th:each="i : ${#numbers.sequence(currentPageGroupStart, currentPageGroupEnd)}">
+        <a th:href="@{'/admin/notice/list'(page=${i}, keyword=${searchDto.keyword})}" th:text="${i}"></a>
+    </li> -->
+    
+    <!-- 페이지 번호 목록 -->
+    <ul>
+    <!-- 이전 페이지 그룹 버튼 -->
+    <li th:if="${pagedSearchDto.hasPreviousPageGroup()}">
+        <a th:href="@{'/admin/notice/list'(page=${pagedSearchDto.getPreviousPageGroupEnd()}, keyword=${pagedSearchDto.keyword})}">&laquo; Previous</a>
+    </li>
+
+    <!-- 페이지 번호 -->
+    <li th:each="i : ${#numbers.sequence(pagedSearchDto.getCurrentPageGroupStart(), pagedSearchDto.getCurrentPageGroupEnd(totalRecordCount))}">
+        <a th:href="@{'/admin/notice/list'(page=${i}, keyword=${pagedSearchDto.keyword})}" th:text="${i}"></a>
+    </li>
+
+    <!-- 다음 페이지 그룹 버튼 -->
+    <li th:if="${pagedSearchDto.hasNextPageGroup(totalRecordCount)}">
+        <a th:href="@{'/admin/notice/list'(page=${pagedSearchDto.getNextPageGroupStart()}, keyword=${pagedSearchDto.keyword})}">Next &raquo;</a>
+    </li>
+</ul>
+    
+
+</th:block>
 </html>
