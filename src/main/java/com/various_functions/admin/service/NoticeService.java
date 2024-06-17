@@ -10,7 +10,6 @@ import com.various_functions.admin.dto.NoticeDto;
 import com.various_functions.admin.mapper.NoticeMapper;
 import com.various_functions.admin.vo.NoticeVo;
 import com.various_functions.common.dto.PagedSearchDto;
-import com.various_functions.common.paging.Pagination;
 
 import lombok.RequiredArgsConstructor;
 
@@ -56,12 +55,19 @@ public class NoticeService {
 	public int getTotalRecordCount(PagedSearchDto pagedSearchDto) {
 		return noticeMapper.count(pagedSearchDto);
 	}
+
 	
 	/* 게시글 전체 리스트 조회 => user, admin 공통으로 들고오기 위한 코드
 	 * 페이징과 검색 조건에 맞는 공지사항 리스트를 반환하는 메서드
 	 * 
 	 */
 	public List<NoticeVo> findAllNotices(final PagedSearchDto pagedSearchDto){
+//		// (현재페이지이 번호 - 1) * 페이지당 출력할 데이터 개수
+//		int offset = pagedSearchDto.getOffset(); // 메서드를 통해 offset 접근
+//		
+//		// offset 설정
+//		pagedSearchDto.setOffset(offset);
+//		
 		return noticeMapper.findAllNotices(pagedSearchDto);
 	}
 

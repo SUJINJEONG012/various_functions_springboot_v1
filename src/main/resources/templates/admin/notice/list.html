@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="admin/layout/basic">
@@ -18,10 +18,10 @@
 
 	<div class="content">
 		<section>
-			<!-- 검색 -->
+			검색
 			<div class="search_box">
-				<!-- 폼의 유형검색과 키워드를 SQL쿼리의 검색조건으로 이용해서 게시글을 검색 -->
-				<!-- 폼의 유형검색과 키워드를 SQL쿼리의 검색조건으로 이용해서 게시글을 검색 -->
+				폼의 유형검색과 키워드를 SQL쿼리의 검색조건으로 이용해서 게시글을 검색
+				폼의 유형검색과 키워드를 SQL쿼리의 검색조건으로 이용해서 게시글을 검색
     <form id="searchForm" onsubmit="return false;" autocomplete="off">
         <div class="sch_group fl">
             <select id="searchType" name="searchType" title="검색유형 선택">
@@ -31,7 +31,7 @@
                 <option value="writer">작성자</option>
             </select>
             <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해주세요." title="키워드를 입력" />
-            <!-- 검색버튼을 클릭했을 때 인자로 1을 전달하는것. 현재페이지는 1로 유지  -->
+            검색버튼을 클릭했을 때 인자로 1을 전달하는것. 현재페이지는 1로 유지 
             <button type="button" class="bt_search" onclick="search(1);">
                 <i class="fas fa-search"></i><span class="skip_info">검색</span>
             </button>
@@ -42,7 +42,7 @@
     
     
 			</div>
-			<!-- 검색키워드 end  -->
+			검색키워드 end 
 
 
 			<p>엑셀다운로드</p>
@@ -63,7 +63,7 @@
 				</thead>
 
 				<tbody>
-					<!-- 공지사항 데이터를 반복하면서 테이블에 출력 -->
+					공지사항 데이터를 반복하면서 테이블에 출력
 					<tr th:if="${not #lists.isEmpty(notices)}"
 						th:each="notice : ${notices}">
 
@@ -90,10 +90,10 @@
 		</section>
 
 
-<!-- 페이지네이션 출력 위치 -->
+페이지네이션 출력 위치
 <div class="paging" id="pagination"></div>
 
-		<!-- 버튼 -->
+		버튼
 		<p class="btn_set tr">
 			<a th:href="@{/admin/notice/write}" class="btns btn_st3 btn_mid">글쓰기</a>
 		</p>
@@ -135,4 +135,43 @@
 	</script>
 </th:block>
 
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notice List</title>
+</head>
+<body>
+    <h1>Notice List</h1>
+    
+     <!-- 검색 폼 -->
+    <form action="#" th:action="@{/notice/list}" method="get">
+        <input type="text" name="keyword" th:value="${searchDto.keyword}" placeholder="검색어 입력">
+        <button type="submit">검색</button>
+    </form>
+    
+    <!-- 공지사항 리스트 표시 -->
+    <ul>
+        <th:block th:each="notice : ${notices}">
+            <li th:text="${notice.title}"></li>
+        </th:block>
+    </ul>
+
+    <!-- 페이징 네비게이션 -->
+    <div>
+        <ul>
+            <li th:if="${pagedSearchDto.page > 1}">
+                <a th:href="@{/notice/list(page=${pagedSearchDto.page - 1}, keyword=${pagedSearchDto.keyword}, recordSize=${pagedSearchDto.recordSize})}">이전</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1, totalRecordCount / pagedSearchDto.recordSize + 1)}">
+                <a th:href="@{/notice/list(page=${i}, keyword=${pagedSearchDto.keyword}, recordSize=${pagedSearchDto.recordSize})}" th:text="${i}"></a>
+            </li>
+            <li th:if="${pagedSearchDto.page < totalRecordCount / pagedSearchDto.recordSize}">
+                <a th:href="@{/notice/list(page=${pagedSearchDto.page + 1}, keyword=${pagedSearchDto.keyword}, recordSize=${pagedSearchDto.recordSize})}">다음</a>
+            </li>
+        </ul>
+    </div>
+</body>
 </html>

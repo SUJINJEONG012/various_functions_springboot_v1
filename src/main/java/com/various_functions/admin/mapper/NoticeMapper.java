@@ -40,7 +40,7 @@ public interface NoticeMapper {
 	/* 최근 게시물 5개 */
 	List<NoticeVo> findRecentNotices();
 	
-	// 게시글 수 페이징 처리
+	// 게시글 수 페이징 처리 => 총 레코드를 반환하는 수
 	int count(PagedSearchDto pagedSearchDto);
 	
 	// 게시글 조회수 

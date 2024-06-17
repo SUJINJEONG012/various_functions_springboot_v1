@@ -25,7 +25,6 @@ import com.various_functions.admin.service.NoticeService;
 import com.various_functions.admin.vo.NoticeFileVo;
 import com.various_functions.admin.vo.NoticeVo;
 import com.various_functions.common.dto.PagedSearchDto;
-import com.various_functions.common.paging.Pagination;
 import com.various_functions.service.MemberService;
 import com.various_functions.utils.FileUtils;
 import com.various_functions.vo.MemberVo;
@@ -141,13 +140,12 @@ public class NoticeController {
 	}
 
 	// 유저,어드민 페이지 공통으로 사용하기 위한 메서드
-	private String noticeList(PagedSearchDto pagedSearchDto,Model model, String viewName) {
-		
+	private String noticeList(PagedSearchDto pagedSearchDto,Model model, String viewName) {	
 		  List<NoticeVo> notices = noticeService.findAllNotices(pagedSearchDto);
-		  Pagination pagination = new Pagination(noticeService.getTotalRecordCount(pagedSearchDto),pagedSearchDto);
+		  int totalRecordCount = noticeService.getTotalRecordCount(pagedSearchDto);
 		  model.addAttribute("notices", notices);
-		  model.addAttribute("pagination", pagination);
 		  model.addAttribute("searchDto", pagedSearchDto);
+		  model.addAttribute("totalRecordCount", totalRecordCount);
 		return viewName;
 	}
 
