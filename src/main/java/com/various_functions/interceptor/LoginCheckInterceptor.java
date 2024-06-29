@@ -1,3 +1,4 @@
+
 package com.various_functions.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,8 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
+		
+		 
 		// 1.세션에서 회원 정보 조회
 		HttpSession session = request.getSession();
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
