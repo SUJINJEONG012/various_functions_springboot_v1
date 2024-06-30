@@ -106,8 +106,7 @@ section:first-child, #tabmenu + section {margin-top:0;}
 #mail_check_input_box_true{
     background-color:white;
 }	
-	
-	
+
 .scroll_in {display:block; max-width:100%; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;}
 
 /* bbs_gallery type */
@@ -169,12 +168,11 @@ h4 + .search_box {margin-top:10px;}
 .search_box input#sDate {margin-right:3px !important;}
 
 /* paging ------------------------------- */
-.paging * {box-sizing:border-box;}
-.paging {text-align:center; margin:2% 0 0;}
 .paging > p {display:inline-block; margin:0 4px;}
 .paging > p > a, .paging > p > span {margin-left:-1px;}
 .paging > p > a:first-child, .paging > p > span:first-child {margin-left:0;}
-.paging a, .paging span {display:inline-block; width:30px; height:30px; line-height:240%; color:#999; font-size:12px;}
+.paging a, .paging span {display:inline-block;  padding-right: 10px;line-height:240%; color:#999; font-size:12px;}
+.paging a.active { font-weight: bold; color: red;}
 .paging a:hover {background:#f7f7f7;}
 .paging a.on, .paging span.on {background:#666; border-color:transparent; border-radius:4px; color:#fff;}
 .paging .page_bt {text-indent:-9999px; position:relative;}

@@ -44,8 +44,8 @@
 						</span> <span th:text="${notice.noticeYn ? '공지글' : notice.noticeId}"
 							lang="en"></span></td>
 
-						<td><a
-							th:href="@{/admin/notice/view(noticeId=${notice.noticeId})}"
+						<td>
+						<a th:href="@{/admin/notice/view(noticeId=${notice.noticeId})}"
 							th:text="${notice.title}"></a></td>
 						<td th:text="${notice.writer}"></td>
 						<td
@@ -60,24 +60,36 @@
 				</tbody>
 			</table>
 
-  
+  <div>
     <!-- 페이지 번호 목록 -->
-    <ul style="display: flex;">
+    <ul class="paging">
     <!-- 이전 페이지 그룹 버튼 -->
-    <li th:if="${pagedSearchDto.hasPreviousPageGroup()}" style="padding-right: 10px;">
+    <li th:if="${pagedSearchDto.hasPreviousPageGroup()}">
         <a th:href="@{'/admin/notice/list'(page=${pagedSearchDto.getPreviousPageGroupEnd()}, keyword=${pagedSearchDto.keyword})}">&laquo; Previous</a>
     </li>
 
-    <!-- 페이지 번호 -->
+    <!-- 페이지 번호
     <li th:each="i : ${#numbers.sequence(pagedSearchDto.getCurrentPageGroupStart(), pagedSearchDto.getCurrentPageGroupEnd(totalRecordCount))}" style="padding-right: 10px;">
         <a th:href="@{'/admin/notice/list'(page=${i}, keyword=${pagedSearchDto.keyword})}" th:text="${i}"></a>
-    </li>
+    </li>-->
+    
+     <!-- 페이지 번호 -->
+            <li th:each="i : ${#numbers.sequence(pagedSearchDto.getCurrentPageGroupStart(), pagedSearchDto.getCurrentPageGroupEnd(totalRecordCount))}">
+                <a th:if="${i != pagedSearchDto.page}" th:href="@{'/admin/notice/list'(page=${i}, keyword=${pagedSearchDto.keyword})}" th:text="${i}"></a>
+                <a th:if="${i == pagedSearchDto.page}" th:text="${i}" class="active"></a>
+            </li>
+    
 
     <!-- 다음 페이지 그룹 버튼 -->
     <li th:if="${pagedSearchDto.hasNextPageGroup(totalRecordCount)}">
         <a th:href="@{'/admin/notice/list'(page=${pagedSearchDto.getNextPageGroupStart(totalRecordCount)}, keyword=${pagedSearchDto.keyword})}">Next &raquo;</a>
     </li>
 </ul>
+</div>
+ <!-- 현재 페이지 번호 표시 -->
+    <div>
+        <p>현재 페이지: <span th:text="${pagedSearchDto.page}"></span></p>
+    </div>
     
 
 </th:block>
