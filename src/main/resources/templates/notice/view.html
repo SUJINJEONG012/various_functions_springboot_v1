@@ -7,6 +7,9 @@
 </th:block>
 
 <th:block layout:fragment="content">
+	
+	<div class="content" >
+	
 	<div class="page_tits">
 		<h3>게시판 관리</h3>
 		<p class="path">
@@ -14,7 +17,7 @@
 		</p>
 	</div>
 
-	<div class="content">
+	
 		<section>
 			<table class="tb tb_row">
 				<colgroup>
@@ -99,17 +102,21 @@
 			}
 			
 			// 파일영역추가
-			let fileHtml = '<div class="file_down"><div class="cont">';
+			let fileHtml = '<div class="file_down"><div class="cont"><ul>';
 			response.forEach(row => {
-				if(row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null){
+				fileHtml += '<li>';
+				if(row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null){ // 이미지 파일체크
 				fileHtml += `
-					<img src="/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 50%; height: auto;">
-				`
+					<img src="/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 100%; height: auto;">
+					<a href="/notice/${noticeId}/files/${row.fileId}/download">
+					<span class="icons">
+					<i class="fas fa-folder-open"></i></span>${row.originalName}
+					`
 			}
 				
 			
 			});
-			fileHtml += '</div></div>';
+			fileHtml += '</ul></div></div>';
 			
 			document.getElementById('files').innerHTML = fileHtml;
 			
