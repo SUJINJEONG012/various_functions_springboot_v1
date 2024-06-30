@@ -50,7 +50,7 @@ public class PagedSearchDto {
 	public int getCurrentPageGroupEnd(int totalRecordCount) {
         int totalPages = (int) Math.ceil((double) totalRecordCount / recordSize);
         int end = getCurrentPageGroupStart() + pageSize - 1;
-        return end > totalPages ? totalPages : end;
+        return Math.min(end, totalPages);
     }
 	
 	/*
@@ -63,13 +63,16 @@ public class PagedSearchDto {
 	
 	public boolean hasNextPageGroup(int totalRecordCount) {
 		int totalPages = (int) Math.ceil((double) totalRecordCount / recordSize);
+		//현재그룹의 끝페이지가 총 페이지수보다 작은지 
 		return getCurrentPageGroupEnd(totalRecordCount) < totalPages;
 	}
 	
-	public int getNextPageGroupStart() {
-		return getCurrentPageGroupEnd(1) +1;
+	// 다음페이지 그룹의 시작 페이지 반환
+	public int getNextPageGroupStart(int totalRecordCount) {
+		return getCurrentPageGroupEnd(totalRecordCount) +1;
 	}
 	
+	// 이전 페이지 그룹의 마지막 페이지 반환
 	public int getPreviousPageGroupEnd() {
 		return getCurrentPageGroupStart() -1;
 	}

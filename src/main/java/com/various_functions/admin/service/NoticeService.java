@@ -62,12 +62,7 @@ public class NoticeService {
 	 * 
 	 */
 	public List<NoticeVo> findAllNotices(final PagedSearchDto pagedSearchDto){
-//		// (현재페이지이 번호 - 1) * 페이지당 출력할 데이터 개수
-//		int offset = pagedSearchDto.getOffset(); // 메서드를 통해 offset 접근
-//		
-//		// offset 설정
-//		pagedSearchDto.setOffset(offset);
-//		
+	
 		return noticeMapper.findAllNotices(pagedSearchDto);
 	}
 
@@ -86,14 +81,6 @@ public class NoticeService {
 	public int count(PagedSearchDto pagedSearchDto) {
 		return noticeMapper.count(pagedSearchDto);
 	} 
-	
-	// 페이징처리
-//	public Pagination getPagination(PagedSearchDto pagedSearchDto) {
-//		// 전체 데이터 개수 조회
-//		int totalRecordCount = noticeMapper.count(pagedSearchDto);
-//		return new Pagination(totalRecords, pagedSearchDto.getPage(), pagedSearchDto.getRecordSize(),pagedSearchDto.getPageSize());
-//	}
-
 	
 	
 }
