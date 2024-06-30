@@ -8,6 +8,13 @@
 
 <th:block layout:fragment="content">
 	<h2>공지사항 리스트</h2>
+	
+	<!-- 검색 폼 -->
+	<form action="#" th:action="@{/notice/list}" method="gdt">
+		<input type="text" name="keyword" th:value="${searchDto.keyword}" placeholder="검색어 입력하세요."/>
+		<button type="submit">검색</button>
+	</form>
+	
 	<table class="tb tb_col">
 		<thead>
 			<tr>
@@ -43,6 +50,33 @@
 		</tbody>
 
 	</table>
+	
+	  <div>
+    <!-- 페이지 번호 목록 -->
+    <ul class="paging">
+    <!-- 이전 페이지 그룹 버튼 -->
+    <li th:if="${pagedSearchDto.hasPreviousPageGroup()}">
+        <a th:href="@{'/admin/notice/list'(page=${pagedSearchDto.getPreviousPageGroupEnd()}, keyword=${pagedSearchDto.keyword})}">&laquo; Previous</a>
+    </li>
+
+    <!-- 페이지 번호
+    <li th:each="i : ${#numbers.sequence(pagedSearchDto.getCurrentPageGroupStart(), pagedSearchDto.getCurrentPageGroupEnd(totalRecordCount))}" style="padding-right: 10px;">
+        <a th:href="@{'/admin/notice/list'(page=${i}, keyword=${pagedSearchDto.keyword})}" th:text="${i}"></a>
+    </li>-->
+    
+     <!-- 페이지 번호 -->
+            <li th:each="i : ${#numbers.sequence(pagedSearchDto.getCurrentPageGroupStart(), pagedSearchDto.getCurrentPageGroupEnd(totalRecordCount))}">
+                <a th:if="${i != pagedSearchDto.page}" th:href="@{'/notice/list'(page=${i}, keyword=${pagedSearchDto.keyword})}" th:text="${i}"></a>
+                <a th:if="${i == pagedSearchDto.page}" th:text="${i}" class="active"></a>
+            </li>
+    
+
+    <!-- 다음 페이지 그룹 버튼 -->
+    <li th:if="${pagedSearchDto.hasNextPageGroup(totalRecordCount)}">
+        <a th:href="@{'/notice/list'(page=${pagedSearchDto.getNextPageGroupStart(totalRecordCount)}, keyword=${pagedSearchDto.keyword})}">Next &raquo;</a>
+    </li>
+</ul>
+</div>
 
 </th:block>
 

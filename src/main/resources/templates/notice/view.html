@@ -93,14 +93,17 @@
 			const response = getJson(`/notice/${noticeId}/files`);
 			
 			if(!response.length){
-				return false;
+				//파일이 없는경우 메세지를 표시하고 함수 종료
+				document.getElementById('files').textContent= '첨부파일이 없습니다.';
+				return ;
 			}
 			
+			// 파일영역추가
 			let fileHtml = '<div class="file_down"><div class="cont">';
 			response.forEach(row => {
 				if(row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null){
 				fileHtml += `
-					<img src="/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 100%; height: auto;">
+					<img src="/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 50%; height: auto;">
 				`
 			}
 				

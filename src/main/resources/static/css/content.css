@@ -168,6 +168,9 @@ h4 + .search_box {margin-top:10px;}
 .search_box input#sDate {margin-right:3px !important;}
 
 /* paging ------------------------------- */
+.paging { display:flex;justify-content: center; text-align:center; margin:2% 0 0;}
+.paging li{}
+
 .paging > p {display:inline-block; margin:0 4px;}
 .paging > p > a, .paging > p > span {margin-left:-1px;}
 .paging > p > a:first-child, .paging > p > span:first-child {margin-left:0;}
