@@ -67,28 +67,7 @@
 		where notice_id = #{noticeId}
 	</delete>
 
-	<!-- 게시글 리스트 조회, 검색부분을매퍼에 파라미터로 넣었기 때문에 parameterType을 적어줘야 한다. 그리고 case 
-		when notice_yn = 1 then 0 else 1 end, created_date desc: notice_yn 부분은 1일 
-		경우에는 먼저 나오도록 정렬하고, 그 다음에는 created_date 컬럼을 내림차순으로 정렬합니다. 즉, 먼저 공지사항이 있는 글이 
-		나오고, 그 다음에는 작성일자가 최신인 순서대로 정렬 -->
-	<!-- <select id="findAllNotices"
-		parameterType="com.various_functions.common.dto.PagedSearchDto"
-		resultType="com.various_functions.admin.vo.NoticeVo">
-		select
-		<include refid="noticeColumns" />
-		from
-		notice
-		where
-		delete_yn = 0
-		<if test="keyword != null and keyword.trim() != ''">
-			 title LIKE CONCAT('%', #{keyword}, '%')
-		</if>
-		order by
-		case when notice_yn = 1
-		then 0 else 1 end,
-		created_date desc
-		limit #{recordSize} OFFSET #{offset};
-	</select> -->
+	
 	
 	<!-- 공지사항 리스트 조회 -->
     <select id="findAllNotices" parameterType="com.various_functions.common.dto.PagedSearchDto" resultType="com.various_functions.admin.vo.NoticeVo">
@@ -96,7 +75,18 @@
         FROM notice
         where delete_yn = 0
         <if test="keyword != null and keyword.trim() != ''">
+            <choose>
+            <when test="searchType == 'title'">
             AND title LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test="searchType == 'content'">
+            AND content LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+            AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword} ,'%'))
+            </otherwise> 
+            </choose>
+            
         </if>
         <!-- ORDER BY created_date DESC -->
         ORDER BY notice_id desc
