@@ -59,7 +59,16 @@
 					<li>
 						<h4>성급</h4> <input type="text" lang="en"
 						 class="input"
-						th:value="${accommodation.accommodationGrade}" readonly>
+						th:value="${accommodation.accommodationGrade} + '등급' " readonly>
+					</li>
+					
+					<li th:each="room : ${accommodation.rooms}">
+						
+						<h4>객실가격</h4>
+						<input type="text" lang="en"
+						 class="input"th:text="${room.roomRoomtype} + '타입'" readonly>
+						
+						
 					</li>
 					
 					
