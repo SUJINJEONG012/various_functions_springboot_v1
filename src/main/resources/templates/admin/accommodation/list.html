@@ -3,16 +3,22 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="admin/layout/basic">
 <th:block layout:fragment="title">
-	<title>관리자 슥서 리스트 페이지</title>
+	<title>관리자 숙소 리스트 페이지</title>
 </th:block>
 
 <th:block layout:fragment="content">
 
+
+<div class="page_tits">
+		<h3>숙소 리스트</h3>
+		<p class="path">
+			<strong>현재 위치 :</strong> <span>게시판 관리</span> <span>리스트형</span> <span>글작성</span>
+		</p>
+	</div>
+	
 	<div class="content">
 
 		<section>
-		
-		
 			<table class="tb tb_col">
 				<colgroup>
 					<col style="width:2%;" />
@@ -45,24 +51,28 @@
 					<tr>
 						<td lang="en" th:text="${accommodation.accommodationId}"></td>
 						<td lang="en" th:text="${accommodation.accommodationCate}"></td>
-						<td lang="en" th:text="${accommodation.accommodationName}"></td>
+						<td>
+						<a lang="en" th:href="@{/admin/accommodation/view(accommodationId=${accommodation.accommodationId})}"
+							th:text="${accommodation.accommodationName}"></a>
+						</td>
 						<td lang="en" th:text="${accommodation.accommodationAdress}"></td>
 						<td lang="en" th:text="${accommodation.accommodationPhone}"></td>
-						<td lang="en" th:text="${accommodation.accommodationGrade}"></td>
+						<td lang="en" th:text="${accommodation.accommodationGrade} + '성급'"></td>
 
 						<td lang="en" th:each="room : ${accommodation.rooms}"
 							th:text="${#numbers.formatInteger(room.roomPeak,0,'COMMA') + '원'}"></td>
 						<td th:each="room : ${accommodation.rooms}"
-							th:text="${room.roomRoomtype} + '등급'"></td>
+							th:text="${room.roomRoomtype} + '타입'"></td>
+							
 
 						
 					<td>
 					<!-- 파일 리스트 출력  다중으로 올리면 여러개 표시되서 이건 상세에서만 -->
-                <!-- <ul>
+				<!-- <ul>
                     <li th:each="file : ${filesMap[accommodation.accommodationId]}">
                         <img th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" alt="File Image" style="width:100%;">
                     </li>
-                </ul> -->
+                </ul> --> 
                 <!-- 첫 번째 사진만 출력 -->
 						<div
 							th:each="file, iterStat : ${filesMap[accommodation.accommodationId]}">

@@ -7,6 +7,7 @@
 </th:block>
 
 <th:block layout:fragment="content">
+	
 	<div class="page_tits">
 		<h3>게시판 관리</h3>
 		<p class="path">
@@ -23,8 +24,7 @@
 
 						<li><h4>구분</h4>
 							<p class="check input">
-
-								<input type="checkbox" id="myCheckbox" class="custom-checkbox">
+								<input type="checkbox" id="myCheckbox" class="custom-checkbox" th:if="${notice.noticeYn == true}">
 								<label th:text="${notice.noticeYn == false ? '일반' : '공지' }"></label>
 							</p></li>
 

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="admin/layout/basic">
+<th:block layout:fragment="title">
+	<title>관리자 숙소 상세보기 페이지</title>
+</th:block>
+
+<th:block layout:fragment="content">
+
+
+	<div class="page_tits">
+		<h3>숙소 리스트</h3>
+		<p class="path">
+			<strong>현재 위치 :</strong> <span>게시판 관리</span> <span>리스트형</span> <span>글작성</span>
+		</p>
+	</div>
+
+	<div class="content">
+
+		<section>
+
+			<div class="board">
+				<ul style="display: flex; align-content: space-between;">
+
+
+					<li>
+						<h4>카테고리</h4> <input type="text" lang="en"
+						class="input"
+						th:value="${accommodation.accommodationCate}" readonly>
+
+					</li>
+
+					<li>
+						<h4>숙소명</h4> <input type="text" lang="en"
+						 class="input"
+						th:value="${accommodation.accommodationName}" readonly>
+
+					</li>
+					<li>
+						<h4>주소</h4> <input type="text" lang="en"
+						 class="input"
+						th:value="${accommodation.accommodationAdress}" readonly>
+
+					</li>
+					
+					<li>
+						<h4>전화번호</h4> <input type="text" lang="en"
+						 class="input"
+						th:value="${accommodation.accommodationPhone}" readonly>
+					</li>
+					
+					<li>
+						<h4>총객실수</h4> <input type="text" lang="en"
+						 class="input"
+						th:value="${accommodation.accommodationTotalroom}" readonly>
+					</li>
+					
+					<li>
+						<h4>성급</h4> <input type="text" lang="en"
+						 class="input"
+						th:value="${accommodation.accommodationGrade}" readonly>
+					</li>
+					
+					
+
+
+
+
+
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+</th:block>
+<th:block layout:fragment="script">
+	<
+</th:block>
+</html>
