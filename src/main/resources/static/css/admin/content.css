@@ -46,7 +46,7 @@ section:first-child, #tabmenu + section {margin-top:0;}
 /* 게시판 입력 폼 */
 .board input[type="text"] { width: 100%;}
 .board .tit{font-size:16px;}
-.board ul li {border-bottom: 1px solid #000; margin-bottom: 40px;}
+.board ul li {padding-right: 19px;border-bottom: 1px solid #000; margin-bottom: 40px;}
 .board ul li.textarea {border-bottom: none;}
 
 .board ul li h4{padding-bottom:10px;}

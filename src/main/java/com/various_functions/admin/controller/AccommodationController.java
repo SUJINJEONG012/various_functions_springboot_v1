@@ -86,8 +86,10 @@ public class AccommodationController {
 	// 숙소 조회 리스트
 	public String accommodationsList( Model model, String viewName) {
 		log.info("숙소 리스트 페이지 진입!!!");
+		
 		//숙소정보가져오기
 		List<AccommodationsVo> accommodations = accommodationService.findAllAccommodations();
+		log.info("accommodations : ", accommodations);
 		
 		// 각 숙소별 파일 리스트 가져오기
 	    Map<Long, List<AccommodationsFileVo>> filesMap = new HashMap<>();
@@ -121,7 +123,7 @@ public class AccommodationController {
 		log.info("숙소 상세보기 진입!!!");
 		
 		AccommodationsVo accommodation = accommodationService.findById(accommodationId);
-		
+				
 		// 파일정보가져오기
 		List<AccommodationsFileVo> files = accommodationFileService.findFileByAccommodationId(accommodationId);
 		log.info("숙소정보상세보기에 가져오는 데이터 확인 : {} ", files);

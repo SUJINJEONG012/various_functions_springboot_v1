@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import com.various_functions.admin.dto.AccommodationsDto;
 import com.various_functions.admin.mapper.AccommodationsMapper;
 import com.various_functions.admin.mapper.RoomInfoMapper;
-import com.various_functions.admin.vo.AccommodationsFileVo;
 import com.various_functions.admin.vo.AccommodationsVo;
-import com.various_functions.admin.vo.NoticeVo;
 import com.various_functions.admin.vo.RoomInfoVo;
 
 import lombok.RequiredArgsConstructor;
@@ -70,7 +68,12 @@ public class AccommodationService {
 	
 	// 숙소상세 정보 
 	public AccommodationsVo findById(final Long accommodationId) {
-		return accommodationsMapper.findById(accommodationId);
+		AccommodationsVo accommodationsVo = accommodationsMapper.findById(accommodationId);
+		if(accommodationsVo != null ) {
+			List<RoomInfoVo> rooms = roomInfoMapper.findRoomsByAccommodationId(accommodationId);
+			accommodationsVo.setRooms(rooms);
+		}
+		return accommodationsVo;
 	}
 
 }
