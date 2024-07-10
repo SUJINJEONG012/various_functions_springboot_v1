@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -133,6 +134,16 @@ public class AccommodationController {
 		model.addAttribute("files",files);
 
 		return viewName;
+	}
+	
+	// 숙소등록 수정
+	@GetMapping("/admin/accommodation/update/{accommodationId}")
+	public String showUpdateForm(@PathVariable Long accommodationId, Model model) {
+		
+		log.info("숙소 수정페이지 진입!");
+		AccommodationsVo accommodationVo = accommodationService.findById(accommodationId);
+		model.addAttribute("accommodation", accommodationVo);
+		return "/admin/accommodation/update";
 	}
 	
 	

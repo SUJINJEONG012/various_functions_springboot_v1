@@ -21,7 +21,7 @@
 		<section>
 
 			<div class="board">
-				<ul style="display: flex; align-content: space-between;">
+				<ul style="display: flex; flex-wrap: wrap; align-content: space-between;">
 
 
 					<li>
@@ -125,6 +125,10 @@
 
 				</ul>
 			</div>
+			
+			<p class="btn_set">
+				<a th:href="@{/admin/accommodation/update/{accommodationId}(accommodation=${accommodation.accommodationId})}" class="btns btn_st5 btn_big">수정</a>
+			</p>
 		</section>
 
 	</div>
