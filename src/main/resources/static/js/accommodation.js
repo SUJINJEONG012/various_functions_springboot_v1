@@ -46,10 +46,16 @@ function execution_daum_address() {
 }
 
 // 별 모양 라디오 버튼 처리
-document.addEventListener('click', function() {
+/*document.addEventListener('click', function() {
 	const stars = document.querySelectorAll('.star');
 	const agradeInput = document.getElementById('accommodationGrade');
+	const currentGrade = agradeInput.value;
+	
+	// 초기 성급을 설정
+	setActiveStars(currentGrade);
+	console.log()
 
+	
 	stars.forEach(function(star) {
 		star.addEventListener('click', function() {
 			const value = this.getAttribute('data-value');
@@ -67,7 +73,34 @@ document.addEventListener('click', function() {
 			}
 		});
 	}
-});
+});*/
+
+document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.star');
+            const agradeInput = document.getElementById('accommodationGrade');
+            const currentGrade = agradeInput.value;
+
+            // 초기 성급을 설정
+            setActiveStars(currentGrade);
+
+            stars.forEach(function(star) {
+                star.addEventListener('click', function() {
+                    const value = this.getAttribute('data-value');
+                    agradeInput.value = value; // 선택된 값 설정 (선택된 별의 값)
+                    setActiveStars(value);
+                });
+            });
+
+            function setActiveStars(value) {
+                stars.forEach(function(star) {
+                    if (parseInt(star.getAttribute('data-value')) <= parseInt(value)) {
+                        star.classList.add('active');
+                    } else {
+                        star.classList.remove('active');
+                    }
+                });
+            }
+        });
 
 
 // 숙소등록 저장        

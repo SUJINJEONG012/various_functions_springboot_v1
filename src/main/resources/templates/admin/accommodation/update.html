@@ -67,20 +67,21 @@
 						th:value="${accommodation.accommodationTotalroom}"></li>
 
 					<li><span class="point_color">*</span>숙소성급 <input
-						type="hidden" id="accommodationGrade" name="accommodationGrade"
-						value="0" />
+						type="text" id="accommodationGrade" name="accommodationGrade"
+						th:value="${accommodation.accommodationGrade}" />
 
 						<div class="star-rating space-x-4 mx-auto">
 							<!-- 별 모양 라디오 버튼 -->
 							<div class="star-rating space-x-4 mx-auto">
-								<span class="star pr-4" data-value="5">★</span> <span
-									class="star pr-4" data-value="4">★</span> <span
-									class="star pr-4" data-value="3">★</span> <span
-									class="star pr-4" data-value="2">★</span> <span class="star"
-									data-value="1">★</span>
+								<span class="star pr-4" data-value="5">★</span> 
+								<span class="star pr-4" data-value="4">★</span> 
+								<span class="star pr-4" data-value="3">★</span> 
+								<span class="star pr-4" data-value="2">★</span> 
+								<span class="star" data-value="1">★</span>
 							</div>
-
-						</div></li>
+						</div>
+					</li>
+					
 					<li><span class="point_color">*</span>숙소 소개<textarea
 						name="accommodationDetail" class="input"
 						placeholder="숙소 소개를 입력해주세요.">
@@ -160,6 +161,7 @@
 	</section>
 	<script th:src="@{/js/accommodation.js}"></script>
 
+	
 </th:block>
 
 </html>
