@@ -139,7 +139,6 @@ public class AccommodationController {
 	// 숙소등록 수정
 	@GetMapping("/admin/accommodation/update/{accommodationId}")
 	public String showUpdateForm(@PathVariable Long accommodationId, Model model) {
-		
 		log.info("숙소 수정페이지 진입!");
 		AccommodationsVo accommodationVo = accommodationService.findById(accommodationId);
 		model.addAttribute("accommodation", accommodationVo);

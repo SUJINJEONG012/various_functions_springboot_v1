@@ -118,7 +118,8 @@
                     <li>
                     <h4>이미지</h4>
                     	<div th:each="file : ${files}">
-                        <img th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" alt="File Image" style="width:100%;">
+                        <img th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" 
+                        alt="File Image" style="width:50%;">
                    		</div>
                     </li>
               
@@ -126,8 +127,10 @@
 				</ul>
 			</div>
 			
+			<p th:text="${accommodation.accommodationId}">id</p>
 			<p class="btn_set">
-				<a th:href="@{/admin/accommodation/update/{accommodationId}(accommodation=${accommodation.accommodationId})}" class="btns btn_st5 btn_big">수정</a>
+				<a th:href="@{/admin/accommodation/update/{accommodationId}(accommodationId=${accommodation.accommodationId})}" 
+				class="btns btn_st5 btn_big">수정</a>
 			</p>
 		</section>
 
