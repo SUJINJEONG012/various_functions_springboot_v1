@@ -27,14 +27,16 @@
 					<ul>
 					<li class="join-field"><span class="point_color">*</span> 카테고리
 						<select name="accommodationCate" class="input">
-							<option value="hotel">호텔</option>
-							<option value="motel">모텔</option>
-							<option value="guesthouse">게스트하우스</option>
-					</select></li>
+							<option value="hotel" th:selected="${accommodation.accommodationCate == 'hotel'}">호텔</option>
+							<option value="motel" th:selected="${accommodation.accommodationCate == 'motel' }">모텔</option>
+							<option value="guesthouse" th:selected="${accommodation.accommodationCate == 'guesthouse'}">게스트하우스</option>
+					</select>
+					</li>
 
 					<li class="join-field"><span class="point_color">*</span>숙박업소명
-						<input type="text" name="accommodationName" class="input"
-						lang="en" placeholder="숙박업소명을 입력해주세요."></li>
+					<div></div>
+						<input type="text" name="accommodationName" th:value="${accommodation.accommodationName}" class="input"
+						lang="en"></li>
 					</ul>
 				</div>
 				
@@ -46,7 +48,7 @@
 								class="point_color">*</span>주소</label> <input type="button"
 								value="주소 검색" onclick="execution_daum_address()"> <input
 								type="text" id="accommodationAdress" name="accommodationAdress"
-								class="input" placeholder="주소를 입력해주세요." readonly="readonly">
+								class="input" th:value="${accommodation.accommodationAdress}">
 						</div>
 
 						<div id="map" style="width: 100%; height: 400px;"></div>
@@ -56,13 +58,13 @@
 					<li class="join-field"><label for="accommodationPhone"><span
 							class="point_color">*</span>전화번호</label> <input type="tel"
 						name="accommodationPhone" id="accommodationPhone" class="input"
-						maxlength="20" lang="en" placeholder="'-' 없이 전화번호를 입력해주세요."></li>
+						maxlength="20" lang="en" th:value="${accommodation.accommodationPhone}"></li>
 
 					<li class="join-field"><label for="accommodationTotalroom">
 							<span class="point_color">*</span>총객실수
 					</label> <input type="text" id="accommodationTotalroom"
 						name="accommodationTotalroom" class="input" lang="en"
-						placeholder="총 객실수를 입력해주세요."></li>
+						th:value="${accommodation.accommodationTotalroom}"></li>
 
 					<li><span class="point_color">*</span>숙소성급 <input
 						type="hidden" id="accommodationGrade" name="accommodationGrade"

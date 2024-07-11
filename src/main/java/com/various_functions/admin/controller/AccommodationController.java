@@ -141,6 +141,12 @@ public class AccommodationController {
 	public String showUpdateForm(@PathVariable Long accommodationId, Model model) {
 		log.info("숙소 수정페이지 진입!");
 		AccommodationsVo accommodationVo = accommodationService.findById(accommodationId);
+		
+		if(accommodationVo == null) {
+			log.error("Accommodation not found ID : " + accommodationId);
+			return "redirect:/error"; //리다이렉트 주소
+		}
+		
 		model.addAttribute("accommodation", accommodationVo);
 		return "/admin/accommodation/update";
 	}
