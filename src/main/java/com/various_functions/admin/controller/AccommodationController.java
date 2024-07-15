@@ -142,12 +142,14 @@ public class AccommodationController {
 		log.info("숙소 수정페이지 진입!");
 		AccommodationsVo accommodationVo = accommodationService.findById(accommodationId);
 		
-		if(accommodationVo == null) {
-			log.error("Accommodation not found ID : " + accommodationId);
-			return "redirect:/error"; //리다이렉트 주소
-		}
+		log.info("accommodationVo : " + accommodationVo);
+		//파일정보가져오기
+		List<AccommodationsFileVo> files = accommodationFileService.findFileByAccommodationId(accommodationId);
+		log.info("숙소정보에수정하기 가져오는 데이터 확인 : ", files);
 		
 		model.addAttribute("accommodation", accommodationVo);
+		model.addAttribute("files", files);
+		
 		return "/admin/accommodation/update";
 	}
 	

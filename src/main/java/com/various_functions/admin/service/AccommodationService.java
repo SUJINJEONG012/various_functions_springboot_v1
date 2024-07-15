@@ -68,7 +68,9 @@ public class AccommodationService {
 	
 	// 숙소상세 정보 
 	public AccommodationsVo findById(final Long accommodationId) {
+		
 		AccommodationsVo accommodationsVo = accommodationsMapper.findById(accommodationId);
+		
 		if(accommodationsVo != null ) {
 			List<RoomInfoVo> rooms = roomInfoMapper.findRoomsByAccommodationId(accommodationId);
 			accommodationsVo.setRooms(rooms);
