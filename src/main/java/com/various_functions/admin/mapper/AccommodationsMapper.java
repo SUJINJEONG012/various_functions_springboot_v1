@@ -20,4 +20,12 @@ public interface AccommodationsMapper {
 
 	// 숙소 상세정보 조회
 	AccommodationsVo findById(Long accommodationId);
+	
+	// 숙소 수정
+	void update(AccommodationsDto accommodationsDto);
+	
+	// 숙소 삭제
+	void delete(Long accommodationId);
+	
+	
 }

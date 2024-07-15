@@ -56,7 +56,7 @@ public class NoticeFileService {
      * @param ids - PK 리스트
      * @return 파일 리스트
      * 리스트 타입의 파일 번호(ids)를 기준으로 여러 개의 첨부파일을 조회합니다. 
-     * 이 메서드는 물리적 파일의 삭제 처리에 사용되며, 용도는 뒤에서 설명드리도록 하겠습니다.
+     * 이 메서드는 물리적 파일의 삭제 처리에 사용
      */
     public List<NoticeFileVo> findAllFileByIds(final List<Long> ids) {
         if (CollectionUtils.isEmpty(ids)) {
@@ -64,18 +64,17 @@ public class NoticeFileService {
         }
         return noticeFileMapper.findAllByIds(ids);
     }
-    
-    
-    // 파일로드
-    public ResponseEntity<File> loadFile(String fileName) {
-        // 해당 파일을 로드하고, Resource로 변환하여 ResponseEntity에 담아 반환합니다.
-    	File file = new File("files/" + fileName);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
-                .body(file);
+
+	/**
+     * 파일 상세정보 조회
+     * @param id - PK
+     * @return 파일 상세정보
+     */
+    public NoticeFileVo findFileById(final Long fileId) {
+        return noticeFileMapper.findById(fileId);
     }
- 
-	/* 파일삭제
+	
+    /* 파일삭제
 	 * 리스트에 있는 각 파일 ID를 순회하며 개별적으로 삭제 작업을 수행
 	 * 
 	 */
@@ -85,16 +84,6 @@ public class NoticeFileService {
                 noticeFileMapper.deleteById(fileId);
             }
         }
-    }
-	
-	
-	/**
-     * 파일 상세정보 조회
-     * @param id - PK
-     * @return 파일 상세정보
-     */
-    public NoticeFileVo findFileById(final Long fileId) {
-        return noticeFileMapper.findById(fileId);
     }
 	
 	

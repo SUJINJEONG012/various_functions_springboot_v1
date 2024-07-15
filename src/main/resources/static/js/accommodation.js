@@ -100,20 +100,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
             }
-        });
+ });
 
 
 // 숙소등록 저장        
 document.addEventListener("DOMContentLoaded", function() {	
+  
+	//저장 버튼 핸들러
 	let acsaveBtn = document.getElementById("acsaveBtn");
 	
 	acsaveBtn.addEventListener("click", function(e) {
-
+	// 기본 동작인 폼 제출을 중지
+	e.preventDefault();
+	
 	// 숙소 이름이 비어 있지 않으면 폼 제출
   	let formData = new FormData(document.getElementById("saveFormAccommodations"));
-  	// 기본 동작인 폼 제출을 중지
-	e.preventDefault();
-
+  
 	// 숙소 이름이 비어 있는지 확인
 	const inputs = document.querySelectorAll("#saveFormAccommodations.input");
 	let isEmpty = false;
@@ -151,7 +153,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		 
 	 });
 	});
-
+	
+	
+		
 });
 
 // 파일선택

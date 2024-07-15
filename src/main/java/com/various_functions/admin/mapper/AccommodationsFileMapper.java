@@ -27,7 +27,7 @@ public interface AccommodationsFileMapper {
 	List<AccommodationsFileVo> findAllByIds(List<Long> ids);
 	
 	/* 파일 삭제 */
-	void deleteAllByIds(List<Long> ids);
+	void deleteById(Long afId);
 	
 	/* 파일 상세 조회 */
 	AccommodationsFileVo findById(Long afId);

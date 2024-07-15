@@ -15,7 +15,9 @@
 
 	<section>
 		<form id="updateFormAccommodations" method="post" enctype="multipart/form-data">
-
+			 <!-- 숙소 ID 입력 요소 -->
+   			 <input type="hidden" id="accommodationId" th:value="${accommodation.accommodationId}">
+			
 			<!-- 객실기본정보 start -->
 			<div class="room_basic">
 
@@ -154,23 +156,30 @@
 					<li class="join-field">
 						<span class="point_color"></span>상세이미지
 						<div class="file_list">
-							<div>
 								<h4>이미지</h4>
                     	<div th:each="file : ${files}">
                         <img th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" 
                         alt="File Image" style="width:50%;">
                    		</div>
-								
-								 
+							
+							<div>
+								<div class="file_input">
+									<input type="text" readonly /> <span class="point_color">*</span>
+									파일 <label> 첨부파2일 <input type="file" name="files"
+										onchange="selectFile(this);" />
+									</label>
+								</div>
+
 								<button type="button" onclick="removeFile(this);"
 									class="btns del_btn">
-									<span>삭제</span>
+									<span>삭제2</span>
 								</button>
 								<button type="button" onclick="addFile();"
 									class="btns fn_add_btn">
-									<span>파일 추가</span>
+									<span>파일2 추가</span>
 								</button>
 							</div>
+							
 						</div>
 
 					</li>
@@ -182,12 +191,65 @@
 
 		<!-- 숙소저장하기 -->
 		<p class="btn_set">
-			<button type="button" id="acsaveBtn" class="btns btn_st3 btn_mid">수정</button>
+			<button type="button" id="acupdateBtn" class="btns btn_st3 btn_mid">수정</button>
 			<a href="@{/accommodation/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
 		</p>
 	</section>
+	
 	<script th:src="@{/js/accommodation.js}"></script>
+	
+	<script>
+	document.addEventListener("DOMContentLoaded", function() {
+        // 수정 버튼 핸들러
+        let acupdateBtn = document.getElementById("acupdateBtn");
 
+        if (acupdateBtn) {
+            acupdateBtn.addEventListener("click", function(e) {
+                e.preventDefault();
+
+                let formData = new FormData(document.getElementById("updateFormAccommodations"));
+
+                // 폼 입력 값이 비어 있는지 확인
+                const inputs = document.querySelectorAll("#saveFormAccommodations .input");
+                let isEmpty = false;
+
+                for (let i = 0; i < inputs.length; i++) {
+                    if (inputs[i].value.trim() === "") {
+                        isEmpty = true;
+                        break;
+                    }
+                }
+
+                if (isEmpty) {
+                    alert("입력값을 제대로 입력해주세요.");
+                    return;
+                }
+
+                // 숙소 ID를 URL에 포함시켜 서버로 AJAX 요청을 보냅니다.
+                let accommodationId = document.getElementById("accommodationId").value;
+
+                $.ajax({
+                    url: `/admin/accommodation/update/${accommodationId}`,
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log(response);
+                        alert("숙소 정보가 성공적으로 업데이트되었습니다.");
+
+                        // ajax 요청이 성공한 후 폼 데이터를 초기화하거나 필요한 작업을 수행합니다.
+                        document.getElementById("updateFormAccommodations").reset();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("요청 실패: ", error);
+                        alert("숙소 정보 업데이트 중 오류가 발생했습니다.");
+                    }
+                });
+            });
+        }
+    });
+	</script>
 	
 </th:block>
 

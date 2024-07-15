@@ -81,6 +81,7 @@ public class NoticeController {
 	public ResponseEntity<Map<String, Object>> updateNotice(@PathVariable Long noticeId, @ModelAttribute NoticeDto noticeDto,
 			@RequestParam(value = "filesToDelete", required = false) List<Long> filesToDelete,
 			RedirectAttributes redirectAttributes) {
+		
 		log.info("공지사항 수정 진입 메서드");
 		Map<String, Object> response = new HashMap<>();
 		

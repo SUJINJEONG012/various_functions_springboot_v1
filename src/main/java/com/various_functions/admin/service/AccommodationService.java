@@ -77,5 +77,12 @@ public class AccommodationService {
 		}
 		return accommodationsVo;
 	}
+	
+	// 게시글 수정
+	@Transactional
+	public Long updateAccommodation(final AccommodationsDto accommodationsDto) {
+		accommodationsMapper.update(accommodationsDto);
+		return accommodationsDto.getAccommodationId();
+	}
 
 }
