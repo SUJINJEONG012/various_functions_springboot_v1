@@ -12,6 +12,6 @@ public interface RoomInfoMapper {
 	
 	//객실정보 저장
 	Long insertRoomInfo(RoomInfoDto roomInfoDto);
-	
+	void update(RoomInfoDto roomInfoDto);
 	List<RoomInfoVo> findRoomsByAccommodationId(Long accommodationId);
 }

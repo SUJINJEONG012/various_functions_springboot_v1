@@ -62,5 +62,18 @@ from accommodations
 where accommodation_id = #{accommodationId}
 </select>
 
+<update id="update" parameterType="com.various_functions.admin.dto.AccommodationsDto">
+update accommodations
+set
+	accommodation_cate = #{accommodationCate},
+    accommodation_name = #{accommodationName}, 
+    accommodation_adress = #{accommodationAdress}, 
+    accommodation_phone = #{accommodationPhone}, 
+    accommodation_totalroom = #{accommodationTotalroom}, 
+    accommodation_grade = #{accommodationGrade}, 
+    accommodation_detail = #{accommodationDetail}
+
+</update>
+
 
 </mapper>

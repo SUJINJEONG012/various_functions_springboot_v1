@@ -39,6 +39,22 @@
     WHERE accommodation_id = #{accommodationId}
     </select>
     
+    
+    <update id="update" parameterType="com.various_functions.admin.dto.RoomInfoDto">
+    	update room_info
+    	set
+        room_roomtype = #{roomRoomtype}, 
+        room_service = #{roomService}, 
+        room_size = #{roomSize}, 
+        room_minper =#{roomMinper}, 
+        room_maxper = #{roomMaxper}, 
+        room_peak = #{roomPeak}, 
+        room_semipeak = #{roomSemipeak}, 
+        room_off = #{roomOff},
+        accommodation_id = #{accommodationId}
+        where accommodation_id=#{accommodationId}
+    </update>
+    
 
 
 </mapper>

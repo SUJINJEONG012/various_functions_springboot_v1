@@ -158,8 +158,10 @@ public class AccommodationController {
 	@PostMapping("/admin/accommodation/update/{accommodationId}")
 	public ResponseEntity<Map<String, Object>> updateAccommodation(@PathVariable Long accommodationId, 
 			@ModelAttribute AccommodationsDto accommodationsDto,
+			@ModelAttribute RoomInfoDto roomInfoDto,
 			@RequestParam(value="filesToDelete", required = false) List<Long> filesToDelete, RedirectAttributes redirectAttributes){
 		log.info("숙소 수정 진입 메서드 ");
+		
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
@@ -175,9 +177,17 @@ public class AccommodationController {
 				accommodationFileService.saveFiles(accommodationId, fileList);
 			}
 			
+		    if (accommodationId != null) {
+		        // 객실정보를 저장하는 메서드 호출
+		    	roomInfoDto.setAccommodationId(accommodationId);
+		        roomInfoService.updateRoomInfo(accommodationId, roomInfoDto); 
+		    } 
+		    
+			
 			// 게시물 수정
 			accommodationsDto.setAccommodationId(accommodationId);
 			accommodationService.updateAccommodation(accommodationsDto);
+			
 			
 			// 성공응답
 			response.put("success", true);
@@ -193,6 +203,8 @@ public class AccommodationController {
 		
 	}
 	
+
+	   
 	
 	
 	

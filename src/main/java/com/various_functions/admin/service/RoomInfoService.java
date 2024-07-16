@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.various_functions.admin.dto.AccommodationsDto;
 import com.various_functions.admin.dto.RoomInfoDto;
 import com.various_functions.admin.mapper.RoomInfoMapper;
 import com.various_functions.admin.vo.RoomInfoVo;
@@ -31,5 +32,18 @@ public class RoomInfoService {
 		log.info("findRoomsByAccommodationId 실행되는지확인!!!");
 		return roomInfoMapper.findRoomsByAccommodationId(accommodationId);
 	}
+	
+	// 게시글 수정
+	@Transactional
+	public Long updateRoomInfo(final Long accommodationId, RoomInfoDto roomInfoDto) {
+		// 객실정보 DTO에 숙소 ID설정
+		roomInfoDto.setAccommodationId(accommodationId);
+		//객실정보 업데이트
+		roomInfoMapper.update(roomInfoDto);
+		
+		//업데이트한 숙소 ID 반환
+		return roomInfoDto.getAccommodationId();
+	}
+
 
 }
