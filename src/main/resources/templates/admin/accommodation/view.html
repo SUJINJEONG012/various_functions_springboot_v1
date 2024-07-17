@@ -134,6 +134,12 @@
                     	<div th:each="file : ${files}">
                         <img th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" 
                         alt="File Image" style="width:50%;">
+                        <a th:href="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId}+'/download'}">
+                        
+						<span class="icons">
+						<i class="fas fa-folder-open"></i></span>
+						<span th:text="${file.originalName}"></span>
+						</a>
                    		</div>
                     </li>
               

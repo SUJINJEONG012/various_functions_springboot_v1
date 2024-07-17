@@ -67,7 +67,7 @@ public class NoticeFileController {
     }
 	
 	// 첨부파일 다운로드
-    @GetMapping("/admin/notice/{noticeId}/files/{fileId}/download")
+    @GetMapping({"/admin/notice/{noticeId}/files/{fileId}/download", "/notice/{noticeId}/files/{fileId}/download"})
     public ResponseEntity<Resource> downloadFile(@PathVariable final Long noticeId, @PathVariable final Long fileId) {
         NoticeFileVo file = noticeFileService.findFileById(fileId);
        

@@ -281,7 +281,7 @@
 
         // 전체파일 조회
         function findAllFile() {
-            const noticeId = /*[[ ${notice.noticeId}]]*/;
+            const noticeId = [[ ${notice.noticeId}]];
             const xhr = new XMLHttpRequest();
             xhr.open('GET', `/admin/notice/${noticeId}/files`, true);
             xhr.onreadystatechange = function() {
