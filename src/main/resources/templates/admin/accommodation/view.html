@@ -21,7 +21,8 @@
 		<section>
 
 			<div class="board">
-				<ul style="display: flex; flex-wrap: wrap; align-content: space-between;">
+				<ul
+					style="display: flex; flex-wrap: wrap; align-content: space-between;">
 
 
 					<li>
@@ -76,38 +77,38 @@
 							<div th:text="${room.roomRoomtype} + ' 타입'"></div>
 						</div>
 					</li>
-					
+
 					<li>
 						<h4>부가서비</h4>
 						<div th:each="room : ${accommodation.rooms}">
 							<div th:text="${room.roomService}"></div>
 						</div>
 					</li>
-					
+
 					<li>
 						<h4>성수기 가격</h4>
 						<div th:each="room : ${accommodation.rooms}">
 							<div th:text="${room.RoomPeak}"></div>
 						</div>
 					</li>
-					
-					
+
+
 					<li>
 						<h4>준성수기 가격</h4>
 						<div th:each="room : ${accommodation.rooms}">
 							<div th:text="${room.RoomSemipeak}"></div>
 						</div>
 					</li>
-					
+
 					<li>
 						<h4>비수기 가격</h4>
 						<div th:each="room : ${accommodation.rooms}">
 							<div th:text="${room.RoomOff}"></div>
 						</div>
 					</li>
-					
-					
-					
+
+
+
 					<li>
 						<h4>최소인원</h4>
 						<div th:each="room : ${accommodation.rooms}">
@@ -122,35 +123,42 @@
 					</li>
 					<li>
 						<h4>숙소소개</h4>
-						
-							<div th:text="${accommodation.accommodationDetail}"></div>
-						
+
+						<div th:text="${accommodation.accommodationDetail}"></div>
+
 					</li>
-					
-					
-					
-                    <li>
-                    <h4>이미지</h4>
-                    	<div th:each="file : ${files}">
-                        <img th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" 
-                        alt="File Image" style="width:50%;">
-                        <a th:href="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId}+'/download'}">
-                        
-						<span class="icons">
-						<i class="fas fa-folder-open"></i></span>
-						<span th:text="${file.originalName}"></span>
-						</a>
-                   		</div>
-                    </li>
-              
+
+
+
 
 				</ul>
+
+				<h4>이미지</h4>
+				<div id="files" th:each="file : ${files}">
+					<div class="file_down">
+					<div class="cont">
+					<ul>
+					<li>
+						<img
+							th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
+							alt="File Image" style="width: 50%;"> <a
+							th:href="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId}+'/download'}">
+
+							<span class="icons"> <i class="fas fa-folder-open"></i></span> <span
+							th:text="${file.originalName}"></span>
+						</a>
+						</li>
+					</ul>
+					</div>	
+					</div>
+				</div>
 			</div>
-			
+
 			<p th:text="${accommodation.accommodationId}">id</p>
 			<p class="btn_set">
-				<a th:href="@{/admin/accommodation/update/{accommodationId}(accommodationId=${accommodation.accommodationId})}" 
-				class="btns btn_st5 btn_big">수정</a>
+				<a
+					th:href="@{/admin/accommodation/update/{accommodationId}(accommodationId=${accommodation.accommodationId})}"
+					class="btns btn_st5 btn_big">수정</a>
 			</p>
 		</section>
 

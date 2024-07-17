@@ -15,31 +15,32 @@
 
 	<section>
 		<form id="updateFormAccommodations" method="post" enctype="multipart/form-data">
-			 <!-- 숙소 ID 입력 요소 -->
-   			 <input type="hidden" id="accommodationId" th:value="${accommodation.accommodationId}">
-			
+			<!-- 숙소 ID 입력 요소 -->
+			<input type="hidden" id="accommodationId" th:value="${accommodation.accommodationId}">
+
 			<!-- 객실기본정보 start -->
 			<div class="room_basic">
 
 				<h3 class="room_title">객실 기본 정보</h3>
-				<div class="" style="display:flex;">
+				<div class="" style="display: flex;">
 					<ul>
-					<li class="join-field"><span class="point_color">*</span> 카테고리
-						<select name="accommodationCate" class="input">
-							<option value="hotel" th:selected="${accommodation.accommodationCate == 'hotel'}">호텔</option>
-							<option value="motel" th:selected="${accommodation.accommodationCate == 'motel' }">모텔</option>
-							<option value="guesthouse" th:selected="${accommodation.accommodationCate == 'guesthouse'}">게스트하우스</option>
-					</select>
-					</li>
+						<li class="join-field"><span class="point_color">*</span>
+							카테고리 <select name="accommodationCate" class="input">
+								<option value="hotel"
+									th:selected="${accommodation.accommodationCate == 'hotel'}">호텔</option>
+								<option value="motel"
+									th:selected="${accommodation.accommodationCate == 'motel' }">모텔</option>
+								<option value="guesthouse"
+									th:selected="${accommodation.accommodationCate == 'guesthouse'}">게스트하우스</option>
+						</select></li>
 
-					<li class="join-field"><span class="point_color">*</span>숙박업소명
-					<div></div>
-						<input type="text" name="accommodationName" th:value="${accommodation.accommodationName}" class="input"
-						lang="en"></li>
+						<li class="join-field"><span class="point_color">*</span>숙박업소명
+							<div></div> <input type="text" name="accommodationName"
+							th:value="${accommodation.accommodationName}" class="input" lang="en"></li>
 					</ul>
 				</div>
-				
-				
+
+
 				<ul>
 					<li class="room_map">
 						<div class="add_input">
@@ -57,7 +58,8 @@
 					<li class="join-field"><label for="accommodationPhone"><span
 							class="point_color">*</span>전화번호</label> <input type="tel"
 						name="accommodationPhone" id="accommodationPhone" class="input"
-						maxlength="20" lang="en" th:value="${accommodation.accommodationPhone}"></li>
+						maxlength="20" lang="en"
+						th:value="${accommodation.accommodationPhone}"></li>
 
 					<li class="join-field"><label for="accommodationTotalroom">
 							<span class="point_color">*</span>총객실수
@@ -65,133 +67,150 @@
 						name="accommodationTotalroom" class="input" lang="en"
 						th:value="${accommodation.accommodationTotalroom}"></li>
 
-					<li><span class="point_color">*</span>숙소성급 <input
-						type="text" id="accommodationGrade" name="accommodationGrade"
+					<li><span class="point_color">*</span>숙소성급 <input type="text"
+						id="accommodationGrade" name="accommodationGrade"
 						th:value="${accommodation.accommodationGrade}" />
 
 						<div class="star-rating space-x-4 mx-auto">
 							<!-- 별 모양 라디오 버튼 -->
 							<div class="star-rating space-x-4 mx-auto">
-								<span class="star pr-4" data-value="5">★</span> 
-								<span class="star pr-4" data-value="4">★</span> 
-								<span class="star pr-4" data-value="3">★</span> 
-								<span class="star pr-4" data-value="2">★</span> 
-								<span class="star" data-value="1">★</span>
+								<span class="star pr-4" data-value="5">★</span> <span
+									class="star pr-4" data-value="4">★</span> <span
+									class="star pr-4" data-value="3">★</span> <span
+									class="star pr-4" data-value="2">★</span> <span class="star"
+									data-value="1">★</span>
 							</div>
-						</div>
-					</li>
-					
-					<li><span class="point_color">*</span>숙소 소개
-					<textarea
-						name="accommodationDetail" th:text="${accommodation.accommodationDetail}" class="input"
-						placeholder="숙소 소개를 입력해주세요.">
-						</textarea>
-					</li>
+						</div></li>
+
+					<li><span class="point_color">*</span>숙소 소개 <textarea
+							name="accommodationDetail"
+							th:text="${accommodation.accommodationDetail}" class="input"
+							placeholder="숙소 소개를 입력해주세요.">
+						</textarea></li>
 
 					<!-- 객실 소개 -->
 					<h2>객실소개 부분</h2>
-				
-					<li class="join-field">
-					<span class="point_color">*</span>객실타입
+
+					<li class="join-field"><span class="point_color">*</span>객실타입
 						<div th:each="room: ${accommodation.rooms}">
-						<input type="text" th:value="${room.roomRoomtype}" name="roomRoomtype" class="input" lang="en"
-						placeholder="">
-						</div>
-					</li>
+							<input type="text" th:value="${room.roomRoomtype}"
+								name="roomRoomtype" class="input" lang="en" placeholder="">
+						</div></li>
 
 
 					<li class="join-field"><span class="point_color">*</span>부가서비스
-						<div th:each="room : ${accommodation.rooms}">	
-						<input type="text" th:value="${room.roomService}" name="roomService" class="input" lang="en"
-						placeholder="">
-						</div>
-						</li>
+						<div th:each="room : ${accommodation.rooms}">
+							<input type="text" th:value="${room.roomService}"
+								name="roomService" class="input" lang="en" placeholder="">
+						</div></li>
 
 					<li class="join-field"><span class="point_color">*</span>객실크기
 						<div th:each="room : ${accommodation.rooms}">
-						<input type="text" th:value="${room.roomSize}" name="roomSize" class="input" lang="en"
-						placeholder="">
-						</div>
-					</li>
+							<input type="text" th:value="${room.roomSize}" name="roomSize"
+								class="input" lang="en" placeholder="">
+						</div></li>
 
 					<li class="join-field"><span class="point_color">*</span>숙박가능인원
 						<div th:each="room : ${accommodation.rooms}">
-						<input type="text" th:value="${room.roomMinper}" name="roomMinper" class="input" lang="en"
-						placeholder="">
-						</div>
-					</li>
+							<input type="text" th:value="${room.roomMinper}"
+								name="roomMinper" class="input" lang="en" placeholder="">
+						</div></li>
 
 					<li class="join-field"><span class="point_color">*</span>숙박최대인원
 						<div th:each="room : ${accommodation.rooms}">
-						<input type="text" th:value="${room.roomMaxper}" name="roomMaxper" class="input" lang="en"
-						placeholder="">
-						</div>
-						</li>
+							<input type="text" th:value="${room.roomMaxper}"
+								name="roomMaxper" class="input" lang="en" placeholder="">
+						</div></li>
 
 					<li class="join-field"><span class="point_color">*</span>성수기
 						요금
 						<div th:each="room : ${accommodation.rooms}">
-						<input type="text" th:value="${room.roomPeak}" name="roomPeak" class="input" lang="en"
-						placeholder="">
-						</div>
-					</li>
+							<input type="text" th:value="${room.roomPeak}" name="roomPeak"
+								class="input" lang="en" placeholder="">
+						</div></li>
 
 					<li class="join-field"><span class="point_color">*</span>준성수기
 						요금
 						<div th:each="room : ${accommodation.rooms}">
-						<input type="text" th:value="${room.roomSemipeak}" name="roomSemipeak" class="input" lang="en"
-						placeholder="">
-						</div>
-						</li>
+							<input type="text" th:value="${room.roomSemipeak}"
+								name="roomSemipeak" class="input" lang="en" placeholder="">
+						</div></li>
 
 					<li class="join-field"><span class="point_color">*</span>비수기
 						요금
 						<div th:each="room : ${accommodation.rooms}">
-						<input type="text" th:value="${room.roomOff}" name="roomOff" class="input" lang="en"
-						placeholder="">
-						</div>
-						</li>
+							<input type="text" th:value="${room.roomOff}" name="roomOff"
+								class="input" lang="en" placeholder="">
+						</div></li>
 					<!-- https://www.pinterest.co.kr/pin/741053313723665481  디자인 참고하기-->
 
 					<li class="join-field">
-						<span class="point_color"></span>상세이미지
-						<div class="file_list">
+					
+					<span class="point_color"></span>상세이미지
+
+						<!-- 						<div class="file_list">
 								<h4>이미지</h4>
+								
                     	<div th:each="file : ${files}">
                         <img th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" 
                         alt="File Image" style="width:50%;">
-                        <a href="/admin/notice/${noticeId}/files/${row.fileId}/download">
+                        <a th:href="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} +'/download'}">
                                         <span class="icons">
                                             <i class="fas fa-folder-open"></i>
                                         </span>
-                                        ${row.originalName}
+                                        <span th:text="${file.originalName}"></span>
                                     </a>
-                         <button class="delete-file" data-fileid="${row.fileId}">X</button>
+                                    
+                         <button class="delete-file" data-fileid="${file.afId}">X</button>
                    		</div>
 	
-						</div>
+						</div> -->
+
+						<h4>이미지</h4>
+						<div id="files" th:each="file : ${files}">
+							<div class="file_down">
+								<div class="cont">
+									<ul>
+										<li>
+										<img
+											th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
+											alt="File Image" style="width: 50%;"> 
+											<a th:href="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId}+'/download'}">
+
+												<span class="icons"> <i class="fas fa-folder-open"></i></span>
+												<span th:text="${file.originalName}"></span>
+										</a>
+										 <button class="delete-file" data-fileid="${file.afId}">X</button> 
+										
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div> 
 						
 						<!--  새로 추가할 파일목록 -->
-							<div>
-								<div class="file_input">
-									<input type="text" readonly /> <span class="point_color">*</span>
-									파일 <label> 첨부파2일 <input type="file" name="files"
-										onchange="selectFile(this);" />
-									</label>
-								</div>
-
-								<button type="button" onclick="removeFile(this);"
-									class="btns del_btn">
-									<span>삭제2</span>
-								</button>
-								<button type="button" onclick="addFile();"
-									class="btns fn_add_btn">
-									<span>파일2 추가</span>
-								</button>
+						<div>
+							<div class="file_input">
+								<input type="text" readonly /> <span class="point_color">*</span>
+								파일 <label> 첨부파2일 <input type="file" name="files"
+									onchange="selectFile(this);" />
+								</label>
 							</div>
-							
 
-					</li>
+							<button type="button" onclick="removeFile(this);"
+								class="btns del_btn">
+								<span>삭제2</span>
+							</button>
+							<button type="button" onclick="addFile();"
+								class="btns fn_add_btn">
+								<span>파일2 추가</span>
+							</button>
+						</div>
+						
+						</li>
+
+
+
 
 				</ul>
 			</div>
@@ -201,66 +220,164 @@
 		<!-- 숙소저장하기 -->
 		<p class="btn_set">
 			<button type="button" id="acupdateBtn" class="btns btn_st3 btn_mid">수정</button>
-			<a href="@{/accommodation/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
+			<a th:href="@{/admin/accommodation/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
 		</p>
 	</section>
-	
+
 	<script th:src="@{/js/accommodation.js}"></script>
-	
+
 	<script>
-	document.addEventListener("DOMContentLoaded", function() {
-        // 수정 버튼 핸들러
-        let acupdateBtn = document.getElementById("acupdateBtn");
-
-        if (acupdateBtn) {
-            acupdateBtn.addEventListener("click", function(e) {
-                e.preventDefault();
-
-                let formData = new FormData(document.getElementById("updateFormAccommodations"));
-
-                // 폼 입력 값이 비어 있는지 확인
-                const inputs = document.querySelectorAll("#saveFormAccommodations .input");
-                let isEmpty = false;
-
-                for (let i = 0; i < inputs.length; i++) {
-                    if (inputs[i].value.trim() === "") {
-                        isEmpty = true;
-                        break;
-                    }
-                }
-
-                if (isEmpty) {
-                    alert("입력값을 제대로 입력해주세요.");
-                    return;
-                }
-
-                // 숙소 ID를 URL에 포함시켜 서버로 AJAX 요청을 보냅니다.
-                let accommodationId = document.getElementById("accommodationId").value;
-
-                $.ajax({
-                			
-                    url: `/admin/accommodation/update/${accommodationId}`,
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        console.log(response);
-                        alert("숙소 정보가 성공적으로 업데이트되었습니다.");
-
-                        // ajax 요청이 성공한 후 폼 데이터를 초기화하거나 필요한 작업을 수행합니다.
-                        document.getElementById("updateFormAccommodations").reset();
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("요청 실패: ", error);
-                        alert("숙소 정보 업데이트 중 오류가 발생했습니다.");
-                    }
-                });
-            });
-        }
-    });
-	</script>
 	
+/* 	document.addEventListener("DOMContentLoaded", function() {
+	    const updateButton = document.getElementById("acupdateBtn");
+	    if (updateButton) {
+	        updateButton.addEventListener("click", function() {
+	            updateAccommodation();
+	        });
+	    } else {
+	        console.error("Element with ID 'acupdateBtn' not found.");
+	    }
+	});
+	
+	
+	function updateAccommodation() {
+	    const updateForm = document.getElementById("updateFormAccommodations");
+	    const accommodationId = document.getElementById("accommodationId").value;
+	    const url = `/admin/accommodation/${accommodationId}/update`;
+
+	    if (updateForm) {
+	        updateForm.action = url;
+	        updateForm.method = "post";
+	        updateForm.submit();
+	    } else {
+	        console.error("Update form not found.");
+	    }
+	}
+	
+	
+		document.addEventListener("DOMContentLoaded", function() {	
+			// 수정 버튼 핸들러
+			let acupdateBtn = document.getElementById("acupdateBtn");
+				if (acupdateBtn) {
+						acupdateBtn.addEventListener("click", function(e) {
+								e.preventDefault();
+
+						let formData = new FormData(document.getElementById("updateFormAccommodations"));
+
+						// 폼 입력 값이 비어 있는지 확인
+						const inputs = document.querySelectorAll("#saveFormAccommodations .input");
+						let isEmpty = false;
+
+							for (let i = 0; i < inputs.length; i++) {
+								if (inputs[i].value.trim() === "") {
+									isEmpty = true;
+										break;
+									}
+								}
+
+							if (isEmpty) {
+								alert("입력값을 제대로 입력해주세요.");
+									return;
+							}
+
+						// 숙소 ID를 URL에 포함시켜 서버로 AJAX 요청을 보냅니다.
+						let accommodationId = document.getElementById("accommodationId").value;
+
+							$.ajax({
+								url : `/admin/accommodation/update/${accommodationId}`,
+								type : "POST",
+								data : formData,
+								processData : false,
+								contentType : false,
+								success : function(
+								response) {
+								console.log(response);
+								alert("숙소 정보가 성공적으로 업데이트되었습니다.");
+
+								// ajax 요청이 성공한 후 폼 데이터를 초기화하거나 필요한 작업을 수행합니다.
+								document.getElementById("updateFormAccommodations").reset();
+								},
+								error : function(xhr,status,error) {
+									console.error(
+										alert("숙소 정보 업데이트 중 오류가 발생했습니다.");
+									}
+								});
+						});
+					}
+				}); */
+				
+				document.addEventListener("DOMContentLoaded", function() {	
+				    // 수정 버튼 핸들러
+				    let acupdateBtn = document.getElementById("acupdateBtn");
+				   
+				    if (acupdateBtn) {
+				        acupdateBtn.addEventListener("click", function(e) {
+				            e.preventDefault();
+
+				            let formData = new FormData(document.getElementById("updateFormAccommodations"));
+
+				            // 폼 입력 값이 비어 있는지 확인
+				            const inputs = document.querySelectorAll("#updateFormAccommodations .input");
+				            let isEmpty = false;
+
+				            for (let i = 0; i < inputs.length; i++) {
+				                if (inputs[i].value.trim() === "") {
+				                    isEmpty = true;
+				                    break;
+				                }
+				            }
+
+				            if (isEmpty) {
+				                alert("입력값을 제대로 입력해주세요.");
+				                return;
+				            }
+				            
+				            // 삭제할 파일 id를 formData에 추가
+				            deleteFiles.forEach(afId =>{
+				            	formData.append('deleteFiles', afId);
+				            });
+
+				            // 숙소 ID를 URL에 포함시켜 서버로 AJAX 요청을 보냅니다.
+				            let accommodationId = document.getElementById("accommodationId").value;
+
+				            $.ajax({
+				                url : `/admin/accommodation/update/${accommodationId}`,
+				                type : "POST",
+				                data : formData,
+				                processData : false,
+				                contentType : false,
+				                success : function(response) {
+				                    console.log(response);
+				                    alert("숙소 정보가 성공적으로 업데이트되었습니다.");
+
+				                    // ajax 요청이 성공한 후 폼 데이터를 초기화하거나 필요한 작업을 수행합니다.
+				                    document.getElementById("updateFormAccommodations").reset();
+				                },
+				                error : function(xhr, status, error) {
+				                    console.error(error);
+				                    alert("숙소 정보 업데이트 중 오류가 발생했습니다.");
+				                }
+				            });
+				        });
+				    } else {
+				        console.error("Element with ID 'acupdateBtn' not found.");
+				    }
+				    
+				    // 삭제할 파일id 저장할 배열
+				    const deleteFiles = [];
+				    //삭제버튼에 클릭이벤트 추가
+				    document.querySelectorAll('.delete-file').forEach(button =>{
+				    	button.addEventListener('click', function(){
+				    		const afId = this.getAttribute('data-fileid');
+				    		console.log("파일 ID:", afId);
+				    		deleteFiles.push(afId);
+				    		this.cloest('.file-item').remove();
+				    	})
+				    });
+				});
+
+	</script>
+
 </th:block>
 
 </html>

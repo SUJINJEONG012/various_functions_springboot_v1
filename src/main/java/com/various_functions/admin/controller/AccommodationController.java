@@ -183,11 +183,9 @@ public class AccommodationController {
 		        roomInfoService.updateRoomInfo(accommodationId, roomInfoDto); 
 		    } 
 		    
-			
 			// 게시물 수정
 			accommodationsDto.setAccommodationId(accommodationId);
 			accommodationService.updateAccommodation(accommodationsDto);
-			
 			
 			// 성공응답
 			response.put("success", true);
