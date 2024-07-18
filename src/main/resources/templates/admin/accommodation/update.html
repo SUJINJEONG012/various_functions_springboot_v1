@@ -168,7 +168,7 @@
 
 						<h4>이미지</h4>
 						<div id="files" th:each="file : ${files}">
-							<div class="file_down">
+							<div class="file_down file-item">
 								<div class="cont">
 									<ul>
 										<li>
@@ -176,11 +176,12 @@
 											th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
 											alt="File Image" style="width: 50%;"> 
 											<a th:href="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId}+'/download'}">
-
 												<span class="icons"> <i class="fas fa-folder-open"></i></span>
 												<span th:text="${file.originalName}"></span>
-										</a>
-										 <button class="delete-file" data-fileid="${file.afId}">X</button> 
+											</a>
+										 
+										 <span th:text="${file.afId}"></span>
+										 <button type="button" class="delete-file" data-fileid="${file.afId}">X</button> 
 										
 										</li>
 									</ul>
@@ -309,7 +310,7 @@
 				document.addEventListener("DOMContentLoaded", function() {	
 				    // 수정 버튼 핸들러
 				    let acupdateBtn = document.getElementById("acupdateBtn");
-				   
+				    
 				    if (acupdateBtn) {
 				        acupdateBtn.addEventListener("click", function(e) {
 				            e.preventDefault();
@@ -334,7 +335,7 @@
 				            
 				            // 삭제할 파일 id를 formData에 추가
 				            deleteFiles.forEach(afId =>{
-				            	formData.append('deleteFiles', afId);
+				            	formData.append('filesToDelete', afId);
 				            });
 
 				            // 숙소 ID를 URL에 포함시켜 서버로 AJAX 요청을 보냅니다.
@@ -348,6 +349,7 @@
 				                contentType : false,
 				                success : function(response) {
 				                    console.log(response);
+				                    alert("response : ", response);
 				                    alert("숙소 정보가 성공적으로 업데이트되었습니다.");
 
 				                    // ajax 요청이 성공한 후 폼 데이터를 초기화하거나 필요한 작업을 수행합니다.
@@ -367,11 +369,14 @@
 				    const deleteFiles = [];
 				    //삭제버튼에 클릭이벤트 추가
 				    document.querySelectorAll('.delete-file').forEach(button =>{
-				    	button.addEventListener('click', function(){
+				    	button.addEventListener('click', function(e){
+				    		e.preventDefault(); // 이벤트 전파 방지
+				    		
 				    		const afId = this.getAttribute('data-fileid');
 				    		console.log("파일 ID:", afId);
 				    		deleteFiles.push(afId);
-				    		this.cloest('.file-item').remove();
+				    		console.log("")
+				    		this.closest('.file-item').style.display = 'none';
 				    	})
 				    });
 				});
