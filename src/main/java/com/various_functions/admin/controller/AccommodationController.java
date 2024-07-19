@@ -159,7 +159,8 @@ public class AccommodationController {
 	public ResponseEntity<Map<String, Object>> updateAccommodation(@PathVariable Long accommodationId, 
 			@ModelAttribute AccommodationsDto accommodationsDto,
 			@ModelAttribute RoomInfoDto roomInfoDto,
-			@RequestParam(value="filesToDelete", required = false) List<Long> filesToDelete, RedirectAttributes redirectAttributes){
+			@RequestParam(value="filesToDelete", required = false) List<Long> filesToDelete, 
+			RedirectAttributes redirectAttributes){
 		log.info("숙소 수정 진입 메서드 ");
 		
 		Map<String, Object> response = new HashMap<>();
@@ -172,10 +173,14 @@ public class AccommodationController {
 			}
 			//파일업로드
 			List<MultipartFile> accommodationFiles = accommodationsDto.getFiles();
+			//파일이 제대로 서버로 전송되었는지 확인
+			log.info("accommodationFiles :" + accommodationFiles);
+			
 			if(accommodationFiles != null && !accommodationFiles.isEmpty()) {
 				List<AccommodationsFileDto> fileList = fileUtils.uploadFileAccommodations(accommodationFiles);
 				accommodationFileService.saveFiles(accommodationId, fileList);
 			}
+			
 			
 		    if (accommodationId != null) {
 		        // 객실정보를 저장하는 메서드 호출

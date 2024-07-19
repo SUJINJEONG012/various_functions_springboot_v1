@@ -4,6 +4,7 @@
 	layout:decorate="admin/layout/basic">
 
 
+	
 
 <th:block layout:fragment="content">
 
@@ -12,11 +13,12 @@
 	<script
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services"></script>
 
-
 	<section>
-		<form id="updateFormAccommodations" method="post" enctype="multipart/form-data">
+		<form id="updateFormAccommodations" method="post"
+			enctype="multipart/form-data">
 			<!-- 숙소 ID 입력 요소 -->
-			<input type="hidden" id="accommodationId" th:value="${accommodation.accommodationId}">
+			<input type="hidden" id="accommodationId"
+				th:value="${accommodation.accommodationId}">
 
 			<!-- 객실기본정보 start -->
 			<div class="room_basic">
@@ -36,7 +38,8 @@
 
 						<li class="join-field"><span class="point_color">*</span>숙박업소명
 							<div></div> <input type="text" name="accommodationName"
-							th:value="${accommodation.accommodationName}" class="input" lang="en"></li>
+							th:value="${accommodation.accommodationName}" class="input"
+							lang="en"></li>
 					</ul>
 				</div>
 
@@ -144,9 +147,7 @@
 						</div></li>
 					<!-- https://www.pinterest.co.kr/pin/741053313723665481  디자인 참고하기-->
 
-					<li class="join-field">
-					
-					<span class="point_color"></span>상세이미지
+					<li class="join-field"><span class="point_color"></span>상세이미지
 
 						<!-- 						<div class="file_list">
 								<h4>이미지</h4>
@@ -171,44 +172,39 @@
 							<div class="file_down file-item">
 								<div class="cont">
 									<ul>
-										<li>
-										<img
+										<li><img
 											th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
-											alt="File Image" style="width: 50%;"> 
-											<a th:href="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId}+'/download'}">
+											alt="File Image" style="width: 50%;"> <a
+											th:href="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId}+'/download'}">
 												<span class="icons"> <i class="fas fa-folder-open"></i></span>
 												<span th:text="${file.originalName}"></span>
-											</a>
-										 
-										 <span th:text="${file.afId}"></span>
-										 <button type="button" class="delete-file" data-fileid="${file.afId}">X</button> 
-										
-										</li>
+										</a> <span th:text="${file.afId}"></span>
+											<button type="button" class="delete-file"
+												th:data-fileid="${file.afId}">X</button></li>
 									</ul>
 								</div>
 							</div>
-						</div> 
-						
-						<!--  새로 추가할 파일목록 -->
-						<div>
-							<div class="file_input">
-								<input type="text" readonly /> <span class="point_color">*</span>
-								파일 <label> 첨부파2일 <input type="file" name="files"
-									onchange="selectFile(this);" />
-								</label>
-							</div>
+						</div> <!-- 수정시 새로 파일업로드  -->
+						<div class="file_list">
+							<div>
+								<div class="file_input">
+									<input type="text" readonly /> <label> 첨부파일추가 <input
+										type="file" name="files" onchange="selectFile(this);" />
+									</label>
+								</div>
+								<!-- 파일추가 수정 -->
+								<button type="button" onclick="removeFile(this);"
+									class="btns del_btn">
+									<i class="material-symbols-outlined">cancel</i> <span>삭제</span>
+								</button>
+								<button type="button" onclick="addFile();"
+									class="btns fn_add_btn">
+									<i class="material-symbols-outlined">add_circle</i> <span>추가</span>
+								</button>
 
-							<button type="button" onclick="removeFile(this);"
-								class="btns del_btn">
-								<span>삭제2</span>
-							</button>
-							<button type="button" onclick="addFile();"
-								class="btns fn_add_btn">
-								<span>파일2 추가</span>
-							</button>
-						</div>
-						
-						</li>
+
+							</div>
+						</div></li>
 
 
 
@@ -221,102 +217,41 @@
 		<!-- 숙소저장하기 -->
 		<p class="btn_set">
 			<button type="button" id="acupdateBtn" class="btns btn_st3 btn_mid">수정</button>
-			<a th:href="@{/admin/accommodation/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
+			<a th:href="@{/admin/accommodation/list}"
+				class="btns btn_bdr3 btn_mid">뒤로</a>
 		</p>
 	</section>
 
+
 	<script th:src="@{/js/accommodation.js}"></script>
-
 	<script>
-	
-/* 	document.addEventListener("DOMContentLoaded", function() {
-	    const updateButton = document.getElementById("acupdateBtn");
-	    if (updateButton) {
-	        updateButton.addEventListener("click", function() {
-	            updateAccommodation();
-	        });
-	    } else {
-	        console.error("Element with ID 'acupdateBtn' not found.");
-	    }
-	});
-	
-	
-	function updateAccommodation() {
-	    const updateForm = document.getElementById("updateFormAccommodations");
-	    const accommodationId = document.getElementById("accommodationId").value;
-	    const url = `/admin/accommodation/${accommodationId}/update`;
-
-	    if (updateForm) {
-	        updateForm.action = url;
-	        updateForm.method = "post";
-	        updateForm.submit();
-	    } else {
-	        console.error("Update form not found.");
-	    }
-	}
-	
-	
+		
 		document.addEventListener("DOMContentLoaded", function() {	
+				    
 			// 수정 버튼 핸들러
 			let acupdateBtn = document.getElementById("acupdateBtn");
-				if (acupdateBtn) {
-						acupdateBtn.addEventListener("click", function(e) {
-								e.preventDefault();
-
-						let formData = new FormData(document.getElementById("updateFormAccommodations"));
-
-						// 폼 입력 값이 비어 있는지 확인
-						const inputs = document.querySelectorAll("#saveFormAccommodations .input");
-						let isEmpty = false;
-
-							for (let i = 0; i < inputs.length; i++) {
-								if (inputs[i].value.trim() === "") {
-									isEmpty = true;
-										break;
-									}
-								}
-
-							if (isEmpty) {
-								alert("입력값을 제대로 입력해주세요.");
-									return;
-							}
-
-						// 숙소 ID를 URL에 포함시켜 서버로 AJAX 요청을 보냅니다.
-						let accommodationId = document.getElementById("accommodationId").value;
-
-							$.ajax({
-								url : `/admin/accommodation/update/${accommodationId}`,
-								type : "POST",
-								data : formData,
-								processData : false,
-								contentType : false,
-								success : function(
-								response) {
-								console.log(response);
-								alert("숙소 정보가 성공적으로 업데이트되었습니다.");
-
-								// ajax 요청이 성공한 후 폼 데이터를 초기화하거나 필요한 작업을 수행합니다.
-								document.getElementById("updateFormAccommodations").reset();
-								},
-								error : function(xhr,status,error) {
-									console.error(
-										alert("숙소 정보 업데이트 중 오류가 발생했습니다.");
-									}
-								});
-						});
-					}
-				}); */
-				
-				document.addEventListener("DOMContentLoaded", function() {	
-				    // 수정 버튼 핸들러
-				    let acupdateBtn = document.getElementById("acupdateBtn");
+			// 삭제할 파일id 저장할 배열
+			const deleteFiles = [];
+				    
+				    //삭제버튼에 클릭이벤트 추가
+				    document.querySelectorAll('button[data-fileid]').forEach(button => {
+				    	button.addEventListener('click', function(e){
+				    		e.preventDefault(); // 이벤트 전파 방지
+				    		
+				    		const afId = this.getAttribute('data-fileid');
+				    		console.log("파일 ID:", afId);
+				    		deleteFiles.push(afId);
+				    		console.log("")
+				    		this.closest('.file-item').style.display = 'none';
+				    	})
+				    });
 				    
 				    if (acupdateBtn) {
 				        acupdateBtn.addEventListener("click", function(e) {
 				            e.preventDefault();
 
 				            let formData = new FormData(document.getElementById("updateFormAccommodations"));
-
+				           
 				            // 폼 입력 값이 비어 있는지 확인
 				            const inputs = document.querySelectorAll("#updateFormAccommodations .input");
 				            let isEmpty = false;
@@ -336,6 +271,7 @@
 				            // 삭제할 파일 id를 formData에 추가
 				            deleteFiles.forEach(afId =>{
 				            	formData.append('filesToDelete', afId);
+				            	
 				            });
 
 				            // 숙소 ID를 URL에 포함시켜 서버로 AJAX 요청을 보냅니다.
@@ -365,24 +301,11 @@
 				        console.error("Element with ID 'acupdateBtn' not found.");
 				    }
 				    
-				    // 삭제할 파일id 저장할 배열
-				    const deleteFiles = [];
-				    //삭제버튼에 클릭이벤트 추가
-				    document.querySelectorAll('.delete-file').forEach(button =>{
-				    	button.addEventListener('click', function(e){
-				    		e.preventDefault(); // 이벤트 전파 방지
-				    		
-				    		const afId = this.getAttribute('data-fileid');
-				    		console.log("파일 ID:", afId);
-				    		deleteFiles.push(afId);
-				    		console.log("")
-				    		this.closest('.file-item').style.display = 'none';
-				    	})
-				    });
 				});
 
 	</script>
 
+	
 </th:block>
 
 </html>

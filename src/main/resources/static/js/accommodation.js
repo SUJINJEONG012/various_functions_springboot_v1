@@ -185,9 +185,7 @@ function selectFile(element){
 // 파일추가
 function addFile(){
 	const fileDiv = document.createElement('div');
-	
 	fileDiv.innerHTML = `
-
 	<li class="file_input">
 					
 					<span class="point_color">*</span> 파일

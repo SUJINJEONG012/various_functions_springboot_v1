@@ -76,6 +76,21 @@ public class NoticeController {
 		return "redirect:/admin/notice/list";
 	}
 
+	
+
+	// @@PathVariable을 사용한 방법 => noticeId를 받아와서
+	@GetMapping("/admin/notice/update/{noticeId}")
+	public String showUpdateForm(@PathVariable Long noticeId, Model model) {
+
+		log.info("수정 게시글 페이지진입!1");
+
+		NoticeVo noticeVo = noticeService.findById(noticeId);
+
+		model.addAttribute("notice", noticeVo);
+		return "/admin/notice/update";
+	}
+
+	
 	// 공지사항 수정 //파라미터 일시 지우고 @RequestParam("files") MultipartFile[] files
 	@PostMapping("/admin/notice/update/{noticeId}")
 	public ResponseEntity<Map<String, Object>> updateNotice(@PathVariable Long noticeId, @ModelAttribute NoticeDto noticeDto,
@@ -114,18 +129,6 @@ public class NoticeController {
 	        response.put("message", "수정 중 오류가 발생했습니다: " + e.getMessage());
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 	    }
-	}
-
-	// @@PathVariable을 사용한 방법 => noticeId를 받아와서
-	@GetMapping("/admin/notice/update/{noticeId}")
-	public String showUpdateForm(@PathVariable Long noticeId, Model model) {
-
-		log.info("수정 게시글 페이지진입!1");
-
-		NoticeVo noticeVo = noticeService.findById(noticeId);
-
-		model.addAttribute("notice", noticeVo);
-		return "/admin/notice/update";
 	}
 
 	// 관리자 페이지 리스트페이지
