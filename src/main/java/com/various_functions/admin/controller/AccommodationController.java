@@ -195,12 +195,12 @@ public class AccommodationController {
 			accommodationService.updateAccommodation(accommodationsDto);
 			
 			//파일목록가져오기 
-			List<AccommodationsFileVo> uploadFiles = accommodationFileService.findFileByAccommodationId(accommodationId);
+			//List<AccommodationsFileVo> uploadFiles = accommodationFileService.findFileByAccommodationId(accommodationId);
 			
 			// 성공응답
 			response.put("success", true);
 			response.put("message", "수정이 완료되었습니다.");
-			response.put("files", uploadFiles);
+			//response.put("files", uploadFiles);
 			return ResponseEntity.ok(response);
 			
 		}catch(Exception e) {

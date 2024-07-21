@@ -287,10 +287,11 @@
 				                contentType : false,
 				                success : function(response) {
 				                    console.log(response);
-				                    alert("response : ", JSON.stringify(response));
-				                    alert("숙소 정보가 성공적으로 업데이트되었습니다.");
+				                   	alert("숙소 정보가 성공적으로 업데이트되었습니다.");
 									// ajax 요청이 성공한 후 폼 데이터를 초기화하거나 필요한 작업을 수행합니다.
 				                    document.getElementById("updateFormAccommodations").reset();
+									// 리다이렉트 수행
+									window.location.href = "/admin/accommodation/list";
 				                },
 				                error : function(xhr, status, error) {
 				                    console.error(error);
