@@ -171,6 +171,7 @@ public class AccommodationController {
 				log.info("파일삭제하는 if문 진입 :" + filesToDelete);
 				accommodationFileService.deleteFiles(filesToDelete);
 			}
+			
 			//파일업로드
 			List<MultipartFile> accommodationFiles = accommodationsDto.getFiles();
 			//파일이 제대로 서버로 전송되었는지 확인
@@ -182,6 +183,7 @@ public class AccommodationController {
 			}
 			
 			
+			//객실정보저장
 		    if (accommodationId != null) {
 		        // 객실정보를 저장하는 메서드 호출
 		    	roomInfoDto.setAccommodationId(accommodationId);
@@ -192,14 +194,18 @@ public class AccommodationController {
 			accommodationsDto.setAccommodationId(accommodationId);
 			accommodationService.updateAccommodation(accommodationsDto);
 			
+			//파일목록가져오기 
+			List<AccommodationsFileVo> uploadFiles = accommodationFileService.findFileByAccommodationId(accommodationId);
+			
 			// 성공응답
 			response.put("success", true);
 			response.put("message", "수정이 완료되었습니다.");
+			response.put("files", uploadFiles);
 			return ResponseEntity.ok(response);
 			
 		}catch(Exception e) {
 			// 실패응답
-			response.put("success", false);
+			response.put("success", true);
 			response.put("message", "수정 중 오류가 발생했습니다." + e.getMessage());
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		}

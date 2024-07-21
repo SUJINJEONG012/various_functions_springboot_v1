@@ -44,7 +44,7 @@
 		select <include refid="fileColumns" /> 
 		from accommodations_file
 		where
-		accommodation_id= #{accommodationId} 
+		accommodation_id= #{accommodationId} AND delete_yn = 0
 		</select>
 
 
@@ -72,8 +72,13 @@
 		from accommodations_file 
 		where delete_yn = 0
 		and af_id = #{afId} 
-		</select>
+	</select>
 
 
+	<update id="deleteById" parameterType="Long">
+		update accommodations_file 
+		set delete_yn = 1
+		where af_id = #{afId}
+	</update>
 
 </mapper>
