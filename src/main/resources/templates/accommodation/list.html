@@ -49,8 +49,8 @@
 							<li th:text="${accommodation.accommodationDetail}"></li>
 						</ul>
 
-						<button type="button" class="w-100 btn  btn-primary">자세히
-							보러가기</button>
+						<a th:href="@{/accommodation/view(accommodationId=${accommodation.accommodationId})}" class="w-100 btn btn-primary">
+						자세히 보러가기</a>
 					</div>
 				</div>
 			</div>
