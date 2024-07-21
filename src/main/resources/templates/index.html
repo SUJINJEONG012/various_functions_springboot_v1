@@ -39,9 +39,10 @@
 						<small class="" th:each="room : ${accommodation.rooms}"
 							th:text="${room.roomRoomtype} + ' 타입글 '">/mo</small>
 
-						<!-- 이미지 다중 파일 <div th:each="file : ${filesMap[accommodation.accommodationId]}">
-					<img th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" alt="File Image" style="width:100%;">
-				</div> -->
+						<!-- 이미지 다중 파일
+						 <div th:each="file : ${filesMap[accommodation.accommodationId]}">
+							<img th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" alt="File Image" style="width:100%;">
+						</div> -->
 						<!-- 첫 번째 사진만 출력 -->
 						<div
 							th:each="file, iterStat : ${filesMap[accommodation.accommodationId]}">
