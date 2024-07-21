@@ -39,22 +39,22 @@
 						<small class="" th:each="room : ${accommodation.rooms}"
 							th:text="${room.roomRoomtype} + ' 타입글 '">/mo</small>
 
-						<!-- 이미지 다중 파일
-						 <div th:each="file : ${filesMap[accommodation.accommodationId]}">
-							<img th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" alt="File Image" style="width:100%;">
-						</div> -->
+						<!-- 이미지 다중 파일 <div th:each="file : ${filesMap[accommodation.accommodationId]}">
+					<img th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" alt="File Image" style="width:100%;">
+				</div> -->
 						<!-- 첫 번째 사진만 출력 -->
-						<div
+						 <div
 							th:each="file, iterStat : ${filesMap[accommodation.accommodationId]}">
-							<!-- 첫 번째 요소인 경우에만 이미지 출력 -->
+							
 							<div th:if="${iterStat.index == 0}">
 								<img
 									th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
 									alt="File Image" style="width: 100%;">
 							</div>
-							<!-- 그 외 요소는 무시 -->
-						</div>
-
+							
+						</div> 
+						
+						
 
 						<ul class=" mt-3 mb-4">
 							<li th:text="${accommodation.accommodationCate}"></li>

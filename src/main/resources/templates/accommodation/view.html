@@ -31,14 +31,22 @@
 		        <h4 th:text="${accommodation.accommodationName}"></h4>
 		      </div>
 		      <div class="card-body">
-		        <h1 class="card-title">$0
-					<small class="">/mo</small>
+		        
+		        <h1 class="card-title">
+		        
+		        <div th:each="room : ${accommodation.rooms}">
+		        	<span th:utext="${room.RoomPeak} + '<span>원</span>' "></span>
+		        </div>
 				</h1>
 				
 				<!-- 
 				이미지 주석처리하면에러안나오고 이미지부분에서 에러니옴-->
-				<div id="files">
+				<div id="files" th:each="file : ${files}">
+					<img th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
+					alt="File Image" style="width: 50%;">
 				</div> 
+				
+				
 
 				<ul class=" mt-3 mb-4">
 					<li th:text="${accommodation.accommodationCate}"></li>
