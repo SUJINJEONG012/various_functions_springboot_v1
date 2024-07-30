@@ -20,103 +20,56 @@
 
   -->
 <style>
-	.calendar-container {
-	    display: flex;
-	    justify-content: space-between;
-	    width: 80%;
-	    margin-top: 20px;
-	}
-	
 	.calendar {
-	    background-color: white;
-	    border: 1px solid #ddd;
-	    border-radius: 8px;
-	    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-	    overflow: hidden;
-	    width: 300px;
-	    text-align: center;
-	}
-	
-	.calendar header {
-	    background-color: #007BFF;
-	    color: white;
-	    text-align: center;
-	    padding: 10px;
-	}
-	
-	.calendar table {
-	    width: 100%;
-	    border-collapse: collapse;
-	}
-	
-	.calendar th, .calendar td {
-	    padding: 10px;
-	    text-align: center;
-	}
-	
-	.calendar th {
-	    background-color: #f4f4f4;
-	}
-	
-	.calendar td {
-	    cursor: pointer;
-	}
-	
-	.calendar .today {
-	    background-color: #007BFF;
-	    color: white;
-	    border-radius: 50%;
-	}
-	
-	.calendar .selected {
-	    background-color: #28a745;
-	    color: white;
-	    border-radius: 50%;
-	}
-	
-	#selected-dates {
-	    margin-top: 20px;
-	}
-	
-	button {
-	    background-color: #007BFF;
-	    color: white;
-	    border: none;
-	    padding: 10px;
-	    cursor: pointer;
-	}
-	
-	button:hover {
-	    background-color: #0056b3;
-	}
-	
-	#month-year, #month-year-checkout {
-	    margin: 10px 0;
-	}
-	
+	           display: inline-block;
+	           margin: 10px;
+	       }
+	       .calendar-header {
+	           display: flex;
+	           justify-content: space-between;
+	           align-items: center;
+	       }
+	       .days {
+	           display: grid;
+	           grid-template-columns: repeat(7, 1fr);
+	           gap: 5px;
+	       }
+	       .day, .date {
+	           text-align: center;
+	           padding: 5px;
+	       }
+	       .date {
+	           cursor: pointer;
+	       }
+	       .selected {
+	           background-color: lightblue;
+	       }
+	       .disabled {
+	           color: lightgray;
+	           cursor: not-allowed;
+	       }
 </style>  
 <div class="content">
 	<h4>숙소리스트 </h4>
 		
 	<!-- 달력 -->
-	<div class="calendar-container">
-	        <div class="calendar">
-	            <button id="prev-month">&lt;</button>
-	            <div id="month-year"></div>
-	            <button id="next-month">&gt;</button>
-	            <div id="calendar"></div>
+	    <div class="calendar" id="checkinCalendar">
+	        <div class="calendar-header">
+	            <div id="checkinMonthYear"></div>
 	        </div>
-	        <div class="calendar">
-	            <button id="prev-month-checkout">&lt;</button>
-	            <div id="month-year-checkout"></div>
-	            <button id="next-month-checkout">&gt;</button>
-	            <div id="calendar-checkout"></div>
+	        <div class="days" id="checkinDays"></div>
+	    </div>
+	    
+	    <div class="calendar" id="checkoutCalendar">
+	        <div class="calendar-header">
+				<div id="checkoutMonthYear"></div>
+	           
+	            <div id="checkoutMonthYear"></div>
+	            <button onclick="changeMonth(1, 'checkout')">&gt;</button>
 	        </div>
+	        <div class="days" id="checkoutDays"></div>
 	    </div>
-	    <div id="selected-dates">
-	        <p>Check-in: <span id="checkin-date">None</span></p>
-	        <p>Check-out: <span id="checkout-date">None</span></p>
-	    </div>
+	   
 	   
 		<!-- 숙소 이미지 출력 -->
 		<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
@@ -197,118 +150,99 @@
 		}	
 		
 		// 달력
-		document.addEventListener("DOMContentLoaded", function() {
-		    const calendarElement = document.getElementById('calendar');
-		    const monthYearElement = document.getElementById('month-year');
-		    const prevMonthButton = document.getElementById('prev-month');
-		    const nextMonthButton = document.getElementById('next-month');
-		
-		    const calendarCheckoutElement = document.getElementById('calendar-checkout');
-		    const monthYearCheckoutElement = document.getElementById('month-year-checkout');
-		    const prevMonthCheckoutButton = document.getElementById('prev-month-checkout');
-		    const nextMonthCheckoutButton = document.getElementById('next-month-checkout');
-		
-		    const checkinDateDisplay = document.getElementById('checkin-date');
-		    const checkoutDateDisplay = document.getElementById('checkout-date');
-		
-		    let checkinDate = null;
-		    let checkoutDate = null;
-		
-		    let currentCheckinMonth = new Date().getMonth();
-		    let currentCheckinYear = new Date().getFullYear();
-		    let currentCheckoutMonth = new Date().getMonth();
-		    let currentCheckoutYear = new Date().getFullYear();
-		
-		    const renderCalendar = (calendarElement, monthYearElement, currentMonth, currentYear, isCheckin) => {
-		        const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-		        const lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-		        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		const today = new Date();
+		        let checkinDate = new Date(today.getFullYear(), today.getMonth(), 1);
+		        let checkoutDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
 		        
-		        monthYearElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+		        let selectedCheckinDate = null;
+		        let selectedCheckoutDate = null;
+		
+		        function updateCalendar(calendarType) {
+		            let date, monthYearElement, daysElement;
 		        
-		        let calendarHTML = '<table><tr>';
-		        const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-		        for (let day of daysOfWeek) {
-		            calendarHTML += `<th>${day}</th>`;
-		        }
-		        calendarHTML += '</tr><tr>';
-		        
-		        for (let i = 0; i < firstDayOfMonth; i++) {
-		            calendarHTML += '<td></td>';
-		        }
-		        
-		        for (let date = 1; date <= lastDateOfMonth; date++) {
-		            if ((firstDayOfMonth + date - 1) % 7 === 0 && date > 1) {
-		                calendarHTML += '</tr><tr>';
+		            if (calendarType === 'checkin') {
+		                date = checkinDate;
+		                monthYearElement = document.getElementById('checkinMonthYear');
+		                daysElement = document.getElementById('checkinDays');
+		            } else {
+		                date = checkoutDate;
+		                monthYearElement = document.getElementById('checkoutMonthYear');
+		                daysElement = document.getElementById('checkoutDays');
 		            }
-		            const dateString = `${currentYear}-${currentMonth + 1}-${date}`;
-		            calendarHTML += `<td class="date-cell" data-date="${dateString}">${date}</td>`;
-		        }
-		        calendarHTML += '</tr></table>';
-		        
-		        calendarElement.innerHTML = calendarHTML;
-		        
-		        document.querySelectorAll('.date-cell').forEach(cell => {
-		            cell.addEventListener('click', (e) => {
-		                const selectedDate = e.target.getAttribute('data-date');
-		                if (isCheckin) {
-		                    checkinDate = selectedDate;
-		                    checkinDateDisplay.textContent = checkinDate;
+		
+		            const year = date.getFullYear();
+		            const month = date.getMonth();
+		            const firstDay = new Date(year, month, 1).getDay();
+		            const lastDate = new Date(year, month + 1, 0).getDate();
+		
+		            monthYearElement.textContent = date.toLocaleDateString('ko-KR', { month: 'long', year: 'numeric' });
+		            daysElement.innerHTML = '';
+		
+		            for (let i = 0; i < firstDay; i++) {
+		                const emptyDay = document.createElement('div');
+		                emptyDay.classList.add('day');
+		                daysElement.appendChild(emptyDay);
+		            }
+		
+		            for (let day = 1; day <= lastDate; day++) {
+		                const dayElement = document.createElement('div');
+		                dayElement.classList.add('date');
+		                dayElement.textContent = day;
+		                const currentDate = new Date(year, month, day);
+		
+		                if (calendarType === 'checkin') {
+		                    if (currentDate < today) {
+		                        dayElement.classList.add('disabled');
+		                    } else {
+		                        dayElement.onclick = () => selectDate(currentDate, 'checkin');
+		                    }
+		
+		                    if (selectedCheckinDate && currentDate.toDateString() === selectedCheckinDate.toDateString()) {
+		                        dayElement.classList.add('selected');
+		                    }
 		                } else {
-		                    checkoutDate = selectedDate;
-		                    checkoutDateDisplay.textContent = checkoutDate;
+		                    dayElement.onclick = () => selectDate(currentDate, 'checkout');
+		
+		                    if (selectedCheckoutDate && currentDate.toDateString() === selectedCheckoutDate.toDateString()) {
+		                        dayElement.classList.add('selected');
+		                    }
 		                }
-		                e.target.classList.add('selected');
-		            });
+		
+		                daysElement.appendChild(dayElement);
+		            }
+		        }
+		
+		        function selectDate(date, calendarType) {
+		            if (calendarType === 'checkin') {
+		                selectedCheckinDate = selectedCheckinDate && selectedCheckinDate.toDateString() === date.toDateString() ? null : date;
+		            } else {
+		                selectedCheckoutDate = selectedCheckoutDate && selectedCheckoutDate.toDateString() === date.toDateString() ? null : date;
+		            }
+		
+		            updateCalendar('checkin');
+		            updateCalendar('checkout');
+		        }
+		
+		        function changeMonth(delta, calendarType) {
+		            if (calendarType === 'checkin') {
+		                checkinDate.setMonth(checkinDate.getMonth() + delta);
+		                updateCalendar('checkin');
+		            } else {
+		                const newMonth = checkoutDate.getMonth() + delta;
+		                if (newMonth >= today.getMonth() && checkoutDate.getFullYear() === today.getFullYear()) {
+		                    checkoutDate.setMonth(newMonth);
+		                    updateCalendar('checkout');
+		                }
+		            }
+		        }
+		
+		        document.addEventListener('DOMContentLoaded', () => {
+		            updateCalendar('checkin');
+		            updateCalendar('checkout');
 		        });
-		    };
-		
-		    renderCalendar(calendarElement, monthYearElement, currentCheckinMonth, currentCheckinYear, true);
-		    renderCalendar(calendarCheckoutElement, monthYearCheckoutElement, currentCheckoutMonth, currentCheckoutYear, false);
-		
-		    prevMonthButton.addEventListener('click', () => {
-		        if (currentCheckinMonth === 0) {
-		            currentCheckinMonth = 11;
-		            currentCheckinYear -= 1;
-		        } else {
-		            currentCheckinMonth -= 1;
-		        }
-		        renderCalendar(calendarElement, monthYearElement, currentCheckinMonth, currentCheckinYear, true);
-		    });
-		
-		    nextMonthButton.addEventListener('click', () => {
-		        if (currentCheckinMonth === 11) {
-		            currentCheckinMonth = 0;
-		            currentCheckinYear += 1;
-		        } else {
-		            currentCheckinMonth += 1;
-		        }
-		        renderCalendar(calendarElement, monthYearElement, currentCheckinMonth, currentCheckinYear, true);
-		    });
-		
-		    prevMonthCheckoutButton.addEventListener('click', () => {
-		        if (currentCheckoutMonth === 0) {
-		            currentCheckoutMonth = 11;
-		            currentCheckoutYear -= 1;
-		        } else {
-		            currentCheckoutMonth -= 1;
-		        }
-		        renderCalendar(calendarCheckoutElement, monthYearCheckoutElement, currentCheckoutMonth, currentCheckoutYear, false);
-		    });
-		
-		    nextMonthCheckoutButton.addEventListener('click', () => {
-		        if (currentCheckoutMonth === 11) {
-		            currentCheckoutMonth = 0;
-		            currentCheckoutYear += 1;
-		        } else {
-		            currentCheckoutMonth += 1;
-		        }
-		        renderCalendar(calendarCheckoutElement, monthYearCheckoutElement, currentCheckoutMonth, currentCheckoutYear, false);
-		    });
-		});
-
-		
-		
+				
+				
+				
 		/*]]>*/
 	</script>
 	
