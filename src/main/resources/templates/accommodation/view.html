@@ -34,6 +34,15 @@
 	           grid-template-columns: repeat(7, 1fr);
 	           gap: 5px;
 	       }
+		   /* 날짜 스타일 */
+		   .day {
+		       display: inline-block;
+		       width: 30px;
+		       height: 30px;
+		       line-height: 30px;
+		       text-align: center;
+		       cursor: pointer;
+		   }
 	       .day, .date {
 	           text-align: center;
 	           padding: 5px;
@@ -41,13 +50,28 @@
 	       .date {
 	           cursor: pointer;
 	       }
+		   /* 선택된 날짜 스타일 */
+		   .day.selected {
+		       background-color: #4caf50;
+		       color: white;
+		   }
 	       .selected {
 	           background-color: lightblue;
 	       }
-	       .disabled {
+		   .day.disabled {
 	           color: lightgray;
 	           cursor: not-allowed;
 	       }
+		   /* 범위 표시 스타일 */
+		   .day.range {
+		       background-color: #81c784;
+		       color: white;
+		   }
+		   
+		   /* 공백 스타일 */
+		   .day.empty {
+		       visibility: hidden; /* 공백을 숨깁니다. */
+		   }
 </style>  
 <div class="content">
 	<h4>숙소리스트 </h4>
@@ -63,11 +87,10 @@
 	    <div class="calendar" id="checkoutCalendar">
 	        <div class="calendar-header">
 				<div id="checkoutMonthYear"></div>
-	           
-	            <div id="checkoutMonthYear"></div>
 	            <button onclick="changeMonth(1, 'checkout')">&gt;</button>
 	        </div>
 	        <div class="days" id="checkoutDays"></div>
+			
 	    </div>
 	   
 	   
@@ -150,96 +173,152 @@
 		}	
 		
 		// 달력
-		const today = new Date();
-		        let checkinDate = new Date(today.getFullYear(), today.getMonth(), 1);
-		        let checkoutDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-		        
-		        let selectedCheckinDate = null;
-		        let selectedCheckoutDate = null;
+		let checkinDate = new Date();
+		let checkoutDate = new Date(checkinDate.getFullYear(), checkinDate.getMonth() + 1, 1);
 		
-		        function updateCalendar(calendarType) {
-		            let date, monthYearElement, daysElement;
-		        
-		            if (calendarType === 'checkin') {
-		                date = checkinDate;
-		                monthYearElement = document.getElementById('checkinMonthYear');
-		                daysElement = document.getElementById('checkinDays');
-		            } else {
-		                date = checkoutDate;
-		                monthYearElement = document.getElementById('checkoutMonthYear');
-		                daysElement = document.getElementById('checkoutDays');
-		            }
+		let selectedCheckinDate = null;
+		let selectedCheckoutDate = null;
 		
-		            const year = date.getFullYear();
-		            const month = date.getMonth();
-		            const firstDay = new Date(year, month, 1).getDay();
-		            const lastDate = new Date(year, month + 1, 0).getDate();
+		function updateCalendar(calendarType) {
+		    let date, monthYearElement, daysElement, currentDate;
 		
-		            monthYearElement.textContent = date.toLocaleDateString('ko-KR', { month: 'long', year: 'numeric' });
-		            daysElement.innerHTML = '';
+		    if (calendarType === 'checkin') {
+		        date = checkinDate;
+		        monthYearElement = document.getElementById('checkinMonthYear');
+		        daysElement = document.getElementById('checkinDays');
+		        currentDate = new Date(); // 현재 날짜
+		    } else {
+		        date = checkoutDate;
+		        monthYearElement = document.getElementById('checkoutMonthYear');
+		        daysElement = document.getElementById('checkoutDays');
+		        currentDate = new Date(); // 현재 날짜
+		    }
 		
-		            for (let i = 0; i < firstDay; i++) {
-		                const emptyDay = document.createElement('div');
-		                emptyDay.classList.add('day');
-		                daysElement.appendChild(emptyDay);
-		            }
+		    const year = date.getFullYear();
+		    const month = date.getMonth();
+		    const firstDay = new Date(year, month, 1).getDay();
+		    const lastDate = new Date(year, month + 1, 0).getDate();
 		
-		            for (let day = 1; day <= lastDate; day++) {
-		                const dayElement = document.createElement('div');
-		                dayElement.classList.add('date');
-		                dayElement.textContent = day;
-		                const currentDate = new Date(year, month, day);
+		    // 한글로 월과 연도 표시하기
+		    const monthYearText = date.toLocaleDateString('ko-KR', { month: 'long', year: 'numeric' });
+		    monthYearElement.textContent = monthYearText;
 		
+		    daysElement.innerHTML = '';
+		
+		    // 공백을 추가
+		    for (let i = 0; i < firstDay; i++) {
+		        const emptyDay = document.createElement('div');
+		        emptyDay.classList.add('day', 'empty');
+		        daysElement.appendChild(emptyDay);
+		    }
+		
+		    // 현재 달 날짜 표시
+		    for (let day = 1; day <= lastDate; day++) {
+		        const dayElement = document.createElement('div');
+		        dayElement.classList.add('day');
+		        dayElement.textContent = day;
+		
+		        // 비활성화된 날짜를 클릭할 수 없게 하기
+		        const dayDate = new Date(year, month, day);
+		        if (dayDate < currentDate) {
+		            dayElement.classList.add('disabled');
+		            dayElement.onclick = () => {}; // 클릭 이벤트를 비활성화
+		        } else {
+		            dayElement.onclick = () => {
 		                if (calendarType === 'checkin') {
-		                    if (currentDate < today) {
-		                        dayElement.classList.add('disabled');
+		                    if (selectedCheckinDate === day) {
+		                        selectedCheckinDate = null;
+		                        dayElement.classList.remove('selected');
 		                    } else {
-		                        dayElement.onclick = () => selectDate(currentDate, 'checkin');
-		                    }
-		
-		                    if (selectedCheckinDate && currentDate.toDateString() === selectedCheckinDate.toDateString()) {
+		                        selectedCheckinDate = day;
+		                        document.querySelectorAll('#checkinDays .day').forEach(el => el.classList.remove('selected', 'range'));
 		                        dayElement.classList.add('selected');
+		                        highlightRange();
 		                    }
 		                } else {
-		                    dayElement.onclick = () => selectDate(currentDate, 'checkout');
-		
-		                    if (selectedCheckoutDate && currentDate.toDateString() === selectedCheckoutDate.toDateString()) {
+		                    if (selectedCheckoutDate === day) {
+		                        selectedCheckoutDate = null;
+		                        dayElement.classList.remove('selected');
+		                    } else {
+		                        selectedCheckoutDate = day;
+		                        document.querySelectorAll('#checkoutDays .day').forEach(el => el.classList.remove('selected', 'range'));
 		                        dayElement.classList.add('selected');
+		                        highlightRange();
 		                    }
 		                }
+		            };
+		        }
 		
-		                daysElement.appendChild(dayElement);
+		        if (calendarType === 'checkin' && selectedCheckinDate === day) {
+		            dayElement.classList.add('selected');
+		        }
+		
+		        if (calendarType === 'checkout' && selectedCheckoutDate === day) {
+		            dayElement.classList.add('selected');
+		        }
+		
+		        daysElement.appendChild(dayElement);
+		    }
+		}
+		
+		function highlightRange() {
+		    const checkinDays = document.querySelectorAll('#checkinDays .day');
+		    const checkoutDays = document.querySelectorAll('#checkoutDays .day');
+		
+		    let checkinStartIndex = -1;
+		    let checkoutEndIndex = -1;
+		
+		    checkinDays.forEach((day, index) => {
+		        if (day.classList.contains('selected')) {
+		            checkinStartIndex = index;
+		        }
+		    });
+		
+		    checkoutDays.forEach((day, index) => {
+		        if (day.classList.contains('selected')) {
+		            checkoutEndIndex = index;
+		        }
+		    });
+		
+		    if (checkinStartIndex !== -1 && checkoutEndIndex !== -1) {
+		        // 범위 초기화
+		        document.querySelectorAll('#checkinDays .day').forEach(day => day.classList.remove('range'));
+		        document.querySelectorAll('#checkoutDays .day').forEach(day => day.classList.remove('range'));
+		
+		        for (let i = checkinStartIndex; i < checkinDays.length; i++) {
+		            const dayElement = checkinDays[i];
+		            if (i >= checkinStartIndex) {
+		                dayElement.classList.add('range');
+		            }
+		            if (i >= checkinStartIndex && i === checkoutEndIndex) {
+		                break;
 		            }
 		        }
 		
-		        function selectDate(date, calendarType) {
-		            if (calendarType === 'checkin') {
-		                selectedCheckinDate = selectedCheckinDate && selectedCheckinDate.toDateString() === date.toDateString() ? null : date;
-		            } else {
-		                selectedCheckoutDate = selectedCheckoutDate && selectedCheckoutDate.toDateString() === date.toDateString() ? null : date;
-		            }
-		
-		            updateCalendar('checkin');
-		            updateCalendar('checkout');
-		        }
-		
-		        function changeMonth(delta, calendarType) {
-		            if (calendarType === 'checkin') {
-		                checkinDate.setMonth(checkinDate.getMonth() + delta);
-		                updateCalendar('checkin');
-		            } else {
-		                const newMonth = checkoutDate.getMonth() + delta;
-		                if (newMonth >= today.getMonth() && checkoutDate.getFullYear() === today.getFullYear()) {
-		                    checkoutDate.setMonth(newMonth);
-		                    updateCalendar('checkout');
-		                }
+		        for (let i = 0; i <= checkoutEndIndex; i++) {
+		            const dayElement = checkoutDays[i];
+		            if (i <= checkoutEndIndex) {
+		                dayElement.classList.add('range');
 		            }
 		        }
+		    }
+		}
 		
-		        document.addEventListener('DOMContentLoaded', () => {
-		            updateCalendar('checkin');
-		            updateCalendar('checkout');
-		        });
+		function changeMonth(delta, calendarType) {
+		    if (calendarType === 'checkin') {
+		        checkinDate.setMonth(checkinDate.getMonth() + delta);
+		        updateCalendar('checkin');
+		    } else {
+		        checkoutDate.setMonth(checkoutDate.getMonth() + delta);
+		        updateCalendar('checkout');
+		    }
+		}
+		
+		document.addEventListener('DOMContentLoaded', () => {
+		    updateCalendar('checkin');
+		    updateCalendar('checkout');
+		});
+
 				
 				
 				
