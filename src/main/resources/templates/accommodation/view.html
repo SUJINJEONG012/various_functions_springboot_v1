@@ -85,34 +85,36 @@
 		   .day.in-range {
 		       background-color: #c8e6c9;
 		   }
+		    .selected-dates {
+            margin: 10px;
+        }
 </style>  
 <div class="content">
 	<h4>숙소리스트 </h4>
 		
-	<!-- 달력 -->
-	<div class="calendar" id="checkinCalendar">
-	    <div class="calendar-header">
-	        <div id="checkinMonthYear"></div>
-	        <button onclick="changeMonth(-1, 'checkin')">&lt;</button>
-	        <button onclick="changeMonth(1, 'checkin')">&gt;</button>
-	    </div>
-	    <div class="days" id="checkinDays"></div>
-	   
-	</div>
-	<div class="selected-dates">
-	        <div>체크인: <span id="selectedCheckinDate">없음</span></div>
-	        <div>체크아웃: <span id="selectedCheckoutDate">없음</span></div>
-	    </div>
-	<div class="calendar" id="checkoutCalendar">
-	    <div class="calendar-header">
-	        <div id="checkoutMonthYear"></div>
-	        <button onclick="changeMonth(-1, 'checkout')">&lt;</button>
-	        <button onclick="changeMonth(1, 'checkout')">&gt;</button>
-	    </div>
-	    <div class="days" id="checkoutDays"></div>
-	</div>
-	   
-	   
+	 <!-- 달력 -->
+    <div class="calendar" id="currentMonthCalendar">
+        <div class="calendar-header">
+            <button onclick="changeMonth(-1, 'current')">&lt;</button>
+            <div id="currentMonthYear"></div>
+            <button onclick="changeMonth(1, 'current')">&gt;</button>
+        </div>
+        <div class="days" id="currentMonthDays"></div>
+    </div>
+    <div class="calendar" id="nextMonthCalendar">
+        <div class="calendar-header">
+            <button onclick="changeMonth(-1, 'next')">&lt;</button>
+            <div id="nextMonthYear"></div>
+            <button onclick="changeMonth(1, 'next')">&gt;</button>
+        </div>
+        <div class="days" id="nextMonthDays"></div>
+    </div>
+    <div class="selected-dates">
+        <div>체크인: <span id="selectedCheckinDate">없음</span></div>
+        <div>체크아웃: <span id="selectedCheckoutDate">없음</span></div>
+    </div>
+    
+    
 		<!-- 숙소 이미지 출력 -->
 		<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
 		  
@@ -123,12 +125,12 @@
 		      </div>
 		      <div class="card-body">
 		        
-		        <h1 class="card-title">
+		        <h1 class="card-title"></h1>
 		        
 		        <div th:each="room : ${accommodation.rooms}">
 		        	<span th:utext="${room.RoomPeak} + '<span>원</span>' "></span>
 		        </div>
-				</h1>
+				
 				
 				<!-- 
 				이미지 주석처리하면에러안나오고 이미지부분에서 에러니옴-->
@@ -191,134 +193,124 @@
 			
 		}	
 		
-		// 달력
-		let checkinDate = new Date();
-		let checkoutDate = new Date(checkinDate.getFullYear(), checkinDate.getMonth() + 1, 1);
 		
-		let selectedCheckinDate = null;
-		let selectedCheckoutDate = null;
+		/* =========== 달력 =========== */
 		
-		function updateCalendar(calendarType) {
-		    let date, monthYearElement, daysElement, today = new Date();
-		
-		    if (calendarType === 'checkin') {
-		        date = checkinDate;
-		        monthYearElement = document.getElementById('checkinMonthYear');
-		        daysElement = document.getElementById('checkinDays');
-		    } else {
-		        date = checkoutDate;
-		        monthYearElement = document.getElementById('checkoutMonthYear');
-		        daysElement = document.getElementById('checkoutDays');
-		    }
-		
-		    const year = date.getFullYear();
-		    const month = date.getMonth();
-		    const firstDay = new Date(year, month, 1).getDay();
-		    const lastDate = new Date(year, month + 1, 0).getDate();
-		
-		    monthYearElement.textContent = date.toLocaleDateString('ko-KR', { month: 'long', year: 'numeric' });
-		
-		    daysElement.innerHTML = '';
-		
-		    for (let i = 0; i < firstDay; i++) {
-		        const emptyDay = document.createElement('div');
-		        emptyDay.classList.add('day');
-		        daysElement.appendChild(emptyDay);
-		    }
-		
-		    for (let day = 1; day <= lastDate; day++) {
-		        const dayElement = document.createElement('div');
-		        dayElement.classList.add('day');
-		        dayElement.textContent = day;
-		
-		        // Disable past days
-		        const currentDate = new Date(year, month, day);
-		        if (currentDate < today) {
-		            dayElement.classList.add('disabled');
-		        } else {
-		            dayElement.onclick = () => {
-		                const selectedDate = new Date(year, month, day);
-		
-		                if (calendarType === 'checkin') {
-		                    if (selectedCheckinDate && selectedCheckinDate.getTime() === selectedDate.getTime()) {
-		                        selectedCheckinDate = null;
-		                    } else {
-		                        selectedCheckinDate = selectedDate;
-		                        if (selectedCheckoutDate && selectedCheckinDate > selectedCheckoutDate) {
-		                            selectedCheckoutDate = null; // Clear checkout date if it's before checkin date
-		                        }
-		                    }
-		                    updateSelectedDates();
-		                } else {
-		                    if (selectedCheckoutDate && selectedCheckoutDate.getTime() === selectedDate.getTime()) {
-		                        selectedCheckoutDate = null;
-		                    } else {
-		                        selectedCheckoutDate = selectedDate;
-		                        if (selectedCheckinDate && selectedCheckoutDate < selectedCheckinDate) {
-		                            selectedCheckinDate = null; // Clear checkin date if it's after checkout date
-		                        }
-		                    }
-		                    updateSelectedDates();
-		                }
-		                updateCalendar('checkin');
-		                updateCalendar('checkout');
-		            };
-		        }
-		
-		        if (calendarType === 'checkin' && selectedCheckinDate && selectedCheckinDate.getDate() === day) {
-		            dayElement.classList.add('selected');
-		        }
-		
-		        if (calendarType === 'checkout' && selectedCheckoutDate && selectedCheckoutDate.getDate() === day) {
-		            dayElement.classList.add('selected');
-		        }
-		
-		        if (selectedCheckinDate && selectedCheckoutDate && selectedCheckinDate <= new Date(year, month, day) && selectedCheckoutDate >= new Date(year, month, day)) {
-		            dayElement.classList.add('in-range');
-		        }
-		
-		        // Disable days in checkout calendar that are before the checkin date
-		        if (calendarType === 'checkout' && selectedCheckinDate && new Date(year, month, day) < selectedCheckinDate) {
-		            dayElement.classList.add('disabled');
-		        }
-		
-		        daysElement.appendChild(dayElement);
-		    }
-		}
-		
-		function changeMonth(delta, calendarType) {
-		    if (calendarType === 'checkin') {
-		        checkinDate.setMonth(checkinDate.getMonth() + delta);
-		        updateCalendar('checkin');
-		        // Update checkout calendar if it was in the past
-		        if (selectedCheckinDate && selectedCheckinDate.getMonth() !== checkinDate.getMonth()) {
-		            selectedCheckinDate = null;
-		            updateSelectedDates();
-		        }
-		    } else {
-		        checkoutDate.setMonth(checkoutDate.getMonth() + delta);
-		        updateCalendar('checkout');
-		        // Update checkin calendar if it was in the past
-		        if (selectedCheckoutDate && selectedCheckoutDate.getMonth() !== checkoutDate.getMonth()) {
-		            selectedCheckoutDate = null;
-		            updateSelectedDates();
-		        }
-		    }
-		}
-		
-		function updateSelectedDates() {
-		    const checkinDateText = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '없음';
-		    const checkoutDateText = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '없음';
-		    document.getElementById('selectedCheckinDate').textContent = checkinDateText;
-		    document.getElementById('selectedCheckoutDate').textContent = checkoutDateText;
-		}
-		
-		document.addEventListener('DOMContentLoaded', () => {
-		    updateCalendar('checkin');
-		    updateCalendar('checkout');
-		});
+		//현재달과 다음 달을 위한 객
 
-				
+       	let currentDate = new Date();
+        let nextMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+
+        let selectedCheckinDate = null;
+        let selectedCheckoutDate = null;
+
+        
+        //달력 업데이트 함수
+        function updateCalendar(date, calendarType) {
+            let monthYearElement, daysElement, today = new Date();
+
+            if (calendarType === 'current') {
+                monthYearElement = document.getElementById('currentMonthYear');
+                daysElement = document.getElementById('currentMonthDays');
+            } else {
+                monthYearElement = document.getElementById('nextMonthYear');
+                daysElement = document.getElementById('nextMonthDays');
+            }
+
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+
+            
+            
+            monthYearElement.textContent = date.toLocaleDateString('ko-KR', { month: 'long', year: 'numeric' });
+
+            daysElement.innerHTML = '';
+
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('day');
+                daysElement.appendChild(emptyDay);
+            }
+
+            for (let day = 1; day <= lastDate; day++) {
+            	
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('day');
+                dayElement.textContent = day;
+
+                const currentDay = new Date(year, month, day);
+                if (currentDay < today) {
+                    dayElement.classList.add('disabled');
+                } else {
+                    dayElement.onclick = () => {
+                        const selectedDate = new Date(year, month, day);
+
+                        // Check-in 및 체크아웃 날짜 업데이트
+                        if (!selectedCheckinDate || (selectedCheckinDate && selectedCheckoutDate)) {
+                            selectedCheckinDate = selectedDate;
+                            selectedCheckoutDate = null;
+                        } else if (selectedCheckinDate && !selectedCheckoutDate) {
+                            if (selectedDate < selectedCheckinDate) {
+                                selectedCheckoutDate = selectedCheckinDate;
+                                selectedCheckinDate = selectedDate;
+                            } else {
+                                selectedCheckoutDate = selectedDate;
+                            }
+                        }
+
+                        updateSelectedDates();
+                        updateCalendar(currentDate, 'current');
+                        updateCalendar(nextMonthDate, 'next');
+                        
+                        
+                    };
+                }
+
+                if (selectedCheckinDate && selectedCheckinDate.getDate() === day && selectedCheckinDate.getMonth() === month && selectedCheckinDate.getFullYear() === year) {
+                    dayElement.classList.add('selected');
+                }
+
+                if (selectedCheckoutDate && selectedCheckoutDate.getDate() === day && selectedCheckoutDate.getMonth() === month && selectedCheckoutDate.getFullYear() === year) {
+                    dayElement.classList.add('selected');
+                }
+
+                if (selectedCheckinDate && selectedCheckoutDate && selectedCheckinDate <= currentDay && selectedCheckoutDate >= currentDay) {
+                    dayElement.classList.add('in-range');
+                }
+
+                daysElement.appendChild(dayElement);
+            }
+        }
+	
+        // 월 변경 함수
+        function changeMonth(delta, calendarType) {
+            if (calendarType === 'current') {
+                currentDate.setMonth(currentDate.getMonth() + delta);
+                updateCalendar(currentDate, 'current');
+            } else {
+                nextMonthDate.setMonth(nextMonthDate.getMonth() + delta);
+                updateCalendar(nextMonthDate, 'next');
+            }
+        }
+        
+     // 선택된 날짜 업데이트 함수
+        function updateSelectedDates() {
+            const checkinDateText = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '없음';
+            const checkoutDateText = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '없음';
+            document.getElementById('selectedCheckinDate').textContent = checkinDateText;
+            document.getElementById('selectedCheckoutDate').textContent = checkoutDateText;
+        }
+
+        // 페이지 로드 시 초기 달력 업데이트
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCalendar(currentDate, 'current');
+            updateCalendar(nextMonthDate, 'next');
+        });
+        
+        
+        
 		/*]]>*/
 	</script>
 	
