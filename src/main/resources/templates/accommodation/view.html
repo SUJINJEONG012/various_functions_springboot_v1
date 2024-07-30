@@ -93,17 +93,20 @@
 	<div class="calendar" id="checkinCalendar">
 	    <div class="calendar-header">
 	        <div id="checkinMonthYear"></div>
+	        <button onclick="changeMonth(-1, 'checkin')">&lt;</button>
+	        <button onclick="changeMonth(1, 'checkin')">&gt;</button>
 	    </div>
 	    <div class="days" id="checkinDays"></div>
-	    <div class="selected-dates">
+	   
+	</div>
+	<div class="selected-dates">
 	        <div>체크인: <span id="selectedCheckinDate">없음</span></div>
 	        <div>체크아웃: <span id="selectedCheckoutDate">없음</span></div>
 	    </div>
-	</div>
-	
 	<div class="calendar" id="checkoutCalendar">
 	    <div class="calendar-header">
 	        <div id="checkoutMonthYear"></div>
+	        <button onclick="changeMonth(-1, 'checkout')">&lt;</button>
 	        <button onclick="changeMonth(1, 'checkout')">&gt;</button>
 	    </div>
 	    <div class="days" id="checkoutDays"></div>
@@ -188,6 +191,7 @@
 			
 		}	
 		
+		// 달력
 		let checkinDate = new Date();
 		let checkoutDate = new Date(checkinDate.getFullYear(), checkinDate.getMonth() + 1, 1);
 		
@@ -273,6 +277,11 @@
 		            dayElement.classList.add('in-range');
 		        }
 		
+		        // Disable days in checkout calendar that are before the checkin date
+		        if (calendarType === 'checkout' && selectedCheckinDate && new Date(year, month, day) < selectedCheckinDate) {
+		            dayElement.classList.add('disabled');
+		        }
+		
 		        daysElement.appendChild(dayElement);
 		    }
 		}
@@ -281,9 +290,19 @@
 		    if (calendarType === 'checkin') {
 		        checkinDate.setMonth(checkinDate.getMonth() + delta);
 		        updateCalendar('checkin');
+		        // Update checkout calendar if it was in the past
+		        if (selectedCheckinDate && selectedCheckinDate.getMonth() !== checkinDate.getMonth()) {
+		            selectedCheckinDate = null;
+		            updateSelectedDates();
+		        }
 		    } else {
 		        checkoutDate.setMonth(checkoutDate.getMonth() + delta);
 		        updateCalendar('checkout');
+		        // Update checkin calendar if it was in the past
+		        if (selectedCheckoutDate && selectedCheckoutDate.getMonth() !== checkoutDate.getMonth()) {
+		            selectedCheckoutDate = null;
+		            updateSelectedDates();
+		        }
 		    }
 		}
 		
@@ -299,8 +318,6 @@
 		    updateCalendar('checkout');
 		});
 
-				
-				
 				
 		/*]]>*/
 	</script>
