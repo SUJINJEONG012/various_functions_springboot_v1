@@ -112,6 +112,9 @@
     <div class="selected-dates">
         <div>체크인: <span id="selectedCheckinDate">없음</span></div>
         <div>체크아웃: <span id="selectedCheckoutDate">없음</span></div>
+        <div>
+        기간: <span id="duration">없음</span>
+    </div>
     </div>
     
     
@@ -208,6 +211,7 @@
         //달력 업데이트 함수
         function updateCalendar(date, calendarType) {
             let monthYearElement, daysElement, today = new Date();
+            today.setHours(0,0,0,0);//시간을 00:00:00으로 설정
 
             if (calendarType === 'current') {
                 monthYearElement = document.getElementById('currentMonthYear');
@@ -241,6 +245,7 @@
                 dayElement.textContent = day;
 
                 const currentDay = new Date(year, month, day);
+                
                 if (currentDay < today) {
                     dayElement.classList.add('disabled');
                 } else {
@@ -301,10 +306,24 @@
             const checkoutDateText = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '없음';
             document.getElementById('selectedCheckinDate').textContent = checkinDateText;
             document.getElementById('selectedCheckoutDate').textContent = checkoutDateText;
-        }
+            
+            // 몇박 몇일인지 계산하여 출력
+           // 몇 박 몇 일인지 계산하여 출력
+    	const durationElement = document.getElementById('duration');
+    		if (selectedCheckinDate && selectedCheckoutDate) {
+        	const timeDifference = selectedCheckoutDate - selectedCheckinDate;
+        	const nights = timeDifference / (1000 * 60 * 60 * 24); // 1000ms * 60s * 60m * 24h = 1 day
+        	durationElement.textContent = `${nights}박 ${nights + 1}일`;
+   	 		} else {
+        durationElement.textContent = '없음';
+    }
+     }
+     
+    
 
         // 페이지 로드 시 초기 달력 업데이트
         document.addEventListener('DOMContentLoaded', () => {
+        	console.log(currentDate);  // 현재 날짜를 콘솔에 출력
             updateCalendar(currentDate, 'current');
             updateCalendar(nextMonthDate, 'next');
         });
