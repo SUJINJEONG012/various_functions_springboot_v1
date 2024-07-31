@@ -9,4 +9,6 @@ public interface ResMapper {
 
 	// 게시글 저장 
 	void resSave(ResDto resDto);
+	// 예약 id로 조회
+	ResDto findById(Long rid);
 }

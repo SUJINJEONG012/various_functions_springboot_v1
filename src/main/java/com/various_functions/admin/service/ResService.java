@@ -6,12 +6,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.various_functions.admin.dto.ResDto;
+import com.various_functions.admin.dto.RoomInfoDto;
 import com.various_functions.admin.mapper.ResMapper;
 import com.various_functions.admin.mapper.RoomInfoMapper;
-import com.various_functions.admin.vo.ResVo;
 import com.various_functions.admin.vo.RoomInfoVo;
 
 import lombok.RequiredArgsConstructor;
@@ -25,40 +24,83 @@ public class ResService {
 	private final ResMapper resMapper;
 	private final RoomInfoMapper roomInfoMapper;
 	
-	 @Transactional
-	public void saveReservation(ResDto resDto) {
-		int totalAmount = calculatePrice(resDto.getCheckin(), resDto.getCheckout(), resDto.getRoomId());
+	public ResDto makeReservation(ResDto resDto) {
+		//총 금액 계산
+		RoomInfoVo room = roomInfoMapper.findRoomById(resDto.getRoomId());
+		long daysBetween = ChronoUnit.DAYS.between(
+				resDto.getCheckin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), 
+				resDto.getCheckout().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+		);
+	
+		int totalAmount = (int) (room.getRoomPeak() * daysBetween); //성수기 요금만 계산
+		resDto.setTotalAmount(totalAmount);
 		
-		ResVo res = new ResVo();
-		res.setRecheckin(resDto.getCheckin());
-		res.setRecheckout(resDto.getCheckout());
-		res.setRiid(resDto.getRoomId());
-		res.setTotalAmount(totalAmount);
-		
-		// 추가적인 예약 정보를 설정
+		// 예약 저장 
 		resMapper.resSave(resDto);
+		
+		// 삽입된 얘약의 ID를 가져오기 위해 조회
+		ResDto savedReservation = resMapper.findById(resDto.getRid());
+		return savedReservation;
 	}
 	
-	
-	private int calculatePrice(Date checkin, Date checkout, Long roomId) {
-		// 객실 정보를 가져오기
-		RoomInfoVo roomInfoVo = roomInfoMapper.findRoomById(roomId);
-		if(roomInfoVo == null) {
-			throw new RuntimeException("Room not found");
+	public ResDto getReservationById(Long rid) {
+		
+		ResDto reservation = resMapper.findById(rid);
+		
+		if(reservation != null) {
+			
+			RoomInfoVo room = roomInfoMapper.findRoomById(reservation.getRid());
+			long daysBetween = calculateDaysBetween(reservation.getCheckin(),reservation.getCheckout());
+			int totalAmount = calculateTotalAmount(room, reservation.getCheckin(), reservation.getCheckout());
 		}
-		
-		// 체크인 및 체크아웃 날짜를 설정
-		LocalDate checkinDate = LocalDate.ofInstant(checkin.toInstant(), ZoneId.systemDefault());
-		LocalDate checkoutDate = LocalDate.ofInstant(checkout.toInstant(), ZoneId.systemDefault());
-		
-		// 날짜 차이 계산
-		long numberOfNights = ChronoUnit.DAYS.between(checkinDate, checkoutDate);
-		
-		// 객실 요금 계산 (여기서는 성수기 요금만 예로 사용)
-		int roomRate = roomInfoVo.getRoomPeak();
-		
-		return (int) (numberOfNights * roomRate);
+		return resMapper.findById(rid);
 	}
+	
+	private long calculateDaysBetween(Date checkin, Date checkout) {
+        LocalDate checkinDate = checkin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate checkoutDate = checkout.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return ChronoUnit.DAYS.between(checkinDate, checkoutDate);
+    }
+
+	
+	private int calculateTotalAmount(RoomInfoVo room, Date checkin, Date checkout) {
+        
+		/*
+		 * 
+		 * 	성수기: 7월 1일 ~ 8월 31일
+			준성수기: 6월 1일 ~ 6월 30일 및 9월 1일 ~ 9월 30일
+			비수기: 나머지 기간
+		 * 
+		 * */
+		LocalDate checkinDate = checkin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate checkoutDate = checkout.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        int totalAmount = 0;
+        LocalDate currentDate = checkinDate;
+
+        while (!currentDate.isAfter(checkoutDate.minusDays(1))) {
+            if (isPeakSeason(currentDate)) {
+                totalAmount += room.getRoomPeak();
+            } else if (isSemiPeakSeason(currentDate)) {
+                totalAmount += room.getRoomSemipeak();
+            } else {
+                totalAmount += room.getRoomOff();
+            }
+            currentDate = currentDate.plusDays(1);
+        }
+        return totalAmount;
+    }
+	
+	private boolean isPeakSeason(LocalDate date) {
+        return (date.isAfter(LocalDate.of(date.getYear(), 6, 30)) && date.isBefore(LocalDate.of(date.getYear(), 9, 1)));
+    }
+
+    private boolean isSemiPeakSeason(LocalDate date) {
+        return (date.isAfter(LocalDate.of(date.getYear(), 5, 31)) && date.isBefore(LocalDate.of(date.getYear(), 7, 1)))
+                || (date.isAfter(LocalDate.of(date.getYear(), 8, 31)) && date.isBefore(LocalDate.of(date.getYear(), 10, 1)));
+    }
+	
+	
 	
 }
 
