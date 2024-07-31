@@ -20,7 +20,9 @@ public class ResVo {
 	private String rresname;//예약자이름
 	private String rresphone;//예약자 전화번호
 	private String rresemail;//예약자 이메일
-	private Long member_id;//회원아이디
-	private Long riid;//객실아이디 
+	private Long memberId;//회원아이디
+	private Long roomId;//객실아이디
+	
+	private int totalAmount; // 비즈니스 로직을 포함한 메소드
 	
 }

@@ -5,8 +5,7 @@
 <mapper namespace="com.various_functions.admin.mapper.RoomInfoMapper">
 
 	<!-- 객실 정보 삽입 -->
-    <insert id="insertRoomInfo" 
-    parameterType="com.various_functions.admin.dto.RoomInfoDto">
+    <insert id="insertRoomInfo" parameterType="com.various_functions.admin.dto.RoomInfoDto">
        
         <!-- 객실 정보를 삽입하고 생성된 키를 가져옴 -->      
         INSERT INTO room_info (
@@ -38,6 +37,11 @@
     select * from room_info
     WHERE accommodation_id = #{accommodationId}
     </select>
+    
+    <!-- 단일 객실 조회 -->
+    <select id="findRoomById" resultType="com.various_functions.admin.vo.RoomInfoVo">
+		select * from room_info where room_id = #{roomId}
+	</select>
     
     
     <update id="update" parameterType="com.various_functions.admin.dto.RoomInfoDto">
