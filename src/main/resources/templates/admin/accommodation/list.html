@@ -73,6 +73,7 @@
                         <img th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" alt="File Image" style="width:100%;">
                     </li>
                 </ul> --> 
+				
                 <!-- 첫 번째 사진만 출력 -->
 						<div
 							th:each="file, iterStat : ${filesMap[accommodation.accommodationId]}">

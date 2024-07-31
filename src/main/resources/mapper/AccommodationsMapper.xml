@@ -72,7 +72,7 @@ set
     accommodation_totalroom = #{accommodationTotalroom}, 
     accommodation_grade = #{accommodationGrade}, 
     accommodation_detail = #{accommodationDetail}
-
+    where accommodation_id = #{accommodationId}
 </update>
 
 
