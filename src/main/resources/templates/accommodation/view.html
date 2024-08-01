@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="/layout/basic">
@@ -203,134 +203,170 @@
 		
 		//현재달과 다음 달을 위한 객
 
-       	let currentDate = new Date();
-        let nextMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+       let currentDate = new Date();
+    let nextMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
 
-        let selectedCheckinDate = null;
-        let selectedCheckoutDate = null;
+    let selectedCheckinDate = null;
+    let selectedCheckoutDate = null;
 
-        
-        //달력 업데이트 함수
-        function updateCalendar(date, calendarType) {
-            let monthYearElement, daysElement, today = new Date();
-            today.setHours(0,0,0,0);//시간을 00:00:00으로 설정
+    let roomRates = {}; // 서버에서 가져올 요금 정보
 
-            if (calendarType === 'current') {
-                monthYearElement = document.getElementById('currentMonthYear');
-                daysElement = document.getElementById('currentMonthDays');
-            } else {
-                monthYearElement = document.getElementById('nextMonthYear');
-                daysElement = document.getElementById('nextMonthDays');
-            }
-
-            const year = date.getFullYear();
-            const month = date.getMonth();
-            const firstDay = new Date(year, month, 1).getDay();
-            const lastDate = new Date(year, month + 1, 0).getDate();
-
-            
-            
-            monthYearElement.textContent = date.toLocaleDateString('ko-KR', { month: 'long', year: 'numeric' });
-
-            daysElement.innerHTML = '';
-
-            for (let i = 0; i < firstDay; i++) {
-                const emptyDay = document.createElement('div');
-                emptyDay.classList.add('day');
-                daysElement.appendChild(emptyDay);
-            }
-
-            for (let day = 1; day <= lastDate; day++) {
-            	
-                const dayElement = document.createElement('div');
-                dayElement.classList.add('day');
-                dayElement.textContent = day;
-
-                const currentDay = new Date(year, month, day);
-                
-                if (currentDay < today) {
-                    dayElement.classList.add('disabled');
-                } else {
-                    dayElement.onclick = () => {
-                        const selectedDate = new Date(year, month, day);
-
-                        // Check-in 및 체크아웃 날짜 업데이트
-                        if (!selectedCheckinDate || (selectedCheckinDate && selectedCheckoutDate)) {
-                            selectedCheckinDate = selectedDate;
-                            selectedCheckoutDate = null;
-                        } else if (selectedCheckinDate && !selectedCheckoutDate) {
-                            if (selectedDate < selectedCheckinDate) {
-                                selectedCheckoutDate = selectedCheckinDate;
-                                selectedCheckinDate = selectedDate;
-                            } else {
-                                selectedCheckoutDate = selectedDate;
-                            }
-                        }
-
-                        updateSelectedDates();
-                        updateCalendar(currentDate, 'current');
-                        updateCalendar(nextMonthDate, 'next');
-                        
-                        
-                    };
-                }
-
-                if (selectedCheckinDate && selectedCheckinDate.getDate() === day && selectedCheckinDate.getMonth() === month && selectedCheckinDate.getFullYear() === year) {
-                    dayElement.classList.add('selected');
-                }
-
-                if (selectedCheckoutDate && selectedCheckoutDate.getDate() === day && selectedCheckoutDate.getMonth() === month && selectedCheckoutDate.getFullYear() === year) {
-                    dayElement.classList.add('selected');
-                }
-
-                if (selectedCheckinDate && selectedCheckoutDate && selectedCheckinDate <= currentDay && selectedCheckoutDate >= currentDay) {
-                    dayElement.classList.add('in-range');
-                }
-
-                daysElement.appendChild(dayElement);
-            }
+    // 서버에서 요금 정보 가져오기
+    async function fetchRoomRates() {
+        try {
+            const response = await fetch('/api/getRoomRates'); // 실제 API URL로 변경해야 합니다
+            roomRates = await response.json();
+            console.log('Room rates:', roomRates);
+        } catch (error) {
+            console.error('Error fetching room rates:', error);
         }
-	
-        // 월 변경 함수
-        function changeMonth(delta, calendarType) {
-            if (calendarType === 'current') {
-                currentDate.setMonth(currentDate.getMonth() + delta);
-                updateCalendar(currentDate, 'current');
-            } else {
-                nextMonthDate.setMonth(nextMonthDate.getMonth() + delta);
-                updateCalendar(nextMonthDate, 'next');
-            }
-        }
-        
-     // 선택된 날짜 업데이트 함수
-        function updateSelectedDates() {
-            const checkinDateText = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '없음';
-            const checkoutDateText = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '없음';
-            document.getElementById('selectedCheckinDate').textContent = checkinDateText;
-            document.getElementById('selectedCheckoutDate').textContent = checkoutDateText;
-            
-            // 몇박 몇일인지 계산하여 출력
-           // 몇 박 몇 일인지 계산하여 출력
-    	const durationElement = document.getElementById('duration');
-    		if (selectedCheckinDate && selectedCheckoutDate) {
-        	const timeDifference = selectedCheckoutDate - selectedCheckinDate;
-        	const nights = timeDifference / (1000 * 60 * 60 * 24); // 1000ms * 60s * 60m * 24h = 1 day
-        	durationElement.textContent = `${nights}박 ${nights + 1}일`;
-   	 		} else {
-        durationElement.textContent = '없음';
     }
-     }
-     
-    
 
-        // 페이지 로드 시 초기 달력 업데이트
-        document.addEventListener('DOMContentLoaded', () => {
-        	console.log(currentDate);  // 현재 날짜를 콘솔에 출력
+    function updateCalendar(date, calendarType) {
+        let monthYearElement, daysElement, today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (calendarType === 'current') {
+            monthYearElement = document.getElementById('currentMonthYear');
+            daysElement = document.getElementById('currentMonthDays');
+        } else {
+            monthYearElement = document.getElementById('nextMonthYear');
+            daysElement = document.getElementById('nextMonthDays');
+        }
+
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const lastDate = new Date(year, month + 1, 0).getDate();
+
+        monthYearElement.textContent = date.toLocaleDateString('ko-KR', { month: 'long', year: 'numeric' });
+        daysElement.innerHTML = '';
+
+        for (let i = 0; i < firstDay; i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.classList.add('day');
+            daysElement.appendChild(emptyDay);
+        }
+
+        for (let day = 1; day <= lastDate; day++) {
+            const dayElement = document.createElement('div');
+            dayElement.classList.add('day');
+            dayElement.textContent = day;
+
+            const currentDay = new Date(year, month, day);
+
+            if (currentDay < today) {
+                dayElement.classList.add('disabled');
+            } else {
+                dayElement.onclick = () => {
+                    const selectedDate = new Date(year, month, day);
+
+                    if (!selectedCheckinDate || (selectedCheckinDate && selectedCheckoutDate)) {
+                        selectedCheckinDate = selectedDate;
+                        selectedCheckoutDate = null;
+                    } else if (selectedCheckinDate && !selectedCheckoutDate) {
+                        if (selectedDate < selectedCheckinDate) {
+                            selectedCheckoutDate = selectedCheckinDate;
+                            selectedCheckinDate = selectedDate;
+                        } else {
+                            selectedCheckoutDate = selectedDate;
+                        }
+                    }
+
+                    updateSelectedDates();
+                    updateCalendar(currentDate, 'current');
+                    updateCalendar(nextMonthDate, 'next');
+                };
+            }
+
+            if (selectedCheckinDate && selectedCheckinDate.getDate() === day && selectedCheckinDate.getMonth() === month && selectedCheckinDate.getFullYear() === year) {
+                dayElement.classList.add('selected');
+            }
+
+            if (selectedCheckoutDate && selectedCheckoutDate.getDate() === day && selectedCheckoutDate.getMonth() === month && selectedCheckoutDate.getFullYear() === year) {
+                dayElement.classList.add('selected');
+            }
+
+            if (selectedCheckinDate && selectedCheckoutDate && selectedCheckinDate <= currentDay && selectedCheckoutDate >= currentDay) {
+                dayElement.classList.add('in-range');
+            }
+
+            daysElement.appendChild(dayElement);
+        }
+    }
+
+    function changeMonth(delta, calendarType) {
+        if (calendarType === 'current') {
+            currentDate.setMonth(currentDate.getMonth() + delta);
             updateCalendar(currentDate, 'current');
+        } else {
+            nextMonthDate.setMonth(nextMonthDate.getMonth() + delta);
             updateCalendar(nextMonthDate, 'next');
-        });
-        
-        
+        }
+    }
+
+    function updateSelectedDates() {
+        const checkinDateText = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '없음';
+        const checkoutDateText = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '없음';
+        document.getElementById('selectedCheckinDate').textContent = checkinDateText;
+        document.getElementById('selectedCheckoutDate').textContent = checkoutDateText;
+
+        const durationElement = document.getElementById('duration');
+        const totalAmountElement = document.getElementById('totalAmount');
+
+        if (selectedCheckinDate && selectedCheckoutDate) {
+            const timeDifference = selectedCheckoutDate - selectedCheckinDate;
+            const nights = timeDifference / (1000 * 60 * 60 * 24);
+            durationElement.textContent = `${nights}박 ${nights + 1}일`;
+
+            const totalAmount = calculateTotalAmount(selectedCheckinDate, selectedCheckoutDate);
+            totalAmountElement.textContent = `${totalAmount.toLocaleString('ko-KR')}원`;
+        } else {
+            durationElement.textContent = '없음';
+            totalAmountElement.textContent = '없음';
+        }
+    }
+
+    function calculateTotalAmount(checkin, checkout) {
+        let total = 0;
+        let current = new Date(checkin);
+
+        while (current < checkout) {
+            total += getRateForDate(current);
+            current.setDate(current.getDate() + 1);
+        }
+
+        return total;
+    }
+
+    function getRateForDate(date) {
+        const monthDay = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+
+        for (const season in roomRates) {
+            for (const period of roomRates[season].periods) {
+                if (isDateInPeriod(monthDay, period.start, period.end)) {
+                    return roomRates[season].rate;
+                }
+            }
+        }
+
+        return roomRates.offPeak.rate; // 기본적으로 비수기 요금을 반환
+    }
+
+    function isDateInPeriod(date, start, end) {
+        if (start <= end) {
+            return date >= start && date <= end;
+        } else {
+            // 연말을 넘기는 기간 처리 (예: 12-25 ~ 01-05)
+            return date >= start || date <= end;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        await fetchRoomRates(); // 요금 정보를 먼저 가져옵니다
+        updateCalendar(currentDate, 'current');
+        updateCalendar(nextMonthDate, 'next');
+    });
         
 		/*]]>*/
 	</script>
