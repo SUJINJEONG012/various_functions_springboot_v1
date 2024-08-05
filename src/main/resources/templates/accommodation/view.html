@@ -20,33 +20,19 @@
 
   -->
 <style>
-	.calendar {
-	           display: inline-block;
-	           margin: 10px;
-	       }
-	       .calendar-header {
-	           display: flex;
-	           justify-content: space-between;
-	           align-items: center;
-	       }
-	       .days {
-	           display: grid;
-	           grid-template-columns: repeat(7, 1fr);
-	           gap: 5px;
-	       }
+			.calendar {display: inline-block; margin: 10px;}
+			.calendar-header {display: flex; justify-content: space-between; align-items: center;}
+	       .days {display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
 		   /* 날짜 스타일 */
-		   .day {
-		       display: inline-block;
+		   .day {display: inline-block;
 		       width: 30px;
 		       height: 30px;
 		       line-height: 30px;
 		       text-align: center;
-		       cursor: pointer;
-		   }
+		       cursor: pointer; }
 	       .day, .date {
 	           text-align: center;
-	           padding: 5px;
-	       }
+	           padding: 5px;}
 	       .date {
 	           cursor: pointer;
 	       }
@@ -69,25 +55,19 @@
 		   }
 		   
 		   /* 공백 스타일 */
-		   .day.empty {
-		       visibility: hidden; /* 공백을 숨깁니다. */
-		   }
+		   .day.empty { visibility: hidden; /* 공백을 숨깁니다. */ }
 		   .selected-dates {
 		       margin-top: 10px;
-		       font-size: 16px;
-		   }
+		       font-size: 16px; }
 		   
 		   .day.selected {
 		       background-color: #4CAF50;
-		       color: white;
-		   }
+		       color: white;}
 		   
 		   .day.in-range {
 		       background-color: #c8e6c9;
 		   }
-		    .selected-dates {
-            margin: 10px;
-        }
+		    .selected-dates { margin: 10px;}
 </style>  
 <div class="content">
 	<h4>숙소리스트 </h4>
