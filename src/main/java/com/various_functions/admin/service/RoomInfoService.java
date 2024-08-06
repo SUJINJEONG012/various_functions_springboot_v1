@@ -44,6 +44,10 @@ public class RoomInfoService {
 		//업데이트한 숙소 ID 반환
 		return roomInfoDto.getAccommodationId();
 	}
-
+	
+	// 숙소금액 계산하는 메서드
+	public int getRoomPeakPrice(Long roomId) {
+		return roomInfoMapper.findRoomPeakPriceById(roomId);
+	}
 
 }

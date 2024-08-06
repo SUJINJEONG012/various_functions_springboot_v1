@@ -20,4 +20,7 @@ public interface RoomInfoMapper {
 	
 	// 객실정보(단일)를 조회하는 메서드
 	RoomInfoVo findRoomById(Long roomId);
+	
+	// 객실요금 계산하기 위한
+	int findRoomPeakPriceById(Long roomId);
 }
