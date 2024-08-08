@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	let selectedCheckoutDate = null;
 	
 	function updateCalendar(date, calendarType){
+		
 		let monthYearElement, daysElement, today = new Date();
 		today.setHours(0,0,0,0);
 		
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		const year = date.getFullYear();
 		const month = date.getMonth();
 		const firstDay = new Date(year, month, 1).getDay();
-		const lastDate = new Date(year, month + 1,0).getDate();
+		const lastDate = new Date(year, month + 1, 0).getDate();
 		
 		monthYearElement.textContent = date.toLocaleDateString('ko-KR', {month:'long', year: 'numeric'});
 		daysElement.innerHTML = '';
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function(){
 				dayElement.onclick = function(){
 					// 클릭한 날짜를 Date객체로 생성
 					const selectedDate = new Date(year, month, day);
+					
 					//체크인 날짜가 없거나, 체크인 날짜와 체크아웃 날짜가 이미 설정된 경우
 					if(!selectedCheckinDate || (selectedCheckinDate && selectedCheckoutDate)){
 						//새로 선택한 날짜를 체크인날짜로 설정
@@ -56,19 +58,87 @@ document.addEventListener('DOMContentLoaded', function(){
 						selectedCheckoutDate = null;
 					
 					// 체크인 날짜는 있지만 체크아웃 날짜가 없는 경우
-					}else if(selectedCheckinDate && selectedCheckoutDate){
+					}else if(selectedCheckinDate && !selectedCheckoutDate){
 						// 선택한 날짜가 현재 체크인 날짜보다 이전이면, 현재 날짜로 체크아웃 날짜로 설정하고, 새로 선택한 날짜를 체크인 날짜로 설정
 						if(selectedDate  < selectedCheckinDate){
-						//선택한 날짜를 체크아웃으로 설정
+							selectedCheckoutDate = selectedCheckinDate;
+							selectedCheckinDate = selectedDate;							
 						}else{
-							
+						//선택한 날짜를 체크아웃으로 설정
+						selectedCheckoutDate = selectedDate	
 						}
 					}
-				}
+					
+					updateSelectedDates();
+					updateCalendar(currentDate,'current');
+					updateCalendar(nextMonthDate, 'next');
+				};
 			}
+			
+				if (selectedCheckinDate && isSameDay(selectedCheckinDate, currentDay)) {
+	                dayElement.classList.add('selected');
+	            }
+
+	            if (selectedCheckoutDate && isSameDay(selectedCheckoutDate, currentDay)) {
+	                dayElement.classList.add('selected');
+	            }
+
+	            if (selectedCheckinDate && selectedCheckoutDate && currentDay > selectedCheckinDate && currentDay < selectedCheckoutDate) {
+	                dayElement.classList.add('range');
+	            }
+			daysElement.appendChild(dayElement);
 		}
-		
-		
 	}
 	
-})
+	function isSameDay(date1, date2){
+		return date1.getFullYear() === date2.getFullYear() && 
+			date1.getMonth() === date2.getMonth() && 
+			date1.getDate() === date2.getDate();
+	}
+	
+	function updateSelectedDates(){
+		const checkinElement = document.getElementById('selectedCheckinDate');
+		const checkoutElement = document.getElementById('selectedCheckoutDate');
+		const durationElement = document.getElementById('duration');
+		const totalAmountElement = document.getElementById('totalAmount');
+		
+		checkinElement.textContent = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '없음' ;
+		checkoutElement.textContent = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '없음';
+		
+		if(selectedCheckinDate && selectedCheckoutDate){
+			const duration = Math.ceil((selectedCheckinDate - selectedCheckinDate)/ (1000* 60*60*24));
+			durationElement.textContent = duration + '박';
+			const totalAmount = calculateTotalAmount(selectedCheckinDate, selectedCheckoutDate);
+			totalAmount.textContent= totalAmount + '원';
+		}else{
+			durationElement.textContent = '없음';
+			totalAmountElement.textContent = '없음';
+		}
+	}
+	
+	function calculateTotalAmount(checkinDate, checkoutDate){
+		let totalAmount = 0;
+		let currentDate = new Date(checkinDate);
+		while (currentDate <= checkoutDate){
+			//여기에서 룸 요금 
+			const rate = 10000;
+			totalAmount += rate;
+			currentDate.setDate(currentDate.getDate()+1);
+		}
+		return totalAmount;
+	}
+	// 현재달력, 다음달력 offset 몇개월을이동했는지 기억하기 위해 선언,
+	function changeMonth(offset, calendarType){
+		if(calendarType === 'current'){
+			currentDate.setMonth(currentDate.getMonth()+ offset);
+			updateCalendar(currentDate, 'current');
+		}else{
+			nextMonthDate.setMonth(nextMonthDate.getMonth() + offset);
+			updateCalendar(nextMonthDate, 'next');
+		}
+	}
+	
+	updateCalendar(currentDate, 'current');
+	updateCalendar(nextMonthDate, 'next');
+	
+});
