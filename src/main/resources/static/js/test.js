@@ -106,8 +106,16 @@ document.addEventListener('DOMContentLoaded', function(){
 		checkoutElement.textContent = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '없음';
 		
 		if(selectedCheckinDate && selectedCheckoutDate){
-			const duration = Math.ceil((selectedCheckinDate - selectedCheckinDate)/ (1000* 60*60*24));
-			durationElement.textContent = duration + '박';
+			// 날짜간의 차이계산
+			const differenceInTime = selectedCheckoutDate.getTime() - selectedCheckinDate.getTime();
+			const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+			
+			// 차이를 '박' 과 '일' 로 분리해서 계산
+			const nights = Math.floor(differenceInDays);//숙박하는 '박'수
+			const days = nights + 1; // 전체'일'수
+			
+			durationElement.textContent = `${nights}박 ${days}일`;
+			
 			const totalAmount = calculateTotalAmount(selectedCheckinDate, selectedCheckoutDate);
 			totalAmount.textContent= totalAmount + '원';
 		}else{
@@ -115,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function(){
 			totalAmountElement.textContent = '없음';
 		}
 	}
+	
 	
 	function calculateTotalAmount(checkinDate, checkoutDate){
 		let totalAmount = 0;
