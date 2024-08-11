@@ -137,6 +137,8 @@ public class AccommodationController {
 		return viewName;
 	}
 	
+
+	
 	//@PostMapping("/api/calculateTotalAmount")를 포함한 컨트롤러를 추가하고, userAccommodationView 메소드와 통합하는 방법
 	
 	
