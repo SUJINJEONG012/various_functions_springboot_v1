@@ -164,6 +164,13 @@ section:first-child, #tabmenu + section {margin-top:0;}
 .thumb_wrap p span {position:absolute; top:0; left:0; right:0; bottom:0; -webkit-transform:translate(50%, 50%); -ms-transform:translate(50%, 50%); transform:translate(50%, 50%);}
 .thumb_wrap img {position:absolute; top:0; left:0; width:auto; max-width:none; height:100%; -webkit-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); transform:translate(-50%, -50%);}
 
+
+/*================== 숙소 리스트 ============================*/
+
+.accommodation-list{display:flex; }
+.accommodation-item{width:100%; }
+
+
 /* search ------------------------------- */
 h4 + .search_box {margin-top:10px;}
 .search_box:first-child {margin-top:0;}
@@ -208,6 +215,8 @@ h4 + .search_box {margin-top:10px;}
 .cm_write .cm_input > span i {position:absolute; top:11px; left:10px; font-size:13px; color:#999;}
 .cm_input textarea {width:100%; height:90px; background:#f9f9f9; border:0; border-bottom:1px solid #ccc;}
 .cm_input .btns {width:76px; height:40px; line-height:38px; background:#139dc8; border-radius:0; color:#fff; padding:0; margin:0; font-size:15px; position:relative; right:-1px;}
+
+
 /* 댓글리스트 */
 .cm_list {border-bottom:1px solid #ddd; font-size:14px;}
 .cm_list > div {overflow:hidden; border-top:1px solid #e0e0e0; padding:15px 0; position:relative;}
@@ -323,6 +332,8 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 /* 달력레이어 */
 .ui-widget-content {z-index:10 !important;}
 
+
+
 /* popup ------------------------------- */
 #popup_wrap h2 {background:#30a0c3; padding:10px 15px; color:#fff; font-size:16px; font-weight:bold;}
 #popup_wrap .btn_close {position:absolute; top:4px; right:5px;}
@@ -330,6 +341,7 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 #popup_wrap .pop_con {padding:20px;}
 #popup_wrap .pop_con h3 {font-size:34px; margin-top:30px;}
 #popup_wrap .pop_con h3:first-child {margin-top:0px;}
+
 
 /* 레이어팝업 */
 .btn_close {display:inline-block; background-color:transparent; border:0; padding:5px;}

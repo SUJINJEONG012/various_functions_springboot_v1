@@ -13,22 +13,22 @@
 	<div class="">
 		<h4>숙소리스트</h4>
 		<!-- 숙소 이미지 출력 -->
-		<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+		<div class="accommodation-list">
 
-			<div class="col" th:each="accommodation : ${accommodations}">
-				<div class="card mb-4 rounded-3 shadow-sm">
+			<div class="accommodation-item" th:each="accommodation : ${accommodations}">
+			
 					<div class="card-header py-3">
 						<h4 th:text="${accommodation.accommodationName}"></h4>
 					</div>
 
-					<div class="card-body">
+					<div class="">
 
 						<h2 class="card-title" th:each="room : ${accommodation.rooms}"
 							th:text="${#numbers.formatInteger(room.roomPeak,0,'COMMA') +'원'}">
 						</h2>
 
 						<small class="" th:each="room : ${accommodation.rooms}"
-							th:text="${room.roomRoomtype} + ' 타입글 '">/mo</small>
+							th:text="${room.roomRoomtype}"></small>
 
 						<!-- 첫 번째 사진만 출력 -->
 						<div
@@ -52,8 +52,10 @@
 						<a th:href="@{/accommodation/view(accommodationId=${accommodation.accommodationId})}" class="w-100 btn btn-primary">
 						자세히 보러가기</a>
 					</div>
-				</div>
+				
 			</div>
+			
+			
 		</div>
 	</div>
 

@@ -32,27 +32,23 @@
 
 				<div class="nav_account">
 					<div class="nav_account_container">
-						<div class="nav_acco">
-							<!-- 
-								사용 예제 1: <a th:href="@{${pageContext.request.contextPath}/path}">Link</a>
-								사용 예제 2: @{/} 
-								-->
-							<a href="/admin/dashboard">관리자페이지</a>
-						</div>
+						
 
-						<div class="nav_mypage">
-							<div th:if="${session.loginMember == null}">
+						<ul class="nav_mypage">
+						 	<li class="nav_admin"><a href="/admin/dashboard">관리자페이지</a></li>
+							<li th:if="${session.loginMember == null}">
 								<a th:href="@{/member/login}">로그인</a>
-							</div>
+							</li>
 							<!--<div th:unless="${session.loginMember == null}">
 									<a th:href="@{/member/mypage}">마이페이지</a>
 								</div>-->
 
-							<div th:if="${session.loginMember != null}">
+							<li th:if="${session.loginMember != null}">
 								<a th:href="@{/member/mypage}">마이페이지</a> 
 								<a id="logoutBtn">로그아웃</a>
-							</div>
-						</div>
+							</li>
+						</ul>
+						
 					</div>
 				</div>
 			</div>
