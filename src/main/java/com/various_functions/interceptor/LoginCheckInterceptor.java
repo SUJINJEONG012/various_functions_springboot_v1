@@ -35,7 +35,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             }
         }
         
-     // 3. 추가 조건체크 (예: 특정 역할이나 권한이 있는지 확인)
+        // 3. 추가 조건체크 (예: 특정 역할이나 권한이 있는지 확인)
         if (request.getRequestURI().startsWith("/admin")) {
             // 로그인 여부 체크
             if (member == null || member.getDeleteYn()) {

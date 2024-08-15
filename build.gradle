@@ -30,6 +30,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	// Spring Web MVC 및 multipartResolver 관련 의존성
 	implementation 'commons-fileupload:commons-fileupload:1.4'
+ 	implementation 'com.google.code.gson:gson:2.10.1'
  	
  	//카카오로그인
  	//implementation 'org.springframework.security:spring-security-oauth2-client'
