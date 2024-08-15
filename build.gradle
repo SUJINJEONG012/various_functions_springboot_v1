@@ -30,6 +30,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	// Spring Web MVC 및 multipartResolver 관련 의존성
 	implementation 'commons-fileupload:commons-fileupload:1.4'
+ 	
+ 	//카카오로그인
+ 	//implementation 'org.springframework.security:spring-security-oauth2-client'
+    //implementation 'org.springframework.security:spring-security-oauth2-jose'
+    
  	//파일 반환 해주기 위한 라이브러리
  	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
