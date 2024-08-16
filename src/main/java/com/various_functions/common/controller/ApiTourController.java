@@ -3,15 +3,18 @@ package com.various_functions.common.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 
 @RestController
@@ -39,11 +42,18 @@ public class ApiTourController {
             urlBuilder.append("&" + URLEncoder.encode("startYmd", "UTF-8") + "=" + URLEncoder.encode(startYmd, "UTF-8"));
             urlBuilder.append("&" + URLEncoder.encode("endYmd", "UTF-8") + "=" + URLEncoder.encode(endYmd, "UTF-8"));
 
+            // url출력
+            System.out.println("Request URL:" + urlBuilder.toString());
+            
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Content-Type", "application/json");
-
+            
+            // 응답코드
+            int responseCode = conn.getResponseCode();
+            System.out.println("Response Code : " + responseCode);
+            
             BufferedReader rd;
             if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 299) {
                 rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -59,6 +69,9 @@ public class ApiTourController {
             rd.close();
             conn.disconnect();
 
+            // 응답데이터 출력
+            System.out.println("Response Data : " + sb.toString());
+            
             // 처리된 응답을 반환
             return ResponseEntity.ok(sb.toString());
 
@@ -67,4 +80,6 @@ public class ApiTourController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
         }
     }
+	
+	
 }
