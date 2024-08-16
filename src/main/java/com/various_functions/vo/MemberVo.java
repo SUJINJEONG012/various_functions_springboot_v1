@@ -34,6 +34,8 @@ public class MemberVo {
 	private int adminCk;
 	private int money;
 
+	
+
 	// 회원상세정보를 조회한 후 비밀번호를 초기화하는 용도로 사용
 	public void clearPassword() {
 		this.memberPw = "";
