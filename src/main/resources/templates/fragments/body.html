@@ -46,6 +46,7 @@
 							<li th:if="${session.loginMember != null}">
 								<a th:href="@{/member/mypage}">마이페이지</a> 
 								<a id="logoutBtn">로그아웃</a>
+								<span th:text="${session.loginMember.memberName} + '님, 반갑습니다'"></span>
 							</li>
 						</ul>
 						

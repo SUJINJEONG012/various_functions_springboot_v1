@@ -265,7 +265,6 @@ public class MemberController {
                 // 이미 등록된 사용자로 로그인 처리
                 HttpSession session = request.getSession();
                 session.setAttribute("loginMember", existingMember);
-
                 response.sendRedirect("/"); // 메인 페이지로 리디렉션
             } else {
                 // 회원가입 처리

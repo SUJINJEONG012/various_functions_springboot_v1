@@ -11,17 +11,40 @@
             alert([[${errorMessage}]]);
        	  </script>
 		</div>
+		
+		<h2>API 데이터</h2>
+		   <div th:if="${apiData}">
+		       <table border="1">
+		           <thead>
+		               <tr>
+		                   <th>TouNum</th>
+		                   <th>BaseYmd</th>
+		                   <th>AreaCode</th>
+		                   <th>AreaNm</th>
+		                   <th>DaywkDivCd</th>
+		                   <th>DaywkDivNm</th>
+		                   <th>TouDivCd</th>
+		                   <th>TouDivNm</th>
+		               </tr>
+		           </thead>
+		           <tbody>
+		               <tr th:each="item : ${apiData}">
+		                   <td th:text="${item.touNum}"></td>
+		                   <td th:text="${item.baseYmd}"></td>
+		                   <td th:text="${item.areaCode}"></td>
+		                   <td th:text="${item.areaNm}"></td>
+		                   <td th:text="${item.daywkDivCd}"></td>
+		                   <td th:text="${item.daywkDivNm}"></td>
+		                   <td th:text="${item.touDivCd}"></td>
+		                   <td th:text="${item.touDivNm}"></td>
+		               </tr>
+		           </tbody>
+		       </table>
+		   </div>
+		   
 
-		<div class="">
-			<h4>숙소리스트</h4>
-			<ul>
-				<li th:each="accommodation : ${accommodations}">
-					<h2></h2>
-				</li>
-			</ul>
-		</div>
 
-		<!-- 숙소 이미지 출력 -->
+		<!-- 숙소 출력 -->
 		<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
 
 			<div class="col" th:each="accommodation : ${accommodations}">
@@ -70,6 +93,9 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		<!-- 공공 데이터 관련 -->
 
 
 		<!-- 공지사항 -->
