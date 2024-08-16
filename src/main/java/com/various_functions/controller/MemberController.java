@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -95,6 +96,17 @@ public class MemberController {
 
 		return member;
 	}
+	
+	// 로그아웃 메서드
+	 @PostMapping("/member/logout")
+	public RedirectView logout(HttpServletRequest request) {
+		// 세션을 무효화하여 로그아웃 처리 
+		request.getSession().invalidate();
+		// 로그아웃 후 리다이렉션할 url 설정
+		return new RedirectView("/");
+	}
+	
+	
 	
 	
 	private final String KAKAO_CLIENT_ID = "fd9684394aef9b4670cf57a542fb05e8";
