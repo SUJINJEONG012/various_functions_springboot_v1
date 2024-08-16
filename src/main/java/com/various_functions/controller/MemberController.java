@@ -1,12 +1,14 @@
 package com.various_functions.controller;
 
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpEntity;
@@ -194,7 +196,7 @@ public class MemberController {
     
  // 카카오 로그인 콜백 메서드
     @GetMapping("/auth/kakao/callback")
-    public ResponseEntity <String> kakaoCallback(String code) {
+    public void kakaoCallback(@RequestParam String code, HttpServletRequest request, HttpServletResponse response) throws IOException {
         RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -207,72 +209,68 @@ public class MemberController {
 
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
 
-        ResponseEntity<String> response = rt.exchange(
-                "https://kauth.kakao.com/oauth/token",
-                HttpMethod.POST,
-                kakaoTokenRequest,
-                String.class
-        );
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        OAuthToken oauthToken = null;
         try {
-            oauthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+            ResponseEntity<String> responseEntity = rt.exchange(
+                    "https://kauth.kakao.com/oauth/token",
+                    HttpMethod.POST,
+                    kakaoTokenRequest,
+                    String.class
+            );
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            OAuthToken oauthToken = objectMapper.readValue(responseEntity.getBody(), OAuthToken.class);
+
+            // 사용자 정보 요청
+            HttpHeaders headers2 = new HttpHeaders();
+            headers2.add("Authorization", "Bearer " + oauthToken.getAccess_token());
+            headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+            HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers2);
+            ResponseEntity<String> responseEntity2 = rt.exchange(
+                    "https://kapi.kakao.com/v2/user/me",
+                    HttpMethod.POST,
+                    kakaoProfileRequest,
+                    String.class
+            );
+
+            KakaoProfile kakaoProfile = objectMapper.readValue(responseEntity2.getBody(), KakaoProfile.class);
+
+            // 사용자의 이메일과 카카오 ID를 이용해 회원가입 처리
+            String memberMail = kakaoProfile.getKakao_account().getEmail();
+            String memberName = memberMail + "_" + kakaoProfile.getId();
+            UUID garbagePassword = UUID.randomUUID();
+
+            MemberDto kakaoUser = MemberDto.builder()
+                .memberName(memberName)
+                .memberMail(memberMail)
+                .memberPw(garbagePassword.toString())
+                .loginId(kakaoProfile.getId().toString())
+                .build();
+
+            // 중복된 login_id 검사 및 회원가입 또는 로그인 처리
+            MemberVo existingMember = memberService.findMemberByLoginId(kakaoUser.getLoginId());
+            if (existingMember != null) {
+                // 이미 등록된 사용자로 로그인 처리
+                HttpSession session = request.getSession();
+                session.setAttribute("loginMember", existingMember);
+
+                response.sendRedirect("/"); // 메인 페이지로 리디렉션
+            } else {
+                // 회원가입 처리
+                Long memberId = memberService.saveMember(kakaoUser);
+                MemberVo newMember = memberService.findMemberByLoginId(kakaoUser.getLoginId());
+
+                HttpSession session = request.getSession();
+                session.setAttribute("loginMember", newMember);
+
+                response.sendRedirect("/"); // 메인 페이지로 리디렉션
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("카카오 토큰 요청 실패");
+            response.sendRedirect("/error"); // 오류 페이지로 리디렉션
         }
-
-        RestTemplate rt2 = new RestTemplate();
-        HttpHeaders headers2 = new HttpHeaders();
-        headers2.add("Authorization", "Bearer " + oauthToken.getAccess_token());
-        headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-        HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = new HttpEntity<>(headers2);
-
-        ResponseEntity<String> response2 = rt2.exchange(
-                "https://kapi.kakao.com/v2/user/me",
-                HttpMethod.POST,
-                kakaoProfileRequest2,
-                String.class
-        );
-
-        KakaoProfile kakaoProfile = null;
-        try {
-            kakaoProfile = objectMapper.readValue(response2.getBody(), KakaoProfile.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("카카오 사용자 정보 요청 실패");
-        }
-
-        // 사용자의 이메일과 카카오 ID를 이용해 회원가입 처리
-        String memberMail = kakaoProfile.getKakao_account().getEmail();
-        String memberName = memberMail + "_" + kakaoProfile.getId();
-        UUID garbagePassword = UUID.randomUUID();
-
-        // MemberDto를 빌더 패턴으로 생성
-        MemberDto kakaoUser = MemberDto.builder()
-            .memberName(memberName)
-            .memberMail(memberMail)
-            .memberPw(garbagePassword.toString())
-            .loginId(kakaoProfile.getId().toString())
-            .build();
-        
-        
-        //중복된 login_id 검사 및 회원가입 또는 로그인 처리
-        MemberVo existingMember = memberService.findMemberByLoginId(kakaoUser.getLoginId());
-        if(existingMember != null) {
-        	
-            
-            return ResponseEntity.ok("이미 등록된 사용자입니다. 로그인 처리 완료");
-        }else {
-        	// 회원가입 로직 수행
-        	Long memberId = memberService.saveMember(kakaoUser);
-        	return ResponseEntity.ok("회원가입 및 로그인 처리 완료");
-        }
-        
-     
     }
+
 
     
     

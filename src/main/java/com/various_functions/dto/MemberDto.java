@@ -1,15 +1,24 @@
 package com.various_functions.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.apache.groovy.parser.antlr4.util.StringUtils;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.various_functions.admin.service.NoticeService;
+import com.various_functions.service.InquiryService;
+import com.various_functions.service.MemberService;
 import com.various_functions.vo.Gender;
+import com.various_functions.vo.MemberVo;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /*
@@ -19,8 +28,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 //@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class MemberDto {
 	
 	private Long memberId;

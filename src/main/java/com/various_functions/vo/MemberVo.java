@@ -5,9 +5,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.various_functions.admin.vo.RoomInfoVo;
+import com.various_functions.dto.MemberDto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class MemberVo {
 	
 	private Long memberId; //pk 아이디
