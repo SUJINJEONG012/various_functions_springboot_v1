@@ -1,30 +1,7 @@
 @charset "utf-8";
-/* CSS Document */
 
-#container {overflow:hidden;}
-#container::before {content:''; background:#eef1f5; width:100%; height:100%; position:absolute; top:0; left:0; z-index:-1;}
-#container::after {content:''; background:#434b53; width:210px; height:100%; position:absolute; top:0; left:0;}
-#container .lcontent {float:left; width:210px; position:relative; z-index:1;}
-#container .rcontent {margin-left:210px; padding:25px 30px 25px 40px;}
-#container .rcontent .content {background:#fff; border-radius:12px; box-shadow:0 0 20px rgba(80,80,80,0.1); padding:40px 40px 70px 40px; min-height:600px; overflow:hidden;}
 
-.menu_toggle {background:linear-gradient(to left, #434b53, #32393f); border-top-right-radius:4px; border-bottom-right-radius:4px; width:20px; height:50px; position:absolute; top:80px; left:209px; cursor:pointer; box-sizing:border-box;}
-.menu_toggle > span {background-position:-145px 0; width:4px; height:7px; position:absolute; top:50%; left:50%; margin-top:-3px; margin-left:-2px;}
-.menu_toggle.active {left:0;}
-.menu_toggle.active > span {background-position:-145px -10px;}
-.snb_none #container .lcontent {display:none; padding:0px 0px 10px 0px;}
-.snb_none #container .rcontent {margin-left:0;}
-.snb_none #container:after {display:none;}
-
-#container h3 {font-size:22px; position:relative; padding-left:17px;}
-#container h3::before {content:''; background:#434b53; width:6px; height:23px; position:absolute; top:5px; left:0;}
-#container h3::after {content:''; background:#47bac1; width:6px; height:5px; position:absolute; top:5px; left:0;}
-#container h4 {font-size:16px; position:relative; padding-left:8px; color:#d74242;}
-#container h4::before {content:''; background:#d74242; border-radius:50px; width:3px; height:3px; position:absolute; top:11px; left:0;}
-#container h4::first-child {margin-top:0;}
-#container h4 + table {margin-top:10px;}
-
-.content{margin-top:80px;}
+.content{margin-top:7rem;}
 
 /* 페이지 타이틀 */
 .page_tits {position:relative; margin-bottom:20px;}
@@ -34,17 +11,6 @@
 .page_tits .path > strong + span {padding-left:0;}
 .page_tits .path > strong + span:before {display:none;}
 
-/* 컨텐츠 간격 */
-/* section {margin-top:80px;} */
-section:first-child, #tabmenu + section {margin-top:0;}
-
-/* 탭메뉴 */
-#tabmenu * {box-sizing:border-box;}
-#tabmenu {font-size:0; margin:0 0 30px; position:relative; z-index:1;}
-#tabmenu::after {content:''; display:block; width:100%; height:1px; background:#cfcfcf; position:absolute; bottom:0; left:0;}
-#tabmenu li {display:inline-block; font-size:15px; letter-spacing:0; margin-left:-1px; margin-top:-1px; overflow:hidden; vertical-align:top; *display:inline; zoom:1;}
-#tabmenu li a {display:block; font-size:14px; font-weight:500; line-height:40px; width:100%; padding:0 15px; min-width:150px; background:#f6f6f6; border:1px solid #cfcfcf; color:inherit; text-align:center; position:relative;}
-#tabmenu li a.on {background:#fff; border-bottom-color:#fff; color:#f78601; z-index:1;}
 
 /* 테이블 스타일 ------------------------------- */
 .tb {width:100%; border:1px solid #dedede; margin-top:20px;}
@@ -65,11 +31,14 @@ section:first-child, #tabmenu + section {margin-top:0;}
 .tb_row td {height:40px;}
 .tb_row .btns {height:38px; line-height:38px;}
 .viewcon {min-height:100px;}
+
 /* 게시글정보 */
 .add_info {font-size:13px; font-weight:300; margin-top:10px;}
 .add_info > span {position:relative; display:inline-block; padding:0 10px; color:#999;}
 .add_info > span:first-child {padding-left:0;}
 .add_info > span i {position:relative; display:inline-block; margin-right:3px;}
+
+
 /* 첨부파일 다운로드 */
 .file_down {border:1px solid #e0e0e0; border-radius:5px; overflow:hidden;}
 .file_down > strong {display:block; border-bottom:1px solid #e0e0e0; color:#333; font-size:13px; font-weight:400; padding:7px 10px;}
@@ -116,47 +85,6 @@ section:first-child, #tabmenu + section {margin-top:0;}
 
 .scroll_in {display:block; max-width:100%; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;}
 
-/* bbs_gallery type */
-.bbs_gall > ul {overflow:hidden; font-size:0; letter-spacing:-5px; margin-top:-3%;}
-.bbs_gall > ul > li.no_data_msg {width:100% !important; text-align:center; margin-left:0 !important; padding:50px 20px; border:0; box-shadow:none;} /* 게시글 없을때 */
-.bbs_gall > ul > li {width:17.6%; margin-left:3%; margin-top:3%; border:1px solid #e0e0e0; box-shadow:0px 5px 10px rgba(0,0,0,0.07); border-radius:12px; box-sizing:border-box; overflow:hidden; display:inline-block; font-size:15px; letter-spacing:0; vertical-align:top; *display:inline; zoom:1;}
-.bbs_gall > ul > li:nth-child(5n+1) {margin-left:0;}
-.bbs_gall > ul > li .imgs {overflow:hidden;}
-.bbs_gall > ul > li .thumb_wrap {background:#f1f1f3; transform:scale(1); -webkit-transition-duration:1.2s; -moz-transition-duration:1.2s; transition-duration:1.2s;}
-.bbs_gall > ul > li .thumb_wrap:hover {transform:scale(1.1);}
-.bbs_gall > ul > li .cont {margin:15px;}
-.bbs_gall > ul > li .cont .cate {display:inline-block; background:#951e22; color:#fff; width:90px; height:28px; line-height:30px; text-align:center; font-size:13px;}
-.bbs_gall > ul > li .cont .title {max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-.bbs_gall > ul > li .cont .desc {font-size:14px; font-weight:300; margin-top:10px; line-height:1.4; height:2.8em; max-height:2.8em; overflow:hidden; text-overflow:ellipsis; word-wrap:break-word; display: -webkit-box; -webkit-line-clamp:2; -webkit-box-orient: vertical;}
-
-/* bbs_calendar */
-#calendar_box {position:relative;}
-#calendar_box .calendar_year_box {text-align:center; margin-bottom:20px;}
-#calendar_box .calendar_year_box button {cursor:pointer; background:none; border:0; border-radius:8px; color:#47bac1; width:40px; font-size:27px; position:relative; margin-top:-17px;}
-#calendar_box .years {font-size:36px; line-height:1.2; color:#111; font-family:Arial, Helvetica, sans-serif; font-weight:bold; margin:0 10px;}
-#calendar_box .month_list {overflow:hidden; text-align:center; margin:15px 0;}
-#calendar_box .month_list button, #calendar_box .calendar_wrap .weekdays, #calendar_box .calendar_wrap > ul.days > li .date {font-size:15px;}
-#calendar_box .month_list button {cursor:pointer; border:1px solid #2a2b2b; border-radius:2px; background:#fff; font-family:Arial, Helvetica, sans-serif; font-weight:bold; width:32px; height:32px; line-height:32px; text-align:center; padding:0; margin-left:4px;}
-#calendar_box .month_list button.current {border-color:#135fae; color:#135fae;}
-#calendar_box .calendar_wrap {border:1px solid #c9c9c9; border-top:2px solid #6f8294;}
-#calendar_box .calendar_wrap > ul {display:table; width:100%; border-top:1px solid #c9c9c9;}
-#calendar_box .calendar_wrap > ul > li {display:table-cell; width:14.285714%; border-left:1px solid #c9c9c9; position:relative;}
-#calendar_box .calendar_wrap > ul > li:first-child {border-left:0;}
-#calendar_box .calendar_wrap .weekdays {text-align:center; border-top:0; background:#6f8294; font-size:16px; color:#fff;}
-#calendar_box .calendar_wrap .weekdays > li {padding:5px 0; border-color:rgba(255,255,255,0.2);}
-#calendar_box .calendar_wrap > ul.days > li {height:120px; padding:5px 7px;}
-#calendar_box .calendar_wrap > ul.days > li .date {font-family:Arial, Helvetica, sans-serif; font-weight:bold; text-align:right;}
-#calendar_box .calendar_wrap > ul.days > li:first-child .date {color:#c00;}
-#calendar_box .calendar_wrap > ul.days > li:nth-child(7) .date {color:#135fae;}
-#calendar_box .calendar_wrap > ul.days > li .event-container {margin-top:5px; position:relative; padding-left:7px;}
-#calendar_box .calendar_wrap > ul.days > li .event-container:before {content:''; background:#0e9fdd; width:3px; height:3px; position:absolute; top:7px; left:0;}
-#calendar_box .calendar_wrap > ul.days > li .date + .event-container {margin-top:0;}
-#calendar_box .calendar_wrap > ul.days > li .event-container a {display:block; font-size:13px; color:#555; position:relative; max-width:100%; line-height:1.3; max-height:3.9em; overflow:hidden; text-overflow:ellipsis; word-wrap:break-word; display: -webkit-box; -webkit-line-clamp:3; -webkit-box-orient: vertical;}
-#calendar_box .calendar_wrap > ul.days > li .event-container a:hover {text-decoration:underline;}
-#calendar_box .calendar_wrap > ul.days > li .event-container * {word-break:break-all;}
-#calendar_box .calendar_wrap > ul.days > li .event-container .times {position:absolute; top:0; left:0;}
-#calendar_box .calendar_wrap > ul.days > li .event-container .times + .desc {margin-left:40px;}
-#calendar_box .calendar_wrap > ul.days > li.other-month {background:#f5f5f5;}
 
 /* 이미지 높이값 조정 */
 .thumb_wrap {overflow:hidden; position:relative;}
@@ -172,14 +100,12 @@ section:first-child, #tabmenu + section {margin-top:0;}
 
 
 /* search ------------------------------- */
-h4 + .search_box {margin-top:10px;}
+
 .search_box:first-child {margin-top:0;}
 .search_box {background:#f7f8fa; border:1px solid #cfcfcf; box-shadow:0 2px 0px rgba(80,80,80,0.05); padding:10px 20px; margin:25px 0; overflow:hidden;}
 .search_box input[type="text"], .search_box select, .search_box button {height:34px;}
 .search_box input[type="text"], .search_box select {width:auto; padding:4px 5px; border:1px solid #ddd;}
 .search_box input[type="text"] {width:170px;}
-.sch_group button {background:#586a7d; border:0; padding:0; color:#fff; font-weight:bold; width:42px; line-height:34px; border-radius:3px; vertical-align:top; position:relative;}
-.search_box input#sDate {margin-right:3px !important;}
 
 /* paging ------------------------------- */
 .paging { display:flex;justify-content: center; text-align:center; margin:2% 0 0;}
@@ -334,7 +260,10 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 
 
 
-/* popup ------------------------------- */
+
+
+
+/* =================== POPUP =================== */
 #popup_wrap h2 {background:#30a0c3; padding:10px 15px; color:#fff; font-size:16px; font-weight:bold;}
 #popup_wrap .btn_close {position:absolute; top:4px; right:5px;}
 #popup_wrap .btn_close button {background:none; border:0; color:#fff; font-size:16px; width:24px; height:24px;}
@@ -343,7 +272,7 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 #popup_wrap .pop_con h3:first-child {margin-top:0px;}
 
 
-/* 레이어팝업 */
+/* ================== 레이어팝업 =================== */
 .btn_close {display:inline-block; background-color:transparent; border:0; padding:5px;}
 .btn_close span {display:inline-block; font-size:27px;}
 .popLayer .btn_close {position:absolute; top:20px; right:15px;}

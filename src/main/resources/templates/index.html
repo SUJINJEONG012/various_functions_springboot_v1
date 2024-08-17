@@ -6,6 +6,7 @@
 <body>
 	<th:block layout:fragment="content">
 
+<div class="content">
 		<div th:if="${errorMessage}">
 			<script th:inline="javascript">
             alert([[${errorMessage}]]);
@@ -17,14 +18,14 @@
     <table border="1">
         <thead>
             <tr>
-                <th>TouNum</th>
-                <th>BaseYmd</th>
-                <th>AreaCode</th>
-                <th>AreaNm</th>
-                <th>DaywkDivCd</th>
-                <th>DaywkDivNm</th>
-                <th>TouDivCd</th>
-                <th>TouDivNm</th>
+                <th>관광객수 TouNum</th>
+                <th>기준연월일 BaseYmd</th>
+                <th>시도코드 AreaCode</th>
+                <th>시도명 AreaNm</th>
+                <th>요일구분코드 DaywkDivCd</th>
+                <th>요일구분명 DaywkDivNm</th>
+                <th>관광객구분코드 TouDivCd</th>
+                <th>관광객구분명 TouDivNm</th>
             </tr>
         </thead>
         <tbody>
@@ -128,7 +129,7 @@
 			</tbody>
 
 		</table>
-
+</div>
 	</th:block>
 
 

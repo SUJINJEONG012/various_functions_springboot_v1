@@ -16,12 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.various_functions.controller.MainController;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 public class ApiTourController {
 
     private static final String BASE_URL = "http://apis.data.go.kr/B551011/DataLabService/metcoRegnVisitrDDList";
-    private static final String SERVICE_KEY = "aawo4vOWfMywpCroEEDHelZG3Ccha5A%2BwKkmNSs9fpfjQ7UdZBaLfAH%2BWcK3UeFDY1%2F1mIhBgPzYGHZQ%2F66lXw%3D%3D";
+	private static final String SERVICE_KEY = "aawo4vOWfMywpCroEEDHelZG3Ccha5A%2BwKkmNSs9fpfjQ7UdZBaLfAH%2BWcK3UeFDY1%2F1mIhBgPzYGHZQ%2F66lXw%3D%3D";
     
     @GetMapping("/metcoRegnVisitrDDList")
     public ResponseEntity<String> callApi(
@@ -52,7 +56,7 @@ public class ApiTourController {
             
             // 응답 코드 확인
             int responseCode = conn.getResponseCode();
-            System.out.println("Response Code : " + responseCode);
+            log.info("Response Code : " + responseCode); //200
             
             BufferedReader rd;
             if (responseCode >= 200 && responseCode <= 299) {
@@ -70,7 +74,7 @@ public class ApiTourController {
             conn.disconnect();
 
             // 응답 데이터 출력
-            System.out.println("Response Data : " + sb.toString());
+            log.info("Response Data : " + sb.toString());
             
             // XML을 JSON으로 변환
             XmlMapper xmlMapper = new XmlMapper();
@@ -79,7 +83,7 @@ public class ApiTourController {
             String jsonString = jsonMapper.writeValueAsString(jsonNode);
 
             // JSON 형태로 변환된 데이터 출력
-            System.out.println("JSON 형태로 변환된 데이터 : " + jsonString);
+            log.info("JSON 형태로 변환된 데이터 : " + jsonString);
 
             // 처리된 응답을 반환
             return ResponseEntity.ok(jsonString);

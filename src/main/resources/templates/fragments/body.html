@@ -4,6 +4,7 @@
 
 <body th:fragment="main-body">
 	<div class="wrap">
+	<div class="header_wrap">
 	<header class="header">
 		<div class="header_container">
 
@@ -29,8 +30,8 @@
 				    <li><a th:href="@{/inquiry/list}" class=""><span>문의하기</span></a></li>
 						
 				</ul>
-
-				<div class="nav_account">
+			</div>
+							<div class="nav_account">
 					<div class="nav_account_container">
 						
 
@@ -52,14 +53,15 @@
 						
 					</div>
 				</div>
-			</div>
 		</div>
 		<!--header_container end -->
 	</header>
-
+</div>
 
 	<!-- 페이지별 콘텐츠 -->
-	<th:block layout:fragment="content"></th:block>
+	<th:block layout:fragment="content">
+	
+	</th:block>
 
 	<th:block layout:fragment="script">
 		

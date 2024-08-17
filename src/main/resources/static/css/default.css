@@ -114,11 +114,22 @@ button::-moz-focus-inner, input::-moz-focus-inner {border:0; padding:0;} /* butt
 input[type=text], input[type="password"], input[type="search"], input[type="email"], input[type="url"], input[type="number"], input[type="tel"], input[type="date"], select, textarea {background:#fff; border:solid 1px #ddd; border-radius:0px; outline:none;}
 input[type="button"] {cursor:pointer; overflow:visible; white-space:nowrap; border-radius:0px;}
 textarea {width:100%; height:auto; resize:none;}
-input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {-webkit-appearance:none; margin:0;}
-input[type=text]:focus, input[type="password"]:focus, input[type=search]:focus, input[type=email]:focus, input[type=url]:focus, input[type=number]:focus, input[type=tel]:focus, select:focus, textarea:focus {border:1px solid #bbb; box-shadow:0px 0px 5px rgba(0,0,0,0.09);}
+
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button {-webkit-appearance:none; margin:0;}
+
+input[type=text]:focus, 
+input[type="password"]:focus, input[type=search]:focus, 
+input[type=email]:focus, input[type=url]:focus, input[type=number]:focus,
+ input[type=tel]:focus, select:focus, textarea:focus {
+ border:1px solid #bbb; box-shadow:0px 0px 5px rgba(0,0,0,0.09);}
+
 textarea::placeholder {
     font-size: 12px; /* 원하는 크기로 설정하세요 */
 }
+
+input::placeholder{font-size:12px !important; }
+
 /* 텍스트 색상 ------------------------------- */
 .txtred {color:#c00;}
 .txtblue {color:#405acc;}
