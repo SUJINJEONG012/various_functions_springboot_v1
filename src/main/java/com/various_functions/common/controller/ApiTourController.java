@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-
 
 @RestController
 public class ApiTourController {
 
-	private static final String BASE_URL = "http://apis.data.go.kr/B551011/DataLabService/metcoRegnVisitrDDList";
+    private static final String BASE_URL = "http://apis.data.go.kr/B551011/DataLabService/metcoRegnVisitrDDList";
     private static final String SERVICE_KEY = "aawo4vOWfMywpCroEEDHelZG3Ccha5A%2BwKkmNSs9fpfjQ7UdZBaLfAH%2BWcK3UeFDY1%2F1mIhBgPzYGHZQ%2F66lXw%3D%3D";
     
     @GetMapping("/metcoRegnVisitrDDList")
     public ResponseEntity<String> callApi(
-    		 @RequestParam(name = "numOfRows", defaultValue = "10") int numOfRows,
+             @RequestParam(name = "numOfRows", defaultValue = "10") int numOfRows,
              @RequestParam(name = "pageNo", defaultValue = "1") int pageNo,
              @RequestParam(name = "MobileOS", defaultValue = "ETC") String mobileOS,
              @RequestParam(name = "MobileApp", defaultValue = "AppTest") String mobileApp,
@@ -42,20 +42,20 @@ public class ApiTourController {
             urlBuilder.append("&" + URLEncoder.encode("startYmd", "UTF-8") + "=" + URLEncoder.encode(startYmd, "UTF-8"));
             urlBuilder.append("&" + URLEncoder.encode("endYmd", "UTF-8") + "=" + URLEncoder.encode(endYmd, "UTF-8"));
 
-            // url출력
-            System.out.println("Request URL:" + urlBuilder.toString());
+            // URL 출력
+            System.out.println("Request URL: " + urlBuilder.toString());
             
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Content-Type", "application/json");
             
-            // 응답코드
+            // 응답 코드 확인
             int responseCode = conn.getResponseCode();
             System.out.println("Response Code : " + responseCode);
             
             BufferedReader rd;
-            if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 299) {
+            if (responseCode >= 200 && responseCode <= 299) {
                 rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             } else {
                 rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
@@ -69,17 +69,24 @@ public class ApiTourController {
             rd.close();
             conn.disconnect();
 
-            // 응답데이터 출력
+            // 응답 데이터 출력
             System.out.println("Response Data : " + sb.toString());
             
+            // XML을 JSON으로 변환
+            XmlMapper xmlMapper = new XmlMapper();
+            JsonNode jsonNode = xmlMapper.readTree(sb.toString());
+            ObjectMapper jsonMapper = new ObjectMapper();
+            String jsonString = jsonMapper.writeValueAsString(jsonNode);
+
+            // JSON 형태로 변환된 데이터 출력
+            System.out.println("JSON 형태로 변환된 데이터 : " + jsonString);
+
             // 처리된 응답을 반환
-            return ResponseEntity.ok(sb.toString());
+            return ResponseEntity.ok(jsonString);
 
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
         }
     }
-	
-	
 }

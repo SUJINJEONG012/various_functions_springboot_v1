@@ -13,35 +13,34 @@
 		</div>
 		
 		<h2>API 데이터</h2>
-		   <div th:if="${apiData}">
-		       <table border="1">
-		           <thead>
-		               <tr>
-		                   <th>TouNum</th>
-		                   <th>BaseYmd</th>
-		                   <th>AreaCode</th>
-		                   <th>AreaNm</th>
-		                   <th>DaywkDivCd</th>
-		                   <th>DaywkDivNm</th>
-		                   <th>TouDivCd</th>
-		                   <th>TouDivNm</th>
-		               </tr>
-		           </thead>
-		           <tbody>
-		               <tr th:each="item : ${apiData}">
-		                   <td th:text="${item.touNum}"></td>
-		                   <td th:text="${item.baseYmd}"></td>
-		                   <td th:text="${item.areaCode}"></td>
-		                   <td th:text="${item.areaNm}"></td>
-		                   <td th:text="${item.daywkDivCd}"></td>
-		                   <td th:text="${item.daywkDivNm}"></td>
-		                   <td th:text="${item.touDivCd}"></td>
-		                   <td th:text="${item.touDivNm}"></td>
-		               </tr>
-		           </tbody>
-		       </table>
-		   </div>
-		   
+<div th:if="${apiData}">
+    <table border="1">
+        <thead>
+            <tr>
+                <th>TouNum</th>
+                <th>BaseYmd</th>
+                <th>AreaCode</th>
+                <th>AreaNm</th>
+                <th>DaywkDivCd</th>
+                <th>DaywkDivNm</th>
+                <th>TouDivCd</th>
+                <th>TouDivNm</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${apiData}">
+                <td th:text="${item['touNum']}"></td>
+                <td th:text="${item['baseYmd']}"></td>
+                <td th:text="${item['areaCode']}"></td>
+                <td th:text="${item['areaNm']}"></td>
+                <td th:text="${item['daywkDivCd']}"></td>
+                <td th:text="${item['daywkDivNm']}"></td>
+                <td th:text="${item['touDivCd']}"></td>
+                <td th:text="${item['touDivNm']}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 
 		<!-- 숙소 출력 -->

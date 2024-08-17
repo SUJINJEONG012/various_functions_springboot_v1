@@ -19,7 +19,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.various_functions.admin.service.AccommodationFileService;
 import com.various_functions.admin.service.AccommodationService;
@@ -70,9 +72,40 @@ public class MainController {
 		model.addAttribute("accommodations",accommodations1);
 		model.addAttribute("filesMap", filesMap);
 		
-		
+		// 3. 공공데이터 API 호출
+        try {
+            // RestTemplate을 사용하여 ApiTourController의 API 호출
+            RestTemplate restTemplate = new RestTemplate();
+            String apiUrl = "http://localhost:8081/metcoRegnVisitrDDList";
+            String apiResponse = restTemplate.getForObject(apiUrl, String.class);
+
+            // JSON 데이터를 JsonNode로 변환
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(apiResponse);
+
+            // 로깅: 전체 JSON 노드 확인
+            log.info("전체 JSON 노드: " + jsonNode.toString());
+
+            // response > body > items > item 구조의 데이터를 추출
+            JsonNode itemsNode = jsonNode.path("body").path("items").path("item");
+
+            // 로깅: 추출된 itemsNode 확인
+            if (itemsNode.isArray()) {
+                List<Map<String, Object>> apiDataList = objectMapper.convertValue(itemsNode, new TypeReference<List<Map<String, Object>>>() {});
+                log.info("추출된 API 데이터 리스트: " + apiDataList);
+                model.addAttribute("apiData", apiDataList);
+            } else {
+                log.warn("itemsNode의 형식이 예상과 다릅니다: " + itemsNode);
+                model.addAttribute("apiError", "데이터 형식이 올바르지 않습니다.");
+            }
+        } catch (IOException e) {
+            log.error("공공데이터 API 호출 중 에러 발생", e);
+            model.addAttribute("apiError", "공공데이터를 불러오는 중 문제가 발생했습니다.");
+        }
+        
 		return "/index";
 	}
+	
 	
 	
 	@GetMapping("/notice")
