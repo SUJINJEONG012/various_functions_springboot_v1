@@ -361,6 +361,14 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 /* 달력레이어 */
 .ui-widget-content {z-index:10 !important;}
 
+
+
+
+.search_wrap{width:100%;}
+.search_wrap select{ width: 10%;}
+.search_wrap input{width:50%;}
+.search_wrap button{}
+
 /* popup ------------------------------- */
 #popup_wrap h2 {background:#30a0c3; padding:10px 15px; color:#fff; font-size:16px; font-weight:bold;}
 #popup_wrap .btn_close {position:absolute; top:4px; right:5px;}
