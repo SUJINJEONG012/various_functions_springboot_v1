@@ -13,35 +13,42 @@
        	  </script>
 		</div>
 		
-		<h2>API 데이터</h2>
-<div th:if="${apiData}">
-    <table border="1">
-        <thead>
-            <tr>
-                <th>관광객수 TouNum</th>
-                <th>기준연월일 BaseYmd</th>
-                <th>시도코드 AreaCode</th>
-                <th>시도명 AreaNm</th>
-                <th>요일구분코드 DaywkDivCd</th>
-                <th>요일구분명 DaywkDivNm</th>
-                <th>관광객구분코드 TouDivCd</th>
-                <th>관광객구분명 TouDivNm</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="item : ${apiData}">
-                <td th:text="${item['touNum']}"></td>
-                <td th:text="${item['baseYmd']}"></td>
-                <td th:text="${item['areaCode']}"></td>
-                <td th:text="${item['areaNm']}"></td>
-                <td th:text="${item['daywkDivCd']}"></td>
-                <td th:text="${item['daywkDivNm']}"></td>
-                <td th:text="${item['touDivCd']}"></td>
-                <td th:text="${item['touDivNm']}"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+		 <h2>API 데이터</h2>
+    <div th:if="${apiData != null}">
+        
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>티디 (TID)</th>
+                    <th>테마 카테고리 (ThemeCategory)</th>
+                    <th>주소1 (Addr1)</th>
+                    <th>주소2 (Addr2)</th>
+                    <th>제목 (Title)</th>
+                    <th>지도 X (MapX)</th>
+                    <th>지도 Y (MapY)</th>
+                    <th>언어 체크 (LangCheck)</th>
+                    <th>언어 코드 (LangCode)</th>
+                    <th>이미지 URL (ImageUrl)</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${apiData}">
+                    <td th:text="${item.tid}"></td>
+                    <td th:text="${item.themeCategory}"></td>
+                    <td th:text="${item.addr1}"></td>
+                    <td th:text="${item.addr2}"></td>
+                    <td th:text="${item.title}"></td>
+                    <td th:text="${item.mapX}"></td>
+                    <td th:text="${item.mapY}"></td>
+                    <td th:text="${item.langCheck}"></td>
+                    <td th:text="${item.langCode}"></td>
+                    <td th:text="${item.imageUrl}"></td>
+                   
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 
 		<!-- 숙소 출력 -->
