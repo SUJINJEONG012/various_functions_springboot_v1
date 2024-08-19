@@ -153,32 +153,28 @@
 						 <input type="text" name="roomOff" class="input" lang="en" placeholder="">
 					</li>
 				</ul>
-
-
+				
 				<ul>
-
-					<!-- https://www.pinterest.co.kr/pin/741053313723665481  디자인 참고하기-->
 					<li><span class="point_color">*</span>
 						<span class="sm-title">숙소 소개</span>
 						<textarea name="accommodationDetail" class="input" lang="en" placeholder="숙소 소개를 입력해주세요."></textarea>
 					</li>
 
-
 					<li class="join-field">
 						<span class="sm-title">상세이미지</span>
 						<div class="file_list">
-							<div>
+							<div class="add_file">
 								<div class="file_input">
-									<input type="text" readonly /> <span class="point_color">*</span>
-									파일 <label> 첨부파일 <input type="file" name="files" onchange="selectFile(this);" />
-									</label>
+									<input type="text" placeholder="파일을 선택해주세요." lang="en" readonly />
+									 <label> 첨부파일
+									<input type="file" name="files"  onchange="selectFile(this);" /></label>
 								</div>
 
 								<button type="button" onclick="removeFile(this);" class="btns del_btn">
-									<span>삭제</span>
+									<i class="material-symbols-outlined">cancel</i><span>삭제</span>
 								</button>
 								<button type="button" onclick="addFile();" class="btns fn_add_btn">
-									<span>파일 추가</span>
+									<i class="material-symbols-outlined">add_circle</i> <span>파일 추가</span>
 								</button>
 							</div>
 						</div>
@@ -192,8 +188,8 @@
 
 		<!-- 숙소저장하기 -->
 		<p class="btn_set">
-			<button type="button" id="acsaveBtn" class="btns btn_st3 btn_mid">저장</button>
-			<a href="@{/accommodation/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
+			<button type="button" id="acsaveBtn" class="btns btn_st5 btn_mid">저장</button>
+			<a href="@{/accommodation/list}" class="btns btn_bdr5 btn_mid">뒤로</a>
 		</p>
 	</section>
 	<script th:src="@{/js/accommodation.js}"></script>

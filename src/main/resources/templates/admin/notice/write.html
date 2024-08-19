@@ -40,7 +40,8 @@
 								</p></li>
 							<li>
 
-								<h4>작성자</h4> <input type="text" id="writer" class="input"
+								<h4>작성자</h4>
+								 <input type="text" id="writer" class="input" lang="en"
 								name="writer" th:value="${session.loginMember.memberName}"
 								readonly />
 
@@ -62,21 +63,20 @@
 						<li>
 							<h4 class="es">제목</h4>
 							<span class="es"></span> <input type="text" id="title"
-							name="title" class="input" maxlength="50"
+							name="title" class="input" maxlength="50" lang="en"
 							placeholder="제목을 입력해 주세요." />
 						</li>
 
 						<li class="bordernone">
-							<h4>내용</h4> <textarea id="content" name="content" cols="50"
-								rows="10" placeholder="내용을 입력해 주세요."></textarea>
+							<h4>내용</h4> <textarea id="content" name="content" lang="en" placeholder="내용을 입력해 주세요."></textarea>
 						</li>
 
-						<li>
+						<li class="fileli">
 							<h4 class="">첨부파일</h4>
 							<div class="file_list">
-								<div>
+								<div class="add_file">
 									<div class="file_input">
-										<input type="text" readonly /> <label> 첨부파일 <input
+										<input type="text" lang="en" placeholder="파일을 선택해주세요." readonly /> <label> 첨부파일 <input
 											type="file" name="files" onchange="selectFile(this);" />
 										</label>
 									</div>
@@ -165,6 +165,7 @@
 		    // 파일 추가
 		    function addFile() {
 		        const fileDiv = document.createElement('div');
+				fileDiv.className='add_file';
 		        fileDiv.innerHTML =`
 		            <div class="file_input">
 		                <input type="text" readonly />

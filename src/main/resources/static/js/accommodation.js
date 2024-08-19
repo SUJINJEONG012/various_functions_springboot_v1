@@ -187,12 +187,13 @@ function addFile(){
 	const fileDiv = document.createElement('div');
 	fileDiv.className = 'add_file';
 	fileDiv.innerHTML = `
-	<li class="file_input">
-					<span class="point_color">*</span> 파일
-					<input type="file" name="files" class="input" lang="en" onchange="selectFile(this);" placeholder="">
-
-	</li>
-	 <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+	<div class="file_input">
+		                <input type="text" readonly />
+		                <label> 첨부파일
+		                    <input type="file" name="files" onchange="selectFile(this);" />
+		                </label>
+		            </div>
+		            <button type="button" onclick="removeFile(this);" class="btns del_btn"><i class="material-symbols-outlined">cancel</i><span>삭제</span></button>
 	`;
 	document.querySelector('.file_list').appendChild(fileDiv);
 }

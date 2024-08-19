@@ -49,7 +49,9 @@ section:first-child, #tabmenu + section {margin-top:0;}
 /* 게시판 입력 폼 */
 .board input[type="text"] { width: 100%;}
 .board .tit{font-size:16px;}
-.board ul li {padding-right: 19px;border-bottom: 1px solid #000; margin-bottom: 40px;}
+.board ul li {border-bottom: 1px solid #000; margin-bottom: 40px;}
+/*.board ul li:nth-last-child(1) {border-bottom: none;}*/
+.board ul li.fileli {border-bottom: none;}
 .board ul li.textarea {border-bottom: none;}
 
 .board ul li h4{padding-bottom:10px;}
@@ -149,23 +151,23 @@ section:first-child, #tabmenu + section {margin-top:0;}
 .room_map .add_field input{padding-left: 10px;}
 
 
-.btns{height:38px; line-height:38px;}
+.btns{height:40px; line-height:40px;}
 
 
 /* 첨부파일 스타일 */
 .file_input {margin:2px 0; overflow:hidden; position:relative; padding-right:100px; width:80%; box-sizing:border-box;}
-.file_input label {vertical-align:middle;border: 1px solid #070707; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; border-radius: 3px; display:inline-block; overflow:hidden; width:85px; height:36px; line-height:30px; background:#070707; color:#fff; text-align:center; box-sizing:border-box; font-size: 13px;font-weight: 300;}
+.file_input label {box-sizing: border-box;vertical-align:middle;border: 1px solid #070707; position:absolute; top:0; right:0; cursor:pointer;  border-radius: 3px; display:inline-block; overflow:hidden; width:85px; height:40px; line-height:40px; 
+background:#070707; color:#fff; text-align:center; font-size: 13px;}
 
 .file_input label input {position:absolute; width:0; height:0; overflow:hidden; padding:0; border:0;}
 .file_input input[type=text] {color:#737070; background:#fff; border:none;}
 .file_list {}
 .file_list .add_file {position:relative;}
-.file_list .add_file input[type=text] {max-width:300px; vertical-align:top;}
+.file_list .add_file input[type=text] {width: 100%; vertical-align:top; background: transparent; border-bottom: 1px solid #191919;}
 .file_list .add_file button {background:transparent; border:1px solid #070707; vertical-align:top;}
 .file_list .add_file button > span {position:relative; /*padding-left:18px;*/}
 .file_list .add_file button > span::before {width:14px; height:14px; position:absolute; top:3px; left:0;}
 .file_list .add_file button > i {font-size:18px; vertical-align: middle;}
-
 
 .file_list .add_file button.del_btn {right:95px;}
 .file_list .add_file button.del_btn span::before {background-position:0 -27px;}
