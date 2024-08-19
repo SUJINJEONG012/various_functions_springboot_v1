@@ -168,7 +168,7 @@ background:#070707; color:#fff; text-align:center; font-size: 13px;}
 
 /* 첨부파일 다운로드 */
 .defiles{display:flex;/* flex-wrap: wrap; */}
-.defiles .cont-img {position: relative;max-width: 485px;background: yellow;display: flex;flex-direction: column;overflow: hidden;height: 322px;}
+.defiles .cont-img {position: relative;max-width: 485px;display: flex;flex-direction: column;overflow: hidden;height: 322px;}
 .defiles .cont-img img{ width: 100%; }
 .defiles .file_down.file-item .cont .cont-img .delete-file{
     position: absolute;
@@ -198,7 +198,18 @@ background:#070707; color:#fff; text-align:center; font-size: 13px;}
 }
 
 	
-	
+/* === 숙소상세보기 ==== */
+.room_basic-view{}	
+.room_basic-view .room-field-view{}
+.room_basic-view .room-field-view .room-field-cont{margin-left: 0;}
+.room_basic-view .room-field-view .room-field-cont .room-txt{
+	width:100%; border-bottom: 1px solid #000;padding: 10px;
+}
+.room_basic-view .room-field-view .room-field-cont .room-txt .room-value{
+	width: 90%;} 
+
+    
+    
 .scroll_in {display:block; max-width:100%; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;}
 
 /* bbs_gallery type */

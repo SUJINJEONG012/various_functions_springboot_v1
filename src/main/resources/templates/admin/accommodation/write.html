@@ -10,7 +10,7 @@
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84f8ae9fafa640e78d3951db6b9805f2&libraries=services"></script>
 
 
-	<section>
+	<div class="content">
 		<form id="saveFormAccommodations" method="post" enctype="multipart/form-data">
 
 			<!-- 객실기본정보 start -->
@@ -51,7 +51,7 @@
 						</li>
 
 						<li class="room-field-cont"><span class="point_color">*</span>
-							<span class="sm-title">숙박업소명</span>
+							<span class="sm-title">숙소명</span>
 							<input type="text" name="accommodationName" class="input" lang="en"
 								placeholder="숙박업소명을 입력해주세요.">
 						</li>
@@ -194,7 +194,7 @@
 			<button type="button" id="acsaveBtn" class="btns btn_st5 btn_mid">저장</button>
 			<a href="@{/accommodation/list}" class="btns btn_bdr5 btn_mid">뒤로</a>
 		</p>
-	</section>
+	</div>
 	<script th:src="@{/js/accommodation.js}"></script>
 
 </th:block>

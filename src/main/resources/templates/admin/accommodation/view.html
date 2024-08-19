@@ -9,163 +9,203 @@
 <th:block layout:fragment="content">
 
 
-	<div class="page_tits">
-		<h3>숙소 리스트</h3>
-		<p class="path">
-			<strong>현재 위치 :</strong> <span>게시판 관리</span> <span>리스트형</span> <span>글작성</span>
-		</p>
-	</div>
 
 	<div class="content">
 
-		<section>
+		<div class="room_basic-view">
 
-			<div class="board">
-				<ul
-					style="display: flex; flex-wrap: wrap; align-content: space-between;">
+			<h3 class="room_title">숙소 리스트</h3>
 
 
-					<li>
-						<h4>카테고리</h4>
+			<div class="room-field-view">
+					<ul>
+					<li class="room-field-cont">
+						<h4 class="sm-title">성급</h4>
+						<div class="" lang="en"
+							th:text="${accommodation.accommodationGrade} + '등급' "></div>
+					</li>
+					</ul>
+					
+					<ul class="room-field-half">
+
+					<li class="room-field-cont">
+						<h4 class="sm-title">카테고리</h4>
 						<div lang="en" class=""
 							th:text="${accommodation.accommodationCate}"></div>
 
 					</li>
-
-					<li>
-						<h4>숙소명</h4>
+					
+						
+					
+					<li class="room-field-cont">
+						<h4 class="sm-title">숙소명</h4>
 						<div lang="en" class=""
 							th:text="${accommodation.accommodationName}"></div>
 					</li>
+					
+					</ul>
+					
+					
+					<ul class="room-field-half">
 
-
-					<li>
-						<h4>주소</h4>
-						<div lang="en" class=""
-							th:text="${accommodation.accommodationAdress}"></div>
-
-					</li>
-
-
-					<li>
-						<h4>전화번호</h4>
+					<li class="room-field-cont">
+						<h4 class="sm-title">전화번호</h4>
 						<div lang="en" class=""
 							th:text="${accommodation.accommodationPhone}"></div>
 					</li>
 
-					<li>
-						<h4>총객실수</h4>
-						<div lang="en" class="input"
+					<li class="room-field-cont">
+						<h4 class="sm-title">총객실수</h4>
+						<div lang="en" class=""
 							th:text="${accommodation.accommodationTotalroom}"></div>
 					</li>
-
-					<li>
-						<h4>성급</h4>
+				</ul>
+				
+					
+					
+					
+					<ul>
+					<li class="room-field-cont">
+						<h4 class="sm-title">주소</h4>
 						<div lang="en" class=""
-							th:text="${accommodation.accommodationGrade} + '등급' "></div>
-					</li>
-					<!-- <li>
-						<h4>객실타입</h4>
-						<div th:each="room : ${accommodation.rooms}">
-    						<div th:text="${room.roomRoomtype} + ' 타입'"></div>
-						</div>
-					</li> -->
+							th:text="${accommodation.accommodationAdress}"></div>
 
-					<li>
-						<h4>객실타입</h4>
-						<div th:each="room : ${accommodation.rooms}">
-							<div th:text="${room.roomRoomtype} + ' 타입'"></div>
-						</div>
 					</li>
-
-					<li>
-						<h4>부가서비스</h4>
-						<div th:each="room : ${accommodation.rooms}">
-							<div th:text="${room.roomService}"></div>
+	
+					
+					</ul>
+					
+				<ul class="room-field-half">
+					<li class="room-field-cont">
+						<h4 class="sm-title">객실타입</h4>
+						<div class="" th:each="room : ${accommodation.rooms}">
+							<div class="room-value" th:text="${room.roomRoomtype} + ' 타입'"
+								lang="en"></div>
 						</div>
 					</li>
-
-					<li>
-						<h4>성수기 가격</h4>
-						<div th:each="room : ${accommodation.rooms}">
-							<div th:text="${room.RoomPeak}"></div>
+					<li class="room-field-cont">
+						<h4 class="sm-title">부가서비스</h4>
+						<div class="" th:each="room : ${accommodation.rooms}">
+							<div class="room-value" th:text="${room.roomService}" lang="en"></div>
 						</div>
 					</li>
-
-
-					<li>
-						<h4>준성수기 가격</h4>
-						<div th:each="room : ${accommodation.rooms}">
-							<div th:text="${room.RoomSemipeak}"></div>
+				</ul>
+				
+				
+				<ul class="room-field-half">
+				<li class="room-field-cont">
+						<h4 class="sm-title">객실크기</h4>
+						<div class="" th:each="room : ${accommodation.rooms}">
+							<div class="room-value" th:text="${room.roomSize}" lang="en"></div>
 						</div>
 					</li>
-
-					<li>
-						<h4>비수기 가격</h4>
-						<div th:each="room : ${accommodation.rooms}">
-							<div th:text="${room.RoomOff}"></div>
+				
+				
+				<li class="room-field-cont">
+						<h4 class="sm-title">숙박가능인원</h4>
+						<div class="" th:each="room : ${accommodation.rooms}">
+							<div class="room-value" th:text="${room.roomMinper}" lang="en"></div>
 						</div>
 					</li>
-
-
-
-					<li>
-						<h4>최소인원</h4>
-						<div th:each="room : ${accommodation.rooms}">
-							<div th:text="${room.RoomMinper}"></div>
+				
+				</ul>
+				
+				<ul class="room-field-half">
+				
+				<li class="room-field-cont">
+						<h4 class="sm-title">숙박최대인원</h4>
+						<div class="" th:each="room : ${accommodation.rooms}">
+							<div class="room-value" th:text="${room.roomMaxper}" lang="en"></div>
 						</div>
 					</li>
-					<li>
-						<h4>최대인원</h4>
-						<div th:each="room : ${accommodation.rooms}">
-							<div th:text="${room.RoomMaxper}"></div>
+					
+					<li class="room-field-cont">
+						<h4 class="sm-title">성수기 가격</h4>
+						<div class="" th:each="room : ${accommodation.rooms}">
+							<div class="room-value" th:text="${room.RoomPeak}" lang="en"></div>
 						</div>
 					</li>
-					<li>
-						<h4>숙소소개</h4>
-
-						<div th:text="${accommodation.accommodationDetail}"></div>
-
-					</li>
-
-
-
-
+					
+					
+				
 				</ul>
 
-				<h4>이미지</h4>
-				<div id="files" th:each="file : ${files}">
-					<div class="file_down" >
-					<div class="cont">
-					<ul>
-					<li>
-						<img
-							th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
-							alt="File Image" style="width: 50%;"> <a
-							th:href="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId}+'/download'}">
 
-							<span class="icons"> <i class="fas fa-folder-open"></i></span> <span
-							th:text="${file.originalName}"></span>
-						</a>
-						</li>
+
+				<ul class="room-field-half">
+					
+					<li class="room-field-cont">
+						<h4 class="sm-title">준성수기 가격</h4>
+						<div class="" th:each="room : ${accommodation.rooms}">
+							<div class="room-value" th:text="${room.RoomSemipeak}" lang="en"></div>
+						</div>
+					</li>
+					
+					
+					
+
+					<li class="room-field-cont">
+						<h4 class="sm-title">비수기 가격</h4>
+						<div class="" th:each="room : ${accommodation.rooms}">
+							<div class="room-value" th:text="${room.RoomOff}" lang="en"></div>
+						</div>
+					</li>
+
+
 					</ul>
-					</div>	
-					</div>
-				</div>
-			</div>
+					
+					
+					
+<ul class="">
 
-			<p th:text="${accommodation.accommodationId}">id</p>
-			<p class="btn_set">
-				<a
-					th:href="@{/admin/accommodation/update/{accommodationId}(accommodationId=${accommodation.accommodationId})}"
-					class="btns btn_st5 btn_big">수정</a>
-			</p>
-		</section>
+					<li><h4 class="sm-title">숙소 소개</h4>
+
+						<div th:text="${accommodation.accommodationDetail}"></div></li>
+
+
+
+					<li><span class="sm-title">상세이미지</span>
+						<div class="defiles">
+							<div id="files" th:each="file : ${files}">
+								<div class="file_down file-item">
+									<div class="cont">
+										<div class="cont-img">
+											<img
+												th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
+												alt="File Image">
+											<div class="download">
+												<a
+													th:href="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId}+'/download'}">
+
+													<i class="material-symbols-outlined">download</i> <span
+													th:text="${file.originalName}" lang="en"></span>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div></li>
+				</ul>
+
+
+
+
+			</div>
+		</div>
+
+		<!--<p th:text="${accommodation.accommodationId}">id</p>-->
+		<p class="btn_set">
+			<a
+				th:href="@{/admin/accommodation/update/{accommodationId}(accommodationId=${accommodation.accommodationId})}"
+				class="btns btn_st5 btn_big">수정</a> <a
+				th:href="@{/admin/accommodation/list}" class="btns btn_bdr5 btn_big">목록</a>
+		</p>
 
 	</div>
 
 </th:block>
 <th:block layout:fragment="script">
-	
+
 </th:block>
 </html>

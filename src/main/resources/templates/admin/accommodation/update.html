@@ -4,7 +4,9 @@
 	layout:decorate="admin/layout/basic">
 
 
-
+<th:block layout:fragment="title">
+	<title>관리자 숙소 수정 페이지</title>
+</th:block>
 
 <th:block layout:fragment="content">
 
@@ -13,7 +15,8 @@
 	<script
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84f8ae9fafa640e78d3951db6b9805f2&libraries=services"></script>
 
-	<section>
+
+	<div class="content">
 		<form id="updateFormAccommodations" method="post"
 			enctype="multipart/form-data">
 			<!-- 숙소 ID 입력 요소 -->
@@ -64,7 +67,7 @@
 
 						<li class="room-field-cont">
 							<span class="point_color">*</span>
-							<span class="sm-title">숙박업소명</span>
+							<span class="sm-title">숙소명</span>
 							<div></div> <input type="text" name="accommodationName"
 							th:value="${accommodation.accommodationName}" class="input"
 							lang="en"></li>
@@ -158,8 +161,8 @@
 					<span class="sm-title">숙박최대인원</span>
 						<div th:each="room : ${accommodation.rooms}" style="width:100%;">
 							<input type="text" th:value="${room.roomMaxper}"
-								name="roomMaxper" class="input" lang="en" placeholder="">
-						</div></li>
+								name="roomMaxper" class="input" lang="en">
+						</div></li>	
 
 					<li class="room-field-cont">
 					<span class="point_color">*</span>
@@ -285,7 +288,7 @@
 			<a th:href="@{/admin/accommodation/list}"
 				class="btns btn_bdr5 btn_mid">뒤로</a>
 		</p>
-	</section>
+	</div>
 
 
 	<script th:src="@{/js/accommodation.js}"></script>
