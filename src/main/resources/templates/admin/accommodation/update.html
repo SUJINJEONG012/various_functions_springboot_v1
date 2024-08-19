@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="admin/layout/basic">
 
 
@@ -7,155 +8,192 @@
 
 <th:block layout:fragment="content">
 
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ca64d7f5c677c3e5cca8b9e90d0eebc5&libraries=services"></script>
+	<script
+		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84f8ae9fafa640e78d3951db6b9805f2&libraries=services"></script>
 
 	<section>
-		<form id="updateFormAccommodations" method="post" enctype="multipart/form-data">
+		<form id="updateFormAccommodations" method="post"
+			enctype="multipart/form-data">
 			<!-- 숙소 ID 입력 요소 -->
-			<input type="hidden" id="accommodationId" th:value="${accommodation.accommodationId}">
+			<input type="hidden" id="accommodationId"
+				th:value="${accommodation.accommodationId}">
 
 			<!-- 객실기본정보 start -->
 			<div class="room_basic">
 
 				<h3 class="room_title">객실 기본 정보</h3>
+
 				<div class="room-field">
 
-					<li class="room-field-cont"><span class="point_color">*</span>숙소성급
-						<input type="hidden" id="accommodationGrade" name="accommodationGrade"
+					<ul>
+						<li class="room-field-cont"><span class="point_color">*</span>숙소성급
+							<input type="hidden" id="accommodationGrade"
+							name="accommodationGrade"
 							th:value="${accommodation.accommodationGrade}" />
 
-						<div class="star-rating space-x-4 mx-auto">
-							<!-- 별 모양 라디오 버튼 -->
 							<div class="star-rating space-x-4 mx-auto">
-								<span class="star pr-4" data-value="5">★</span> <span class="star pr-4"
-									data-value="4">★</span> <span class="star pr-4" data-value="3">★</span> <span
-									class="star pr-4" data-value="2">★</span> <span class="star" data-value="1">★</span>
-							</div>
-						</div>
-					</li>
+								<!-- 별 모양 라디오 버튼 -->
+								<div class="star-rating space-x-4 mx-auto">
+									<span class="star pr-4" data-value="5">★</span> <span
+										class="star pr-4" data-value="4">★</span> <span
+										class="star pr-4" data-value="3">★</span> <span
+										class="star pr-4" data-value="2">★</span> <span class="star"
+										data-value="1">★</span>
+								</div>
+							</div></li>
+					</ul>
 
 
 					<ul class="room-field-half">
 						<li class="room-field-cont">
 							<span class="point_color">*</span>
-							<span class="sm-title">카테고리 </span>
-							<select name="accommodationCate" class="input">
-								<option value="hotel" th:selected="${accommodation.accommodationCate == 'hotel'}">호텔
+							<span class="sm-title">카테고리 </span> 
+							<select
+							name="accommodationCate" class="input">
+								<option value="hotel"
+									th:selected="${accommodation.accommodationCate == 'hotel'}">호텔
 								</option>
-								<option value="motel" th:selected="${accommodation.accommodationCate == 'motel' }">모텔
+								<option value="motel"
+									th:selected="${accommodation.accommodationCate == 'motel' }">모텔
 								</option>
 								<option value="guesthouse"
 									th:selected="${accommodation.accommodationCate == 'guesthouse'}">게스트하우스</option>
-							</select></li>
+						</select></li>
 
 						<li class="room-field-cont">
 							<span class="point_color">*</span>
 							<span class="sm-title">숙박업소명</span>
 							<div></div> <input type="text" name="accommodationName"
-								th:value="${accommodation.accommodationName}" class="input" lang="en">
-						</li>
+							th:value="${accommodation.accommodationName}" class="input"
+							lang="en"></li>
 					</ul>
+
+					<ul class="room-field-half">
+						<li class="room-field-cont">
+							<span class="point_color">*</span>
+							<span class="sm-title">전화번호</span> 
+							<input type="tel"
+							name="accommodationPhone" id="accommodationPhone" class="input"
+							maxlength="20" lang="en"
+							th:value="${accommodation.accommodationPhone}"></li>
+
+						<li class="room-field-cont">
+							<span class="point_color">*</span>
+							<span class="sm-title">총객실수</span> 
+							<input type="text"
+							id="accommodationTotalroom" name="accommodationTotalroom"
+							class="input" lang="en"
+							th:value="${accommodation.accommodationTotalroom}"></li>
+					</ul>
+
+
+
 				</div>
 
 
 				<ul>
 					<li class="room_map">
 						<div class="add_field">
-							<label for="accommodationAdress">
-								<span class="point_color">*</span>
-								<span class="sm-title">주소</span>
-							</label> 
-							<input
-								type="button" value="주소 검색" onclick="execution_daum_address()"> <input type="text"
-								id="accommodationAdress" name="accommodationAdress" class="input"
-								th:value="${accommodation.accommodationAdress}">
+							<span class="point_color">*</span> <span class="sm-title">주소</span>
+
+							<input type="text" id="accommodationAdress"
+								name="accommodationAdress" lang="en" class="readonly"
+								th:value="${accommodation.accommodationAdress}"
+								style="width: 100%;" /> <input type="button" value="주소 검색"
+								class="btns btn_st5" onclick="execution_daum_address()">
 						</div>
 
 						<div id="map" style="width: 100%; height: 400px;"></div>
 
 					</li>
-
-					<li class="join-field"><label for="accommodationPhone"><span
-								class="point_color">*</span>전화번호</label> <input type="tel" name="accommodationPhone"
-							id="accommodationPhone" class="input" maxlength="20" lang="en"
-							th:value="${accommodation.accommodationPhone}"></li>
-
-					<li class="join-field"><label for="accommodationTotalroom">
-							<span class="point_color">*</span>총객실수
-						</label> <input type="text" id="accommodationTotalroom" name="accommodationTotalroom"
-							class="input" lang="en" th:value="${accommodation.accommodationTotalroom}"></li>
+				</ul>
 
 
-					<li><span class="point_color">*</span>숙소 소개 <textarea name="accommodationDetail"
-							th:text="${accommodation.accommodationDetail}" class="input" placeholder="숙소 소개를 입력해주세요.">
-						</textarea></li>
-
-					<!-- 객실 소개 -->
-					<h2>객실소개 부분</h2>
-
-					<li class="join-field"><span class="point_color">*</span>객실타입
-						<div th:each="room: ${accommodation.rooms}">
-							<input type="text" th:value="${room.roomRoomtype}" name="roomRoomtype" class="input"
-								lang="en" placeholder="">
+				<ul class="room-field-half">
+					<li class="room-field-cont">
+					<span class="point_color">*</span>
+					<span class="sm-title">객실타입</span>
+						<div th:each="room: ${accommodation.rooms}" style="width:100%;">
+							<input type="text" th:value="${room.roomRoomtype}"
+								name="roomRoomtype" class="input" lang="en" placeholder="">
 						</div>
 					</li>
 
 
-					<li class="join-field"><span class="point_color">*</span>부가서비스
-						<div th:each="room : ${accommodation.rooms}">
-							<input type="text" th:value="${room.roomService}" name="roomService" class="input" lang="en"
-								placeholder="">
+					<li class="room-field-cont">
+					<span class="point_color">*</span>
+					<span class="sm-title">부가서비스</span>
+						<div th:each="room : ${accommodation.rooms}" style="width:100%;">
+							<input type="text" th:value="${room.roomService}"
+								name="roomService" class="input" lang="en" placeholder="">
+						</div></li>
+				</ul>
+				
+
+				<ul class="room-field-half">
+					<li class="room-field-cont">
+						<span class="point_color">*</span>
+						<span class="sm-title">객실크기</span>
+						<div th:each="room : ${accommodation.rooms}" style="width:100%;">
+							<input type="text" th:value="${room.roomSize}" name="roomSize"
+								class="input" lang="en" placeholder="">
 						</div>
 					</li>
 
-					<li class="join-field"><span class="point_color">*</span>객실크기
-						<div th:each="room : ${accommodation.rooms}">
-							<input type="text" th:value="${room.roomSize}" name="roomSize" class="input" lang="en"
-								placeholder="">
+					<li class="room-field-cont">
+						<span class="point_color">*</span>
+						<span class="sm-title">숙박가능인원</span>
+						<div th:each="room : ${accommodation.rooms}" style="width:100%;">
+							<input type="text" th:value="${room.roomMinper}"
+								name="roomMinper" class="input" lang="en" placeholder="">
 						</div>
 					</li>
+				</ul>
+				
+				<ul class="room-field-half">
+					<li class="room-field-cont">
+					<span class="point_color">*</span>
+					<span class="sm-title">숙박최대인원</span>
+						<div th:each="room : ${accommodation.rooms}" style="width:100%;">
+							<input type="text" th:value="${room.roomMaxper}"
+								name="roomMaxper" class="input" lang="en" placeholder="">
+						</div></li>
 
-					<li class="join-field"><span class="point_color">*</span>숙박가능인원
-						<div th:each="room : ${accommodation.rooms}">
-							<input type="text" th:value="${room.roomMinper}" name="roomMinper" class="input" lang="en"
-								placeholder="">
+					<li class="room-field-cont">
+					<span class="point_color">*</span>
+					<span class="sm-title">성수기 요금</span>
+						<div th:each="room : ${accommodation.rooms}"  style="width:100%;">
+							<input type="text" th:value="${room.roomPeak}" name="roomPeak"
+								class="input" lang="en" placeholder="">
 						</div>
 					</li>
+				</ul>
 
-					<li class="join-field"><span class="point_color">*</span>숙박최대인원
-						<div th:each="room : ${accommodation.rooms}">
-							<input type="text" th:value="${room.roomMaxper}" name="roomMaxper" class="input" lang="en"
-								placeholder="">
-						</div>
-					</li>
+				<ul class="room-field-half">
+					<li class="room-field-cont">
+					<span class="point_color">*</span>
+					<span class="sm-title">준성수기 요금</span>
+						<div th:each="room : ${accommodation.rooms}" style="width:100%;">
+							<input type="text" th:value="${room.roomSemipeak}"
+								name="roomSemipeak" class="input" lang="en" placeholder="">
+						</div></li>
 
-					<li class="join-field"><span class="point_color">*</span>성수기
-						요금
-						<div th:each="room : ${accommodation.rooms}">
-							<input type="text" th:value="${room.roomPeak}" name="roomPeak" class="input" lang="en"
-								placeholder="">
-						</div>
-					</li>
-
-					<li class="join-field"><span class="point_color">*</span>준성수기
-						요금
-						<div th:each="room : ${accommodation.rooms}">
-							<input type="text" th:value="${room.roomSemipeak}" name="roomSemipeak" class="input"
-								lang="en" placeholder="">
-						</div>
-					</li>
-
-					<li class="join-field"><span class="point_color">*</span>비수기
-						요금
-						<div th:each="room : ${accommodation.rooms}">
-							<input type="text" th:value="${room.roomOff}" name="roomOff" class="input" lang="en"
-								placeholder="">
-						</div>
-					</li>
+					<li class="room-field-cont">
+					<span class="point_color">*</span>
+					<span class="sm-title">비수기 요금</span>
+						<div th:each="room : ${accommodation.rooms}" style="width:100%;">
+							<input type="text" th:value="${room.roomOff}" name="roomOff"
+								class="input" lang="en" placeholder="">
+						</div></li>
 					<!-- https://www.pinterest.co.kr/pin/741053313723665481  디자인 참고하기-->
+				</ul>
 
-					<li class="join-field"><span class="point_color"></span>상세이미지
+				<ul>
+
+					
+					
 
 						<!-- 						<div class="file_list">
 								<h4>이미지</h4>
@@ -174,45 +212,64 @@
                    		</div>
 	
 						</div> -->
+					<li class="" style="margin-bottom: 30px;">
+					<span class="point_color">*</span>
+					 <span class="sm-title">숙소 소개</span> 
+					 <textarea name="accommodationDetail" class="input" lang="en" th:text="${accommodation.accommodationDetail}"></textarea>
+					 </li>
+				</ul>
 
-						<h4>이미지</h4>
-						<div id="files" th:each="file : ${files}">
+
+				<ul>
+				
+					<li class="">
+					<span class="sm-title">상세이미지</span>
+						<div class="defiles">
+						<div id="files"  th:each="file : ${files}">
 							<div class="file_down file-item">
 								<div class="cont">
-									<ul>
-										<li><img th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
-												alt="File Image" style="width: 50%;"> <a
-												th:href="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId}+'/download'}">
-												<span class="icons"> <i class="fas fa-folder-open"></i></span>
-												<span th:text="${file.originalName}"></span>
-											</a> <span th:text="${file.afId}"></span>
+									<div class="cont-img">
+										
+										<img
+											th:src="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
+											alt="File Image" > 
+										<div class="download">
+										<a
+											th:href="@{'/admin/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId}+'/download'}">	
+												<i class="material-symbols-outlined">download</i>
+												<span th:text="${file.originalName}" lang="en"></span>
+										</a> 
+										</div>
+										<!-- <span th:text="${file.afId}"></span> -->
 											<button type="button" class="delete-file"
-												th:data-fileid="${file.afId}">X</button>
-										</li>
-									</ul>
+												th:data-fileid="${file.afId}">
+												<i class="material-symbols-outlined">close</i></button>
+									</div>
 								</div>
 							</div>
+						</div> 
 						</div>
 						<!-- 수정시 새로 파일업로드  -->
 						<div class="file_list">
-							<div>
+							<div class="add_file">
 								<div class="file_input">
-									<input type="text" readonly /> <label> 첨부파일추가 <input type="file" name="files"
-											onchange="selectFile(this);" />
+									<input type="text" readonly /> <label> 첨부파일추가 <input
+										type="file" name="files" onchange="selectFile(this);" />
 									</label>
 								</div>
 								<!-- 파일추가 수정 -->
-								<button type="button" onclick="removeFile(this);" class="btns del_btn">
+								<button type="button" onclick="removeFile(this);"
+									class="btns del_btn">
 									<i class="material-symbols-outlined">cancel</i> <span>삭제</span>
 								</button>
-								<button type="button" onclick="addFile();" class="btns fn_add_btn">
+								<button type="button" onclick="addFile();"
+									class="btns fn_add_btn">
 									<i class="material-symbols-outlined">add_circle</i> <span>추가</span>
 								</button>
 
 
 							</div>
-						</div>
-					</li>
+						</div></li>
 
 
 
@@ -224,8 +281,9 @@
 
 		<!-- 숙소저장하기 -->
 		<p class="btn_set">
-			<button type="button" id="acupdateBtn" class="btns btn_st3 btn_mid">수정</button>
-			<a th:href="@{/admin/accommodation/list}" class="btns btn_bdr3 btn_mid">뒤로</a>
+			<button type="button" id="acupdateBtn" class="btns btn_st5 btn_mid">수정</button>
+			<a th:href="@{/admin/accommodation/list}"
+				class="btns btn_bdr5 btn_mid">뒤로</a>
 		</p>
 	</section>
 

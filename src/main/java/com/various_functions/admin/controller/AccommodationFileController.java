@@ -29,8 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AccommodationFileController {
 
-	//private final String uploadPath = "/Users/jeongsujin/upload/"; // 파일이 저장된 경로
-	private final String uploadPath = "C:\\Users\\NCIN\\single-upload-files"; // 파일이 저장된 경로
+	private final String uploadPath = "/Users/jeongsujin/upload/"; // 파일이 저장된 경로
+	//private final String uploadPath = "C:\\Users\\NCIN\\single-upload-files"; // 파일이 저장된 경로
 	
 	private final AccommodationFileService accommodationFileService;
 	private final FileUtils fileUtils;
