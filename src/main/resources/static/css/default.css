@@ -10,7 +10,8 @@
 
 body, div, dl, dt, dd, ul, ol, li,
 h1, h2, h3, h4, h5, h6,
-pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {margin:0; padding:0;}
+pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {margin:0; padding:0; border: none;
+    outline: none;}
 
 * {/* box-sizing:border-box; */}
 body {font-family:'Noto Sans KR', Dotum, Arial, tahoma, Helvetica, sans-serif; -webkit-text-size-adjust:100%;}
@@ -126,6 +127,7 @@ input[type=email]:focus, input[type=url]:focus, input[type=number]:focus,
 
 textarea::placeholder {
     font-size: 12px; /* 원하는 크기로 설정하세요 */
+   
 }
 
 input::placeholder{font-size:12px !important; }

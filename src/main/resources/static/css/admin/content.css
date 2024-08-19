@@ -8,6 +8,9 @@
 #container .rcontent {margin-left:210px; padding:25px 30px 25px 40px;}
 #container .rcontent .content {background:#fff; border-radius:12px; box-shadow:0 0 20px rgba(80,80,80,0.1); padding:70px; min-height:600px; overflow:hidden;}
 
+
+
+
 .menu_toggle {background:linear-gradient(to left, #434b53, #32393f); border-top-right-radius:4px; border-bottom-right-radius:4px; width:20px; height:50px; position:absolute; top:80px; left:209px; cursor:pointer; box-sizing:border-box;}
 .menu_toggle > span {background-position:-145px 0; width:4px; height:7px; position:absolute; top:50%; left:50%; margin-top:-3px; margin-left:-2px;}
 .menu_toggle.active {left:0;}
@@ -29,7 +32,7 @@
 .page_tits .path > span {display:inline-block; position:relative; padding-left:12px;}
 .page_tits .path > span::before {content:'>'; font-family:dotum; color:#777; position:absolute; top:50%; left:0; margin-top:-7px;}
 .page_tits .path > strong + span {padding-left:0;}
-.page_tits .path > strong + span:before {display:none;}
+.page_tits .path > strong + spjoin-fieldan:before {display:none;}
 
 /* 컨텐츠 간격 */
 section {margin-top:80px;}
@@ -130,11 +133,44 @@ section:first-child, #tabmenu + section {margin-top:0;}
 }	
 	
 /* ============ 숙소관련 ============ */	
-.room_basic ul {}
-.room_basic ul li{}
-.add_input {
-   
-}
+
+.room-field{}
+.room-field-half{display: flex;}
+.room-field-cont{width:50%; display: flex; flex:1; align-items: center;margin-bottom: 30px; }
+.room-field-cont:not(:first-of-type){margin-left: 25px;}
+.room-field-cont .sm-title{width: 20%;}
+.room-field-cont .sm-title{width: 20%;}
+.room_basic ul li.room-field-cont select{width: 90%;padding-left: 10px;font-size:12px; background: transparent;}
+.room_basic ul li.room-field-cont input{width: 90%;padding-left: 10px; background: transparent;}
+.room_map { margin-bottom: 30px;}
+.room_map .add_field { display: flex;align-items: center; margin-bottom: 30px;}
+.room_map .add_field .sm-title{width: 10%;   }
+.room_map .add_field .readonly{background-color: #fff;background-color: transparent; border-bottom: 1px solid #000;}
+.room_map .add_field input{padding-left: 10px;}
+
+
+.btns{height:38px; line-height:38px;}
+
+
+/* 첨부파일 스타일 */
+.file_input {margin:2px 0; overflow:hidden; position:relative; padding-right:100px; width:80%; box-sizing:border-box;}
+.file_input label {vertical-align:middle;border: 1px solid #070707; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; border-radius: 3px; display:inline-block; overflow:hidden; width:85px; height:36px; line-height:30px; background:#070707; color:#fff; text-align:center; box-sizing:border-box; font-size: 13px;font-weight: 300;}
+
+.file_input label input {position:absolute; width:0; height:0; overflow:hidden; padding:0; border:0;}
+.file_input input[type=text] {color:#737070; background:#fff; border:none;}
+.file_list {}
+.file_list .add_file {position:relative;}
+.file_list .add_file input[type=text] {max-width:300px; vertical-align:top;}
+.file_list .add_file button {background:transparent; border:1px solid #070707; vertical-align:top;}
+.file_list .add_file button > span {position:relative; /*padding-left:18px;*/}
+.file_list .add_file button > span::before {width:14px; height:14px; position:absolute; top:3px; left:0;}
+.file_list .add_file button > i {font-size:18px; vertical-align: middle;}
+
+
+.file_list .add_file button.del_btn {right:95px;}
+.file_list .add_file button.del_btn span::before {background-position:0 -27px;}
+.file_list .add_file button.fn_add_btn span::before {background-position:-17px -27px;}
+.file_list .file_input {display:inline-block;  margin-top:0;}
 /* 별 모양 스타일 */
 .star {
     font-size: 25px;
@@ -241,6 +277,7 @@ h4 + .search_box {margin-top:10px;}
 .cm_write .cm_input > span i {position:absolute; top:11px; left:10px; font-size:13px; color:#999;}
 .cm_input textarea {width:100%; height:90px; background:#f9f9f9; border:0; border-bottom:1px solid #ccc;}
 .cm_input .btns {width:76px; height:40px; line-height:38px; background:#139dc8; border-radius:0; color:#fff; padding:0; margin:0; font-size:15px; position:relative; right:-1px;}
+
 /* 댓글리스트 */
 .cm_list {border-bottom:1px solid #ddd; font-size:14px;}
 .cm_list > div {overflow:hidden; border-top:1px solid #e0e0e0; padding:15px 0; position:relative;}
@@ -322,25 +359,9 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 .radios input[type=radio]:checked ~ .check {border:1px solid #555; background:#fff;}
 .radios input[type=radio]:checked ~ .check::before {background:#555;}
 .radios input[type=radio]:checked ~ label {}
-/* 첨부파일 스타일 */
-.file_input {margin:2px 0; overflow:hidden; position:relative; padding-right:100px; width:80%; box-sizing:border-box;}
-.file_input label {vertical-align:middle;border: 1px solid #070707; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; border-radius: 3px; display:inline-block; overflow:hidden; width:85px; height:36px; line-height:30px; background:#070707; color:#fff; text-align:center; box-sizing:border-box; font-size: 13px;font-weight: 300;}
-
-.file_input label input {position:absolute; width:0; height:0; overflow:hidden; padding:0; border:0;}
-.file_input input[type=text] {color:#737070; background:#fff; border:none;}
-.file_list {max-width:none;display: flex;}
-.file_list > div {position:relative;}
-.file_list > div > input[type=text] {max-width:300px; vertical-align:top;}
-.file_list > div > button {background:transparent; border:1px solid #070707; vertical-align:top;}
-.file_list > div > button > span {position:relative; /*padding-left:18px;*/}
-.file_list > div > button > span::before {width:14px; height:14px; position:absolute; top:3px; left:0;}
-.file_list > div > button > i {font-size:18px; vertical-align: middle;}
 
 
-.file_list > div > button.del_btn {right:95px;}
-.file_list > div > button.del_btn span::before {background-position:0 -27px;}
-.file_list > div > button.fn_add_btn span::before {background-position:-17px -27px;}
-.file_list .file_input {display:inline-block;  margin-top:0;}
+
 /* 첨부파일 스타일_이미지 미리보기 */
 .file_upload {overflow:hidden; box-sizing:border-box;}
 .file_upload label {vertical-align:middle; position:absolute; top:0; right:0; cursor:pointer; border-radius:0px; display:inline-block; overflow:hidden; width:100%; height:100%;}
