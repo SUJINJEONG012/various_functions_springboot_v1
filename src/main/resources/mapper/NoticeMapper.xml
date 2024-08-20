@@ -89,7 +89,7 @@
             
         </if>
         <!-- ORDER BY created_date DESC -->
-        ORDER BY notice_id desc
+        ORDER BY notice_yn desc
         LIMIT #{offset}, #{recordSize}
     </select>
 
