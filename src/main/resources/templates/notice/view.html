@@ -23,10 +23,13 @@
 							<h4>구분</h4>
 							<div th:text="${notice.noticeYn == false ? '일반' : '공지' }"></div>
 						</li>
+						
 						<li>
-							<h4>작성자</h4>
-							<div th:text="${session.loginMember.memberName}"></div>
+							<h4>이름</h4>
+							<div class="">[[${notice.writer}]]</div>
+							
 						</li>
+						
 
 
 					</ul>
@@ -54,15 +57,17 @@
 							<th scope="row">조회</th>
 							<td colspan="3">[[${notice.viewCnt}]]</td>
 						</tr>
-						<tr>
-							<th scope="row">이름</th>
-							<td colspan="3">[[${notice.writer}]]</td>
-						</tr>
+						
 						<tr>
 							<th scope="row">내용</th>
 							<td colspan="3">[[${notice.content}]]</td>
 						</tr>
 
+						<tr>
+							<th scope="row">이름</th>
+							<td colspan="3">[[${notice.writer}]]</td>
+						</tr>
+	
 						<tr>
 							<th scope="row">첨부파일</th>
 							<td id="files" colspan="3">
