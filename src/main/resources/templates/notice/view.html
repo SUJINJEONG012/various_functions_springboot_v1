@@ -1,81 +1,93 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="/layout/basic">
 <th:block layout:fragment="title">
 	<title>글 상세페이지</title>
 </th:block>
 
 <th:block layout:fragment="content">
-	
-	<div class="content" >
-	
-	<div class="page_tits">
-		<h3>게시판 관리</h3>
-		<p class="path">
-			<strong>현재위치 : </strong> <span>게시판 관리</span><span>리스트형</span><span>상세정보</span>
-		</p>
+
+	<div class="content">
+
+		<div class="sub-container">
+
+			<div class="sub-content notice">
+
+				<h2 class="page_tits">공지사항 </h2>
+
+
+				<div class="flex">
+					<ul style="display: flex; align-content: space-between;">
+
+						<li>
+							<h4>구분</h4>
+							<div th:text="${notice.noticeYn == false ? '일반' : '공지' }"></div>
+						</li>
+						<li>
+							<h4>작성자</h4>
+							<div th:text="${session.loginMember.memberName}"></div>
+						</li>
+
+
+					</ul>
+				</div>
+
+
+				<table class="tb tb_col">
+					<colgroup>
+						<col style="width: 10%;" />
+						<col style="width: 23%;" />
+						<col style="width: 10%;" />
+						<col style="width: 23%;" />
+					</colgroup>
+
+					<tbody>
+						<tr>
+							<th scope="row">글 유형</th>
+							<td th:text="${notice.noticeYn == false ? '일반' : '공지' }"></td>
+							<th scope="row">등록일</th>
+							<td th:text="${#temporals.format(notice.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+						</tr>
+						<tr>
+							<th scope="row">제목</th>
+							<td>[[${notice.title}]]</td>
+							<th scope="row">조회</th>
+							<td colspan="3">[[${notice.viewCnt}]]</td>
+						</tr>
+						<tr>
+							<th scope="row">이름</th>
+							<td colspan="3">[[${notice.writer}]]</td>
+						</tr>
+						<tr>
+							<th scope="row">내용</th>
+							<td colspan="3">[[${notice.content}]]</td>
+						</tr>
+
+						<tr>
+							<th scope="row">첨부파일</th>
+							<td id="files" colspan="3">
+							</td>
+						</tr>
+
+
+
+					</tbody>
+				</table>
+
+				<p class="btn_set">
+					<!-- 수정버튼 -->
+					<span th:if="${isCurrentUserAuthor}"> <a th:href="@{/notice/write( id=${notice.noticeId} )}"
+							class="btns btn_bdr4 btn_mid">수정</a>
+					</span>
+					<!-- 삭제버튼 -->
+
+					<button th:if="${isCurrentUserAuthor}" type="button" class="btns btn_bdr1 btn_mid">삭제</button>
+					<a th:href="@{/notice/list}" class="btns btn_bdr3 btn_mid">목록</a>
+				</p>
+
+			</div>
+		</div>
 	</div>
-
-	
-		<section>
-			<table class="tb tb_row">
-				<colgroup>
-					<col style="width: 10%;" />
-					<col style="width: 23%;" />
-					<col style="width: 10%;" />
-					<col style="width: 23%;" />
-				</colgroup>
-
-				<tbody>
-					<tr>
-						<th scope="row">글 유형</th>
-						<td th:text="${notice.noticeYn == false ? '일반' : '공지' }"></td>
-						<th scope="row">등록일</th>
-						<td
-							th:text="${#temporals.format(notice.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
-					</tr>
-					<tr>
-						<th scope="row">제목</th>
-						<td>[[${notice.title}]]</td>
-						<th scope="row">조회</th>
-						<td colspan="3">[[${notice.viewCnt}]]</td>
-					</tr>
-					<tr>
-						<th scope="row">이름</th>
-						<td colspan="3">[[${notice.writer}]]</td>
-					</tr>
-					<tr>
-						<th scope="row">내용</th>
-						<td colspan="3">[[${notice.content}]]</td>
-					</tr>
-					
-					<tr>
-						<th scope="row">첨부파일</th>
-						<td id="files" colspan="3">
-						</td>		
-					</tr>
-
-
-
-				</tbody>
-			</table>
-
-			<p class="btn_set">
-				<!-- 수정버튼 -->
-				<span th:if="${isCurrentUserAuthor}"> <a
-					th:href="@{/notice/write( id=${notice.noticeId} )}"
-					class="btns btn_bdr4 btn_mid">수정</a>
-				</span>
-				<!-- 삭제버튼 -->
-
-				<button th:if="${isCurrentUserAuthor}" type="button"
-					class="btns btn_bdr1 btn_mid">삭제</button>
-				<a th:href="@{/notice/list}" class="btns btn_bdr3 btn_mid">목록</a>
-			</p>
-		</section>
-	</div>
-
 
 </th:block>
 
@@ -84,52 +96,52 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		/*<![CDATA[*/
-			window.onload = () => {
-				//deleteNotice();
-				findAllFile();
-			}
-			
+		window.onload = () => {
+			//deleteNotice();
+			findAllFile();
+		}
+
 		// 파일조회	
-		function findAllFile(){
-			
+		function findAllFile() {
+
 			const noticeId = [[${notice.noticeId}]];
 			const response = getJson(`/notice/${noticeId}/files`);
-			
-			if(!response.length){
+
+			if (!response.length) {
 				//파일이 없는경우 메세지를 표시하고 함수 종료
-				document.getElementById('files').textContent= '첨부파일이 없습니다.';
-				return ;
+				document.getElementById('files').textContent = '첨부파일이 없습니다.';
+				return;
 			}
-			
+
 			// 파일영역추가
 			let fileHtml = '<div class="file_down"><div class="cont"><ul>';
 			response.forEach(row => {
 				fileHtml += '<li>';
-				if(row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null){ // 이미지 파일체크
-				fileHtml += `
+				if (row.originalName.match(/\.(jpeg|jpg|gif|png)$/) != null) { // 이미지 파일체크
+					fileHtml += `
 					<img src="/notice/${noticeId}/files/${row.fileId}/view" alt="${row.originalName}" style="width: 100%; height: auto;">
 					<a href="/notice/${noticeId}/files/${row.fileId}/download">
 					<span class="icons">
 					<i class="fas fa-folder-open"></i></span>${row.originalName}
 					`
-			}
-				
-			
+				}
+
+
 			});
 			fileHtml += '</ul></div></div>';
-			
+
 			document.getElementById('files').innerHTML = fileHtml;
-			
-		}	
-		
-		
+
+		}
+
+
 		// 삭제버튼
 		function deleteNotice(noticeId) {
 			if (confirm('정말로 삭제하시겠습니까?')) {
 				// 삭제 요청을 서버에 보냅니다. (Ajax 등을 사용하여 구현)
 				var xhr = new XMLHttpRequest();
 				xhr.open('DELETE', '/notice/delete/' + noticeId, true);
-				xhr.onload = function() {
+				xhr.onload = function () {
 					if (xhr.status === 200) {
 						// 성공적으로 삭제되었을 경우, 적절한 동작을 수행합니다.
 						alert('게시물이 삭제되었습니다.');

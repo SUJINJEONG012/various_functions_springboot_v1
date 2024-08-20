@@ -3,6 +3,11 @@
 
 .content{margin-top:7rem;}
 
+
+/* ===========================  sub-content ============================= */
+.sub-container{position: relative; width:100%;}
+.sub-content{max-width:1400px; margin:0 auto;}
+
 /* 페이지 타이틀 */
 .page_tits {position:relative; margin-bottom:20px;}
 .page_tits .path {position:absolute; bottom:0; right:0; color:#444;}
@@ -11,7 +16,38 @@
 .page_tits .path > strong + span {padding-left:0;}
 .page_tits .path > strong + span:before {display:none;}
 
+/* 공지사항, 공지사항 리스트 글 */
+
+.sub-content.notice .page_tits{text-align: center; }
+.sub-content.notice .search_wrap{width:100%;  text-align: center;}
+.sub-content.notice .search_wrap select { width: 13%;}
+.sub-content.notice .search_wrap input { width: 50%; }
+
+.sub-content.notice .tb_col tr.top{border-top:2px solid #191919;}
+.sub-content.notice .tb_col .noticeYn{border:1px solid #191919;}
+.sub-content.notice .tb_col tr.notice-row{background-color: #f9f9f9;}
+.sub-content.notice .tb_col tr.notice-row .title{font-weight: 800;}
+.sub-content.notice .tb_col tr span.notice-box{
+    border: 1px solid #191919;
+    border-radius: 6px;
+    padding: 6px 11px;font-size: 11px;
+    color: #191919;
+    font-weight: 500;
+}
+
+.sub-content.notice .flex ul{display: flex; align-content: space-between;}
+.sub-content.notice .flex ul li {width: 50%;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    margin-bottom: 30px;}
+  
+ .sub-content.notice .flex ul li h4{  width: 23%;}   
+.sub-content.notice .flex ul li input {margin-bottom: 0;}
+
 /* =================== 메인페이지 =================== */
+
+
 .accommodation-wrap{display:flex;}
 .accommodation-wrap .accommodation-list{    border: 1px solid #191919;}
 .accommodation-item{width: 100%; padding: 20px;box-sizing: border-box;}
@@ -20,25 +56,19 @@
 
 .accommodation-item{width:100%; }
 
-li.acli.actail {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 500px;
-}
+li.acli.actail { white-space: nowrap;overflow: hidden;   text-overflow: ellipsis; width: 500px;}
 .notice_wrap{}
 .notice_wrap h2{font-size:30px;}
 
 /* 테이블 스타일 ------------------------------- */
 .tb {width:100%; border:1px solid #dedede; margin-top:20px;}
 .tb:first-child {margin-top:0;}
-.tb th, .tb td {border:1px solid #dedede; padding:10px 5px; box-sizing:border-box;}
+.tb th, .tb td {border-bottom:1px solid #dedede; padding:10px 5px; box-sizing:border-box;}
 .tb th {color:#555;}
-
+.tb_col thead th {border-top: 2px solid #191919; border-bottom: 1px solid #191919;}
 .tb_col th {border-bottom:1px solid #a2a2a2;}
 .tb_col td {text-align:center;}
-.tb_col thead th {background:#6f8294; border-color:rgba(255,255,255,0.2); color:#fff;}
-.tb_col tbody tr:nth-child(even) {background:#f6f7f8;}
+
 .tb_col .no_data_msg {padding:50px 0;}
 
 
@@ -127,7 +157,7 @@ li.acli.actail {
 .paging > p > a, .paging > p > span {margin-left:-1px;}
 .paging > p > a:first-child, .paging > p > span:first-child {margin-left:0;}
 .paging a, .paging span {display:inline-block;  padding-right: 10px;line-height:240%; color:#999; font-size:12px;}
-.paging a.active { font-weight: bold; color: red;}
+.paging a.active { font-weight: bold; }
 .paging a:hover {background:#f7f7f7;}
 .paging a.on, .paging span.on {background:#666; border-color:transparent; border-radius:4px; color:#fff;}
 .paging .page_bt {text-indent:-9999px; position:relative;}
