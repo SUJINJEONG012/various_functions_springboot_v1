@@ -6,147 +6,155 @@
 <body>
 	<th:block layout:fragment="content">
 
-<div class="content">
-	
-	<div class="sub-container">
-				
-				<div class="sub-content notice">
-					
-		<div th:if="${errorMessage}">
-			<script th:inline="javascript">
-            alert([[${errorMessage}]]);
-       	  </script>
-		</div>
-		
-		 <h2>API 데이터</h2>
-    <div th:if="${apiData != null}">
-        
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>티디 (TID)</th>
-                    <th>테마 카테고리 (ThemeCategory)</th>
-                    <th>주소1 (Addr1)</th>
-                    <th>주소2 (Addr2)</th>
-                    <th>제목 (Title)</th>
-                    <th>지도 X (MapX)</th>
-                    <th>지도 Y (MapY)</th>
-                    <th>언어 체크 (LangCheck)</th>
-                    <th>언어 코드 (LangCode)</th>
-                    <th>이미지 URL (ImageUrl)</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="item : ${apiData}">
-                    <td th:text="${item.tid}"></td>
-                    <td th:text="${item.themeCategory}"></td>
-                    <td th:text="${item.addr1}"></td>
-                    <td th:text="${item.addr2}"></td>
-                    <td th:text="${item.title}"></td>
-                    <td th:text="${item.mapX}"></td>
-                    <td th:text="${item.mapY}"></td>
-                    <td th:text="${item.langCheck}"></td>
-                    <td th:text="${item.langCode}"></td>
-                    <td th:text="${item.imageUrl}"></td>
-                   
-                </tr>
-            </tbody>
-        </table>
-    </div>
+		<div class="content">
 
+			<div class="sub-container">
 
-		<!-- 숙소 출력 -->
-		<div class="accommodation-wrap">
+				<div class="sub-content">
 
-			<div class="accommodation-list" th:each="accommodation : ${accommodations}">
-				<a th:href="@{/accommodation/view(accommodationId=${accommodation.accommodationId})}" >
-					
-				<div class="accommodation-item">
-					<div class="page_tits">
-						<h4 th:text="${accommodation.accommodationName}"></h4>
+					<div th:if="${errorMessage}">
+						<script th:inline="javascript">
+           			 alert([[${errorMessage}]]);
+       	  		</script>
 					</div>
 
-					
-						<h1 class="page_tits" th:each="room : ${accommodation.rooms}" lang="en"
-							th:text="${#numbers.formatInteger(room.roomPeak,0,'COMMA') + '원'}">
-						</h1>
+<!-- 					<h2>API 데이터</h2>
+					<div th:if="${apiData != null}">
+						<table border="1">
+							<thead>
+								<tr>
+									<th>티디 (TID)</th>
+									<th>테마 카테고리 (ThemeCategory)</th>
+									<th>주소1 (Addr1)</th>
+									<th>주소2 (Addr2)</th>
+									<th>제목 (Title)</th>
+									<th>지도 X (MapX)</th>
+									<th>지도 Y (MapY)</th>
+									<th>언어 체크 (LangCheck)</th>
+									<th>언어 코드 (LangCode)</th>
+									<th>이미지 URL (ImageUrl)</th>
 
-						
-						<!-- 이미지 다중 파일
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item : ${apiData}">
+									<td th:text="${item.tid}"></td>
+									<td th:text="${item.themeCategory}"></td>
+									<td th:text="${item.addr1}"></td>
+									<td th:text="${item.addr2}"></td>
+									<td th:text="${item.title}"></td>
+									<td th:text="${item.mapX}"></td>
+									<td th:text="${item.mapY}"></td>
+									<td th:text="${item.langCheck}"></td>
+									<td th:text="${item.langCode}"></td>
+									<td th:text="${item.imageUrl}"></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div> -->
+
+
+					<!-- 숙소 출력 -->
+					<div class="accommodation-wrap">
+
+						<div class="accommodation-list"
+							th:each="accommodation : ${accommodations}">
+
+							<a th:href="@{/accommodation/view(accommodationId=${accommodation.accommodationId})}">			
+								<div class="accommodation-item">
+
+									<div class="page_tits">
+										<h4 th:text="${accommodation.accommodationName}"></h4>
+									</div>
+
+
+									<h1 class="page_tits" th:each="room : ${accommodation.rooms}"
+										lang="en"
+										th:text="${#numbers.formatInteger(room.roomPeak,0,'COMMA') + '원'}">
+									</h1>
+
+
+									<!-- 이미지 다중 파일
 						 <div th:each="file : ${filesMap[accommodation.accommodationId]}">
 							<img th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}" alt="File Image" style="width:100%;">
 						 </div> -->
-						<!-- 첫 번째 사진만 출력 -->
-						 <div clsss="accommodation-img" th:each="file, iterStat : ${filesMap[accommodation.accommodationId]}">
-							
-							<div class="big-img" th:if="${iterStat.index == 0}">
-								<img
-									th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
-									alt="File Image" style="width: 100%;">
-							</div>
-						</div> 
-						
-						<ul>
-						<li class="accommodation-type" th:each="room : ${accommodation.rooms}"
-							th:text="${room.roomRoomtype} + ' 타입글 '"></li>
-					
-							<li class="acli accate" th:text="${accommodation.accommodationCate}"></li>
-							<li class="acli acgrade" th:text="${accommodation.accommodationGrade + '등급'}"></li>
-							<li class="acli actail" th:text="${accommodation.accommodationDetail}"></li>
-						</ul>
-				
+									<!-- 첫 번째 사진만 출력 -->
+									<div clsss="accommodation-img"
+										th:each="file, iterStat : ${filesMap[accommodation.accommodationId]}">
+
+										<div class="big-img" th:if="${iterStat.index == 0}">
+											<img
+												th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
+												alt="File Image" style="width: 100%;">
+										</div>
+									</div>
+
+									<ul>
+										<li class="accommodation-type"
+											th:each="room : ${accommodation.rooms}"
+											th:text="${room.roomRoomtype} + ' 타입글 '"></li>
+
+										<li class="acli accate"
+											th:text="${accommodation.accommodationCate}"></li>
+										<li class="acli acgrade"
+											th:text="${accommodation.accommodationGrade + '등급'}"></li>
+										<li class="acli actail"
+											th:text="${accommodation.accommodationDetail}"></li>
+									</ul>
+
+								</div>
+
+							</a>
+						</div>
 					</div>
-					
-				</a>
+
+
+
+					<div class="notice_wrap">
+						<h2 class="page_tits">공지사항</h2>
+
+
+						<!-- 공지사항 -->
+						<table class="tb tb_col">
+							<thead>
+								<tr>
+									<th scope="col">번호</th>
+									<th scope="col">제목</th>
+									<th scope="col">작성자</th>
+									<th scope="col">등록일</th>
+									<th scope="col">조회</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<!-- 공지사항 데이터를 반복하면서 테이블에 출력 -->
+								<tr th:if="${not #lists.isEmpty(recentnotices)}"
+									th:each="notice : ${recentnotices}">
+
+									<td th:text="${notice.noticeYn ? '공지글' : notice.noticeId}"></td>
+
+									<td><a
+										th:href="@{/notice/view(noticeId=${notice.noticeId})}"
+										th:text="${notice.title}"></a></td>
+									<td th:text="${notice.writer}"></td>
+									<td th:text="${notice.createdDate}"></td>
+									<td th:text="${notice.viewCnt}"></td>
+								</tr>
+								<tr th:if="${#lists.isEmpty(recentnotices)}">
+									<td colspan="5">게시물이 없습니다.</td>
+								</tr>
+							</tbody>
+
+						</table>
+
+					</div>
+
+
+				</div>
+
 			</div>
 		</div>
-		
-	
-
-		<div class="notice_wrap">
-		<h2 class="page_tits"> 공지사항</h2>
-		
-		
-		<!-- 공지사항 -->
-		<table class="tb tb_col">
-			<thead>
-				<tr>
-					<th scope="col">번호</th>
-					<th scope="col">제목</th>
-					<th scope="col">작성자</th>
-					<th scope="col">등록일</th>
-					<th scope="col">조회</th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<!-- 공지사항 데이터를 반복하면서 테이블에 출력 -->
-				<tr th:if="${not #lists.isEmpty(recentnotices)}"
-					th:each="notice : ${recentnotices}">
-
-					<td th:text="${notice.noticeYn ? '공지글' : notice.noticeId}"></td>
-
-					<td><a th:href="@{/notice/view(noticeId=${notice.noticeId})}"
-						th:text="${notice.title}"></a></td>
-					<td th:text="${notice.writer}"></td>
-					<td th:text="${notice.createdDate}"></td>
-					<td th:text="${notice.viewCnt}"></td>
-				</tr>
-				<tr th:if="${#lists.isEmpty(recentnotices)}">
-					<td colspan="5">게시물이 없습니다.</td>
-				</tr>
-			</tbody>
-
-		</table>
-		
-		</div>
-	
-	
-	</div>
-	
-	</div>
-</div>
 	</th:block>
 
 

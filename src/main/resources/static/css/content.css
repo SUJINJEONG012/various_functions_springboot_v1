@@ -80,6 +80,30 @@ background: #fff;
 
 .accommodation-item{width:100%; }
 
+
+.accommodation-wrap{}
+.accommodation-wrap .accommodation-list {display: flex;flex-wrap: wrap;}
+.accommodation-wrap .accommodation-list .accommodation-item {flex: 1 1 30%;}
+.accommodation-wrap .accommodation-list .accommodation-item .ac_detail .name{font-size: 17px;}
+.accommodation-wrap .accommodation-list .accommodation-item .ac_detail .price{font-size: 18px;font-weight: 700;}
+.accommodation-wrap .accommodation-list .accommodation-item .acimg > div{display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center;    /* 수직 중앙 정렬 */
+     height: 100vh;  overflow: hidden;height:400px; border-radius: 10px;}
+.accommodation-wrap .accommodation-list .accommodation-item .acimg img{height:400px;} 
+.accommodation-wrap .accommodation-list .accommodation-item .acimg img{width: 100%;}
+.accommodation-wrap .accommodation-list .accommodation-item .ac_detail .underimg li.detail{
+width: 100%;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 83px;}
+.su
+
+
+
+
+
 li.acli.actail { white-space: nowrap;overflow: hidden;   text-overflow: ellipsis; width: 500px;}
 .notice_wrap{}
 .notice_wrap h2{font-size:30px;}
@@ -96,7 +120,7 @@ li.acli.actail { white-space: nowrap;overflow: hidden;   text-overflow: ellipsis
 .sub-content.accommodation .accommodation-list .accommodation-item .acimg > div{display: flex;
     justify-content: center; /* 수평 중앙 정렬 */
     align-items: center;    /* 수직 중앙 정렬 */
-    height: 100vh;  overflow: hidden;height:400px; border-radius: 10px;}
+     height: 100vh;  overflow: hidden;height:400px; border-radius: 10px;}
    .sub-content.accommodation .accommodation-list .accommodation-item .acimg img{height:400px;} 
 .sub-content.accommodation .accommodation-list .accommodation-item .acimg img{width: 100%;}
 .sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .underimg li.detail{

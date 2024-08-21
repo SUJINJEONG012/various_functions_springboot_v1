@@ -11,68 +11,76 @@
 <th:block layout:fragment="content">
 
 	<div class="content">
-		<div class="sub-container">	
-			
+
+		<div class="sub-container">
 			<div class="sub-content accommodation">
-	
-			<h2 class="page_tits">숙소리스트</h2>
-		
-		<!-- 숙소 이미지 출력 -->
-		<ul class="accommodation-list">
+				<h2 class="page_tits">숙소리스트</h2>
 
-			<li class="accommodation-item" th:each="accommodation : ${accommodations}">
-			
-					<div class="ac_detail">
-						<div class="flex">
-						
-						<small th:text="${accommodation.accommodationCate}"></small>
-						<div class="star-rating">
-							
-						    <!-- 금색 별 -->
-						    <span th:each="star : ${#numbers.sequence(1, accommodation.accommodationGrade)}" 
-						          class="star pr-4" style="color: gold;" data-value="${star}">★</span>
-							 <span th:text="${accommodation.accommodationGrade + '등급'}" lang="en"></span>  
-						</div>
+				<div class="accommodation">
+					<!-- 숙소 이미지 출력 -->
+					<ul class="accommodation-list">
 
-					</div>
-						<h2 class="name" th:text="${accommodation.accommodationName}"></h2>
-						
-						
-						<h2 class="price" lang="en" th:each="room : ${accommodation.rooms}"
-							th:text="${#numbers.formatInteger(room.roomPeak,0,'COMMA') +'원'}">
-						</h2>
+						<li class="accommodation-item"
+							th:each="accommodation : ${accommodations}">
 
-						
+							<div class="ac_detail">
+								<div class="flex">
 
-						<!-- 첫 번째 사진만 출력 -->
-						<div class="acimg"
-							th:each="file, iterStat : ${filesMap[accommodation.accommodationId]}">
-							<!-- 첫 번째 요소인 경우에만 이미지 출력 -->
-							<div th:if="${iterStat.index == 0}">
-								<img
-									th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
-									alt="File Image" style="width: 100%;">
+									<small th:text="${accommodation.accommodationCate}"></small>
+									<div class="star-rating">
+
+										<!-- 금색 별 -->
+										<span
+											th:each="star : ${#numbers.sequence(1, accommodation.accommodationGrade)}"
+											class="star pr-4" style="color: gold;" data-value="${star}">★</span>
+										<span th:text="${accommodation.accommodationGrade + '등급'}"
+											lang="en"></span>
+									</div>
+
+								</div>
+								<h2 class="name" th:text="${accommodation.accommodationName}"></h2>
+
+
+								<h2 class="price" lang="en"
+									th:each="room : ${accommodation.rooms}"
+									th:text="${#numbers.formatInteger(room.roomPeak,0,'COMMA') +'원'}">
+								</h2>
+
+
+
+								<!-- 첫 번째 사진만 출력 -->
+								<div class="acimg"
+									th:each="file, iterStat : ${filesMap[accommodation.accommodationId]}">
+									<!-- 첫 번째 요소인 경우에만 이미지 출력 -->
+									<div th:if="${iterStat.index == 0}">
+										<img
+											th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
+											alt="File Image" style="width: 100%;">
+									</div>
+									<!-- 그 외 요소는 무시 -->
+								</div>
+
+
+								<ul class="underimg">
+
+									<li class="type" th:each="room : ${accommodation.rooms}"
+										th:text="${room.roomRoomtype}"></li>
+									<li class="detail"
+										th:text="${accommodation.accommodationDetail}"></li>
+								</ul>
+
+								<a
+									th:href="@{/accommodation/view(accommodationId=${accommodation.accommodationId})}"
+									class="btns btn_bdr5 btn_big"> 자세히 보러가기</a>
 							</div>
-							<!-- 그 외 요소는 무시 -->
-						</div>
+				
+				</li>
 
 
-						<ul class="underimg">
-							
-							<li class="type" th:each="room : ${accommodation.rooms}" th:text="${room.roomRoomtype}"></li>
-							<li class="detail" th:text="${accommodation.accommodationDetail}"></li>
-						</ul>
-
-						<a th:href="@{/accommodation/view(accommodationId=${accommodation.accommodationId})}" class="btns btn_bdr5 btn_big">
-						자세히 보러가기</a>
-					</div>
-					</div>
-			</li>
-			
-			
-		</ul>
-	</ul>
-	</div>
+				</ul>
+</div>
+			</div>
+		</div>
 	</div>
 
 </th:block>
