@@ -77,7 +77,8 @@ set
 
 
 <delete id="delete" parameterType="Long">
-	DELETE FROM accommodations where accommodationId = #{accommodationId}
+	
+	DELETE FROM accommodations where accommodation_id = #{accommodationId}
 </delete>
 
 

@@ -80,5 +80,8 @@
 		set delete_yn = 1
 		where af_id = #{afId}
 	</update>
+	
+
+	
 
 </mapper>
