@@ -228,8 +228,8 @@
 				.then(response =>{
 					if(response.ok){
 						alert("성공적으로 삭제되었습니다.");
-						//페이지를 새로고침, 항목을 제거
-						location.reload();
+						// 리다이렉트
+						window.location.href= '/admin/accommodation/list';
 					}else{
 						alert("삭제처리중 오류 발생했습니다.");
 					}
