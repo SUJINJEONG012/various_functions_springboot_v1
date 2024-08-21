@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -116,6 +117,7 @@ public class AccommodationController {
 	
 	@GetMapping("/accommodation/view")
 	private String userAccommodationView(@RequestParam Long accommodationId, Model model) {
+		
 		return AccommodationView(accommodationId, model, "/accommodation/view");
 	}
 	
@@ -125,13 +127,19 @@ public class AccommodationController {
 		log.info("숙소 상세보기 진입!!!");
 		
 		AccommodationsVo accommodation = accommodationService.findById(accommodationId);
-				
+		if (accommodation == null) {
+		    log.error("Accommodation with ID {} not found", accommodationId);
+		} else {
+		    log.info("accommodation 아이디값 : {}", accommodation);
+		}
+		
 		// 파일정보가져오기
 		List<AccommodationsFileVo> files = accommodationFileService.findFileByAccommodationId(accommodationId);
 		log.info("숙소정보상세보기에 가져오는 데이터 확인 : {} ", files);
 		
 		
 		model.addAttribute("accommodation",accommodation);
+		log.info("accommodation ::::: 모델에 담은 " , accommodation);
 		model.addAttribute("files",files);
 
 		return viewName;
@@ -217,6 +225,18 @@ public class AccommodationController {
 		
 	}
 	
+	
+	// 숙소삭제
+	
+	@DeleteMapping("/accommodation/delete/{accommodationId}")
+	public ResponseEntity<?> deleteAccommodation(@PathVariable Long accommodationId){
+		try {
+			accommodationService.deleteById(accommodationId);
+			return ResponseEntity.ok().build();
+		}catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제실패");
+		}
+	}
 
 	   
 	

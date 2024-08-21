@@ -11,29 +11,41 @@
 <th:block layout:fragment="content">
 
 	<div class="content">
+		<div class="sub-container">	
+			
+			<div class="sub-content accommodation">
 	
-		<h4>숙소리스트</h4>
+			<h2 class="page_tits">숙소리스트</h2>
 		
 		<!-- 숙소 이미지 출력 -->
-		<div class="accommodation-list">
+		<ul class="accommodation-list">
 
-			<div class="accommodation-item" th:each="accommodation : ${accommodations}">
+			<li class="accommodation-item" th:each="accommodation : ${accommodations}">
 			
-					<div class="card-header py-3">
-						<h4 th:text="${accommodation.accommodationName}"></h4>
+					<div class="ac_detail">
+						<div class="flex">
+						
+						<small th:text="${accommodation.accommodationCate}"></small>
+						<div class="star-rating">
+							
+						    <!-- 금색 별 -->
+						    <span th:each="star : ${#numbers.sequence(1, accommodation.accommodationGrade)}" 
+						          class="star pr-4" style="color: gold;" data-value="${star}">★</span>
+							 <span th:text="${accommodation.accommodationGrade + '등급'}" lang="en"></span>  
+						</div>
+
 					</div>
-
-					<div class="">
-
-						<h2 class="card-title" th:each="room : ${accommodation.rooms}"
+						<h2 class="name" th:text="${accommodation.accommodationName}"></h2>
+						
+						
+						<h2 class="price" lang="en" th:each="room : ${accommodation.rooms}"
 							th:text="${#numbers.formatInteger(room.roomPeak,0,'COMMA') +'원'}">
 						</h2>
 
-						<small class="" th:each="room : ${accommodation.rooms}"
-							th:text="${room.roomRoomtype}"></small>
+						
 
 						<!-- 첫 번째 사진만 출력 -->
-						<div
+						<div class="acimg"
 							th:each="file, iterStat : ${filesMap[accommodation.accommodationId]}">
 							<!-- 첫 번째 요소인 경우에만 이미지 출력 -->
 							<div th:if="${iterStat.index == 0}">
@@ -45,20 +57,22 @@
 						</div>
 
 
-						<ul class=" mt-3 mb-4">
-							<li th:text="${accommodation.accommodationCate}"></li>
-							<li th:text="${accommodation.accommodationGrade + '등급'}"></li>
-							<li th:text="${accommodation.accommodationDetail}"></li>
+						<ul class="underimg">
+							
+							<li class="type" th:each="room : ${accommodation.rooms}" th:text="${room.roomRoomtype}"></li>
+							<li class="detail" th:text="${accommodation.accommodationDetail}"></li>
 						</ul>
 
-						<a th:href="@{/accommodation/view(accommodationId=${accommodation.accommodationId})}" class="w-100 btn btn-primary">
+						<a th:href="@{/accommodation/view(accommodationId=${accommodation.accommodationId})}" class="btns btn_bdr5 btn_big">
 						자세히 보러가기</a>
 					</div>
-				
-			</div>
+					</div>
+			</li>
 			
 			
-		</div>
+		</ul>
+	</ul>
+	</div>
 	</div>
 
 </th:block>

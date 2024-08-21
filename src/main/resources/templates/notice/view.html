@@ -16,68 +16,42 @@
 				<h2 class="page_tits">공지사항 </h2>
 
 
-				<div class="flex">
-					<ul style="display: flex; align-content: space-between;">
+				<div class="notice_cont">
+					<ul class="flex">
 
 						<li>
 							<h4>구분</h4>
 							<div th:text="${notice.noticeYn == false ? '일반' : '공지' }"></div>
 						</li>
-						
+
 						<li>
 							<h4>이름</h4>
 							<div class="">[[${notice.writer}]]</div>
-							
 						</li>
-						
-
-
+						<li>
+							<h4>등록일</h4>
+							<div lang="en">[[${#temporals.format(notice.createdDate, 'yyyy-MM-dd HH:mm')}]]</div>								
+						</li>
+						<li>
+							<h4>조회</h4>
+							<div lang="en">[[${notice.viewCnt}]]</div>
+						</li>
 					</ul>
+					
+					<ul class="one">
+						<h4>제목</h4>
+						<div class="">[[${notice.title}]]</div>
+						<h4>내용</h4>
+						<div class="ntcontent">[[${notice.content}]]</div>
+						<h4>첨부파일</h4>
+						<div class="" id="files"></div>						
+					</ul>
+	
+					
 				</div>
 
 
-				<table class="tb tb_col">
-					<colgroup>
-						<col style="width: 10%;" />
-						<col style="width: 23%;" />
-						<col style="width: 10%;" />
-						<col style="width: 23%;" />
-					</colgroup>
-
-					<tbody>
-						<tr>
-							<th scope="row">글 유형</th>
-							<td th:text="${notice.noticeYn == false ? '일반' : '공지' }"></td>
-							<th scope="row">등록일</th>
-							<td th:text="${#temporals.format(notice.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
-						</tr>
-						<tr>
-							<th scope="row">제목</th>
-							<td>[[${notice.title}]]</td>
-							<th scope="row">조회</th>
-							<td colspan="3">[[${notice.viewCnt}]]</td>
-						</tr>
-						
-						<tr>
-							<th scope="row">내용</th>
-							<td colspan="3">[[${notice.content}]]</td>
-						</tr>
-
-						<tr>
-							<th scope="row">이름</th>
-							<td colspan="3">[[${notice.writer}]]</td>
-						</tr>
-	
-						<tr>
-							<th scope="row">첨부파일</th>
-							<td id="files" colspan="3">
-							</td>
-						</tr>
-
-
-
-					</tbody>
-				</table>
+				
 
 				<p class="btn_set">
 					<!-- 수정버튼 -->
@@ -87,7 +61,7 @@
 					<!-- 삭제버튼 -->
 
 					<button th:if="${isCurrentUserAuthor}" type="button" class="btns btn_bdr1 btn_mid">삭제</button>
-					<a th:href="@{/notice/list}" class="btns btn_bdr3 btn_mid">목록</a>
+					<a th:href="@{/notice/list}" class="btns btn_bdr5 btn_mid">목록</a>
 				</p>
 
 			</div>
@@ -102,7 +76,7 @@
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		window.onload = () => {
-			//deleteNotice();
+			//de<div classotice();
 			findAllFile();
 		}
 
@@ -162,6 +136,9 @@
 
 		/*]]>*/
 	</script>
+</th:block>
+
+</html>pt>
 </th:block>
 
 </html>

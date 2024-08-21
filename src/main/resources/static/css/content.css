@@ -3,11 +3,7 @@
 
 .content{background: #eef1f5;
     width: 100%;
-    height: 100vw;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;}
+    height: 100vw;}
 
 
 .content::before{content:"";
@@ -34,6 +30,8 @@ background: #fff;
     }
 
 /* 페이지 타이틀 */
+.sub-content .page_tits{text-align: center;font-size: 30px; margin-bottom: 3rem; }
+
 .page_tits {position:relative; margin-bottom:20px;}
 .page_tits .path {position:absolute; bottom:0; right:0; color:#444;}
 .page_tits .path > span {display:inline-block; position:relative; padding-left:12px;}
@@ -43,7 +41,6 @@ background: #fff;
 
 /* 공지사항, 공지사항 리스트 글 */
 
-.sub-content.notice .page_tits{text-align: center; }
 .sub-content.notice .search_wrap{width:100%;  text-align: center;}
 .sub-content.notice .search_wrap select { width: 13%;}
 .sub-content.notice .search_wrap input { width: 50%; }
@@ -54,21 +51,23 @@ background: #fff;
 .sub-content.notice .tb_col tr.notice-row .title{font-weight: 800;}
 .sub-content.notice .tb_col tr span.notice-box{
     border: 1px solid #191919;
-    border-radius: 6px;
-    padding: 6px 11px;font-size: 11px;
+    border-radius: 3px;
+    padding: 5px;font-size: 11px;
     color: #191919;
     font-weight: 500;
 }
 
-.sub-content.notice .flex ul{display: flex; align-content: space-between;}
-.sub-content.notice .flex ul li {width: 50%;
+.sub-content.notice .notice_cont .flex{display: flex; align-content: space-between;}
+.sub-content.notice .notice_cont .flex li {
     display: flex;
     flex: 1;
     align-items: center;
     margin-bottom: 30px;}
   
- .sub-content.notice .flex ul li h4{  width: 23%;}   
-.sub-content.notice .flex ul li input {margin-bottom: 0;}
+.sub-content.notice .notice_cont ul.flex li h4{width:20%;}   
+.sub-content.notice .notice_cont ul.flex li input {margin-bottom: 0;}
+.sub-content.notice .notice_cont ul.one .ntcontent{min-height:200px; border: 1px solid #191919;}
+.sub-content.notice .notice_cont ul.one h4{padding: 20px 0px;}  
 
 /* =================== 메인페이지 =================== */
 
@@ -84,6 +83,32 @@ background: #fff;
 li.acli.actail { white-space: nowrap;overflow: hidden;   text-overflow: ellipsis; width: 500px;}
 .notice_wrap{}
 .notice_wrap h2{font-size:30px;}
+
+
+
+/*================= 숙소 ===================*/
+
+.sub-content accommodation{}
+.sub-content.accommodation .accommodation-list {display: flex;flex-wrap: wrap;}
+.sub-content.accommodation .accommodation-list .accommodation-item {flex: 1 1 30%;}
+.sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .name{font-size: 17px;}
+.sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .price{font-size: 18px;font-weight: 700;}
+.sub-content.accommodation .accommodation-list .accommodation-item .acimg > div{display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center;    /* 수직 중앙 정렬 */
+    height: 100vh;  overflow: hidden;height:400px; border-radius: 10px;}
+   .sub-content.accommodation .accommodation-list .accommodation-item .acimg img{height:400px;} 
+.sub-content.accommodation .accommodation-list .accommodation-item .acimg img{width: 100%;}
+.sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .underimg li.detail{
+width: 100%;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 83px;}
+.sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .flex{display: flex;  justify-content: space-between; flex-wrap: wrap;overflow: hidden;border-radius: 10px;}
+
+
+
 
 /* 테이블 스타일 ------------------------------- */
 .tb {width:100%; border:1px solid #dedede; margin-top:20px;}

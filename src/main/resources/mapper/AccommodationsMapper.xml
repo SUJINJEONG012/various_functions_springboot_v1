@@ -76,4 +76,9 @@ set
 </update>
 
 
+<delete id="delete" parameterType="Long">
+	DELETE FROM accommodations where accommodationId = #{accommodationId}
+</delete>
+
+
 </mapper>

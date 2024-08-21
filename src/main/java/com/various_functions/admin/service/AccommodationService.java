@@ -68,21 +68,31 @@ public class AccommodationService {
 	
 	// 숙소상세 정보 
 	public AccommodationsVo findById(final Long accommodationId) {
-		
+		log.info("상세보기 서비스단에 출력ㄱ11");
 		AccommodationsVo accommodationsVo = accommodationsMapper.findById(accommodationId);
 		
 		if(accommodationsVo != null ) {
 			List<RoomInfoVo> rooms = roomInfoMapper.findRoomsByAccommodationId(accommodationId);
 			accommodationsVo.setRooms(rooms);
+		}else {
+			log.info("no !!! 아이다ㅣ값  : " + accommodationId);
 		}
 		return accommodationsVo;
 	}
+	
+	
 	
 	// 게시글 수정
 	@Transactional
 	public Long updateAccommodation(final AccommodationsDto accommodationsDto) {
 		accommodationsMapper.update(accommodationsDto);
 		return accommodationsDto.getAccommodationId();
+	}
+	
+	// 게시글 삭제
+	@Transactional
+	public void deleteById(Long accommodationId) {
+		accommodationsMapper.delete(accommodationId);
 	}
 
 }
