@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -191,10 +192,15 @@ public class NoticeController {
 	
 	
 	// 게시글 삭제
-	@PostMapping("/admin/notice/delete")
-	public String deleteNotice(@RequestParam final Long noticeId) {
-		noticeService.delete(noticeId);
-		return "redirect:/admin/notice/list";
+	@DeleteMapping("/admin/notice/delete/{noticeId}")
+	public ResponseEntity<?> deleteNotice(@PathVariable final Long noticeId) {
+		try{
+			noticeService.delete(noticeId);
+			return ResponseEntity.ok().build();
+		}catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제실패");
+		}
+		
 	}
 
 }

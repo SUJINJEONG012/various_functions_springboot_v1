@@ -219,7 +219,7 @@
 			
 			if(confirm("해당 숙소를 삭제하시겠습니까?")){
 				//서버로 삭제요청 보내기 ajax
-				fetch(`/accommodation/delete/${accommodationId}`,{
+				fetch(`/admin/accommodation/delete/${accommodationId}`,{
 					method: "DELETE",
 					headers:{
 						'content-type' : 'application/json'

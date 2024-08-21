@@ -227,8 +227,7 @@ public class AccommodationController {
 	
 	
 	// 숙소삭제
-	
-	@DeleteMapping("/accommodation/delete/{accommodationId}")
+	@DeleteMapping("/admin/accommodation/delete/{accommodationId}")
 	public ResponseEntity<?> deleteAccommodation(@PathVariable Long accommodationId){
 		try {
 			accommodationService.deleteById(accommodationId);
