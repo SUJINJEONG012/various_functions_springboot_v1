@@ -115,21 +115,32 @@ li.acli.actail { white-space: nowrap;overflow: hidden;   text-overflow: ellipsis
 .sub-content accommodation{}
 .sub-content.accommodation .accommodation-list {display: flex;flex-wrap: wrap;}
 .sub-content.accommodation .accommodation-list .accommodation-item {flex: 1 1 30%;}
-.sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .name{font-size: 17px;}
-.sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .price{font-size: 18px;font-weight: 700;}
+.sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .flex{
+	display: flex;  justify-content: space-between; flex-wrap: wrap;overflow: hidden;border-radius: 10px;
+    margin-bottom: 13px;
+	}
+.sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .flex span.cate{
+
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background: #191919;
+    color: #fff;}
+.sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .name{font-size: 17px;margin-bottom: 19px;font-size: 22px;  margin-bottom: 19px; min-height: 65px;}
+.sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .price{font-size: 18px;font-weight: 700;margin-bottom: 30px;}
 .sub-content.accommodation .accommodation-list .accommodation-item .acimg > div{display: flex;
     justify-content: center; /* 수평 중앙 정렬 */
     align-items: center;    /* 수직 중앙 정렬 */
      height: 100vh;  overflow: hidden;height:400px; border-radius: 10px;}
    .sub-content.accommodation .accommodation-list .accommodation-item .acimg img{height:400px;} 
 .sub-content.accommodation .accommodation-list .accommodation-item .acimg img{width: 100%;}
+.sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .underimg{margin-top:20px;}
 .sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .underimg li.detail{
 width: 100%;
     /* white-space: nowrap; */
     overflow: hidden;
     text-overflow: ellipsis;
     height: 83px;}
-.sub-content.accommodation .accommodation-list .accommodation-item .ac_detail .flex{display: flex;  justify-content: space-between; flex-wrap: wrap;overflow: hidden;border-radius: 10px;}
 
 
 

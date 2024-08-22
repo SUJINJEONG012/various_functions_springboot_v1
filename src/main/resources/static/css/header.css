@@ -1,15 +1,16 @@
 @charset "UTF-8";
 
-.header_wrap{position:relative; }
+.header_wrap{position:relative;/* height: 120px; *//* background: #fff; */}
 .header {
 	width:100%;
 	border-bottom: 1px solid #e7e3e3;
-    background-color: #fff;
-    z-index:1;
-    position:fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+	background-color: #fff;
+	z-index:1;
+	position:fixed;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 99px;
 }
 
 .header *{
@@ -18,11 +19,11 @@
 
 .header_container {
 	max-width:1200px;
-	margin: 0 auto;
+	margin: 1rem auto;
 	display:flex;
 	flex-direction:row;
 	align-items:center;
-	transition:max-width .2s ease-out;	
+	transition:max-width .2s ease-out;
 	justify-content: space-between;
 }
 
