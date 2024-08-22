@@ -48,6 +48,15 @@ public class AccommodationFileController {
 		
 		log.info("ResponseEntity<Resource> AdminviewFile 메서드 진입!!!!");
 		
+		//파라미터 유효성 검증
+		if(accommodationId == null || accommodationId <= 0 ) {
+			return ResponseEntity.badRequest().body(null);
+		}
+		if(afId == null || afId <= 0) {
+			return ResponseEntity.badRequest().body(null);
+		}
+		
+		
 		//파일서비스에서 파일 정보가져오기
 		AccommodationsFileVo file = accommodationFileService.findFileById(afId);
 		log.info("파일서비스에서 파일 정보가져오기 file : {}", file);
