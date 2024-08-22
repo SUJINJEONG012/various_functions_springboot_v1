@@ -19,8 +19,7 @@
 .snb_none #container .rcontent {margin-left:0;}
 .snb_none #container:after {display:none;}
 
-#container h3 {font-size:22px; position:relative; padding-left:17px;margin-bottom: 5rem;
-}
+#container h3 {font-size:22px; position:relative; padding-left:17px;margin-bottom: 5rem;}
 #container h3::before {content:''; background:#434b53; width:6px; height:23px; position:absolute; top:5px; left:0;}
 #container h4.tit {font-size:16px; position:relative; padding-left:8px; color:#d74242;}
 #container h4.tit::before {content:''; background:#d74242; border-radius:50px; width:3px; height:3px; position:absolute; top:11px; left:0;}
@@ -142,7 +141,8 @@ section:first-child, #tabmenu + section {margin-top:0;}
 .room_map .add_field .sm-title{width: 10%;   }
 .room_map .add_field .readonly{background-color: #fff;background-color: transparent; border-bottom: 1px solid #000;}
 .room_map .add_field input{padding-left: 10px;}
-
+.room-field-view .ntcontent {min-height: 200px;
+    border: 1px solid #191919; padding:20px;}
 
 .btns{height:40px; line-height:40px;}
 
@@ -168,9 +168,17 @@ background:#070707; color:#fff; text-align:center; font-size: 13px;}
 .file_list .file_input {display:inline-block;  margin-top:0;}
 
 /* 첨부파일 다운로드 */
-.defiles{display:flex;/* flex-wrap: wrap; */}
-.defiles .cont-img {position: relative;max-width: 485px;display: flex;flex-direction: column;overflow: hidden;height: 322px;}
-.defiles .cont-img img{ width: 100%; }
+.defiles{display:flex;}
+.defiles > div{margin-right: 7px;}
+.defiles .cont-img {position: relative;max-width: 485px;display: flex;flex-direction: column;overflow: hidden;height: 322px;border-radius: 10px}
+.defiles .file_down.file-item .cont {display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    height: 400px;
+    border-radius: 10px;}
+.defiles .cont-img img{ width: 100%;     height: 400px;}
 .defiles .file_down.file-item .cont .cont-img .delete-file{
     position: absolute;
     top: 0;
@@ -179,8 +187,9 @@ background:#070707; color:#fff; text-align:center; font-size: 13px;}
     height: 50px;
     }
     
+    
 .defiles .download{
-	background: #999;
+	background: #191919;
     position: absolute;
     bottom: 0;
     left: 0;

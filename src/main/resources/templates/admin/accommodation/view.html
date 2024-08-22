@@ -158,13 +158,16 @@
 					
 <ul class="">
 
-					<li><h4 class="sm-title">숙소 소개</h4>
+					<li>
+						<h4 class="sm-title">숙소 소개</h4>
 
-						<div th:text="${accommodation.accommodationDetail}"></div></li>
+						<div class="ntcontent" th:text="${accommodation.accommodationDetail}"></div>
+					</li>
 
 
 
-					<li><span class="sm-title">상세이미지</span>
+					<li>
+						<h4 class="sm-title">상세 이미지</h4>
 						<div class="defiles">
 							<div id="files" th:each="file : ${files}">
 								<div class="file_down file-item">
@@ -194,7 +197,7 @@
 			</div>
 		</div>		
 		
-		<input type="text" id="accommodationId" th:value="${accommodation.accommodationId}">
+		<input type="hidden" id="accommodationId" th:value="${accommodation.accommodationId}">
 
 		<p class="btn_set">
 			<a th:href="@{/admin/accommodation/update/{accommodationId}(accommodationId=${accommodation.accommodationId})}"
