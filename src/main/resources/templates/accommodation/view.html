@@ -1,15 +1,16 @@
-\<!DOCTYPE html>
+\
+<!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="/layout/basic">
 <th:block layout:fragment="title">
 	<title>글 상세페이지</title>
-	
+
 </th:block>
 
 
 <th:block layout:fragment="content">
-<!--
+	<!--
 상단에 이미지 노출 
 숙소이름  노출 
 좌측에는 예약하기 금액 노출 박스로 
@@ -19,126 +20,229 @@
 리뷰는나중에 노출하기 위해서 일단 보류
 
   -->
-<style>
-.calendar {display: inline-block; margin: 10px;}
-.calendar-header {display: flex; justify-content: space-between; align-items: center;}
-.days {display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+	<style>
+.calendar {
+	display: inline-block;
+	margin: 10px;
+}
+
+.calendar-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.days {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 5px;
+}
 /* 날짜 스타일 */
-.day {display: inline-block; width: 30px; height: 30px; line-height: 30px; text-align: center; cursor: pointer; }
-.day, .date { text-align: center; padding: 5px; }
-.date { cursor: pointer; }
-		   /* 선택된 날짜 스타일 */
-		   .day.selected {
-		       background-color: #4caf50;
-		       color: white;
-		   }
-	       
-		   .day.disabled {
-	           color: lightgray;
-	           cursor: not-allowed;
-	       }
-		   /* 범위 표시 스타일 */
-		   .day.range {
-		       background-color: #81c784;
-		       color: white;
-		   }
-		   
-		   /* 공백 스타일 */
-		   .day.empty { visibility: hidden; /* 공백을 숨깁니다. */ }
-		   .selected-dates {
-		       margin-top: 10px;
-		       font-size: 16px; }
-		   
-		   .day.selected {
-		       background-color: #4CAF50;
-		       color: white;}
-		   
-		   .day.in-range {
-		       background-color: #c8e6c9;
-		   }
-		    .selected-dates { margin: 10px;}
+.day {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.day, .date {
+	text-align: center;
+	padding: 5px;
+}
+
+.date {
+	cursor: pointer;
+}
+/* 선택된 날짜 스타일 */
+.day.selected {
+	background-color: #4caf50;
+	color: white;
+}
+
+.day.disabled {
+	color: lightgray;
+	cursor: not-allowed;
+}
+/* 범위 표시 스타일 */
+.day.range {
+	background-color: #81c784;
+	color: white;
+}
+
+/* 공백 스타일 */
+.day.empty {
+	visibility: hidden; /* 공백을 숨깁니다. */
+}
+
+.selected-dates {
+	margin-top: 10px;
+	font-size: 16px;
+}
+
+.day.selected {
+	background-color: #4CAF50;
+	color: white;
+}
+
+.day.in-range {
+	background-color: #c8e6c9;
+}
+
+.selected-dates {
+	margin: 10px;
+}
+
+.modal {
+    display: none; /* 숨겨진 상태 */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 </style>
 
-<div class="content">
-	
-	<h4>숙소리스트 </h4>
-		
-	<!-- 달력 -->
-    <div class="calendar" id="currentMonthCalendar">
-        <div class="calendar-header">
-            <button onclick="changeMonth(-1, 'current')">&lt;</button>
-            <div id="currentMonthYear"></div>
-            <button onclick="changeMonth(1, 'current')">&gt;</button>
-        </div>
-        <div class="days" id="currentMonthDays"></div>
-    </div>
-    <div class="calendar" id="nextMonthCalendar">
-        <div class="calendar-header">
-            <button onclick="changeMonth(-1, 'next')">&lt;</button>
-            <div id="nextMonthYear"></div>
-            <button onclick="changeMonth(1, 'next')">&gt;</button>
-        </div>
-        <div class="days" id="nextMonthDays"></div>
-    </div>
-    <div class="selected-dates">
-        <div>체크인: <span id="selectedCheckinDate">없음</span></div>
-        <div>체크아웃: <span id="selectedCheckoutDate">없음</span></div>
-        <div>기간: <span id="duration">없음</span></div>
-        <div>총 금액: <span id="totalAmount">없음</span></div>
-    </div>
-    
-    
-		<!-- 숙소 이미지 출력 -->
-		<div class="">
-		  
-			<div class="">
-		    <div class="">
-		      <div class="">
-		        <h4 th:text="${accommodation.accommodationName}"></h4>
-		      </div>
-		      <div class="card-body">
-		        
-		        <h1 class="card-title"></h1>
-		        
-		        <div th:each="room : ${accommodation.rooms}">
-		        	<span th:utext="${room.RoomPeak} + '<span>원</span>' "></span>
-		        </div>
-				
-				
-				<!-- 
-				이미지 주석처리하면에러안나오고 이미지부분에서 에러니옴-->
-				<div id="files" th:each="file : ${files}">
-					<img th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
-					alt="File Image" style="width: 50%;">
-				</div> 
-				
-				
+	<div class="content">
 
-				<ul class=" mt-3 mb-4">
-					<li th:text="${accommodation.accommodationCate}"></li>
-					<li th:text="${accommodation.accommodationGrade + '등급'}"></li>
-					<li th:text="${accommodation.accommodationDetail}"></li>
-		        </ul>
-				
-		       <div>예약하기ㅇㅇㅇ</div>
-		        
-		      </div>
-		    </div>
-		  </div>
-		  
+		<div class="sub-container">
+			<div class="sub-content accommodation">
+
+
+				<h2 class="page_tits">숙소리스트</h2>
+
+				<!-- 달력 -->
+				<div class="calendar" id="currentMonthCalendar">
+					<div class="calendar-header">
+						<button onclick="changeMonth(-1, 'current')">&lt;</button>
+						<div id="currentMonthYear"></div>
+						<button onclick="changeMonth(1, 'current')">&gt;</button>
+					</div>
+					<div class="days" id="currentMonthDays"></div>
+				</div>
+
+
+				<div class="calendar" id="nextMonthCalendar">
+					<div class="calendar-header">
+						<button onclick="changeMonth(-1, 'next')">&lt;</button>
+						<div id="nextMonthYear"></div>
+						<button onclick="changeMonth(1, 'next')">&gt;</button>
+					</div>
+					<div class="days" id="nextMonthDays"></div>
+				</div>
+				<div class="selected-dates">
+					<div>
+						체크인: <span id="selectedCheckinDate">없음</span>
+					</div>
+					<div>
+						체크아웃: <span id="selectedCheckoutDate">없음</span>
+					</div>
+					<div>
+						기간: <span id="duration">없음</span>
+					</div>
+					<div>
+						총 금액: <span id="totalAmount">없음</span>
+					</div>
+					<button id="reserveButton">예약하기</button>
+				</div>
+
+				<div id="reservationModal" class="modal">
+					<div class="modal-content">
+						<span id="closeModal" class="close">&times;</span>
+						<h2>예약 정보 확인</h2>
+						<p id="reservationDetails">체크인 및 체크아웃 날짜를 선택해주세요.</p>
+						<button id="confirmReservationButton">예약 확인</button>
+					</div>
+				</div>
+
+
+
+				<!-- 숙소 이미지 출력 -->
+				<div class="">
+
+					<div class="">
+						<div class="">
+							<div class="">
+								<h4 th:text="${accommodation.accommodationName}"></h4>
+							</div>
+							<div class="card-body">
+
+								<h1 class="card-title"></h1>
+
+								<div th:each="room : ${accommodation.rooms}">
+									<span class="room-peak"
+										th:utext="${room.RoomPeak} + '<span>원</span>' "></span>
+								</div>
+
+
+								<!-- 
+				이미지 주석처리하면에러안나오고 이미지부분에서 에러니옴-->
+								<div id="files" th:each="file : ${files}">
+									<img
+										th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"
+										alt="File Image" style="width: 50%;">
+								</div>
+
+
+
+								<ul class=" mt-3 mb-4">
+									<li th:text="${accommodation.accommodationCate}"></li>
+									<li th:text="${accommodation.accommodationGrade + '등급'}"></li>
+									<li th:text="${accommodation.accommodationDetail}"></li>
+								</ul>
+
+
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+			</div>
 		</div>
-</div>
-		
-  
-  
+
+	</div>
+
+
+
 </th:block>
 <th:block layout:fragment="script">
-	<script th:src="@{/js/test.js}"></script> 
+	<script th:src="@{/js/test.js}"></script>
 	<!-- <script th:inline="javascript">
 
 		
 	</script> -->
-	
-	
+
+
 </th:block>
 </html>

@@ -3,22 +3,35 @@ document.addEventListener('DOMContentLoaded', function() {
     let nextMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
     let selectedCheckinDate = null;
     let selectedCheckoutDate = null;
-    let rooms = []; // 방 정보를 저장할 변수
+    let roomPeak = 0; // 방 정보를 저장할 변수
 
-    // accommodationId를 적절히 설정하세요.
-    const accommodationId = 1; // 예시값, 실제로는 URL에서 동적으로 가져와야 합니다.
+ 	// room_peak 값을 HTML에서 추출하는 함수
+    function fetchRoomPeakFromHtml() {
+        const roomPeakElements = document.querySelectorAll('.room-peak');
+        if (roomPeakElements.length > 0) {
+            // 첫 번째 room_peak 값을 사용 (모든 방이 동일하다고 가정)
+            const roomPeakText = roomPeakElements[0].textContent;
+            roomPeak = parseInt(roomPeakText.replace('원', '').trim());
+        }
+    }
+    
+    fetchRoomPeakFromHtml(); // HTML에서 room_peak 값을 가져옴
+
+
+    // URL에서 accommodationId 추출
+    function getAccommodationIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('accommodationId');
+    }
+    
+    const accommodationId = getAccommodationIdFromUrl();
+    
 
     // 방 정보를 가져오는 함수
-    function fetchRooms(accommodationId) {
+   function fetchRooms(accommodationId) {
         fetch(`/accommodation/view?accommodationId=${accommodationId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                // 방 정보를 포함한 숙소 정보에서 rooms 배열을 추출합니다.
                 rooms = data.rooms || [];
                 console.log('Rooms Data:', rooms);
                 updateCalendar(currentDate, 'current');
@@ -26,6 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => console.error('Error fetching room data:', error));
     }
+
+
+
 
     function updateCalendar(date, calendarType) {
         let monthYearElement, daysElement, today = new Date();
@@ -107,46 +123,44 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateSelectedDates() {
-        const checkinElement = document.getElementById('selectedCheckinDate');
-        const checkoutElement = document.getElementById('selectedCheckoutDate');
-        const durationElement = document.getElementById('duration');
-        const totalAmountElement = document.getElementById('totalAmount');
+    const checkinElement = document.getElementById('selectedCheckinDate');
+    const checkoutElement = document.getElementById('selectedCheckoutDate');
+    const durationElement = document.getElementById('duration');
+    const totalAmountElement = document.getElementById('totalAmount');
 
-        checkinElement.textContent = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '없음';
-        checkoutElement.textContent = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '없음';
+    checkinElement.textContent = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '없음';
+    checkoutElement.textContent = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '없음';
 
-        if (selectedCheckinDate && selectedCheckoutDate) {
-            const differenceInTime = selectedCheckoutDate.getTime() - selectedCheckinDate.getTime();
-            const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+    console.log("Selected Check-in Date:", selectedCheckinDate); 
+    console.log("Selected Check-out Date:", selectedCheckoutDate);
 
-            const nights = Math.floor(differenceInDays);
-            const days = nights + 1;
+    if (selectedCheckinDate && selectedCheckoutDate) {
+        const differenceInTime = selectedCheckoutDate.getTime() - selectedCheckinDate.getTime();
+        const differenceInDays = differenceInTime / (1000 * 3600 * 24);
 
-            durationElement.textContent = `${nights}박 ${days}일`;
+        const nights =differenceInDays;
+      	durationElement.textContent = `${nights} 박 ${nights + 1} 일`;
 
-            const totalAmount = calculateTotalAmount(selectedCheckinDate, selectedCheckoutDate);
-            totalAmountElement.textContent = totalAmount + '원';
-        } else {
-            durationElement.textContent = '없음';
-            totalAmountElement.textContent = '없음';
-        }
+        const totalAmount = calculateTotalAmount(selectedCheckinDate, selectedCheckoutDate);
+        totalAmountElement.textContent = totalAmount + '원';
+    } else {
+        durationElement.textContent = '없음';
+        totalAmountElement.textContent = '없음';
+    }
+}
+
+     function calculateTotalAmount(checkinDate,checkoutDate ) {
+		let totalAmount = 0;
+		let currentDate = new Date(checkinDate);
+		
+		//체크아웃 날짜 전날까지 반복하면서 금액 합산
+		while(currentDate < checkoutDate){
+			totalAmount += roomPeak;
+			currentDate.setDate(currentDate.getDate()+1); // 다음 날로 이동
+		}
+		return totalAmount;
     }
 
-    function calculateTotalAmount(checkinDate, checkoutDate) {
-        if (!rooms || rooms.length === 0) {
-            return 0; // 객실 정보가 없을 때 예외 처리
-        }
-
-        let totalAmount = 0;
-        let currentDate = new Date(checkinDate);
-
-        while (currentDate <= checkoutDate) {
-            const rate = rooms[0].pricePerNight;
-            totalAmount += rate;
-            currentDate.setDate(currentDate.getDate() + 1);
-        }
-        return totalAmount;
-    }
 
     function changeMonth(offset, calendarType) {
         if (calendarType === 'current') {
@@ -159,10 +173,45 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     fetchRooms(accommodationId); // 방 정보를 가져오는 함수 호출
-
-console.log("Selected Check-in Date:", selectedCheckinDate); 
-console.log("Selected Check-out Date:", selectedCheckoutDate);
-
+    
+    
+    //예약하기 버튼과 모달창 엘리먼트 선택
+    const reserveButton = document.getElementById('reserveButton');
+    const reservationModal = document.getElementById('reservationModal');
+    const closeModal = document.getElementById('closeModal');
+    const reservationDetails = document.getElementById('reservationDetails');
+    const confirmReservationButton = document.getElementById('confirmReservationButton');
+    
+    //예약하기 버튼 클릭시 모달 창 열기
+    reserveButton.addEventListener('click', function(){
+		const checkinDate = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '없음';
+        const checkoutDate = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '없음';
+        const totalAmount = document.getElementById('totalAmount').textContent;
+        
+		reservationDetails.innerHTML = `체크인 날짜 : ${checkinDate}<br> 체크아웃날짜 : ${checkoutDate}<br> 총 금액: ${totalAmount}`;
+		reservationModal.style.display = "block";
+	});
+	//a 모달창닫기버튼 클릭시 모달창 닫기
+	closeModal.addEventListener('click', function(){
+		reservationModal.style.display = "none";
+	});
+	//모달창 외부를 클릭하면 모달창 닫기
+	window.addEventListener('click', function(event){
+		if(event.target === reservationModal){
+			reservationModal.style.display = "none";
+		}
+	});
+	// 예약 확인 버튼 클릭 시 예약 로직 추가
+    confirmReservationButton.addEventListener('click', function() {
+        alert("예약이 확인되었습니다!");
+        reservationModal.style.display = "none";
+    });
+    
+    
     updateCalendar(currentDate, 'current');
     updateCalendar(nextMonthDate, 'next');
 });
+
+
+
+
