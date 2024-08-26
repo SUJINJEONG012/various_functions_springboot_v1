@@ -183,8 +183,6 @@
 					</div>
 				</div>
 
-
-
 				<!-- 숙소 이미지 출력 -->
 				<div class="">
 
@@ -204,7 +202,7 @@
 
 
 								<!-- 
-				이미지 주석처리하면에러안나오고 이미지부분에서 에러니옴-->
+								이미지 주석처리하면에러안나오고 이미지부분에서 에러니옴-->
 								<div id="files" th:each="file : ${files}">
 									<img
 										th:src="@{'/accommodation/' + ${accommodation.accommodationId} + '/files/' + ${file.afId} + '/list'}"

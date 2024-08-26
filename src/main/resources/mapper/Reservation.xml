@@ -3,7 +3,8 @@
 <mapper namespace="com.various_functions.admin.mapper.ReservationMapper">
 
     <!-- 예약 삽입 -->
-    <insert id="insertReservation">
+    <insert id="insertReservation" parameterType="com.various_functions.admin.dto.ReservationDto"
+    useGeneratedKeys="true" keyProperty="rid">
         INSERT INTO reservation (
             rordernum,
             ramount,
@@ -31,14 +32,14 @@
     
     
  	<!-- 특정 회원의 예약 목록 조회 -->
-    <select id="getReservationsByMemberId" resultType="Reservation">
+    <!--<select id="getReservationsByMemberId" resultType="ReservationVo">
         SELECT * FROM reservation WHERE member_id = #{memberId}
-    </select>
+    </select>-->
 
     <!-- 특정 방의 예약 목록 조회 -->
-    <select id="getReservationsByRoomId" resultType="Reservation">
+    <!--<select id="getReservationsByRoomId" resultType="ReservationVo">
         SELECT * FROM reservation WHERE room_id = #{roomId}
-    </select>
+    </select>-->
 
     
     

@@ -6,12 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.various_functions.admin.dto.ReservationDto;
-import com.various_functions.admin.vo.ReservationVo;
 
 @Mapper
 public interface ReservationMapper {
-
-	
 	//예약 생성 메서드
 	void insertReservation(ReservationDto reservationDto);
 	

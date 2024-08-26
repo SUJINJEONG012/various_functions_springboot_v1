@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     const accommodationId = getAccommodationIdFromUrl();
-    
 
     // 방 정보를 가져오는 함수
    function fetchRooms(accommodationId) {
@@ -201,10 +200,43 @@ document.addEventListener('DOMContentLoaded', function() {
 			reservationModal.style.display = "none";
 		}
 	});
+	
 	// 예약 확인 버튼 클릭 시 예약 로직 추가
     confirmReservationButton.addEventListener('click', function() {
-        alert("예약이 확인되었습니다!");
-        reservationModal.style.display = "none";
+        
+        const checkInDate = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '';
+        const checkOutDate = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '';
+        
+         // 추가로, 객실 ID와 사용자 ID를 추가합니다
+        const reservationData = {
+            userId: 1,  // 로그인된 사용자 ID (실제 구현에서는 이 값을 동적으로 가져와야 합니다)
+            accommodationId: accommodationId,  // 객실 ID
+            checkInDate: checkInDate,
+            checkOutDate: checkOutDate
+        };
+        
+       // 서버로 데이터를 POST 요청합니다.
+        fetch('/api/reserve', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reservationData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('예약이 성공적으로 완료되었습니다.');
+                reservationModal.style.display = 'none';  // 예약 완료 후 모달 닫기
+            } else {
+                 // 서버의 실패 메시지를 로그에 남기고 사용자에게 피드백을 제공
+            	console.error('예약 실패:', data.message);
+            	alert('예약에 실패했습니다: ' + data.message);
+            }
+        })
+        .catch((error) => {
+            console.error('예약 실패:', error);
+        });    
     });
     
     

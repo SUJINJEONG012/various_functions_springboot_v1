@@ -76,8 +76,7 @@ set
 </update>
 
 
-<delete id="delete" parameterType="Long">
-	
+<delete id="delete" parameterType="Long">	
 	DELETE FROM accommodations where accommodation_id = #{accommodationId}
 </delete>
 
