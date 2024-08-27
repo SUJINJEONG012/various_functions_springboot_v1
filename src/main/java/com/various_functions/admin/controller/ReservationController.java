@@ -3,6 +3,8 @@ package com.various_functions.admin.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,11 +23,11 @@ public class ReservationController {
     private ReservationService reservationService;
 	
 	@PostMapping("/reserve")
-    public ResponseEntity<Map<String, Object>> reserve(@RequestBody ReservationDto reservationDto){
+    public ResponseEntity<Map<String, Object>> reserve(@RequestBody ReservationDto reservationDto,HttpSession session){
 		Map<String, Object> response = new HashMap<>();
 		try {
 			
-			reservationService.createReservation(reservationDto);
+			reservationService.createReservation(reservationDto, session);
 			response.put("success", true);
 			response.put("message", "예약이 성공적으로 완료되었습니다.");
 		}catch(Exception e) {
