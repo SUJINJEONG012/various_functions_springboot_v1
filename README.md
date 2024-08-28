@@ -2,4 +2,3 @@
 
 ### 숙소등록 관리자페이지
 
-![ex_screenshot](./images/no_img.gif)
