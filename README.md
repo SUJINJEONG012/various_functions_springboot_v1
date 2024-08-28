@@ -1,7 +1,7 @@
 # 숙소예약관리기능 구현
 
 <img width="1604" alt="Laptop" src="https://github.com/user-attachments/assets/572fd12a-2ba4-4d10-a84f-ef05483a8176" alt="숙소리스트">
-![ERD](https://github.com/user-attachments/assets/d5740cac-495c-4ed5-a9fd-10ffd680759e)
+
 
 ## 🔗 프로젝트 환경설정
 - Programing Languages : Java, Thymeleaf, Jquery, javascript
@@ -81,3 +81,7 @@
 
 ![공지사항글쓰기](https://github.com/user-attachments/assets/d7696908-55e4-49e1-bded-507c409804ac)
 
+
+
+
+![ERD](https://github.com/user-attachments/assets/d75abf30-0710-487f-9a93-d523b1a77c22)
