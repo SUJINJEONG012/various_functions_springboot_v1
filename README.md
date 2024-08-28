@@ -51,10 +51,15 @@
 
 
 ### 숙소등록 
-Restful을 이용하여 수정기능 추가
+- 주소API연결
+- 카테고리 변수지정 해서 ```th:selected="${accommodation.accommodationCate == 'hotel'}"```로 카테고리 설정
+- 첫번째사진이 메인이미지로 출력되게 설정 
 
 ![숙소등록](https://github.com/user-attachments/assets/e1f9db57-fb82-4a20-8bda-5eb86d864e86)
-![숙소리스트](https://github.com/user-attachments/assets/e4396055-df40-4af4-a527-4db5d381de09)
+
+- 숙소정보와 객실정보를 뷰에 노출되게 설정
+- 첫번째사진이 리스트에 표시되도록 설정
+- 금액은 ```th:text="${#numbers.formatInteger(room.roomPeak,0,'COMMA') + '원'}" ```
 
 ![숙소수정1](https://github.com/user-attachments/assets/911e0897-7eb3-48b0-97e2-f50ace88aa09)
 ![숙소수정2](https://github.com/user-attachments/assets/b953134b-d237-4dec-af45-7c7a5eec4aff)
@@ -65,11 +70,11 @@ Restful을 이용하여 수정기능 추가
 
 #### 공지사항 등록
 - 관리자만 글등록가능 
-= 공지사항 체크구현
+- 공지사항 체크구현
 - 다중첨부파일 등록가능 
 - 다중 
 #### 공지사항 수정 
-= 공지사항 수정시 이미지 출력
+- 공지사항 수정시 이미지 출력
 - 다중 이미지삭제& 이미지추가 기능 
 
 
