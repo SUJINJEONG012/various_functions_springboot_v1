@@ -51,6 +51,7 @@
 
 
 ### 숙소등록 
+Restful을 이용하여 수정기능 추가
 
 ![숙소등록](https://github.com/user-attachments/assets/e1f9db57-fb82-4a20-8bda-5eb86d864e86)
 ![숙소리스트](https://github.com/user-attachments/assets/e4396055-df40-4af4-a527-4db5d381de09)
@@ -59,13 +60,18 @@
 ![숙소수정2](https://github.com/user-attachments/assets/b953134b-d237-4dec-af45-7c7a5eec4aff)
 
 
+
 ### 공지사항 
+
+#### 공지사항 등록
+- 관리자만 글등록가능 
+= 공지사항 체크구현
+- 다중첨부파일 등록가능 
+- 다중 
+#### 공지사항 수정 
+= 공지사항 수정시 이미지 출력
+- 다중 이미지삭제& 이미지추가 기능 
+
+
 ![공지사항글쓰기](https://github.com/user-attachments/assets/d7696908-55e4-49e1-bded-507c409804ac)
 
-관리자만 글등록가능 
-공지사항 체크구현
-다중첨부파일 등록가능 
-공지사항 수정시 이미지 출력
-이미지삭제& 이미지추가 기능 
-
-구분, 작성자, 등록일, 제목, 내용, 파일첨부
