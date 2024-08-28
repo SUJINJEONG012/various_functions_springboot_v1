@@ -82,6 +82,9 @@
 ![공지사항글쓰기](https://github.com/user-attachments/assets/d7696908-55e4-49e1-bded-507c409804ac)
 
 
-
+### DB 연관관계
+숙소 테이블은 객실 테이블 및 숙소 파일 테이블과 1:N 관계
+객실테이블과 숙소파일테이블은 모두 숙소테이블과 연결
+숙소하나의 이미지는 여러개가 등록이 가능한 관계로 accommodation_id를 외래키로 설정
 
 ![ERD](https://github.com/user-attachments/assets/d75abf30-0710-487f-9a93-d523b1a77c22)
