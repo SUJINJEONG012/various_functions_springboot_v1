@@ -1,11 +1,11 @@
 # 숙소예약관리기능 구현
 
 ## 🔗 프로젝트 환경설정
-Programing Languages : Java, Thymeleaf, Jquery, javascript
-Framework / Library : SpringBoot,ajax ,Oauth2.0, 
-Server : Tomcat
-DB : MySQL
-Tooling / DevOps : STS4, Gradle
+- Programing Languages : Java, Thymeleaf, Jquery, javascript
+- Framework / Library : SpringBoot,ajax ,Oauth2.0, 
+- Server : Tomcat
+- DB : MySQL
+- Tooling / DevOps : STS4, Gradle
 
 ## 😀주요기능 
 
@@ -22,7 +22,8 @@ Tooling / DevOps : STS4, Gradle
   
 ### 검색기능
 - 공지사항, 숙소검색시 검색기능
- ```<if test="keyword != null and keyword.trim() != ''">
+ ```
+<if test="keyword != null and keyword.trim() != ''">
             <choose>
             <when test="searchType == 'title'">
             AND title LIKE CONCAT('%', #{keyword}, '%')
