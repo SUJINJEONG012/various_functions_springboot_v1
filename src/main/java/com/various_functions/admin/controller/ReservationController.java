@@ -23,11 +23,11 @@ public class ReservationController {
     private ReservationService reservationService;
 	
 	@PostMapping("/reserve")
-    public ResponseEntity<Map<String, Object>> reserve(@RequestBody ReservationDto reservationDto,HttpSession session){
+    public ResponseEntity<Map<String, Object>> reserve(@RequestBody ReservationDto reservationDto,HttpSession session,Long roomId){
 		Map<String, Object> response = new HashMap<>();
 		try {
 			
-			reservationService.createReservation(reservationDto, session);
+			reservationService.createReservation(reservationDto, session, reservationDto.getRoomId());
 			response.put("success", true);
 			response.put("message", "예약이 성공적으로 완료되었습니다.");
 		}catch(Exception e) {
