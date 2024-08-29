@@ -196,7 +196,7 @@
 								<h1 class="card-title"></h1>
 
 								<div th:each="room : ${accommodation.rooms}">
-									<span class="room-peak"
+									<span class="room-peak" th:data-room-id="${room.roomId}"
 										th:utext="${room.RoomPeak} + '<span>원</span>' "></span>
 								</div>
 
@@ -235,10 +235,8 @@
 
 </th:block>
 <th:block layout:fragment="script">
-	<script th:src="@{/js/test.js}"></script>
-	<!-- <script th:inline="javascript">
-
-		
+	<script th:src="@{/js/reservation.js}"></script>
+	<!-- <script th:inline="javascript">		
 	</script> -->
 
 
