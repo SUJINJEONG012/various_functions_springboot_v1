@@ -196,6 +196,9 @@
 								<h1 class="card-title"></h1>
 
 								<div th:each="room : ${accommodation.rooms}">
+								 <!-- roomId를 hidden input으로 설정 -->
+    							<input type="hidden" th:name="roomId" th:value="${room.roomId}">
+    
 									<span class="room-peak" th:data-room-id="${room.roomId}"
 										th:utext="${room.RoomPeak} + '<span>원</span>' "></span>
 								</div>
