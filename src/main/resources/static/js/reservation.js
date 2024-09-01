@@ -5,9 +5,15 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedCheckoutDate = null;
     let roomPeak = 0; // 방 정보를 저장할 변수
     
-    // roomId 요소 가져오기
-    let roomIdElement = document.getElementById('roomId');
-    let roomId = roomIdElement ? roomIdElement.value : null;
+    /*  roomId 요소 가져오기
+   	let roomIdElement = document.getElementById('roomId');
+    
+    if (roomIdElement) {
+        let roomId = roomIdElement.value;
+        console.log("roomId : " + roomId);
+    } else {
+        console.error("roomId 요소를 찾을 수 없습니다.");
+    }*/
 
     // room_peak 값을 HTML에서 추출하는 함수
     function fetchRoomPeakFromHtml() {
@@ -220,13 +226,24 @@ document.addEventListener('DOMContentLoaded', function() {
     confirmReservationButton.addEventListener('click', function() {
         const checkInDate = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '';
         const checkOutDate = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '';
-
+        
+        // roomId 요소에서 값을 추출
+   		const roomIdElement = document.getElementById('roomId');
+    	const roomId = roomIdElement ? roomIdElement.value : ''; // 실제 값 추출
+    
+    
+		// `roomId` 값 확인
+    	console.log("Current roomId value: ", roomId);
+        
+        
         const reservationData = {
             accommodationId: accommodationId,
             roomId: roomId, // 방 ID
             checkInDate: checkInDate,
             checkOutDate: checkOutDate
         };
+         // 전송할 JSON 데이터 콘솔 로그
+   		 console.log('보내는 JSON 데이터:', JSON.stringify(reservationData));
 
         fetch('/api/reserve', {
             method: 'POST',
@@ -235,16 +252,31 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify(reservationData),
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('예약이 성공적으로 완료되었습니다.');
-                reservationModal.style.display = 'none'; // 예약 완료 후 모달 닫기
-            } else {
-                console.error('예약 실패:', data.message);
-                alert('예약에 실패했습니다: ' + data.message);
-            }
-        })
+        //서버 응답
+        .then(response =>{
+			const contentType = response.headers.get('content-type');
+			console.log("응답 Contnet-type:", contentType);
+			
+			if(contentType && contentType.includes('application/json')){
+				 console.log("JSON으로 파싱됨. 응답 Content-Type:", contentType);
+				return response.json(); //json 파싱
+			}else{
+				console.warn("응답 폼 데이터  : ", contentType);
+				return response.text(); //json이 아닌 텍스트로 처리
+			}
+		})
+        .then(data =>{
+			if(typeof data === 'string'){
+				console.log('Json : ', data);
+				alert("서버에서 에상치 못한 응답을 받았습니다.");
+			}else if(data.success){
+				alert("예약이 성공적으로 완료되었습니다.");
+				reservationModal.style.display = 'none'; //예약완료 후 모달 닫기
+			}else{
+				console.error("예약실패:", data.meessage);
+				alert("예약에 실패했습니다," + data.message);
+			}
+		})
         .catch((error) => {
             console.error('예약 실패:', error);
         });

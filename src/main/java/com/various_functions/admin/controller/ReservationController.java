@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,9 +22,14 @@ public class ReservationController {
 
 	@Autowired
     private ReservationService reservationService;
-	
+
 	@PostMapping("/reserve")
     public ResponseEntity<Map<String, Object>> reserve(@RequestBody ReservationDto reservationDto,HttpSession session){
+		System.out.println("reserve 진입!!");
+		
+		// 요청 본문 로그
+		System.out.println("reservation data: " + reservationDto);
+		
 		Map<String, Object> response = new HashMap<>();
 		try {
 			// 예약생성	
@@ -34,7 +40,9 @@ public class ReservationController {
 			response.put("success", false);
 			response.put("message", "예약에 실패했습니다." + e.getMessage());
 		}
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_JSON) // 응답 타입을 명시적으로 설정;
+				.body(response);
 	} 
 
     
