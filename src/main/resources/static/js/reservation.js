@@ -4,7 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedCheckinDate = null;
     let selectedCheckoutDate = null;
     let roomPeak = 0; // 방 정보를 저장할 변수
-    let roomId = null; // 방 ID를 저장할 변수
+    
+    // roomId 요소 가져오기
+    let roomIdElement = document.getElementById('roomId');
+    let roomId = roomIdElement ? roomIdElement.value : null;
 
     // room_peak 값을 HTML에서 추출하는 함수
     function fetchRoomPeakFromHtml() {
