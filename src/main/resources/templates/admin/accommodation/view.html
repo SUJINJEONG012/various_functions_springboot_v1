@@ -18,15 +18,15 @@
 
 
 			<div class="room-field-view">
-					<ul>
+				<ul>
 					<li class="room-field-cont">
 						<h4 class="sm-title">성급</h4>
 						<div class="" lang="en"
 							th:text="${accommodation.accommodationGrade} + '등급' "></div>
 					</li>
-					</ul>
-					
-					<ul class="room-field-half">
+				</ul>
+
+				<ul class="room-field-half">
 
 					<li class="room-field-cont">
 						<h4 class="sm-title">카테고리</h4>
@@ -34,19 +34,19 @@
 							th:text="${accommodation.accommodationCate}"></div>
 
 					</li>
-					
-						
-					
+
+
+
 					<li class="room-field-cont">
 						<h4 class="sm-title">숙소명</h4>
 						<div lang="en" class=""
 							th:text="${accommodation.accommodationName}"></div>
 					</li>
-					
-					</ul>
-					
-					
-					<ul class="room-field-half">
+
+				</ul>
+
+
+				<ul class="room-field-half">
 
 					<li class="room-field-cont">
 						<h4 class="sm-title">전화번호</h4>
@@ -60,21 +60,21 @@
 							th:text="${accommodation.accommodationTotalroom}"></div>
 					</li>
 				</ul>
-				
-					
-					
-					
-					<ul>
+
+
+
+
+				<ul>
 					<li class="room-field-cont">
 						<h4 class="sm-title">주소</h4>
 						<div lang="en" class=""
 							th:text="${accommodation.accommodationAdress}"></div>
 
 					</li>
-	
-					
-					</ul>
-					
+
+
+				</ul>
+
 				<ul class="room-field-half">
 					<li class="room-field-cont">
 						<h4 class="sm-title">객실타입</h4>
@@ -90,59 +90,59 @@
 						</div>
 					</li>
 				</ul>
-				
-				
+
+
 				<ul class="room-field-half">
-				<li class="room-field-cont">
+					<li class="room-field-cont">
 						<h4 class="sm-title">객실크기</h4>
 						<div class="" th:each="room : ${accommodation.rooms}">
 							<div class="room-value" th:text="${room.roomSize}" lang="en"></div>
 						</div>
 					</li>
-				
-				
-				<li class="room-field-cont">
+
+
+					<li class="room-field-cont">
 						<h4 class="sm-title">숙박가능인원</h4>
 						<div class="" th:each="room : ${accommodation.rooms}">
 							<div class="room-value" th:text="${room.roomMinper}" lang="en"></div>
 						</div>
 					</li>
-				
+
 				</ul>
-				
+
 				<ul class="room-field-half">
-				
-				<li class="room-field-cont">
+
+					<li class="room-field-cont">
 						<h4 class="sm-title">숙박최대인원</h4>
 						<div class="" th:each="room : ${accommodation.rooms}">
 							<div class="room-value" th:text="${room.roomMaxper}" lang="en"></div>
 						</div>
 					</li>
-					
+
 					<li class="room-field-cont">
 						<h4 class="sm-title">성수기 가격</h4>
 						<div class="" th:each="room : ${accommodation.rooms}">
 							<div class="room-value" th:text="${room.RoomPeak}" lang="en"></div>
 						</div>
 					</li>
-					
-					
-				
+
+
+
 				</ul>
 
 
 
 				<ul class="room-field-half">
-					
+
 					<li class="room-field-cont">
 						<h4 class="sm-title">준성수기 가격</h4>
 						<div class="" th:each="room : ${accommodation.rooms}">
 							<div class="room-value" th:text="${room.RoomSemipeak}" lang="en"></div>
 						</div>
 					</li>
-					
-					
-					
+
+
+
 
 					<li class="room-field-cont">
 						<h4 class="sm-title">비수기 가격</h4>
@@ -152,16 +152,15 @@
 					</li>
 
 
-					</ul>
-					
-					
-					
-<ul class="">
+				</ul>
+
+				<ul class="">
 
 					<li>
 						<h4 class="sm-title">숙소 소개</h4>
 
-						<div class="ntcontent" th:text="${accommodation.accommodationDetail}"></div>
+						<div class="ntcontent"
+							th:text="${accommodation.accommodationDetail}"></div>
 					</li>
 
 
@@ -188,24 +187,27 @@
 									</div>
 								</div>
 							</div>
-						</div></li>
+						</div>
+					</li>
 				</ul>
 
 
 
 
 			</div>
-		</div>		
-		
-		<input type="hidden" id="accommodationId" th:value="${accommodation.accommodationId}">
+		</div>
+
+		<input type="hidden" id="accommodationId"
+			th:value="${accommodation.accommodationId}">
 
 		<p class="btn_set">
-			<a th:href="@{/admin/accommodation/update/{accommodationId}(accommodationId=${accommodation.accommodationId})}"
-				class="btns btn_st5 btn_big">수정
-			</a>			
+			<a
+				th:href="@{/admin/accommodation/update/{accommodationId}(accommodationId=${accommodation.accommodationId})}"
+				class="btns btn_st5 btn_big">수정 </a>
 			<button type="button" class="btns btn_bdr5 btn_big 	delete-button"
-			onclick="deleteItem()">삭제</button>
-			<a th:href="@{/admin/accommodation/list}" class="btns btn_bdr5 btn_big">목록</a>
+				onclick="deleteItem()">삭제</button>
+			<a th:href="@{/admin/accommodation/list}"
+				class="btns btn_bdr5 btn_big">목록</a>
 		</p>
 
 	</div>
@@ -213,7 +215,7 @@
 </th:block>
 <th:block layout:fragment="script">
 
-    <script>
+	<script>
 		// 삭제기능 추가하기
 		function deleteItem(){
 			//숨겨진 필드에서 id값 

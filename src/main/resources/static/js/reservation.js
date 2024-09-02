@@ -1,21 +1,35 @@
 document.addEventListener('DOMContentLoaded', function() {
     let currentDate = new Date();
     let nextMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+    
+    //날짜 포맷
+    function formatDate(date){
+		if(!date){
+			return "";
+		}else{
+			 // 연도, 월, 일을 추출합니다.
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더함
+    const day = String(date.getDate()).padStart(2, '0'); // 일을 2자리로 포맷
+    
+    return `${year}-${month}-${day}`; // yyyy-mm-dd 형식으로 반환
+		}
+	}
+    
     let selectedCheckinDate = null;
     let selectedCheckoutDate = null;
-    let roomPeak = 0; // 방 정보를 저장할 변수
-    
-    /*  roomId 요소 가져오기
-   	let roomIdElement = document.getElementById('roomId');
-    
-    if (roomIdElement) {
-        let roomId = roomIdElement.value;
-        console.log("roomId : " + roomId);
-    } else {
-        console.error("roomId 요소를 찾을 수 없습니다.");
-    }*/
+    let roomPeak = 0; // 방 요금
+    let guestCount = 1; // 기본 인원 수
 
-    // room_peak 값을 HTML에서 추출하는 함수
+    // 인원 수 변경 버튼 엘리먼트 가져오기
+    const decreaseGuestCount = document.getElementById('decreaseGuestCount');
+    const increaseGuestCount = document.getElementById('increaseGuestCount');
+    const guestCountElement = document.getElementById('guestCount');
+    
+    // 총 금액을 표시하는 엘리먼트
+    const totalAmountElement = document.getElementById('totalAmount');
+
+    // 방 정보를 가져오는 함수
     function fetchRoomPeakFromHtml() {
         const roomPeakElements = document.querySelectorAll('.room-peak');
         if (roomPeakElements.length > 0) {
@@ -24,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    fetchRoomPeakFromHtml(); // HTML에서 room_peak 값을 가져옴
+    fetchRoomPeakFromHtml(); // HTML에서 방 요금을 가져옴
 
     // URL에서 accommodationId 추출
     function getAccommodationIdFromUrl() {
@@ -67,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error fetching room data:', error));
     }
 
+    // 달력 업데이트 함수
     function updateCalendar(date, calendarType) {
         let monthYearElement, daysElement, today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -74,9 +89,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (calendarType === 'current') {
             monthYearElement = document.getElementById('currentMonthYear');
             daysElement = document.getElementById('currentMonthDays');
-        } else {
+        } else if (calendarType === 'next')
+if (calendarType === 'next') {
             monthYearElement = document.getElementById('nextMonthYear');
             daysElement = document.getElementById('nextMonthDays');
+        }
+
+        if (!monthYearElement || !daysElement) {
+            console.error('Calendar elements are missing.');
+            return;
         }
 
         const year = date.getFullYear();
@@ -87,12 +108,14 @@ document.addEventListener('DOMContentLoaded', function() {
         monthYearElement.textContent = date.toLocaleDateString('ko-KR', { month: 'long', year: 'numeric' });
         daysElement.innerHTML = '';
 
+        // Fill in empty days at the beginning
         for (let i = 0; i < firstDay; i++) {
             const emptyDay = document.createElement('div');
             emptyDay.classList.add('day', 'empty');
             daysElement.appendChild(emptyDay);
         }
 
+        // Fill in days of the month
         for (let day = 1; day <= lastDate; day++) {
             const dayElement = document.createElement('div');
             dayElement.classList.add('day');
@@ -161,10 +184,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const nights = differenceInDays;
             durationElement.textContent = `${nights} 박 ${nights + 1} 일`;
 
-            const totalAmount = calculateTotalAmount(selectedCheckinDate, selectedCheckoutDate);
-            totalAmountElement.textContent = totalAmount + '원';
+            updateTotalAmount();
         } else {
             durationElement.textContent = '없음';
+            totalAmountElement.textContent = '없음';
+        }
+    }
+
+    function updateTotalAmount() {
+        if (selectedCheckinDate && selectedCheckoutDate) {
+            const totalAmount = calculateTotalAmount(selectedCheckinDate, selectedCheckoutDate);
+            const finalAmount = calculateFinalAmount(totalAmount, guestCount);
+            totalAmountElement.textContent = finalAmount.toLocaleString() + '원';
+        } else {
             totalAmountElement.textContent = '없음';
         }
     }
@@ -180,18 +212,45 @@ document.addEventListener('DOMContentLoaded', function() {
         return totalAmount;
     }
 
+    function calculateFinalAmount(baseAmount, guestCount) {
+        if (guestCount <= 2) {
+            return baseAmount; // 2명까지 추가 금액 없음
+        } else {
+            const additionalGuests = guestCount - 2;
+            const additionalCost = additionalGuests * 10000; // 1명당 10,000원
+            return baseAmount + additionalCost;
+        }
+    }
+
     function changeMonth(offset, calendarType) {
         if (calendarType === 'current') {
             currentDate.setMonth(currentDate.getMonth() + offset);
             updateCalendar(currentDate, 'current');
-        } else {
+        } else if (calendarType === 'next') {
             nextMonthDate.setMonth(nextMonthDate.getMonth() + offset);
             updateCalendar(nextMonthDate, 'next');
         }
     }
 
-    // 방 정보를 가져오는 함수 호출
-    fetchRooms(accommodationId);
+    function adjustGuestCount(change) {
+        guestCount += change;
+        guestCount = Math.max(1, guestCount); // 최소 1명
+        guestCountElement.textContent = guestCount;
+        updateTotalAmount();
+    }
+
+    // 인원 수 버튼 클릭 이벤트
+    if (decreaseGuestCount) {
+        decreaseGuestCount.addEventListener('click', function() {
+            adjustGuestCount(-1);
+        });
+    }
+
+    if (increaseGuestCount) {
+        increaseGuestCount.addEventListener('click', function() {
+            adjustGuestCount(1);
+        });
+    }
 
     // 예약하기 버튼과 모달창 엘리먼트 선택
     const reserveButton = document.getElementById('reserveButton');
@@ -221,29 +280,30 @@ document.addEventListener('DOMContentLoaded', function() {
             reservationModal.style.display = "none";
         }
     });
-
+    
+    
     // 예약 확인 버튼 클릭 시 예약 로직 추가
     confirmReservationButton.addEventListener('click', function() {
         const checkInDate = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '';
         const checkOutDate = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '';
         
         // roomId 요소에서 값을 추출
-   		const roomIdElement = document.getElementById('roomId');
-    	const roomId = roomIdElement ? roomIdElement.value : ''; // 실제 값 추출
+        const roomIdElement = document.getElementById('roomId');
+        const roomId = roomIdElement ? roomIdElement.value : ''; // 실제 값 추출
     
-    
-		// `roomId` 값 확인
-    	console.log("Current roomId value: ", roomId);
-        
+        // `roomId` 값 확인
+        console.log("Current roomId value: ", roomId);
         
         const reservationData = {
             accommodationId: accommodationId,
             roomId: roomId, // 방 ID
             checkInDate: checkInDate,
-            checkOutDate: checkOutDate
+            checkOutDate: checkOutDate,
+            guestCount: guestCount // 인원 수 추가
         };
-         // 전송할 JSON 데이터 콘솔 로그
-   		 console.log('보내는 JSON 데이터:', JSON.stringify(reservationData));
+
+        // 전송할 JSON 데이터 콘솔 로그
+        console.log('보내는 JSON 데이터:', JSON.stringify(reservationData));
 
         fetch('/api/reserve', {
             method: 'POST',
@@ -252,36 +312,36 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify(reservationData),
         })
-        //서버 응답
-        .then(response =>{
-			const contentType = response.headers.get('content-type');
-			console.log("응답 Contnet-type:", contentType);
-			
-			if(contentType && contentType.includes('application/json')){
-				 console.log("JSON으로 파싱됨. 응답 Content-Type:", contentType);
-				return response.json(); //json 파싱
-			}else{
-				console.warn("응답 폼 데이터  : ", contentType);
-				return response.text(); //json이 아닌 텍스트로 처리
-			}
-		})
-        .then(data =>{
-			if(typeof data === 'string'){
-				console.log('Json : ', data);
-				alert("서버에서 에상치 못한 응답을 받았습니다.");
-			}else if(data.success){
-				alert("예약이 성공적으로 완료되었습니다.");
-				reservationModal.style.display = 'none'; //예약완료 후 모달 닫기
-			}else{
-				console.error("예약실패:", data.meessage);
-				alert("예약에 실패했습니다," + data.message);
-			}
-		})
+        .then(response => {
+            const contentType = response.headers.get('content-type');
+            console.log("응답 Content-type:", contentType);
+            
+            if (contentType && contentType.includes('application/json')) {
+                console.log("JSON으로 파싱됨. 응답 Content-Type:", contentType);
+                return response.json(); // json 파싱
+            } else {
+                console.warn("응답 폼 데이터  : ", contentType);
+                return response.text(); // json이 아닌 텍스트로 처리
+            }
+        })
+        .then(data => {
+            if (typeof data === 'string') {
+                console.log('Json : ', data);
+                alert("서버에서 예상치 못한 응답을 받았습니다.");
+            } else if (data.success) {
+                alert("예약이 성공적으로 완료되었습니다.");
+                reservationModal.style.display = 'none'; // 예약완료 후 모달 닫기
+            } else {
+                console.error("예약 실패:", data.message);
+                alert("예약에 실패했습니다," + data.message);
+            }
+        })
         .catch((error) => {
             console.error('예약 실패:', error);
         });
     });
 
+    // 초기 달력 렌더링
     updateCalendar(currentDate, 'current');
     updateCalendar(nextMonthDate, 'next');
 });

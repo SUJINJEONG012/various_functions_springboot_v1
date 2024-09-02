@@ -20,6 +20,8 @@ public class ReservationDto {
 	private String rresname;//예약자이름
 	private String rresphone;//예약자 전화번호
 	private String rresemail;//예약자 이메일
+	private Date checkInDate;
+    private Date checkOutDate;
 	private Long memberId;//회원아이디
 	private Long roomId;//객실아이디zz
 }

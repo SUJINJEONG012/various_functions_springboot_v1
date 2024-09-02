@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
  });
+ 
 
 
 // 숙소등록 저장        
