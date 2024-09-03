@@ -57,19 +57,21 @@
 }
 /* 선택된 날짜 스타일 */
 .day.selected {
-	background-color: #4caf50;
-	color: white;
+	background-color: #ff346e;
+	color: #fff;
+	border-radius: 26px;
+}
+.day.range {
+	background-color: #ff346e;
+	color: #fff;
+	border-radius: 26px;
 }
 
 .day.disabled {
 	color: lightgray;
 	cursor: not-allowed;
 }
-/* 범위 표시 스타일 */
-.day.range {
-	background-color: #81c784;
-	color: white;
-}
+
 
 /* 공백 스타일 */
 .day.empty {
@@ -81,10 +83,6 @@
 	font-size: 16px;
 }
 
-.day.selected {
-	background-color: #4CAF50;
-	color: white;
-}
 
 .day.in-range {
 	background-color: #c8e6c9;
@@ -140,43 +138,43 @@
 				<!-- 달력 -->
 				<div class="calendar" id="currentMonthCalendar">
 					<div class="calendar-header">
-						<button onclick="changeMonth(-1, 'current')">&lt;</button>
-						<div id="currentMonthYear"></div>
+						<button onclick="changeMonth(-1, 'current')" >&lt;</button>
+						<div id="currentMonthYear" lang="en"></div>
 						<button onclick="changeMonth(1, 'current')">&gt;</button>
 					</div>
-					<div class="days" id="currentMonthDays"></div>
+					<div class="days" id="currentMonthDays" lang="en"></div>
 				</div>
 
 
 				<div class="calendar" id="nextMonthCalendar">
 					<div class="calendar-header">
 						<button onclick="changeMonth(-1, 'next')">&lt;</button>
-						<div id="nextMonthYear"></div>
+						<div id="nextMonthYear" lang="en"></div>
 						<button onclick="changeMonth(1, 'next')">&gt;</button>
 					</div>
-					<div class="days" id="nextMonthDays"></div>
+					<div class="days" id="nextMonthDays" lang="en"></div>
 				</div>
 				<div class="selected-dates">
 					<div>
-						체크인: <span id="selectedCheckinDate">없음</span>
+						체크인: <span id="selectedCheckinDate" lang="en"></span>
 					</div>
 					<div>
-						체크아웃: <span id="selectedCheckoutDate">없음</span>
+						체크아웃: <span id="selectedCheckoutDate" lang="en">없음</span>
 					</div>
 					<div>
-						기간: <span id="duration">없음</span>
+						기간: <span id="duration" lang="en">없음</span>
 					</div>
 					<div>
-						총 금액: <span id="totalAmount">없음</span>
+						총 금액: <span id="totalAmount" lang="en">없음</span>
 					</div>
 					
 					<div>
 						인원수:
 						<button id="decreaseGuestCount">-</button>
-						<span id="guestCount">1</span>
+						<span id="ramount">1</span>
 						<button id="increaseGuestCount">+</button>
 					</div>
-
+					
 					<button id="reserveButton">예약하기</button>
 				</div>
 
@@ -184,7 +182,7 @@
 					<div class="modal-content">
 						<span id="closeModal" class="close">&times;</span>
 						<h2>예약 정보 확인</h2>
-						<p id="reservationDetails">체크인 및 체크아웃 날짜를 선택해주세요.</p>
+						<p id="reservationDetails"></p>
 						<button id="confirmReservationButton">예약 확인</button>
 					</div>
 				</div>

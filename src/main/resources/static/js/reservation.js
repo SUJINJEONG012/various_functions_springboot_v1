@@ -2,29 +2,15 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentDate = new Date();
     let nextMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
     
-    //날짜 포맷
-    function formatDate(date){
-		if(!date){
-			return "";
-		}else{
-			 // 연도, 월, 일을 추출합니다.
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더함
-    const day = String(date.getDate()).padStart(2, '0'); // 일을 2자리로 포맷
-    
-    return `${year}-${month}-${day}`; // yyyy-mm-dd 형식으로 반환
-		}
-	}
-    
     let selectedCheckinDate = null;
     let selectedCheckoutDate = null;
     let roomPeak = 0; // 방 요금
-    let guestCount = 1; // 기본 인원 수
+    let ramount = 1; // 기본 인원 수
 
     // 인원 수 변경 버튼 엘리먼트 가져오기
     const decreaseGuestCount = document.getElementById('decreaseGuestCount');
     const increaseGuestCount = document.getElementById('increaseGuestCount');
-    const guestCountElement = document.getElementById('guestCount');
+    const guestCountElement = document.getElementById('ramount');
     
     // 총 금액을 표시하는 엘리먼트
     const totalAmountElement = document.getElementById('totalAmount');
@@ -90,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
             monthYearElement = document.getElementById('currentMonthYear');
             daysElement = document.getElementById('currentMonthDays');
         } else if (calendarType === 'next')
-if (calendarType === 'next') {
+		if (calendarType === 'next') {
             monthYearElement = document.getElementById('nextMonthYear');
             daysElement = document.getElementById('nextMonthDays');
         }
@@ -99,23 +85,24 @@ if (calendarType === 'next') {
             console.error('Calendar elements are missing.');
             return;
         }
-
+        
         const year = date.getFullYear();
         const month = date.getMonth();
         const firstDay = new Date(year, month, 1).getDay();
         const lastDate = new Date(year, month + 1, 0).getDate();
 
+		// 년과 월을 화면에 표시
         monthYearElement.textContent = date.toLocaleDateString('ko-KR', { month: 'long', year: 'numeric' });
         daysElement.innerHTML = '';
 
-        // Fill in empty days at the beginning
+        // 첫번째날 앞의 빈 날짜를 채우기
         for (let i = 0; i < firstDay; i++) {
             const emptyDay = document.createElement('div');
             emptyDay.classList.add('day', 'empty');
             daysElement.appendChild(emptyDay);
         }
 
-        // Fill in days of the month
+       
         for (let day = 1; day <= lastDate; day++) {
             const dayElement = document.createElement('div');
             dayElement.classList.add('day');
@@ -123,10 +110,13 @@ if (calendarType === 'next') {
 
             const currentDay = new Date(year, month, day);
 
+			 // 지난 날짜는 비활성화
             if (currentDay < today) {
                 dayElement.classList.add('disabled');
             } else {
+				// 날짜클릭 이벤트 함수
                 dayElement.onclick = function () {
+                    //날짜선택로직
                     const selectedDate = new Date(year, month, day);
                     if (!selectedCheckinDate || (selectedCheckinDate && selectedCheckoutDate)) {
                         selectedCheckinDate = selectedDate;
@@ -139,13 +129,14 @@ if (calendarType === 'next') {
                             selectedCheckoutDate = selectedDate;
                         }
                     }
-
+					// 선택된 날짜 업데이트 및 달력 새로고침
                     updateSelectedDates();
                     updateCalendar(currentDate, 'current');
                     updateCalendar(nextMonthDate, 'next');
                 };
             }
 
+			// 선댁된 날짜 표시
             if (selectedCheckinDate && isSameDay(selectedCheckinDate, currentDay)) {
                 dayElement.classList.add('selected');
             }
@@ -194,7 +185,7 @@ if (calendarType === 'next') {
     function updateTotalAmount() {
         if (selectedCheckinDate && selectedCheckoutDate) {
             const totalAmount = calculateTotalAmount(selectedCheckinDate, selectedCheckoutDate);
-            const finalAmount = calculateFinalAmount(totalAmount, guestCount);
+            const finalAmount = calculateFinalAmount(totalAmount, ramount);
             totalAmountElement.textContent = finalAmount.toLocaleString() + '원';
         } else {
             totalAmountElement.textContent = '없음';
@@ -212,11 +203,11 @@ if (calendarType === 'next') {
         return totalAmount;
     }
 
-    function calculateFinalAmount(baseAmount, guestCount) {
-        if (guestCount <= 2) {
+    function calculateFinalAmount(baseAmount, ramount) {
+        if (ramount <= 2) {
             return baseAmount; // 2명까지 추가 금액 없음
         } else {
-            const additionalGuests = guestCount - 2;
+            const additionalGuests = ramount - 2;
             const additionalCost = additionalGuests * 10000; // 1명당 10,000원
             return baseAmount + additionalCost;
         }
@@ -233,9 +224,9 @@ if (calendarType === 'next') {
     }
 
     function adjustGuestCount(change) {
-        guestCount += change;
-        guestCount = Math.max(1, guestCount); // 최소 1명
-        guestCountElement.textContent = guestCount;
+        ramount += change;
+        ramount = Math.max(1, ramount); // 최소 1명
+        guestCountElement.textContent = ramount;
         updateTotalAmount();
     }
 
@@ -299,7 +290,7 @@ if (calendarType === 'next') {
             roomId: roomId, // 방 ID
             checkInDate: checkInDate,
             checkOutDate: checkOutDate,
-            guestCount: guestCount // 인원 수 추가
+            ramount: ramount // 인원 수 추가
         };
 
         // 전송할 JSON 데이터 콘솔 로그
