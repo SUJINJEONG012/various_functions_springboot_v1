@@ -29,7 +29,7 @@
             #{rresemail},
             #{memberId},
             #{checkInDate},
-            #{checkOutDate}
+            #{checkOutDate},
             #{roomId}
         )
     </insert>
