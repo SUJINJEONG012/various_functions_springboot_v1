@@ -249,15 +249,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeModal = document.getElementById('closeModal');
     const reservationDetails = document.getElementById('reservationDetails');
     const confirmReservationButton = document.getElementById('confirmReservationButton');
+    
 
     // 예약하기 버튼 클릭 시 모달 창 열기
     reserveButton.addEventListener('click', function() {
         const checkinDate = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '없음';
         const checkoutDate = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '없음';
         const totalAmount = document.getElementById('totalAmount').textContent;
-
-        reservationDetails.innerHTML = `체크인 날짜 : ${checkinDate}<br> 체크아웃 날짜 : ${checkoutDate}<br> 총 금액: ${totalAmount}`;
+        const ramount = document.getElementById('ramount').textContent;
+        
+        reservationDetails.innerHTML = `
+        <div>
+        <span lang="en">체크인 날짜 : ${checkinDate }</span>  <br> 체크아웃 날짜 : ${checkoutDate}<br> 
+        총 금액: ${totalAmount} <br> 
+        총인원수 : ${ramount}
+        </div>
+        `;
+        
         reservationModal.style.display = "block";
+        
+        
     });
 
     // 모달창 닫기 버튼 클릭 시 모달창 닫기
@@ -266,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 모달창 외부 클릭 시 모달창 닫기
-    window.addEventListener('click', function(event) {
+    window.addEventListener('click', function(event) { 
         if (event.target === reservationModal) {
             reservationModal.style.display = "none";
         }
@@ -277,6 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
     confirmReservationButton.addEventListener('click', function() {
         const checkInDate = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '';
         const checkOutDate = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '';
+        // 같은날 체크인
         
         // roomId 요소에서 값을 추출
         const roomIdElement = document.getElementById('roomId');
@@ -335,4 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 초기 달력 렌더링
     updateCalendar(currentDate, 'current');
     updateCalendar(nextMonthDate, 'next');
+    
+   
+    
 });
