@@ -48,23 +48,23 @@ public class NoticeFileController {
 	
 	
 	//파일수정
-    @GetMapping("/admin/notice/{noticeId}/files/{fileId}/update")
-    public ResponseEntity<Resource> AdminUpdateFile(@PathVariable final Long noticeId, @PathVariable final Long fileId) {
-        
-    	NoticeFileVo file = noticeFileService.findFileById(fileId);
-
-        Resource resource = fileUtils.readFileAsResource(file);
-        try {
-            String filename = URLEncoder.encode(file.getOriginalName(), "UTF-8");
-            return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG) // 이미지 파일인 경우
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\";")
-                    .header(HttpHeaders.CONTENT_LENGTH, file.getSize() + "")
-                    .body(resource);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("filename encoding failed : " + file.getOriginalName());
-        }
-    }
+//    @GetMapping("/admin/notice/{noticeId}/files/{fileId}/update")
+//    public ResponseEntity<Resource> AdminUpdateFile(@PathVariable final Long noticeId, @PathVariable final Long fileId) {
+//        
+//    	NoticeFileVo file = noticeFileService.findFileById(fileId);
+//
+//        Resource resource = fileUtils.readFileAsResource(file);
+//        try {
+//            String filename = URLEncoder.encode(file.getOriginalName(), "UTF-8");
+//            return ResponseEntity.ok()
+//                    .contentType(MediaType.IMAGE_JPEG) // 이미지 파일인 경우
+//                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\";")
+//                    .header(HttpHeaders.CONTENT_LENGTH, file.getSize() + "")
+//                    .body(resource);
+//        } catch (UnsupportedEncodingException e) {
+//            throw new RuntimeException("filename encoding failed : " + file.getOriginalName());
+//        }
+//    }
 	
 	// 첨부파일 다운로드
     @GetMapping({"/admin/notice/{noticeId}/files/{fileId}/download", "/notice/{noticeId}/files/{fileId}/download"})
