@@ -44,6 +44,15 @@
     <!--<select id="getReservationsByRoomId" resultType="ReservationVo">
         SELECT * FROM reservation WHERE room_id = #{roomId}
     </select>-->
+    
+    <select id="countOverlappingReservations" resultType="int">
+       select count(*)
+       from reservation
+       where room_id = #{roomId}
+       AND (checkOutDate) AND checkOutDate > #{checkInDate});
+    </select>
+    
+    
 
     
     
