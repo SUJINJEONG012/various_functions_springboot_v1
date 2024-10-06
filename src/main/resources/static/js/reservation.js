@@ -1,14 +1,16 @@
+
 document.addEventListener('DOMContentLoaded', function() {
-    
-    let currentDate = new Date();
+     
+    let currentDate = new Date(); //현재날
     let nextMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
     
+    //널값을 사용한 이유는 값비교시,변수가 제대로 적용되었는지 확인할 때 ==null 로 사용할 수 있어서.
     let selectedCheckinDate = null;
     let selectedCheckoutDate = null;
+    
     let roomPeak = 0; // 방 요금
     let ramount = 1; // 기본 인원 수
-
-
+    
 
     // 인원 수 변경 버튼 엘리먼트 가져오기
     const decreaseGuestCount = document.getElementById('decreaseGuestCount');
@@ -69,6 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => console.error('Error fetching room data:', error));
     }
+    
+    
 
     // 달력 업데이트 함수
     function updateCalendar(date, calendarType) {
@@ -155,11 +159,11 @@ document.addEventListener('DOMContentLoaded', function() {
             daysElement.appendChild(dayElement);
         }
     }
+    
+    
 
     function isSameDay(date1, date2) {
-        return date1.getFullYear() === date2.getFullYear() &&
-            date1.getMonth() === date2.getMonth() &&
-            date1.getDate() === date2.getDate();
+        return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate();
     }
 
     function updateSelectedDates() {
@@ -168,9 +172,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const durationElement = document.getElementById('duration');
         const totalAmountElement = document.getElementById('totalAmount');
 
+		//시간을 한국식으로 변경조건
         checkinElement.textContent = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '없음';
         checkoutElement.textContent = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '없음';
 
+		/* 기간계산( 체크인날짜와,체크아웃날짜 모두 선택된경우,두 날짜간의 차이를 계산)
+		getTime()메서드는날짜객체의 시간을 밀리초단위로반환하므로, 두날짜간의 차이를 계산하고, 
+		1000* 3600 * 24로 나누어 일수
+		*/
         if (selectedCheckinDate && selectedCheckoutDate) {
             const differenceInTime = selectedCheckoutDate.getTime() - selectedCheckinDate.getTime();
             const differenceInDays = differenceInTime / (1000 * 3600 * 24);
@@ -300,6 +309,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // `roomId` 값 확인
         console.log("Current roomId value: ", roomId);
         
+       if(!selectedCheckinDate || !selectedCheckoutDate){
+		   alert('체크인과 체크아웃 날짜를 모두 선택해주세요.');
+		   return ;// 날짜가 선택되지 않으면 더 이상 진행하지 않음 
+	   }
         const reservationData = {
             accommodationId: accommodationId,
             roomId: roomId, // 방 ID
@@ -334,7 +347,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success) {
                 alert(data.message);
                 reservationModal.style.display = 'none'; // 예약완료 후 모달 닫기
-            };
+            }else{
+				alert(data.message);
+			}
         })
         .catch((error) => {
 			alert(error.message || '예약실패');
@@ -342,9 +357,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+
     // 초기 달력 렌더링
     updateCalendar(currentDate, 'current');
     updateCalendar(nextMonthDate, 'next');
+    
     
    
     

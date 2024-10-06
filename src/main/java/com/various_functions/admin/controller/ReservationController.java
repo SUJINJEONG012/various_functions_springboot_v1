@@ -16,21 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.various_functions.admin.dto.ReservationDto;
 import com.various_functions.admin.service.ReservationService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class ReservationController {
 
 	@Autowired
 	private ReservationService reservationService;
 
+	/*
+	 * @RequestBody는클라이언트로부터 전송된 json데이터를 java객체로 변환하여 메서드의 매개변수로 전달하는 역할
+	 */
 	@PostMapping("/reserve")
 	public ResponseEntity<Map<String, Object>> reserve(@RequestBody ReservationDto reservationDto,
 			HttpSession session) {
-		System.out.println("reserve 진입!!");
+		log.info("reserve 진입!!");
 
 		// 요청 본문 로그
-		System.out.println("reservation data: " + reservationDto);
+		log.info("reservation data: " + reservationDto);
 
+		// 요청에대한 응답을 받기 위해 사용 => 키와값의쌍으로 데이터를 저장
 		Map<String, Object> response = new HashMap<>();
 		try {
 			// 예약생성
