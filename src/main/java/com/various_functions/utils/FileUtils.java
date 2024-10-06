@@ -32,16 +32,18 @@ import com.various_functions.admin.vo.NoticeFileVo;
 public class FileUtils {
 
 	// 단일파일 업로드
-	private final String singuploadPath = Paths.get("C:", "Users", "NCIN","single-upload-files").toString();
+	// private final String singuploadPath = Paths.get("C:", "Users",
+	// "NCIN","single-upload-files").toString();
 	// 다중파일 업로드
-	private final String multuploadPath = Paths.get("C:", "Users", "NCIN","mult-upload-files").toString();
+	// private final String multuploadPath = Paths.get("C:", "Users",
+	// "NCIN","mult-upload-files").toString();
 
 	/*
 	 * uploadPath 물리적으로 파일을 저장할 위치 보통 OS별 디렉터리 경로를 구분할 때 File.separator를 이용하고는 하는데요.
 	 * Paths.get( )을 이용하면 OS에 상관없이 디렉터리 경로를 구분할 수 있다.
 	 */
-	//private final String singuploadPath = Paths.get("/Users", "jeongsujin", "upload").toString();
-	//private final String multuploadPath = Paths.get("/Users", "jeongsujin", "upload", "multupload").toString();
+	private final String singuploadPath = Paths.get("/Users", "jeongsujin", "upload").toString();
+	private final String multuploadPath = Paths.get("/Users", "jeongsujin", "upload", "multupload").toString();
 
 	/**
 	 * 다중 파일 업로드
@@ -62,7 +64,7 @@ public class FileUtils {
 		}
 		return noticeFiles;
 	}
-	
+
 	/**
 	 * 다중 파일 업로드
 	 * 
@@ -83,7 +85,6 @@ public class FileUtils {
 		}
 		return filesAccommodation;
 	}
-	
 
 	/**
 	 * 단일 파일 업로드
@@ -110,8 +111,7 @@ public class FileUtils {
 		try {
 
 			multipartFile.transferTo(uploadFile);
-			
-			
+
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -173,7 +173,7 @@ public class FileUtils {
 	public String getSingUploadPath() {
 		return makeDirectories(singuploadPath);
 	}
-	
+
 	public String getMultUploadPaths() {
 		return makeDirectories(multuploadPath);
 	}
@@ -187,12 +187,11 @@ public class FileUtils {
 	public String getSingUploadPath(final String addPath) {
 		return makeDirectories(singuploadPath + File.separator + addPath);
 	}
-	
+
 	public String getMultUploadPath(final String addPath) {
 		return makeDirectories(multuploadPath + File.separator + addPath);
 	}
 
-	
 	/**
 	 * 업로드 폴더(디렉터리) 생성
 	 * 
@@ -213,8 +212,8 @@ public class FileUtils {
 	 * @param file - 첨부파일 상세정보
 	 * @return 첨부파일(리소스)
 	 */
-	
-	//공지사항 단일파일
+
+	// 공지사항 단일파일
 	public Resource readFileAsResource(final NoticeFileVo file) {
 
 		String uploadedDate = file.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyMMdd"));
@@ -235,7 +234,7 @@ public class FileUtils {
 			throw new RuntimeException("file not found :" + filePath.toString());
 		}
 	}
-	
+
 	// 공지사항 다중 파일
 	public Resource readFileAsResources(final NoticeFileVo files) {
 
@@ -257,8 +256,7 @@ public class FileUtils {
 			throw new RuntimeException("file not found :" + filePaths.toString());
 		}
 	}
-	
-	
+
 	// 숙소 단일파일
 	public Resource readFileAsResource(final AccommodationsFileVo file) {
 
@@ -305,12 +303,10 @@ public class FileUtils {
 
 	}
 
-	
-	
 	// 단일 저장된 파일을 가져오는 메서드
 	public Resource loadFileAsResource(String fileName) throws MalformedURLException, FileNotFoundException {
 		Path filePath = Paths.get(singuploadPath).resolve(fileName).normalize();
-		
+
 		Resource resource = new UrlResource(filePath.toUri());
 
 		if (resource.exists()) {
@@ -319,21 +315,18 @@ public class FileUtils {
 			throw new FileNotFoundException("파일을 찾을 수 없습니다: " + fileName);
 		}
 	}
-	
-	
-	
+
 	// 다중 저장된 파일을 가져오는 메서드
-		public Resource loadFileAsResources(String fileNames) throws MalformedURLException, FileNotFoundException {
-			Path filePaths = Paths.get(multuploadPath).resolve(fileNames).normalize();
-			
-			Resource resource = new UrlResource(filePaths.toUri());
+	public Resource loadFileAsResources(String fileNames) throws MalformedURLException, FileNotFoundException {
+		Path filePaths = Paths.get(multuploadPath).resolve(fileNames).normalize();
 
-			if (resource.exists()) {
-				return resource;
-			} else {
-				throw new FileNotFoundException("파일을 찾을 수 없습니다: " + fileNames);
-			}
+		Resource resource = new UrlResource(filePaths.toUri());
+
+		if (resource.exists()) {
+			return resource;
+		} else {
+			throw new FileNotFoundException("파일을 찾을 수 없습니다: " + fileNames);
 		}
+	}
 
-	
 }

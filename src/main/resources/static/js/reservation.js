@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    
     let currentDate = new Date();
     let nextMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
     
@@ -6,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedCheckoutDate = null;
     let roomPeak = 0; // 방 요금
     let ramount = 1; // 기본 인원 수
+
+
 
     // 인원 수 변경 버튼 엘리먼트 가져오기
     const decreaseGuestCount = document.getElementById('decreaseGuestCount');
@@ -324,22 +327,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json(); // json 파싱
             } else {
                 console.warn("응답 폼 데이터  : ", contentType);
-                return response.text(); // json이 아닌 텍스트로 처리
+                throw new Error("서버에서 예상치 못한 응답을 받았습니다."); // 에러 던짐
             }
         })
         .then(data => {
-            if (typeof data === 'string') {
-                console.log('Json : ', data);
-                alert("서버에서 예상치 못한 응답을 받았습니다.");
-            } else if (data.success) {
-                alert("예약이 성공적으로 완료되었습니다.");
+            if (data.success) {
+                alert(data.message);
                 reservationModal.style.display = 'none'; // 예약완료 후 모달 닫기
-            } else {
-                console.error("예약 실패:", data.message);
-                alert("예약에 실패했습니다," + data.message);
-            }
+            };
         })
         .catch((error) => {
+			alert(error.message || '예약실패');
             console.error('예약 실패:', error);
         });
     });

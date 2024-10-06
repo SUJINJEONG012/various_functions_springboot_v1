@@ -21,29 +21,28 @@ import com.various_functions.admin.service.ReservationService;
 public class ReservationController {
 
 	@Autowired
-    private ReservationService reservationService;
+	private ReservationService reservationService;
 
 	@PostMapping("/reserve")
-    public ResponseEntity<Map<String, Object>> reserve(@RequestBody ReservationDto reservationDto,HttpSession session){
+	public ResponseEntity<Map<String, Object>> reserve(@RequestBody ReservationDto reservationDto,
+			HttpSession session) {
 		System.out.println("reserve 진입!!");
-		
+
 		// 요청 본문 로그
 		System.out.println("reservation data: " + reservationDto);
-		
+
 		Map<String, Object> response = new HashMap<>();
 		try {
-			// 예약생성	
+			// 예약생성
 			reservationService.createReservation(reservationDto, session);
 			response.put("success", true);
 			response.put("message", "예약이 성공적으로 완료되었습니다.");
-		}catch(Exception e) {
+		} catch (Exception e) {
 			response.put("success", false);
 			response.put("message", "예약에 실패했습니다." + e.getMessage());
 		}
-		return ResponseEntity.ok()
-				.contentType(MediaType.APPLICATION_JSON) // 응답 타입을 명시적으로 설정;
+		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON) // 응답 타입을 명시적으로 설정;
 				.body(response);
-	} 
+	}
 
-    
 }
