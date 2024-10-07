@@ -49,7 +49,8 @@
        select count(*)
        from reservation
        where room_id = #{roomId}
-       AND (checkOutDate) AND checkOutDate > #{checkInDate});
+       AND checkOutDate IS NOT NULL
+       AND checkOutDate > #{checkInDate};
     </select>
     
     

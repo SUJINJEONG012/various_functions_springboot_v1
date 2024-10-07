@@ -295,9 +295,56 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // 결제로직 추가 
+    const mypayment = (reservationData)=>{
+		const IMP = window.IMP;
+		IMP.init("imp25587836");
+		const myAmount = Number(document.getElementById('totalAmount').textContent.replace(/[^0-9]/g, ''));
+		console.log("IMP" + IMP);
+		IMP.request_pay({
+			pg:"html5_inicis", // KG이니시스
+			pay_method: "card",
+			name:"예약결제",
+			amount: myAmount, // 결제 금액
+			buyer_email: "peekaboo32@naver.com", //메일
+        	buyer_name: "홍길동", // 주문자
+        	buyer_tel: "010-8635-0291", //전화번호
+        	buyer_addr: "부산광역시 수영구 광안동",
+        	buyer_postcode: "01181",
+        	m_redirect_url: "/", // 모바일 결제후 리다이렉트될 주소
+			
+		}, async(rsp)=>{
+			if(rsp.success){
+				fetch('/api/reserve', {
+					method: 'POST',
+					headers: {
+						'Content-Type' : 'application/json',
+					},body : JSON.stringify(reservationData),
+				})
+				.then(response => response.json())
+				.then(data => {
+					console.log('서버응답데이터 : ' , data);
+					if(data.success){
+						alert(data.message);
+						reservationModal.style.display = 'none';
+					}else{
+						alert('결제는 성공했지만 예약처리에 실패했습니다.');
+						console.log('예약실패이유: ', data.message || '서버오류')
+					}
+				})
+				.catch((error)=>{
+					alert('예약실패: ' + error.message);
+				});
+			}else{
+				alert('결제에 실패했습니다.' + rsp.error_msg);
+			}
+		});
+	}
     
-    // 예약 확인 버튼 클릭 시 예약 로직 추가
+    
+    // 결제하기 버튼 클릭 시 예약 로직 추가
     confirmReservationButton.addEventListener('click', function() {
+        
         const checkInDate = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '';
         const checkOutDate = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '';
         // 같은날 체크인
@@ -313,6 +360,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		   alert('체크인과 체크아웃 날짜를 모두 선택해주세요.');
 		   return ;// 날짜가 선택되지 않으면 더 이상 진행하지 않음 
 	   }
+	   
+	   //예약 데이터 구성
         const reservationData = {
             accommodationId: accommodationId,
             roomId: roomId, // 방 ID
@@ -320,9 +369,13 @@ document.addEventListener('DOMContentLoaded', function() {
             checkOutDate: checkOutDate,
             ramount: ramount // 인원 수 추가
         };
-
+        
+        //결제진행
+        mypayment(reservationData);
+        
+   
         // 전송할 JSON 데이터 콘솔 로그
-        console.log('보내는 JSON 데이터:', JSON.stringify(reservationData));
+        /*console.log('보내는 JSON 데이터:', JSON.stringify(reservationData));
 
         fetch('/api/reserve', {
             method: 'POST',
@@ -354,7 +407,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch((error) => {
 			alert(error.message || '예약실패');
             console.error('예약 실패:', error);
-        });
+        });*/
+        
     });
 
 
