@@ -11,7 +11,7 @@ import com.various_functions.admin.dto.ReservationDto;
 @Mapper
 public interface ReservationMapper {
 	// 예약 생성 메서드
-	void insertReservation(ReservationDto reservationDto);
+	int insertReservation(ReservationDto reservationDto);
 
 	// 특정 회원의 예약 목록 조회
 	List<ReservationDto> getReservationsByMemberId(@Param("memberId") Long memberId);
@@ -22,4 +22,6 @@ public interface ReservationMapper {
 	// 특정방의 예약가능 여부 확인
 	int countOverlappingReservations(@Param("roomId") Long roomId, @Param("checkInDate") Date checkInDate,
 			@Param("checkOutDate") Date checkOutDate);
+
+	boolean updateReservationStatus(ReservationDto reservationDto);
 }

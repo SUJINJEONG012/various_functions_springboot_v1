@@ -9,21 +9,17 @@
             rordernum,
             ramount,
             rroomnum,
-            rcheckin,
-            rcheckout,
             rresname,
             rresphone,
             rresemail,
             member_id,
-            checkInDate,
-            checkOutDate,
+            check_in_date,
+            check_out_date,
             room_id
         ) VALUES (
             #{rordernum},
             #{ramount},
             #{rroomnum},
-            #{rcheckin},
-            #{rcheckout},
             #{rresname},
             #{rresphone},
             #{rresemail},
@@ -46,13 +42,22 @@
     </select>-->
     
     <select id="countOverlappingReservations" resultType="int">
-       select count(*)
-       from reservation
-       where room_id = #{roomId}
-       AND checkOutDate IS NOT NULL
-       AND checkOutDate > #{checkInDate};
+
+       SELECT COUNT(*) FROM reservation
+		WHERE room_id = #{roomId}
+AND (
+    (#{checkInDate} BETWEEN check_in_date AND check_out_date)
+    OR (#{checkOutDate} BETWEEN check_in_date AND check_out_date)
+    OR (check_in_date BETWEEN #{checkInDate} AND #{checkOutDate})
+);
+
     </select>
     
+    <update id="updateReservationStatus" parameterType="com.various_functions.admin.dto.ReservationDto">
+    	update reservation
+    	set res_state= #{resState}, payment_id=#{paymentId}
+    	where rid = #{rid}
+    </update>
     
 
     
