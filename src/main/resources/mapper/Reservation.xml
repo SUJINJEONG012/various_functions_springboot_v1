@@ -15,7 +15,8 @@
             member_id,
             check_in_date,
             check_out_date,
-            room_id
+            room_id,
+            pay_time
         ) VALUES (
             #{rordernum},
             #{ramount},
@@ -26,7 +27,8 @@
             #{memberId},
             #{checkInDate},
             #{checkOutDate},
-            #{roomId}
+            #{roomId},
+            #{payTime}
         )
     </insert>
     
@@ -52,11 +54,12 @@ AND (
 );
 
     </select>
+
     
     <update id="updateReservationStatus" parameterType="com.various_functions.admin.dto.ReservationDto">
     	update reservation
-    	set res_state= #{resState}, payment_id=#{paymentId}
-    	where rid = #{rid}
+    	set res_state= #{resState}, payment_id= #{paymentId}, pay_time = NOW()
+    	WHERE rid = #{rid} AND res_state = '예약대기';
     </update>
     
 

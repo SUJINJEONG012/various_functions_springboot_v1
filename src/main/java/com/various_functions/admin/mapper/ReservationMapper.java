@@ -19,6 +19,9 @@ public interface ReservationMapper {
 	// 특정 방의 예약 목록 조회
 	List<ReservationDto> getReservationsByRoomId(@Param("roomId") Long roomId);
 
+	// 예약 정보 조회
+	ReservationDto findById(Long rid);
+
 	// 특정방의 예약가능 여부 확인
 	int countOverlappingReservations(@Param("roomId") Long roomId, @Param("checkInDate") Date checkInDate,
 			@Param("checkOutDate") Date checkOutDate);

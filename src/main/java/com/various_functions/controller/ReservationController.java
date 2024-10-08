@@ -48,7 +48,7 @@ public class ReservationController {
 
 		try {
 			// 예약생성로직
-			int newReservationId = reservationService.createReservation(reservationDto, session);
+			Long newReservationId = reservationService.createReservation(reservationDto, session);
 
 			response.put("success", true);
 			response.put("message", "예약이 성공적으로 완료되었습니다.");
@@ -68,7 +68,7 @@ public class ReservationController {
 			// 결제 ID를 사용하여 예약 상태를 업데이트
 			Boolean isUpdated = reservationService.confirmReservation(reservationDto);
 			if (isUpdated) {
-				return ResponseEntity.ok(Map.of("success", true, "message", "예약이완료되었습니다."));
+				return ResponseEntity.ok(Map.of("success", true, "message", "예약이 완료되었습니다."));
 			} else {
 				return ResponseEntity.ok(Map.of("success", false, "message", "예약처리에 실패했습니다."));
 			}

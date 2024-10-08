@@ -3,6 +3,7 @@ package com.various_functions.service;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.various_functions.admin.dto.ReservationDto;
 import com.various_functions.admin.mapper.ReservationMapper;
@@ -19,7 +20,8 @@ public class ReservationService {
 	private final ReservationMapper reservationMapper;
 
 	// 예약생성 로직에서 체크인/체크아웃 겹침 여부확인
-	public int createReservation(ReservationDto reservationDto, HttpSession session) {
+	@Transactional // 트랜잭션 관리
+	public Long createReservation(ReservationDto reservationDto, HttpSession session) {
 
 		// 세션에서 로그인한 사용자 정보 가져오기
 		MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
@@ -54,7 +56,9 @@ public class ReservationService {
 		}
 
 		// 예약정보저장
-		return reservationMapper.insertReservation(reservationDto);
+		reservationMapper.insertReservation(reservationDto);
+		return reservationDto.getRid();
+
 	}
 
 	// 예약 날짜 유효성 검사 메소드
@@ -67,7 +71,7 @@ public class ReservationService {
 		}
 	}
 
-	public boolean confirmReservation(ReservationDto reservationDto) {
+	public Boolean confirmReservation(ReservationDto reservationDto) {
 		if (reservationDto.getRid() == null) {
 			throw new IllegalArgumentException("예약 ID가 필요합니다. ");
 		}

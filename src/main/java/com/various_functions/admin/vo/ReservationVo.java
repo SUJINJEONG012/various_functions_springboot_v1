@@ -1,5 +1,7 @@
 package com.various_functions.admin.vo;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,7 @@ public class ReservationVo {
 	private String rresemail;// 예약자 이메일
 	private Long memberId;// 회원아이디
 	private Long roomId;// 객실아이디zz
+	private Date payTime;
 
 	private String resState; // 예약 상태 추가
 	private String paymentId; // 결제 ID 추가

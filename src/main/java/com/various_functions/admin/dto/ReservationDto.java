@@ -22,6 +22,7 @@ public class ReservationDto {
 	private String rresemail;// 예약자 이메일
 	private String resState; // 예약 상태 추가
 	private String paymentId; // 결제 ID 추가
+	private Date payTime;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy. M. d.", timezone = "UTC")
 	private Date checkInDate;

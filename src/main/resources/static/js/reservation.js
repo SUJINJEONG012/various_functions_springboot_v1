@@ -328,8 +328,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		const checkInDate = selectedCheckinDate ? selectedCheckinDate.toLocaleDateString('ko-KR') : '';
 		const checkOutDate = selectedCheckoutDate ? selectedCheckoutDate.toLocaleDateString('ko-KR') : '';
 		const roomId = document.getElementById('roomId') ? document.getElementById('roomId').value : '';
-	
-
 
 		const reservationData = {
 			accommodationId: accommodationId,
@@ -346,7 +344,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(reservationData),
+			
 		})
+	
 			.then(response => response.json())
 			.then(data => {
 				if (data.success) {
@@ -355,11 +355,13 @@ document.addEventListener('DOMContentLoaded', function() {
 					
 					// 결제가 성공한 경우 예약 요청
 					alert('예약이 성공적으로 완료되었습니다. 결제 처리를 진행합니다.');
+					console.log('예약 ID 성공 :', reservationId); // 예약 ID를 출력
 					// 예약이 성공적으로 완료된 경우 결제 진행
 					mypayment(reservationData);
 					
 				} else {
 					alert('예약 처리에 실패했습니다:' + data.message);
+					console.log('예약 ID 실패 :', reservationData); // 예약 ID를 출력
 				}
 			})
 			.catch((error) => {
@@ -393,7 +395,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					body: JSON.stringify({...reservationData, paymentId : rsp.imp_uid}),//결제 ID를 추가
+					body: JSON.stringify({...reservationData, rid: reservationData.rid, paymentId : rsp.imp_uid}),//결제 ID를 추가
 				})
 					.then(response => response.json())
 					.then(data => {
@@ -403,6 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
 							reservationModal.style.display = 'none';
 						} else {
 							alert('결제는 성공했지만 예약처리에 실패했습니다: ' + data.message);
+					
 							console.log('예약실패이유: ', data.message || '서버오류');
 						}
 					})
