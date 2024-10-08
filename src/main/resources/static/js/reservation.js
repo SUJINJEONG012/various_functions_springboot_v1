@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 결제로직 추가 
 	const mypayment = (reservationData) => {
 		const IMP = window.IMP;
-		IMP.init("imp25587836"); // 해당 키를 사용하세요
+		IMP.init(""); // 해당 키를 사용하세요
 		const myAmount = Number(document.getElementById('totalAmount').textContent.replace(/[^0-9]/g, ''));
 
 		IMP.request_pay({
@@ -383,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			amount: myAmount, // 결제 금액
 			buyer_email: "peekaboo32@naver.com", // 메일
 			buyer_name: "홍길동", // 주문자
-			buyer_tel: "010-8635-0291", // 전화번호
+			buyer_tel: "", // 전화번호
 			buyer_addr: "부산광역시 수영구 광안동",
 			buyer_postcode: "01181",
 			m_redirect_url: "/", // 모바일 결제 후 리다이렉트될 주소
