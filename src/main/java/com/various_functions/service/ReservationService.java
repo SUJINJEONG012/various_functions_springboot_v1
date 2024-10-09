@@ -53,6 +53,8 @@ public class ReservationService {
 		if (overlappingCount > 0) {
 			log.info("해당 날짜에 이미 예약이 있습니다");
 			throw new IllegalStateException("해당 날짜에 이미 예약이 있습니다.");
+		} else {
+			// 예약 가능상태
 		}
 
 		// 예약정보저장

@@ -40,9 +40,9 @@
 							<li th:if="${session.loginMember == null}">
 								<a th:href="@{/member/login}">로그인</a>
 							</li>
-							<!--<div th:unless="${session.loginMember == null}">
+							<div th:unless="${session.loginMember == null}">
 									<a th:href="@{/member/mypage}">마이페이지</a>
-								</div>-->
+								</div>
 
 							<li th:if="${session.loginMember != null}">
 								<!--<a th:href="@{/member/mypage}">마이페이지</a> -->

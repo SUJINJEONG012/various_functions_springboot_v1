@@ -47,11 +47,13 @@
 
        SELECT COUNT(*) FROM reservation
 		WHERE room_id = #{roomId}
-AND (
-    (#{checkInDate} BETWEEN check_in_date AND check_out_date)
-    OR (#{checkOutDate} BETWEEN check_in_date AND check_out_date)
-    OR (check_in_date BETWEEN #{checkInDate} AND #{checkOutDate})
-);
+	AND (
+    	(#{checkInDate} BETWEEN check_in_date AND check_out_date)
+   	 	OR (#{checkOutDate} BETWEEN check_in_date AND check_out_date)
+    	OR (check_in_date BETWEEN #{checkInDate} AND #{checkOutDate})
+    	)
+    AND res_state = '결제완료'
+
 
     </select>
 
