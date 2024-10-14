@@ -79,7 +79,32 @@ document.addEventListener('DOMContentLoaded', function() {
 			.catch(error => console.error('Error fetching room data:', error));
 	}
 
+	function changeMonth(offset, calendarType) {
+		if (calendarType === 'current') {
+			currentDate.setMonth(currentDate.getMonth() + offset);
+			updateCalendar(currentDate, 'current');
+		} else if (calendarType === 'next') {
+			nextMonthDate.setMonth(nextMonthDate.getMonth() + offset);
+			updateCalendar(nextMonthDate, 'next');
+		}
+	}
+	
+// 현재 달력 버튼 클릭 이벤트 리스너 추가
+document.getElementById('currentPrevMonthBtn').addEventListener('click', function() {
+    changeMonth(-1, 'current');  // 현재 달의 이전 달로 이동
+});
+document.getElementById('currentNextMonthBtn').addEventListener('click', function() {
+    changeMonth(1, 'current');  // 현재 달의 다음 달로 이동
+});
 
+// 다음 달 달력 버튼 클릭 이벤트 리스너 추가
+document.getElementById('nextPrevMonthBtn').addEventListener('click', function() {
+    changeMonth(-1, 'next');  // 다음 달의 이전 달로 이동
+});
+document.getElementById('nextNextMonthBtn').addEventListener('click', function() {
+    changeMonth(1, 'next');  // 다음 달의 다음 달로 이동
+});
+	
 
 	// 달력 업데이트 함수
 	function updateCalendar(date, calendarType) {
@@ -232,15 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	function changeMonth(offset, calendarType) {
-		if (calendarType === 'current') {
-			currentDate.setMonth(currentDate.getMonth() + offset);
-			updateCalendar(currentDate, 'current');
-		} else if (calendarType === 'next') {
-			nextMonthDate.setMonth(nextMonthDate.getMonth() + offset);
-			updateCalendar(nextMonthDate, 'next');
-		}
-	}
+	
 
 	function adjustGuestCount(change) {
 		ramount += change;

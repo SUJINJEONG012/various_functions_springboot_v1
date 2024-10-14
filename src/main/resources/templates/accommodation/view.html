@@ -144,24 +144,26 @@
 				<!--<div class="reservation-wrap">				</div>-->
 
 					<!-- 달력 -->
-					<div class="calendar" id="currentMonthCalendar">
-						
-						<div class="calendar-header">
-							<button onclick="changeMonth(-1, 'current')">&lt;</button>
-							<div id="currentMonthYear" lang="en"></div>
-							<button onclick="changeMonth(1, 'current')">&gt;</button>
-						</div>
-						<div class="days" id="currentMonthDays" lang="en"></div>
-					</div>
+<div class="calendar-container">
+    <div class="calendar" id="currentMonthCalendar">
+        <div class="calendar-header">
+            <button id="currentPrevMonthBtn">&lt; 이전</button> <!-- 이전 달 버튼 -->
+            <div id="currentMonthYear" lang="en"></div>
+             <button id="currentNextMonthBtn">&gt; 다음</button> <!-- 다음 달 버튼 -->
+           
+        </div>
+        <div class="days" id="currentMonthDays" lang="en"></div>
+    </div>
 
-					<div class="calendar" id="nextMonthCalendar">
-						<div class="calendar-header">
-							<button onclick="changeMonth(-1, 'next')">&lt;</button>
-							<div id="nextMonthYear" lang="en"></div>
-							<button onclick="changeMonth(1, 'next')">&gt;</button>
-						</div>
-						<div class="days" id="nextMonthDays" lang="en"></div>
-					</div>
+    <div class="calendar" id="nextMonthCalendar">
+        <div class="calendar-header">
+         	<button id="nextPrevMonthBtn">&lt; 이전</button> <!-- 이전 달 버튼 -->
+            <div id="nextMonthYear" lang="en"></div>
+             <button id="nextNextMonthBtn">&gt; 다음</button> <!-- 다음 달 버튼 -->
+        </div>
+        <div class="days" id="nextMonthDays" lang="en"></div>
+    </div> 
+</div>
 
 					
 
