@@ -70,7 +70,25 @@ background: #fff;
 .sub-content.notice .notice_cont ul.one .ntcontent{min-height:200px; border: 1px solid #191919;padding:20px;}
 .sub-content.notice .notice_cont ul.one h4{padding: 20px 0px;}  
 
-/* =================== 메인페이지 =================== */
+/* =================== 마이 페이지 =================== */
+
+
+.sub-content.mypage .flex-wrap{display: flex; align-content: space-between;}
+.sub-content.mypage .flex-wrap .myitem{
+	border: 1px solid #191919;
+    flex: 1 1 auto;
+    width: 57%;
+    margin: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 10px;}
+    
+.sub-content.mypage .flex-wrap .myitem.item2{
+	flex-shrink: 0;
+    width: 30%;
+    }
+    
+/* ================== 메인페이지 =================== */
 
 
 .accommodation-wrap{display:flex;}

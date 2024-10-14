@@ -64,7 +64,16 @@
     	WHERE rid = #{rid} AND res_state = '예약대기';
     </update>
     
-
+    <update id="updatePendingReservationsToCancelled" parameterType="com.various_functions.admin.dto.ReservationDto">
+     UPDATE reservation
+		SET res_state = '예약취소' 
+		WHERE room_id = #{roomId}
+		AND check_out_date = #{checkOutDate}
+		AND check_in_date = #{checkInDate}
+		AND res_state = '예약대기'
+		
+    </update>
+   
     
     
 </mapper>

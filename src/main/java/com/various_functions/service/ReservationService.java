@@ -80,7 +80,17 @@ public class ReservationService {
 		// 결제ID를 사용하여 예약상태를 업데이트
 		reservationDto.setResState("결제완료"); // 상태를 변경
 		return reservationMapper.updateReservationStatus(reservationDto);
+	}
 
+	public boolean cancelPendingReservations(ReservationDto reservationDto) {
+		boolean success = reservationMapper.updatePendingReservationsToCancelled(reservationDto);
+
+		if (!success) {
+			// 업데이트 실패 시 처리할 로직
+			throw new RuntimeException("예약 취소 실패"); // 이게나오는데
+		}
+
+		return success;
 	}
 
 }

@@ -27,4 +27,7 @@ public interface ReservationMapper {
 			@Param("checkOutDate") Date checkOutDate);
 
 	boolean updateReservationStatus(ReservationDto reservationDto);
+
+	// '예약대기' 상태의 예약들을 '예약취소'로 업데이트하는 메서드
+	boolean updatePendingReservationsToCancelled(ReservationDto reservationDto);
 }

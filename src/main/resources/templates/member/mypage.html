@@ -7,49 +7,99 @@
 </th:block>
 
 <th:block layout:fragment="content">
-	
-	<div class="page_tits">
-		<h2>회원 관리</h2>
-		<p class="path">
-			<strong>현재위치 :</strong><span>회원</span>
-		</p>
+
+	<div class="content">
+		<div class="sub-container">
+			<div class="sub-content mypage notice">
+
+				<h2 class="page_tits">마이페이지</h2>
+
+				<div class="flex-wrap">
+					<!-- 숙소예약 -->
+					<div class="myitem item1">
+
+						<h3>예약관리</h3>
+						<table class="tb tb_col">
+							<thead>
+								<tr>
+									<th>숙소</th>
+									<th>제목</th>
+									<th>내용</th>
+									<th>가입일</th>
+									<th>작성자</th>
+
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr th:if="${not #lists.isEmpty(memberInquiry)}"
+									th:each="inquiry : ${memberInquiry}">
+									<td th:text="${inquiry.inquiryId}"></td>
+									<td th:text="${inquiry.title}"></td>
+									<td th:text="${inquiry.content}"></td>
+
+									<td
+										th:text="${#temporals.format(inquiry.createdDate, 'yyyy-MM-dd')}"></td>
+									<td th:text="${inquiry.memberId}"></td>
+								</tr>
+								<tr th:if="${#lists.isEmpty(memberInquiry)}">
+									<td colspan="5">게시물이 없습니다.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- 숙소예약 -->
+
+					<!-- 문의글 -->
+					<div class="myitem item2">
+
+						<h3>문의글</h3>
+						<span> 내가 쓴글 보기</span>
+						<table class="tb tb_col">
+							<thead>
+								<tr>
+									<th>글 번호</th>
+									<th>제목</th>
+									<th>내용</th>
+									<th>가입일</th>
+									<th>작성자</th>
+
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr th:if="${not #lists.isEmpty(memberInquiry)}"
+									th:each="inquiry : ${memberInquiry}">
+									<td th:text="${inquiry.inquiryId}"></td>
+									<td th:text="${inquiry.title}"></td>
+									<td th:text="${inquiry.content}"></td>
+
+									<td
+										th:text="${#temporals.format(inquiry.createdDate, 'yyyy-MM-dd')}"></td>
+									<td th:text="${inquiry.memberId}"></td>
+								</tr>
+								<tr th:if="${#lists.isEmpty(memberInquiry)}">
+									<td colspan="2">게시물이 없습니다.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- d -->
+
+				</div>
+				<!-- flex-wrap end -->
+
+
+			</div>
+
+		</div>
+
 	</div>
 
-	        <div class="content">
-            <section>
-          
-        <h3>문의글 내가 쓴글 보기</h3>      
-       <table class="tb tb_col">
-        <thead>
-            <tr>
-                <th>글 번호</th>
-                <th>제목</th>
-                <th>내용</th>
-                <th>가입일</th>
-                <th>작성자</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-        
-            <tr th:if="${not #lists.isEmpty(memberInquiry)}"  th:each="inquiry : ${memberInquiry}">
-                <td th:text="${inquiry.inquiryId}"></td>
-                <td th:text="${inquiry.title}"></td>
-                <td th:text="${inquiry.content}"></td>
-              
-                <td th:text="${#temporals.format(inquiry.createdDate, 'yyyy-MM-dd')}"></td>
-                   <td th:text="${inquiry.memberId}"></td>
-            </tr>
-            <tr th:if="${#lists.isEmpty(memberInquiry)}">
-				<td colspan="2">게시물이 없습니다.</td>
-			</tr>
-        </tbody>
-    </table>
-    
-            </section>
-        </div> <!--/* .content */-->
-        
-        
+
+
+
+
 
 </th:block>
 

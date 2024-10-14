@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 결제로직 추가 
 	const mypayment = (reservationData) => {
 		const IMP = window.IMP;
-		IMP.init("imp25587836"); // 해당 키를 사용하세요.
+		IMP.init(""); // 해당 키를 사용하세요.
 		const myAmount = Number(document.getElementById('totalAmount').textContent.replace(/[^0-9]/g, ''));
 
 		IMP.request_pay({

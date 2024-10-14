@@ -67,6 +67,9 @@ public class ReservationController {
 		try {
 			// 결제 ID를 사용하여 예약 상태를 업데이트
 			Boolean isUpdated = reservationService.confirmReservation(reservationDto);
+			// 예약이 정상적으로 업데이트 되었다면, 대기중인 예약을 취소로 변경
+			reservationService.cancelPendingReservations(reservationDto);
+
 			if (isUpdated) {
 				return ResponseEntity.ok(Map.of("success", true, "message", "예약이 완료되었습니다."));
 			} else {
