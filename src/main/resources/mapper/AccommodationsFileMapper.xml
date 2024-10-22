@@ -45,7 +45,7 @@
 		from accommodations_file
 		where
 		accommodation_id= #{accommodationId} AND delete_yn = 0
-		</select>
+	</select>
 
 
 	<!-- 파일리스트 -->

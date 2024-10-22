@@ -3,7 +3,7 @@
 <mapper namespace="com.various_functions.admin.mapper.ReservationMapper">
 
     <!-- 예약 삽입 -->
-    <insert id="insertReservation" parameterType="com.various_functions.admin.dto.ReservationDto"
+    <insert id="insertReservation" parameterType="com.various_functions.dto.ReservationDto"
     useGeneratedKeys="true" keyProperty="rid">
         INSERT INTO reservation (
             rordernum,
@@ -58,13 +58,13 @@
     </select>
 
     
-    <update id="updateReservationStatus" parameterType="com.various_functions.admin.dto.ReservationDto">
+    <update id="updateReservationStatus" parameterType="com.various_functions.dto.ReservationDto">
     	update reservation
     	set res_state= #{resState}, payment_id= #{paymentId}, pay_time = NOW()
     	WHERE rid = #{rid} AND res_state = '예약대기';
     </update>
     
-    <update id="updatePendingReservationsToCancelled" parameterType="com.various_functions.admin.dto.ReservationDto">
+    <update id="updatePendingReservationsToCancelled" parameterType="com.various_functions.dto.ReservationDto">
      UPDATE reservation
 		SET res_state = '예약취소' 
 		WHERE room_id = #{roomId}
@@ -73,7 +73,12 @@
 		AND res_state = '예약대기'
 		
     </update>
-   
     
+    <!-- select id="findReservationsByMemberId" parameterType="long" resultType="com.various_functions.vo.ReservationVo">
+    	select * 
+    	from reservation r join accommodations a on r.accommodation_id = a.accommodation_id
+    	where member_id = #{memberId}
+    </select> -->
+   
     
 </mapper>

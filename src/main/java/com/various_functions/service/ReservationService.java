@@ -1,13 +1,16 @@
 package com.various_functions.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.various_functions.admin.dto.ReservationDto;
 import com.various_functions.admin.mapper.ReservationMapper;
+import com.various_functions.dto.ReservationDto;
 import com.various_functions.vo.MemberVo;
+import com.various_functions.vo.ReservationVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -91,6 +94,10 @@ public class ReservationService {
 		}
 
 		return success;
+	}
+
+	public List<ReservationVo> findReservationsByMemberId(Long memberId) {
+		return reservationMapper.findReservationsByMemberId(memberId);
 	}
 
 }

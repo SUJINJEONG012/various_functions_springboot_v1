@@ -38,6 +38,7 @@ public class AccommodationFileController {
 		return accommodationFileService.findFileByAccommodationId(accommodationId);
 	}
 
+	// 관리자페이지 이미지
 	@GetMapping("/admin/accommodation/{accommodationId}/files/{afId}/list")
 	public ResponseEntity<Resource> AdminListFile(@PathVariable final Long accommodationId,
 			@PathVariable final Long afId) {
@@ -72,6 +73,7 @@ public class AccommodationFileController {
 
 	}
 
+	// 유저페이지 이미지 출력
 	@GetMapping("/accommodation/{accommodationId}/files/{afId}/list")
 	public ResponseEntity<Resource> UserListFile(@PathVariable final Long accommodationId,
 			@PathVariable final Long afId) {
@@ -98,6 +100,7 @@ public class AccommodationFileController {
 
 	}
 
+	// 메인이미지에 출력
 	@GetMapping("/{accommodationId}/files/{afId}/list")
 	public ResponseEntity<Resource> MainListFile(@PathVariable final Long accommodationId,
 			@PathVariable final Long afId) {
