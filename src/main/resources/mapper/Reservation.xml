@@ -16,7 +16,8 @@
             check_in_date,
             check_out_date,
             room_id,
-            pay_time
+            pay_time,
+            accommodation_id
         ) VALUES (
             #{rordernum},
             #{ramount},
@@ -28,7 +29,8 @@
             #{checkInDate},
             #{checkOutDate},
             #{roomId},
-            #{payTime}
+            #{payTime},
+            #{accommodationId}
         )
     </insert>
     
@@ -75,11 +77,18 @@
     </update>
     
     <select id="findReservationsByMemberId" parameterType="long" resultType="com.various_functions.vo.ReservationVo">
-    	 SELECT r.*, a.accommodation_name AS accommodationName
+    <!-- 	 SELECT r.*, a.accommodation_name AS accommodationName
     FROM reservation r
     JOIN accommodations a ON r.accommodation_id = a.accommodation_id
+    WHERE r.member_id = #{memberId} -->
+    SELECT r.*, 
+           a.accommodation_name AS accommodationName,
+           m.member_name AS memberName,
+           m.member_mail AS memberMail
+    FROM reservation r
+    JOIN accommodations a ON r.accommodation_id = a.accommodation_id
+    JOIN members m ON r.member_id = m.member_id
     WHERE r.member_id = #{memberId}
-    </select>
-   
+</select>
     
 </mapper>

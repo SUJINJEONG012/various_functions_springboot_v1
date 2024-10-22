@@ -17,23 +17,24 @@ public class ReservationVo {
 	private Long rordernum; // 객실예약번호
 	private int ramount;// 인원
 	private int rroomnum; // 방개수
-
 	private String rresname;// 예약자이름
 	private String rresphone;// 예약자 전화번호
 	private String rresemail;// 예약자 이메일
-	private Long memberId;// 회원아이디
-	private Long roomId;// 객실아이디zz
+	private String resState; // 예약 상태 추가
+	private String paymentId; // 결제 ID 추가
 	private Date payTime;
+	private Long memberId;// 회원아이디
+	private String memberName;
+	private String memberMail;
+	private Long roomId;// 객실아이디zz
+	private Long accommodationId;
+	private String accommodationName;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy. M. d.", timezone = "UTC")
 	private Date checkInDate;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy. M. d.", timezone = "UTC")
 	private Date checkOutDate;
 
-	private String resState; // 예약 상태 추가
-	private String paymentId; // 결제 ID 추가
-	private Long accommodationId;
-
-	private String accommodationName;
-
+	// 결제 성공 여부를 나타내는 필드 추가
+	private boolean paymentSuccessful;
 }

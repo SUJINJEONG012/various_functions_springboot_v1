@@ -23,17 +23,17 @@ public class ReservationDto {
 	private String resState; // 예약 상태 추가
 	private String paymentId; // 결제 ID 추가
 	private Date payTime;
+	private Long memberId;// 회원아이디
+	private String memberName;
+	private String memberMail;
+	private Long roomId;// 객실아이디zz
+	private Long accommodationId;
+	private String accommodationName;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy. M. d.", timezone = "UTC")
 	private Date checkInDate;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy. M. d.", timezone = "UTC")
 	private Date checkOutDate;
-
-	private Long memberId;// 회원아이디
-	private Long roomId;// 객실아이디zz
-
-	private Long accommodationId;
-	private String accommodationName;
 
 	// 결제 성공 여부를 나타내는 필드 추가
 	private boolean paymentSuccessful;
