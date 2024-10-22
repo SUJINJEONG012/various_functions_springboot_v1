@@ -1,4 +1,4 @@
-package com.various_functions.admin.mapper;
+package com.various_functions.mapper;
 
 import java.util.Date;
 import java.util.List;

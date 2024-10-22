@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.various_functions.admin.mapper.ReservationMapper">
+<mapper namespace="com.various_functions.mapper.ReservationMapper">
 
     <!-- 예약 삽입 -->
     <insert id="insertReservation" parameterType="com.various_functions.dto.ReservationDto"
@@ -74,11 +74,12 @@
 		
     </update>
     
-    <!-- select id="findReservationsByMemberId" parameterType="long" resultType="com.various_functions.vo.ReservationVo">
-    	select * 
-    	from reservation r join accommodations a on r.accommodation_id = a.accommodation_id
-    	where member_id = #{memberId}
-    </select> -->
+    <select id="findReservationsByMemberId" parameterType="long" resultType="com.various_functions.vo.ReservationVo">
+    	 SELECT r.*, a.accommodation_name AS accommodationName
+    FROM reservation r
+    JOIN accommodations a ON r.accommodation_id = a.accommodation_id
+    WHERE r.member_id = #{memberId}
+    </select>
    
     
 </mapper>

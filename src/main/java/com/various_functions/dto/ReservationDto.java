@@ -33,6 +33,8 @@ public class ReservationDto {
 	private Long roomId;// 객실아이디zz
 
 	private Long accommodationId;
+	private String accommodationName;
+
 	// 결제 성공 여부를 나타내는 필드 추가
 	private boolean paymentSuccessful;
 

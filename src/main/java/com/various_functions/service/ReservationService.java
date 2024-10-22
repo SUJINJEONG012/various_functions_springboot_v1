@@ -7,8 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.various_functions.admin.mapper.ReservationMapper;
 import com.various_functions.dto.ReservationDto;
+import com.various_functions.mapper.ReservationMapper;
 import com.various_functions.vo.MemberVo;
 import com.various_functions.vo.ReservationVo;
 
@@ -96,6 +96,7 @@ public class ReservationService {
 		return success;
 	}
 
+	// 마이페이지에서 예약관련 조회하기
 	public List<ReservationVo> findReservationsByMemberId(Long memberId) {
 		return reservationMapper.findReservationsByMemberId(memberId);
 	}

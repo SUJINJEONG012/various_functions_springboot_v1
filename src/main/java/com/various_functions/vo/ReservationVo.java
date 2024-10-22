@@ -33,11 +33,7 @@ public class ReservationVo {
 	private String resState; // 예약 상태 추가
 	private String paymentId; // 결제 ID 추가
 	private Long accommodationId;
-//	private String accommodationName; // 숙소이름
-//	private String accommodationAdress; // 숙소주소
-//	private String accommodationPhone; // 숙소 전화번호
-//	private int accommodationTotalroom; // 총객실수
-//	private String accommodationGrade; // 숙소등급
-//	private String accommodationDetail; // 숙소설명
+
+	private String accommodationName;
 
 }

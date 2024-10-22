@@ -1,6 +1,7 @@
 package com.various_functions.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.various_functions.dto.ReservationDto;
 import com.various_functions.service.ReservationService;
+import com.various_functions.vo.MemberVo;
+import com.various_functions.vo.ReservationVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,8 +29,6 @@ public class ReservationController {
 
 	@Autowired
 	private ReservationService reservationService;
-
-	@Autowired
 
 	/*
 	 * 예약관련
@@ -61,6 +62,7 @@ public class ReservationController {
 		}
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON) // 응답 타입을 명시적으로 설정;
 				.body(response);
+
 	}
 
 	// 결제 로직
@@ -83,33 +85,33 @@ public class ReservationController {
 		}
 	}
 
-//	// 예약 리스트 확인
-//	@PostMapping("/reservations")
-//	public ResponseEntity<Map<String, Object>> getReservationList(HttpSession session) {
-//		// 세션에서 로그인한 회원 정보가져오기
-//		MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
-//		Map<String, Object> response = new HashMap<>();
-//		log.info("예약리스트 출력되는지 ! ! !");
-//
-//		if (loginMember == null) {
-//			// 로그인정보가 없을경우
-//			response.put("success", false);
-//			response.put("message", "로그인이 필요합니다.");
-//			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-//		}
-//		try {
-//			// 로그인한 회원의 예약리스트를 조회
-//			List<ReservationVo> reservationList = reservationService
-//					.findReservationsByMemberId(loginMember.getMemberId());
-//			response.put("success", true);
-//			response.put("reservations", reservationList);
-//			log.info("리스트 조회 ! ! ");
-//			return ResponseEntity.ok(response);
-//		} catch (Exception e) {
-//			response.put("success", false);
-//			response.put("message", "예약리스크 조회 중 오류가 발생했습니다." + e.getMessage());
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-//		}
-//	}
+	// 예약 리스트 확인
+	@PostMapping("/reservations")
+	public ResponseEntity<Map<String, Object>> getReservationList(HttpSession session) {
+		// 세션에서 로그인한 회원 정보가져오기
+		MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+		Map<String, Object> response = new HashMap<>();
+		log.info("예약리스트 출력되는지 ! ! !");
+
+		if (loginMember == null) {
+			// 로그인정보가 없을경우
+			response.put("success", false);
+			response.put("message", "로그인이 필요합니다.");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+		}
+		try {
+			// 로그인한 회원의 예약리스트를 조회
+			List<ReservationVo> reservationList = reservationService
+					.findReservationsByMemberId(loginMember.getMemberId());
+			response.put("success", true);
+			response.put("reservations", reservationList);
+			log.info("리스트 조회 ! ! ");
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			response.put("success", false);
+			response.put("message", "예약리스크 조회 중 오류가 발생했습니다." + e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+		}
+	}
 
 }
