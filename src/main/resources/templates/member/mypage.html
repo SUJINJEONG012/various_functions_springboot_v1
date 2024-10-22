@@ -19,35 +19,22 @@
 					<div class="myitem item1">
 
 						<h3>예약관리</h3>
-						<ul id="reservationList">
-						</ul>
-					 	
+						
+
 						<table class="tb tb_col">
 							<thead>
 								<tr>
-									<th>숙소</th>
-									<th>제목</th>
-									<th>내용</th>
-									<th>가입일</th>
-									<th>작성자</th>
-
+									<th>예약 ID</th>
+									<th>예약 이름</th>
+									<th>예약 상태</th>
+									<th>숙소 이름</th>
+									<th>체크인 날짜</th>
+									<th>체크아웃 날짜</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="reservationTableBody">
 
-								<tr th:if="${not #lists.isEmpty(memberInquiry)}"
-									th:each="inquiry : ${memberInquiry}">
-									<td th:text="${inquiry.inquiryId}"></td>
-									<td th:text="${inquiry.title}"></td>
-									<td th:text="${inquiry.content}"></td>
-
-									<td
-										th:text="${#temporals.format(inquiry.createdDate, 'yyyy-MM-dd')}"></td>
-									<td th:text="${inquiry.memberId}"></td>
-								</tr>
-								<tr th:if="${#lists.isEmpty(memberInquiry)}">
-									<td colspan="5">게시물이 없습니다.</td>
-								</tr>
+								
 							</tbody>
 						</table>
 					</div>
@@ -103,7 +90,7 @@
 
 
 <th:block layout:fragment="script">
- <script>
+	<script>
 document.addEventListener("DOMContentLoaded", function() {
     fetch("/api/reservations", {
       method: "POST",
@@ -127,14 +114,44 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
 function displayReservations(reservations) {
-    const reservationListElement = document.getElementById("reservationList");
-
-    reservations.forEach(reservation => {
+    const reservationTableBody = document.getElementById("reservationTableBody");
+    reservationTableBody.innerHTML = ''; // 기존 내용을 초기화
+    /* reservations.forEach(reservation => {
         const listItem = document.createElement("li");
         listItem.textContent = `예약 ID : ${reservation.rid} 
         예약이름 : ${reservation.memberName}
         예약 상태 : ${reservation.resState}, 방 이름: ${reservation.accommodationName}, 체크인: ${reservation.checkInDate}, 체크아웃: ${reservation.checkOutDate}`;
         reservationListElement.appendChild(listItem);
+    }); */
+    
+    reservations.forEach(reservation => {
+        const row = document.createElement("tr");
+
+        const ridCell = document.createElement("td");
+        ridCell.textContent = reservation.rid;
+        row.appendChild(ridCell);
+
+        const memberNameCell = document.createElement("td");
+        memberNameCell.textContent = reservation.memberName;
+        row.appendChild(memberNameCell);
+
+        const resStateCell = document.createElement("td");
+        resStateCell.textContent = reservation.resState;
+        row.appendChild(resStateCell);
+
+        const accommodationNameCell = document.createElement("td");
+        accommodationNameCell.textContent = reservation.accommodationName;
+        row.appendChild(accommodationNameCell);
+
+        const checkInDateCell = document.createElement("td");
+        checkInDateCell.textContent = new Date(reservation.checkInDate).toLocaleDateString(); // 날짜 포맷
+        row.appendChild(checkInDateCell);
+
+        const checkOutDateCell = document.createElement("td");
+        checkOutDateCell.textContent = new Date(reservation.checkOutDate).toLocaleDateString(); // 날짜 포맷
+        row.appendChild(checkOutDateCell);
+
+        reservationTableBody.appendChild(row);
     });
 }
   
