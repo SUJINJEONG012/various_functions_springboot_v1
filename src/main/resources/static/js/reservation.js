@@ -257,8 +257,7 @@ document.getElementById('nextNextMonthBtn').addEventListener('click', function()
 		}
 	}
 
-	
-
+	//인원수 추가 관련 함수 
 	function adjustGuestCount(change) {
 		ramount += change;
 		ramount = Math.max(1, ramount); // 최소 1명
