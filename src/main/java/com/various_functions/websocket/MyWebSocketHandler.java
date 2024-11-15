@@ -1,17 +1,38 @@
 package com.various_functions.websocket;
 
-import java.io.IOException;
-
-import org.springframework.web.socket.TextMessage;
+import org.springframework.stereotype.Component;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.WebSocketHandler;
+import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-public class MyWebSocketHandler extends TextWebSocketHandler {
+@Component // 이 어노테이션을 추가하여 스프링이 관리하는 빈으로 등록
+public class MyWebSocketHandler implements WebSocketHandler {
 
-	public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-		String payload = message.getPayload(); // 클라이언트로 받은 메시지
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		System.out.println("WebSocket 연결됨");
+	}
 
-		// 응답메시지에 따라 응답을 다르게 보낼 수 있음.
-		session.sendMessage(new TextMessage("hello, " + payload + "!")); // 응답 메세지 보내기
+	@Override
+	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
+		System.out.println("메시지 받음: " + message.getPayload());
+		// 클라이언트에 메시지 전송
+		session.sendMessage(message);
+	}
+
+	@Override
+	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+		System.out.println("WebSocket 에러 발생: " + exception.getMessage());
+	}
+
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
+		System.out.println("WebSocket 연결 종료됨");
+	}
+
+	@Override
+	public boolean supportsPartialMessages() {
+		return false;
 	}
 }
