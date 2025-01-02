@@ -32,12 +32,13 @@ public class InquiryController {
 	@GetMapping("/inquiry/write")
 	public String Inquiry(final InquiryDto inquiryDto, Model model, HttpSession session) {
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
-
+		log.info("문의글 저장하는 곳 진입!");
 		return "/inquiry/write";
 	}
 
 	@PostMapping("/inquiry/save")
 	public ResponseEntity<String> InquiryWrite(final InquiryDto inquiryDto, Model model, HttpSession session) {
+		log.info("문의글 저장하는 곳 진입!");
 		MemberVo member = (MemberVo) session.getAttribute("loginMember");
 
 		if (member == null) {

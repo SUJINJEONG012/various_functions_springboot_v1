@@ -43,7 +43,7 @@ public class MemberMapperTests {
 //
 //		List<MemberVo> members = memberMapper.findAllMember();
 //		System.out.println("전체 회원은 : " + members.size() + "명 입니다.");
-}
+//	}
 
 // 테이블의 uk findByLoginId 조건 게시글 조회하는
 //	@Test
@@ -84,4 +84,4 @@ public class MemberMapperTests {
 //	     System.out.println("삭제 이후의 전체 게시글 개수는 : " + memberMapper.findAll().size() + "개입니다.");
 //	}
 
-//}
+}
